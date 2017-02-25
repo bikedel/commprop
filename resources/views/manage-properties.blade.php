@@ -296,7 +296,7 @@ small {
     <div class=" row border myprop" >
 
              <div class='prop_img col-sm-4'>
-                 <img :src="'/laravel/commprop/public/property/'+item.id+'/'+ item.images[0].name  " width="100%" >
+                 <img :src="'/commprop/public/property/'+item.id+'/'+ item.images[0].name  " width="100%" >
              </div>
 
             <div class='descrip col-sm-8'>

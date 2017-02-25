@@ -176,7 +176,7 @@ data:  {
         moment: {},
 
         getVueItems: function(page){
-            this.$http.get('/laravel/commprop/public/vueproperties?page='+page).then((response) => {
+            this.$http.get('/commprop/public/vueproperties?page='+page).then((response) => {
               this.$set('items', response.data.data.data);
               this.$set('pagination', response.data.pagination);
 
@@ -186,7 +186,7 @@ data:  {
         },
 
         getVueSelects: function(){
-            this.$http.get('/laravel/commprop/public/vuepropertiesSelects').then((response) => {
+            this.$http.get('/commprop/public/vuepropertiesSelects').then((response) => {
               this.$set('users', response.data.users);
               this.$set('areas', response.data.areas);
               this.$set('stypes', response.data.stypes);

@@ -215,14 +215,14 @@ data:  {
 
            // clear search
            if (!input) {
-            this.$http.get('/laravel/commprop/public/vueproperties?page='+page).then((response) => {
+            this.$http.get('/commprop/public/vueproperties?page='+page).then((response) => {
               this.$set('items', response.data.data.data);
               this.$set('pagination', response.data.pagination);
             //  this.$set('agents', response.data.agents);
             });
           // do search
            } else {
-            this.$http.post('/laravel/commprop/public/searchvueproperties/'+input+'?page='+page,input).then((response) => {
+            this.$http.post('/commprop/public/searchvueproperties/'+input+'?page='+page,input).then((response) => {
               this.$set('items', response.data.data.data);
               this.$set('pagination', response.data.pagination);
            //   this.$set('agents', response.data.agents);
@@ -253,7 +253,7 @@ data:  {
           var input = data;
       		 // var input = this.newItem;
             //alert(this.newItem.selected);
-      		  this.$http.post('/laravel/commprop/public/vueproperties',input).then((response) => {
+      		  this.$http.post('/commprop/public/vueproperties',input).then((response) => {
           		  this.changePage(this.pagination.current_page);
           			this.newItem = {
                   'id': '',
@@ -295,7 +295,7 @@ data:  {
 
           var result = confirm("Are you sure you would like to delete this Property?");
           if (result) {
-                  this.$http.delete('/laravel/commprop/public/vueproperties/'+item.id).then((response) => {
+                  this.$http.delete('/commprop/public/vueproperties/'+item.id).then((response) => {
                       this.changePage(this.pagination.current_page);
                       toastr.success('Property Deleted Successfully.', 'Success Alert', {timeOut: 5000});
                   });
@@ -308,7 +308,7 @@ data:  {
 
           var result = confirm("Are you sure you would like to delete this Unit?");
           if (result) {
-                  this.$http.delete('/laravel/commprop/public/vuepropertiesDeleteUnit/'+unit.id).then((response) => {
+                  this.$http.delete('/commprop/public/vuepropertiesDeleteUnit/'+unit.id).then((response) => {
                       this.changePage(this.pagination.current_page);
                       toastr.success('Unit deleted successfully.', 'Success Alert', {timeOut: 5000});
                   });
@@ -378,7 +378,7 @@ data:  {
              
                 var input = data;
     
-                  this.$http.post('/laravel/commprop/public/vuepropertiesAddNote',input).then((response) => {
+                  this.$http.post('/commprop/public/vuepropertiesAddNote',input).then((response) => {
                       this.changePage(this.pagination.current_page);
 
                   this.fillNote = { 
@@ -443,7 +443,7 @@ data:  {
              
                 var input = data;
     
-                  this.$http.post('/laravel/commprop/public/vuepropertiesAddOwner',input).then((response) => {
+                  this.$http.post('/commprop/public/vuepropertiesAddOwner',input).then((response) => {
                       this.changePage(this.pagination.current_page);
 
                   this.fillOwner = { 
@@ -496,7 +496,7 @@ data:  {
 
            // var input = this.newItem;
             //alert(this.newItem.selected);
-            this.$http.post('/laravel/commprop/public/vuepropertiesAddunit',input).then((response) => {
+            this.$http.post('/commprop/public/vuepropertiesAddunit',input).then((response) => {
                 this.changePage(this.pagination.current_page);
 
                  this.newUnit = { 
@@ -525,7 +525,7 @@ data:  {
      
         //this.fillItem.selected = this.selectedAgent;
         var input = this.fillItem;
-        this.$http.put('/laravel/commprop/public/vueproperties/'+id,input).then((response) => {
+        this.$http.put('/commprop/public/vueproperties/'+id,input).then((response) => {
             this.changePage(this.pagination.current_page);
             this.fillItem = {
               'id':'',
@@ -547,7 +547,7 @@ data:  {
 
       createPDF: function(item){
 
-                  window.location.href = '/laravel/commprop/public/createpdf/'+item.id ;
+                  window.location.href = '/commprop/public/createpdf/'+item.id ;
                  
                  // this.$http.post('/laravel/commprop/public/createpdf/'+item.id).then((response) => {
 

@@ -296,7 +296,7 @@ small {
     <div class=" row border myprop" >
 
              <div class='prop_img col-sm-4'>
-                 <img :src="'/commprop/public/property/'+item.id+'/'+ item.images[0].name  " width="100%" >
+                 <img :src="offlinePath+'/commprop/public/property/'+item.id+'/'+ item.images[0].name  " width="100%" >
              </div>
 
             <div class='descrip col-sm-8'>
@@ -556,7 +556,7 @@ small {
                                     <td style="text-align: center; vertical-align: middle;">
                                         <input type="checkbox" name="query_myTextEditBox">
                                     </td>
-                                 <td>  <img :src="'/laravel/commprop/public/property/'+fillItem.id+'/'+ item.name  " width="80px" ></td>
+                                 <td>  <img :src="offlinePath+'/commprop/public/property/'+fillItem.id+'/'+ item.name  " width="80px" ></td>
 
 
                             </tr>

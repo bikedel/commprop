@@ -31,6 +31,9 @@ var vm = new Vue({
 // this is our Model
 data:  {
 
+    // set to '/laravel' for local and online set to ''
+    //offlinePath: '/laravel',
+    offlinePath: '',
     seen: false,
 
     items: [],
@@ -176,7 +179,7 @@ data:  {
         moment: {},
 
         getVueItems: function(page){
-            this.$http.get('/commprop/public/vueproperties?page='+page).then((response) => {
+            this.$http.get(this.offlinePath+'/commprop/public/vueproperties?page='+page).then((response) => {
               this.$set('items', response.data.data.data);
               this.$set('pagination', response.data.pagination);
 
@@ -186,7 +189,7 @@ data:  {
         },
 
         getVueSelects: function(){
-            this.$http.get('/commprop/public/vuepropertiesSelects').then((response) => {
+            this.$http.get(this.offlinePath+'/commprop/public/vuepropertiesSelects').then((response) => {
               this.$set('users', response.data.users);
               this.$set('areas', response.data.areas);
               this.$set('stypes', response.data.stypes);
@@ -215,14 +218,14 @@ data:  {
 
            // clear search
            if (!input) {
-            this.$http.get('/commprop/public/vueproperties?page='+page).then((response) => {
+            this.$http.get(this.offlinePath+'/commprop/public/vueproperties?page='+page).then((response) => {
               this.$set('items', response.data.data.data);
               this.$set('pagination', response.data.pagination);
             //  this.$set('agents', response.data.agents);
             });
           // do search
            } else {
-            this.$http.post('/commprop/public/searchvueproperties/'+input+'?page='+page,input).then((response) => {
+            this.$http.post(this.offlinePath+'/commprop/public/searchvueproperties/'+input+'?page='+page,input).then((response) => {
               this.$set('items', response.data.data.data);
               this.$set('pagination', response.data.pagination);
            //   this.$set('agents', response.data.agents);
@@ -253,7 +256,7 @@ data:  {
           var input = data;
       		 // var input = this.newItem;
             //alert(this.newItem.selected);
-      		  this.$http.post('/commprop/public/vueproperties',input).then((response) => {
+      		  this.$http.post(this.offlinePath+'/commprop/public/vueproperties',input).then((response) => {
           		  this.changePage(this.pagination.current_page);
           			this.newItem = {
                   'id': '',
@@ -295,7 +298,7 @@ data:  {
 
           var result = confirm("Are you sure you would like to delete this Property?");
           if (result) {
-                  this.$http.delete('/commprop/public/vueproperties/'+item.id).then((response) => {
+                  this.$http.delete(this.offlinePath+'/commprop/public/vueproperties/'+item.id).then((response) => {
                       this.changePage(this.pagination.current_page);
                       toastr.success('Property Deleted Successfully.', 'Success Alert', {timeOut: 5000});
                   });
@@ -308,7 +311,7 @@ data:  {
 
           var result = confirm("Are you sure you would like to delete this Unit?");
           if (result) {
-                  this.$http.delete('/commprop/public/vuepropertiesDeleteUnit/'+unit.id).then((response) => {
+                  this.$http.delete(this.offlinePath+'/commprop/public/vuepropertiesDeleteUnit/'+unit.id).then((response) => {
                       this.changePage(this.pagination.current_page);
                       toastr.success('Unit deleted successfully.', 'Success Alert', {timeOut: 5000});
                   });
@@ -378,7 +381,7 @@ data:  {
              
                 var input = data;
     
-                  this.$http.post('/commprop/public/vuepropertiesAddNote',input).then((response) => {
+                  this.$http.post(this.offlinePath+'/commprop/public/vuepropertiesAddNote',input).then((response) => {
                       this.changePage(this.pagination.current_page);
 
                   this.fillNote = { 
@@ -443,7 +446,7 @@ data:  {
              
                 var input = data;
     
-                  this.$http.post('/commprop/public/vuepropertiesAddOwner',input).then((response) => {
+                  this.$http.post(this.offlinePath+'/commprop/public/vuepropertiesAddOwner',input).then((response) => {
                       this.changePage(this.pagination.current_page);
 
                   this.fillOwner = { 
@@ -496,7 +499,7 @@ data:  {
 
            // var input = this.newItem;
             //alert(this.newItem.selected);
-            this.$http.post('/commprop/public/vuepropertiesAddunit',input).then((response) => {
+            this.$http.post(this.offlinePath+'/commprop/public/vuepropertiesAddunit',input).then((response) => {
                 this.changePage(this.pagination.current_page);
 
                  this.newUnit = { 
@@ -525,7 +528,7 @@ data:  {
      
         //this.fillItem.selected = this.selectedAgent;
         var input = this.fillItem;
-        this.$http.put('/commprop/public/vueproperties/'+id,input).then((response) => {
+        this.$http.put(this.offlinePath+'/commprop/public/vueproperties/'+id,input).then((response) => {
             this.changePage(this.pagination.current_page);
             this.fillItem = {
               'id':'',
@@ -547,7 +550,7 @@ data:  {
 
       createPDF: function(item){
 
-                  window.location.href = '/commprop/public/createpdf/'+item.id ;
+                  window.location.href = this.offlinePath+'/commprop/public/createpdf/'+item.id ;
                  
                  // this.$http.post('/laravel/commprop/public/createpdf/'+item.id).then((response) => {
 

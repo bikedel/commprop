@@ -1,0 +1,153 @@
+
+// Fonts
+@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
+
+// Variables
+@import "variables";
+
+// Bootstrap
+@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+// FontAwesome
+@import "node_modules/font-awesome/scss/font-awesome";
+
+
+.navbar-brand,
+.navbar-nav li a {
+    line-height: 50px;
+    height: 60px;
+    padding-top: 10px;
+    padding-right:20px;
+    padding-bottom:10px;
+    z-index:10;
+}
+.navbar {
+	position:relative;
+    top:0px;
+     z-index:10;
+}
+
+.logo {
+	padding:8px;
+	padding-right:20px;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+	background-color:whitesmoke;
+    top:150px;
+}
+
+.sidebar {
+
+    background-color:green;
+}
+
+.footer {
+  position: absolute;
+   height: 30px;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  background-color: #efefef;
+  text-align: center;
+}
+
+hr.style-one {
+	width: 100%;
+    height: 0.5px;
+    border-style: solid;
+    border-color: black;
+    border-width: 1px 0 0 0;
+    border-radius: 0px;
+     opacity: 0.1;
+
+}
+hr.style-six {
+    height: 30px;
+    border-style: solid;
+    border-color: black;
+    border-width: 1px 0 0 0;
+    border-radius: 20px;
+}
+hr.style-seven {
+    height: 30px;
+    border-style: solid;
+    border-color: black;
+    border-width: 1px 0 0 0;
+    border-radius: 20px;
+}
+hr.style-seven:before { /* Not really supposed to work, but does */
+    display: block;
+    content: "";
+    height: 30px;
+    margin-top: -31px;
+    border-style: solid;
+    border-color: black;
+    border-width: 0 0 1px 0;
+    border-radius: 20px;
+}
+
+
+.contacts {
+
+
+color:white;
+background-color:#222;
+
+}
+
+.contacts span {
+   color:navy;
+   font-size: 0.8em;
+}
+
+.dropdown, .dropdown-menu {
+  z-index:2;
+}
+.navbar {
+  position: static;
+  z-index: 1;
+}
+
+#app22{
+
+	z-index:-4;
+}
+
+
+[class^="col-"] {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.border {
+   background-color:#fff;
+   padding:10px;
+
+}
+
+.actions{
+
+	padding:10px
+}
+
+
+.note-container {
+	background-color:#ccc;
+    width: 400px;
+    height: 20px;
+    overflow-y: scroll;
+    overflow-x:hidden;
+}
+.spanUser {
+color:green;
+}
+.blue {
+	color:blue;
+}

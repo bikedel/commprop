@@ -95,6 +95,10 @@
 <li  class="list-group-item">  <span class="badge">25</span>reset scrollbar in notes to top</li>
 <li  class="list-group-item">  <span class="badge">26</span>github put online add dtabase</li>
 <li  class="list-group-item">  <span class="badge">27</span>vue data format moment</li>
+<li  class="list-group-item">  <span class="badge">28</span>online path var in properties vue</li>
+<li  class="list-group-item">  <span class="badge">29</span>install wkhtmltopdf on server and configure</li>
+<li  class="list-group-item">  <span class="badge">30</span>notes not working??? online</li>
+
 
 </ul>
 

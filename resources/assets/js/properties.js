@@ -382,7 +382,7 @@ data:  {
                 var input = data;
     
                   this.$http.post(this.offlinePath+'/commprop/public/vuepropertiesAddNote',input).then((response) => {
-                      this.changePage(this.pagination.current_page);
+                  this.changePage(this.pagination.current_page);
 
                   this.fillNote = { 
                         'id':'',

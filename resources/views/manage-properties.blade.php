@@ -784,8 +784,8 @@ small {
 
 
                             </tr>
-                            <tr v-for="item  in fillOwner.owners | orderBy 'unit_id' -1 | orderBy 'date' -1" v-if=" item.unit_id === fillOwner.unit_id ">
-                                 <td>@{{ item.date }}</td>
+                            <tr v-for="item  in fillOwner.owners | orderBy 'unit_id' -1 | orderBy 'date' -1" >
+                                 <td>@{{ item.date | dateNormal }}</td>
                                  <td>@{{ item.unit_id }}</td>
                                  <td>@{{ item.contact }}</td>
                                  <td>@{{ item.tel }}</td>

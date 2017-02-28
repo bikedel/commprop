@@ -23,6 +23,14 @@ Vue.component('example', require('./components/Example.vue'));
 
 Vue.component('drop', require('./components/DropDown.vue'));
 
+import Vue from 'vue'
+import Sortable from 'sortablejs'
+
+Vue.directive('sortable', {
+  inserted: function (el, binding) {
+    new Sortable(el, binding.value || {})
+  }
+})
 
 
 const app = new Vue({

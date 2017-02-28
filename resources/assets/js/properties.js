@@ -1,3 +1,5 @@
+
+
 Vue.http.headers.common['X-CSRF-TOKEN'] = $("#token").attr("value");
 
 Vue.http.interceptors.push(function (request, next) {
@@ -6,12 +8,20 @@ Vue.http.interceptors.push(function (request, next) {
 });
 
 
+
+
+//Requires
+var moment = require('moment');
+//var moment = require('moment-timezone');
+//Global Filters
+
 Vue.filter('uppercase',function(value){
   return value.toUpperCase();
 });
 
 Vue.filter('dateFrom',function(value){
   //return moment(value).format('Do MMMM YYYY');
+  //return moment.tz(value,'Africa/Johannesburg').fromNow();
   return moment(value).fromNow();
 });
 
@@ -21,10 +31,17 @@ Vue.filter('dateNormal',function(value){
 });
 //Vue.component('drop', require('./components/DropDown.vue'));
 //Vue.component('Multiselect', VueMultiselect.Multiselect)
-var moment = require('moment');
 
 
-var vm = new Vue({
+
+Vue.directive('sortable', {
+  inserted: function (el, binding) {
+    new Sortable(el, binding.value || {})
+  }
+})
+
+
+const vm = new Vue({
 
   el: '#manage-properties',
 

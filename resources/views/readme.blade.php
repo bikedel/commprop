@@ -30,6 +30,8 @@
 </style>
 
 
+
+
 @section('content')
 
 
@@ -43,7 +45,7 @@
 
 
 
-<div class="drop">
+<div class="drop" hidden>
 
   <drop
     :options="options"
@@ -65,9 +67,9 @@
 
 <div class="container">
 
-
-  <ul class="list-group">
-<li  class="list-group-item">  <span class="badge">1</span>change tokenmismatch handler in handler to redirect back to login and not home.</li>
+<div style="height:330px;width:100%;border:1px solid #ccc;overflow:auto; padding:0px">
+  <ul id="sortTrue" v-sortable class="list-group">
+<li  class="list-group-item">  <span class="badge">1</span>change tokenmismatch handler in handler to redirect back to login and not home. </li>
 <li  class="list-group-item">  <span class="badge">2</span>replace auth in homeController __construct</li>
 <li  class="list-group-item">  <span class="badge">3</span>replace auth in VuePropertyController __construct</li>
 <li  class="list-group-item">  <span class="badge">4</span>vue.js search pagination</li>
@@ -97,12 +99,15 @@
 <li  class="list-group-item">  <span class="badge">27</span>vue data format moment</li>
 <li  class="list-group-item">  <span class="badge">28</span>online path var in properties vue</li>
 <li  class="list-group-item">  <span class="badge">29</span>install wkhtmltopdf on server and configure</li>
-<li  class="list-group-item">  <span class="badge">30</span>notes not working??? online</li>
+<li  class="list-group-item">  <span class="badge">30</span>/lib64/libjpeg.so.62  problem</li>
+<li  class="list-group-item">  <span class="badge">31</span>notes not working??? online  == === in v-for</li>
+<li  class="list-group-item">  <span class="badge">32</span>format timezone webpack json</li>
 
 
 </ul>
+</div>
 
-
+</div>
 </div>
 
 @endsection

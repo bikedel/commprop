@@ -542,25 +542,17 @@ small {
                     </div>
 
 
-                    <div style="height:130px;width:100%;border:1px solid #ccc;overflow:auto; padding:0px">
-                        <table class="table  table-hover">
-                            <tr>
-                            <th>Select</th>
-                                <th width="200px">Image</th>
-
-                            </tr>
-
-                            <tr v-for="item  in fillItem.image " >
+                    <div style="height:330px;width:100%;border:1px solid #ccc;overflow:auto; padding:0px">
 
 
-                                    <td style="text-align: center; vertical-align: middle;">
-                                        <input type="checkbox" name="query_myTextEditBox">
-                                    </td>
-                                 <td>  <img :src="offlinePath+'/commprop/public/property/'+fillItem.id+'/'+ item.name  " width="80px" ></td>
+                            <ul  class="list-group"  v-sortable  >
 
 
-                            </tr>
-                        </table>
+                                 <li class="list-group-item"  v-for="item  in fillItem.image " ><img :src="offlinePath+'/commprop/public/property/'+fillItem.id+'/'+ item.name  " width="80px" /> </li>
+
+
+                            </ul>
+
                     </div>
 
 

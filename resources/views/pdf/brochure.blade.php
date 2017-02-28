@@ -43,7 +43,7 @@ th {
 
 
              <div >
-                 <img src="http://localhost/laravel/commprop/public/property/{{$item->id}}/{{$item->images[0]->name}}" width="200" class='prop_img '>
+                 <img src="{{public_path()}}/property/{{$item->id}}/{{$item->images[0]->name}}" width="200" class='prop_img '>
              </div>
 
 

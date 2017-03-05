@@ -37,9 +37,11 @@ class MapController extends Controller
             if (sizeof($property->images) > 0) {
                 $image = 'property/' . $property->id . '/' . $property->images[0]['name'];
             }
+            $link    = "<a href=" . url("/showproperty" . $property->id) . " >link</a>";
             $content = 'Erf : ' . $property->erf . '<br>';
             $content = $content . $property->type . '<br>';
             $content = $content . $property->status . '<br>';
+            $content = $content . $link . '<br>';
 
             // check for lat and long
             if ($property->long && $property->lat) {

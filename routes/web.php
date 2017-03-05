@@ -51,3 +51,7 @@ Route::post('/vuepropertiesAddOwner', 'VuePropertyController@addowner');
 
 //test pdf
 Route::get('/createpdf/{item}', 'VuePropertyController@createPdf');
+
+// view property
+//Route::resource('/showproperty', 'PropertyController');
+Route::get('/showproperty{id}', 'PropertyController@show');

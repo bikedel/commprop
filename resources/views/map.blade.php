@@ -42,7 +42,7 @@
 
 
 
-<link href="https://cdnjs.cloudflare.com/ajax/libs/flexslider/2.6.3/flexslider.css" rel="stylesheet">
+
 
 
 @section('content')

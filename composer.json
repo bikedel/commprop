@@ -11,7 +11,8 @@
         "h4cc/wkhtmltopdf-amd64": "0.12.x",
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0",
-        "laravelcollective/html": "^5.4"
+        "laravelcollective/html": "^5.4",
+        "cornford/googlmapper": "2.*"       
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

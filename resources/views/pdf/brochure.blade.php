@@ -24,7 +24,7 @@ table {
 
 
 th {
-    background-color:azure;
+    background-color:#ccc;
     text-align: left;
 }
 
@@ -43,24 +43,33 @@ th {
 
 
              <div >
+               @if (sizeof($item->images)>0)
                  <img src="{{public_path()}}/property/{{$item->id}}/{{$item->images[0]->name}}" width="200" class='prop_img '>
+               @endif
+               @if (sizeof($item->images)>1)
+                 <img src="{{public_path()}}/property/{{$item->id}}/{{$item->images[1]->name}}" width="200" class='prop_img '>
+                @endif
+                 <br>
              </div>
-
+             <div >
+ <br>
+                 <br>
+             </div>
 
                                   <table class="table table-bordered">
                                         <thead>
                                             <tr>
-                                                <th width="200" class="hidden-xs">Unit ID</th>
-                                                <th width="200" >Type</th>
-                                                <th width="200">Size</th>
-                                                <th width="200">Price</th>
+                                                <th width="100" class="hidden-xs">Unit ID</th>
+                                                <th width="300" >Type</th>
+                                                <th width="120">Size</th>
+                                                <th width="120">Price</th>
 
 
                                             </tr>
                                         </thead>
                                         <tbody>
 
-          @foreach ($item->units as $unit)
+                                        @foreach ($item->units as $unit)
 
 
 
@@ -69,18 +78,18 @@ th {
                                                      Unit {{ $loop->iteration }}
                                                 </td>
                                                 <td>
-                                                    {{ $ptypes[$unit->property_type_id -1]->name }}  {{ $stypes[$unit->sale_type_id -1]->name }}
+                                                   <p> {{ $ptypes[$unit->property_type_id -1]->name }}  {{ $stypes[$unit->sale_type_id -1]->name }}</p>
                                                 </td>
-                                                <td>{{ $unit->size}}   m<sup>2</sup></td>
+                                                <td><p>{{ $unit->size}}   m<sup>2</sup></p></td>
                                                 <td>R {{ $unit->price}}  m<sup>2</sup></td>
 
 
                                             </tr>
 
 
-          @endforeach
-          </tbody>
-          </table>
+                                      @endforeach
+                                      </tbody>
+                                      </table>
 
 
 </div>

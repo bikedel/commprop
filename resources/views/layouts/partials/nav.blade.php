@@ -33,7 +33,9 @@
                                <a  href="{{ url('/readme') }}">Todo</a>
                             </li>
 
-
+                            <li>
+                               <a  href="{{ url('/map') }}">Map</a>
+                            </li>
 
                     </ul>
 

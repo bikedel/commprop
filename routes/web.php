@@ -24,6 +24,8 @@ Route::get('/propsearch', 'HomeController@propsearch')->name('propsearch');
 
 Route::get('/readme', 'HomeController@readme')->name('readme');
 
+Route::get('/map', 'MapController@index')->name('map');
+
 Route::get('/manage-properties', 'VuePropertyController@manageVue')->name('addProp');
 
 // property crud

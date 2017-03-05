@@ -128,16 +128,20 @@ pre {
 .searchbar {
     position:relative;
     top:-22px;
-    background-color: #F39C12  ;
+
+    background-color: #6594B4  ;
     padding-top: 45px;
     padding-bottom: 45px;
     z-index:auto !important;
 }
 
+
+
 .total {
     position:relative;
     float:left;
-    margin-right:20px;
+    margin-right:40px;
+    left:20px;
 }
 
 .newprop {
@@ -198,9 +202,42 @@ small {
   border-color: #ccc !important;
 }
 
+.descrip {
+   position:relative;
+   padding-left:20px;
+}
+
+
+.caption {
+    display: block;
+    margin:0 auto;
+    background: white;
+    padding-left:10px;
+    padding-bottom:5px;
+    color: black;
+    opacity: 0.2;
+    position: relative;
+    height:25px;
+    left:0;
+    bottom:0;
+    top:-25px;
+}
 
 
 
+.camera {
+     position: relative;
+    float:right;
+    left:-20px;
+    top:2px;
+}
+#itemdetails table tbody tr td {
+    border: none  !important;
+       border-top: none !important;
+    border-left: none !important;
+    border-bottom: none !important;
+    background-color:white;
+}
 </style>
 
 
@@ -210,11 +247,12 @@ small {
 
 <div class=" searchbar col-md-12 ">
 
-<div class=" col-md-12 col-md-offset-1 form-group">
+<div class=" col-md-12  ">
+<div class="row ">
+<form id='search' class="form-inline form-group col-md-offset-1" method="POST" enctype="multipart/form-data" v-on:submit.prevent="searchVueItems">
 
-<form id='search' class="form-inline " method="POST" enctype="multipart/form-data" v-on:submit.prevent="searchVueItems">
-
-
+<br>
+                        <input id='s_erf' type="text" name="id" class="form-control" style="width:100px" placeholder="Erf" v-model="s_erf" />
 
                         <select  id ='s_area'  name='s_area' class="form-control "   v-model="s_area"   >
                            <option value="0"  selected >All areas</option>
@@ -248,7 +286,7 @@ small {
                         <button class="btn btn-success " @click.prevent="resetSearch()">Reset</button>
 
    </form>
-
+</div>
 </div>
 </div>
 
@@ -296,10 +334,14 @@ small {
     <div class=" row border myprop" >
 
              <div class='prop_img col-sm-4'>
-                 <img :src="offlinePath+'/commprop/public/property/'+item.id+'/'+ item.images[0].name  " width="100%" >
+                 <img :src="offlinePath+'/commprop/public/property/'+item.id+'/'+ item.images[0].name  " width="98%"  >
+                 <div class='caption'>
+                    <a href="#" class="camera"><span class="glyphicon glyphicon-camera"></span> </a>
+                 </div>
+
              </div>
 
-            <div class='descrip col-sm-8'>
+            <div class='descrip col-sm-6'>
             <p class="red" >Erf: @{{ item.erf }}     <i class="spanUser"> Id: @{{ item.id }} </i></p>
                 @{{ item.description }}
             </div>
@@ -327,11 +369,39 @@ small {
      </div>
 
 
-        <div id="myDIV" >
+        <div id="myDIV"  >
 
-            <p v-if="seen">Grade  : @{{ item.grade }}</p>
-            <p v-if="seen">Status : @{{ item.status }}</p>
+             <div id="itemdetails" class=" table-responsive table-no-bordered" width="350" style="overflow-x:auto; width:350px;">
+                <table  class="table  ">
 
+                     <tbody>
+                     <tr>
+                         <td v-if="seen" width="150">Type   </td>
+                         <td v-if="seen" width="200">@{{ item.type }}</td>
+                     </tr>
+                     <tr>
+                         <td v-if="seen" >Status   </td>
+                         <td v-if="seen">@{{ item.status }}</td>
+                     </tr>
+                     <tr>
+                         <td v-if="seen" >Grade   </td>
+                         <td v-if="seen">@{{ item.grade }}</td>
+                     </tr>
+                     <tr>
+                         <td v-if="seen" >Erf Size   </td>
+                         <td v-if="seen"></td>
+                     </tr>
+                     <tr>
+                         <td v-if="seen" width="100">Building Size   </td>
+                         <td v-if="seen"></td>
+                     </tr>
+                     <tr>
+                         <td v-if="seen" width="100">Parking Ratio   </td>
+                         <td v-if="seen"></td>
+                     </tr>
+                     </tbody>
+                     </table>
+            </div>
 
         </div>
 
@@ -494,7 +564,7 @@ small {
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                <h4 class="modal-title" id="myModalLabel">Edit Property  - Erf @{{fillItem.erf}}</h4>
+                <h4 class="modal-title" id="myModalLabel">Edit Property  - <small>Erf @{{fillItem.erf}}</small></h4>
               </div>
               <div class="modal-body">
 
@@ -573,7 +643,7 @@ small {
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" id="create-item-modal-header-button" class="close" data-dismiss="modal"  aria-label="Close"><span aria-hidden="true">×</span></button>
-                <h4 class="modal-title" id="myCreateModalLabel">Add Unit - Erf @{{fillItem.erf}}</h4>
+                <h4 class="modal-title" id="myCreateModalLabel">Add Unit - <small>Erf @{{fillItem.erf}}</small></h4>
               </div>
               <div class="modal-body">
 
@@ -767,23 +837,25 @@ small {
 
                         <table class="table  table-hover">
                             <tr>
-                                <th width="180px">Date</th>
-                                <th width="200px">Unit</th>
-                                <th width="200px">Contact</th>
+
+
+                                <th width="200px">Owner</th>
                                 <th width="120px">Tel</th>
                                 <th width="120px">Cell</th>
-                                <th width="120px">Email</th>
-
+                                <th width="220px">Email</th>
+                                <th width="100px">Unit</th>
+                                <th width="180px">Date</th>
 
                             </tr>
                             <tr v-for="item  in fillOwner.owners | orderBy 'unit_id' -1 | orderBy 'date' -1" v-if=" item.unit_id == fillOwner.unit_id ">
-                                 <td>@{{ item.date | dateNormal }}</td>
-                                 <td>@{{ item.unit_id }}</td>
+
+
                                  <td>@{{ item.contact }}</td>
                                  <td>@{{ item.tel }}</td>
                                  <td>@{{ item.cell }}</td>
                                  <td>@{{ item.email }}</td>
-
+                                 <td>@{{ item.unit_id }}</td>
+                                 <td>@{{ item.date | dateNormal }}</td>
                             </tr>
                         </table>
 

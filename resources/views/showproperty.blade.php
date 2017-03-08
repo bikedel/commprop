@@ -34,7 +34,7 @@ input:-webkit-autofill {
     }
 
     th {
-border-color: black;
+border-color: black  !important;
         color:black !important;
     }
 

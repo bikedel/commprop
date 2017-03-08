@@ -19,7 +19,7 @@
 
 body {
 
-	 background-color: #D2B48C         ;
+	 background-color: #F8F8FF         ;
 
 }
 

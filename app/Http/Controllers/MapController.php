@@ -75,7 +75,7 @@ dd($status, $lat, $lng, $formatted_address, $province, $city, $city_area, $outpu
  */
 
         Mapper::location('cape town')->map(['zoom' => 10, 'center' => true, 'marker' => false, 'type' => 'STREET', 'overlay' => 'NONE']);
-        Mapper::informationWindow('cape town', 'Content');
+        // Mapper::informationWindow('cape town', 'Content');
         // get all properties
         $areas      = Area::all();
         $properties = Property::all();

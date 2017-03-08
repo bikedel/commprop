@@ -61,35 +61,35 @@ th {
                      <tbody>
                      <tr>
                          <td v-if="seen" width="150">Type   </td>
-                         <td v-if="seen" width="200">{{ $property->type }}</td>
+                         <td v-if="seen" width="200">{{ $item->type }}</td>
                      </tr>
                      <tr>
                          <td v-if="seen" >Status   </td>
-                         <td v-if="seen">{{ $property->status }}</td>
+                         <td v-if="seen">{{ $item->status }}</td>
                      </tr>
                      <tr>
                          <td v-if="seen" >Grade   </td>
-                         <td v-if="seen">{{ $property->grade }}</td>
+                         <td v-if="seen">{{ $item->grade }}</td>
                      </tr>
                      <tr>
                          <td v-if="seen" >Erf Size   </td>
-                         <td v-if="seen">{{ $property->erf_size }}</td>
+                         <td v-if="seen">{{ $item->erf_size }}</td>
                      </tr>
                      <tr>
                          <td v-if="seen" width="100">Building Size   </td>
-                         <td v-if="seen">{{ $property->building_size }}</td>
+                         <td v-if="seen">{{ $item->building_size }}</td>
                      </tr>
                                           <tr>
                          <td v-if="seen" width="100">Land Size   </td>
-                         <td v-if="seen">{{ $property->land_size }}</td>
+                         <td v-if="seen">{{ $item->land_size }}</td>
                      </tr>
                      <tr>
                          <td v-if="seen" width="100">Covered Parking   </td>
-                         <td v-if="seen">{{ $property->covered_parking_bays }}</td>
+                         <td v-if="seen">{{ $item->covered_parking_bays }}</td>
                      </tr>
                      <tr>
                          <td v-if="seen" width="100">Open Parking   </td>
-                         <td v-if="seen">{{ $property->open_parking_bays }}</td>
+                         <td v-if="seen">{{ $item->open_parking_bays }}</td>
                      </tr>
                      </tbody>
                      </table>

@@ -20,7 +20,16 @@
 body {
 
 	 background-color: #b0d3ea        ;
-	  background-image: url('building_small.jpg');
+	  background-image: url('building_small.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+
+
+
+
+	   background-blend-mode: screen;
 }
 
 input:-webkit-autofill {

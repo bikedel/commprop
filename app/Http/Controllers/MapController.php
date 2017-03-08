@@ -26,7 +26,56 @@ class MapController extends Controller
     public function index()
     {
 
+/*
+// add lat long
+//$add = urlencode("11 belair, constantia");
+$add     = urlencode("25 jutland place, gauteng");
+$geocode = file_get_contents("https://maps.googleapis.com/maps/api/geocode/json?address=" . $add . "&key=AIzaSyCNXNSQD49r8fdL-d4RNs4MmWhZue_iAyM");
+
+$output    = json_decode($geocode);
+$town      = '';
+$city      = '';
+$city_area = '';
+
+foreach ($output->results[0]->address_components as $component) {
+if (in_array('street_number', $component->types)) {
+//$this->streetNumber = $component->long_name;
+} elseif (in_array('locality', $component->types)) {
+$city = $component->long_name;
+//$this->locality = $component->long_name;
+} elseif (in_array('postal_town', $component->types)) {
+//$this->town = $component->long_name;
+} elseif (in_array('sublocality', $component->types)) {
+//$this->town = $component->long_name;
+$city_area = $component->long_name;
+} elseif (in_array('administrative_area_level_2', $component->types)) {
+//$this->country = $component->long_name;
+} elseif (in_array('country', $component->types)) {
+//$this->country = $component->long_name;
+} elseif (in_array('administrative_area_level_1', $component->types)) {
+//$this->district = $component->long_name;
+$province = $component->long_name;
+} elseif (in_array('postal_code', $component->types)) {
+//$this->postcode = $component->long_name;
+} elseif (in_array('route', $component->types)) {
+//$this->streetAddress = $component->long_name;
+}
+}
+
+$lat = $output->results[0]->geometry->location->lat;
+$lng = $output->results[0]->geometry->location->lng;
+
+$tosave['lat']  = $lng;
+$tosave['long'] = $lat;
+
+$status            = $output->status;
+$formatted_address = $output->results[0]->formatted_address;
+
+dd($status, $lat, $lng, $formatted_address, $province, $city, $city_area, $output);
+ */
+
         Mapper::location('cape town')->map(['zoom' => 10, 'center' => true, 'marker' => false, 'type' => 'STREET', 'overlay' => 'NONE']);
+        Mapper::informationWindow('cape town', 'Content');
         // get all properties
         $areas      = Area::all();
         $properties = Property::all();
@@ -37,7 +86,7 @@ class MapController extends Controller
             if (sizeof($property->images) > 0) {
                 $image = 'property/' . $property->id . '/' . $property->images[0]['name'];
             }
-            $link    = "<a href=" . url("/showproperty" . $property->id) . " >link</a>";
+            $link    = "<a href=" . url("/showproperty" . $property->id) . " >VIEW</a>";
             $content = 'Erf : ' . $property->erf . '<br>';
             $content = $content . $property->type . '<br>';
             $content = $content . $property->status . '<br>';

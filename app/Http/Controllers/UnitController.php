@@ -4,12 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Area;
 use App\Http\Controllers\Controller;
-use App\Property;
 use App\PropertyType;
 use App\SaleType;
+use App\Unit;
 use Illuminate\Http\Request;
 
-class PropertyController extends Controller
+class UnitController extends Controller
 {
 
     public function __construct()
@@ -60,10 +60,12 @@ class PropertyController extends Controller
         $stypes = SaleType::all();
         $ptypes = PropertyType::all();
 
-        $property = Property::find($id);
-        $property->load('units', 'images', 'notes', 'owners');
-        //dd($property);
-        return view('showproperty', compact('property', 'areas', 'stypes', 'ptypes'));
+        $unit = Unit::find($id);
+        if ($unit) {
+            $unit->load('property', 'images', 'notes', 'owners');
+        }
+        //dd($unit, $unit->property->id);
+        return view('showunit', compact('unit', 'areas', 'stypes', 'ptypes'));
     }
 
     /**

@@ -32,6 +32,7 @@ class VuePropertyController extends Controller
 
     public function manageVue()
     {
+        date_default_timezone_set('Africa/Johannesburg');
         return view('manage-properties');
     }
 
@@ -105,6 +106,7 @@ class VuePropertyController extends Controller
     public function search(Request $request, $search)
     {
 
+        $erf     = $request->input('s_erf');
         $area    = $request->input('s_area');
         $ptype   = $request->input('s_ptype');
         $stype   = $request->input('s_stype');
@@ -160,16 +162,23 @@ class VuePropertyController extends Controller
         // GOOD  returns only properties with units matching criteria BUT all units
         //$items = Property::where('area_id', $aaction, $area)->whereHas('units', function ($query) use ($minsize) {$query->where('size', $minsize);})->with('images')->paginate(5);
 
-        // if nosearch is set then do search else return all
-        if ($noseach == 1) {
-            $items = Property::where('area_id', $aaction, $area)->whereHas('units', function ($query) use ($ptype, $paction, $stype, $saction, $minsize, $maxsize) {$query->where('size', '>', $minsize)->where('size', '<', $maxsize)->where('property_type_id', $paction, $ptype)->where('sale_type_id', $saction, $stype);})->with(['units' => function ($query) use ($ptype, $paction, $stype, $saction, $minsize, $maxsize) {$query->where('size', '>', $minsize)->where('size', '<', $maxsize)->where('property_type_id', $paction, $ptype)->where('sale_type_id', $saction, $stype);}])->with('images', 'notes', 'owners')->paginate(10);
+        // find erf
+
+        if ($erf) {
+            $items = Property::where('erf', "=", $erf)->latest()->paginate(5);
+            $items->load('units', 'images', 'notes', 'owners');
         } else {
 
-            $items = Property::where('area_id', $aaction, $area)->latest()->paginate(5);
-            $items->load('units', 'images', 'notes', 'owners');
+            // if nosearch is set then do search else return all
+            if ($noseach == 1) {
+                $items = Property::where('area_id', $aaction, $area)->whereHas('units', function ($query) use ($ptype, $paction, $stype, $saction, $minsize, $maxsize) {$query->where('size', '>', $minsize)->where('size', '<', $maxsize)->where('property_type_id', $paction, $ptype)->where('sale_type_id', $saction, $stype);})->with(['units' => function ($query) use ($ptype, $paction, $stype, $saction, $minsize, $maxsize) {$query->where('size', '>', $minsize)->where('size', '<', $maxsize)->where('property_type_id', $paction, $ptype)->where('sale_type_id', $saction, $stype);}])->with('images', 'notes', 'owners')->paginate(10);
+            } else {
 
+                $items = Property::where('area_id', $aaction, $area)->latest()->paginate(5);
+                $items->load('units', 'images', 'notes', 'owners');
+
+            }
         }
-
         // GOOD Returns all properties and only units matching criteria
         // $items = Property::where('area_id', $aaction, $area)->with(['units' => function ($query) use ($minsize) {$query->where('size', $minsize);}])->with('images')->paginate(5);
 
@@ -234,12 +243,29 @@ class VuePropertyController extends Controller
         // remove id from the form request
         $tosave['erf']         = $request->input('erf');
         $tosave['title']       = $request->input('title');
+        $tosave['address']     = $request->input('address');
         $tosave['description'] = $request->input('description');
         $tosave['area_id']     = $request->input('area_id') - 1;
 
         $tosave = $request->except(['id']);
         $tosave = $request->except(['area']);
         $tosave = $request->except(['image']);
+
+        // check address is not empty
+        if (strlen($tosave['address']) > 0) {
+            // add lat long
+            $add     = urlencode($tosave['address']);
+            $geocode = file_get_contents("https://maps.googleapis.com/maps/api/geocode/json?address=" . $add . "&key=AIzaSyCNXNSQD49r8fdL-d4RNs4MmWhZue_iAyM");
+
+            $output = json_decode($geocode);
+
+            $lat = $output->results[0]->geometry->location->lat;
+            $lng = $output->results[0]->geometry->location->lng;
+
+            $tosave['lat']  = $lng;
+            $tosave['long'] = $lat;
+        }
+        //dd($lat, $lng, $output);
 
         $property = Property::create($tosave);
 
@@ -455,10 +481,31 @@ $image->save();
 
         $edit = Property::find($id);
 
+        $tosave['erf']         = $request->input('erf');
+        $tosave['title']       = $request->input('title');
+        $tosave['address']     = $request->input('address');
+        $tosave['description'] = $request->input('description');
+        $tosave['area_id']     = $request->input('area_id') - 1;
+
         $tosave = $request->except(['id']);
         $tosave = $request->except(['query_myTextEditBox']);
         $tosave = $request->except(['image']);
         // update properties
+
+        // check address is not empty
+        if (strlen($tosave['address']) > 0) {
+            // add lat long
+            $add     = urlencode($tosave['address']);
+            $geocode = file_get_contents("https://maps.googleapis.com/maps/api/geocode/json?address=" . $add . "&key=AIzaSyCNXNSQD49r8fdL-d4RNs4MmWhZue_iAyM");
+
+            $output = json_decode($geocode);
+
+            $lat = $output->results[0]->geometry->location->lat;
+            $lng = $output->results[0]->geometry->location->lng;
+
+            $tosave['lat']  = $lng;
+            $tosave['long'] = $lat;
+        }
 
         $edit->update($tosave);
 

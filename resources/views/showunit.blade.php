@@ -243,15 +243,15 @@ small {
 	</div>
 	  <div class="col-md-6">
 
-			<h1>{{$property->title}}</h1>
-            <p> {{$areas[$property->area_id-1]->name }}</p>
-            <!-- <p> {{$property->address }}</p> -->
+			<h1>{{$unit->property->title}}</h1>
+            <p> {{$areas[$unit->property->area_id-1]->name }}</p>
+            <!-- <p> {{$unit->property->address }}</p> -->
 			<div class="flexslider flexImg" style="width:600px;">
 			  <ul class="slides">
-					@foreach ($property->images as $image)
+					@foreach ($unit->property->images as $image)
 
-					    <li data-thumb={{ "property/" . $property->id ."/". $image->name }}>
-					      <img src={{ "property/" . $property->id ."/". $image->name }} />
+					    <li data-thumb={{ "property/" . $unit->property->id ."/". $image->name }}>
+					      <img src={{ "property/" . $unit->property->id ."/". $image->name }} />
 					    </li>
 
 
@@ -261,45 +261,45 @@ small {
 	         </div>
 	         <h3>Property Description</h3>
 			<div style="height:150px;width:100%;border:0px solid #ccc;overflow:auto; padding:0px">
-			<p>{{$property->description}}</p>
+			<p>{{$unit->property->description}}</p>
 			</div>
             <h3>Details</h3>
 
 			             <div id="itemdetails" class=" table-responsive table-no-bordered" width="350" style="overflow-x:auto; width:350px;">
-                <table  class="table  ">
+                <table  class="table  table-hover">
 
                      <tbody>
                      <tr>
                          <td v-if="seen" width="150">Type   </td>
-                         <td v-if="seen" width="200">{{ $property->type }}</td>
+                         <td v-if="seen" width="200">{{ $unit->property->type }}</td>
                      </tr>
                      <tr>
                          <td v-if="seen" >Status   </td>
-                         <td v-if="seen">{{ $property->status }}</td>
+                         <td v-if="seen">{{ $unit->property->status }}</td>
                      </tr>
                      <tr>
                          <td v-if="seen" >Grade   </td>
-                         <td v-if="seen">{{ $property->grade }}</td>
+                         <td v-if="seen">{{ $unit->property->grade }}</td>
                      </tr>
                      <tr>
                          <td v-if="seen" >Erf Size   </td>
-                         <td v-if="seen">{{ $property->erf_size }}</td>
+                         <td v-if="seen">{{ $unit->property->erf_size }}</td>
                      </tr>
                      <tr>
                          <td v-if="seen" width="100">Building Size   </td>
-                         <td v-if="seen">{{ $property->building_size }}</td>
+                         <td v-if="seen">{{ $unit->property->building_size }}</td>
                      </tr>
                                           <tr>
                          <td v-if="seen" width="100">Land Size   </td>
-                         <td v-if="seen">{{ $property->land_size }}</td>
+                         <td v-if="seen">{{ $unit->property->land_size }}</td>
                      </tr>
                      <tr>
                          <td v-if="seen" width="100">Covered Parking   </td>
-                         <td v-if="seen">{{ $property->covered_parking_bays }}</td>
+                         <td v-if="seen">{{ $unit->property->covered_parking_bays }}</td>
                      </tr>
                                           <tr>
                          <td v-if="seen" width="100">Open Parking   </td>
-                         <td v-if="seen">{{ $property->open_parking_bays }}</td>
+                         <td v-if="seen">{{ $unit->property->open_parking_bays }}</td>
                      </tr>
                      </tbody>
                      </table>
@@ -318,7 +318,7 @@ small {
                          </tr>
                      </thead>
                      <tbody>
-                     @foreach ($property->units as $unit)
+
                         <tr>
                             <td class="hidden-xs">
                                 Unit  {{ $unit->id }}
@@ -335,7 +335,7 @@ small {
                             </td>
 
                         </tr>
-                        @endforeach
+
                      </tbody>
                      </table>
                         </div>

@@ -215,15 +215,25 @@ small {
     padding-left:10px;
     padding-bottom:5px;
     color: black;
-    opacity: 0.2;
+    opacity: 0.4;
     position: relative;
     height:25px;
     left:0;
     bottom:0;
     top:-25px;
+    z-index:30;
 }
 
+.captiontext {
+    position: relative;
+    background-color: white;
+    color:black;
+    float:left !important;
+    opacity:1;
+    z-index:40;
+    font-weight: bold
 
+}
 
 .camera {
      position: relative;
@@ -252,7 +262,7 @@ small {
 <form id='search' class="form-inline form-group col-md-offset-1" method="POST" enctype="multipart/form-data" v-on:submit.prevent="searchVueItems">
 
 <br>
-                        <input id='s_erf' type="text" name="id" class="form-control" style="width:100px" placeholder="Erf" v-model="s_erf" />
+                        <input id='s_erf' type="text"  class="form-control" style="width:100px" placeholder="Erf" v-model="s_erf" />
 
                         <select  id ='s_area'  name='s_area' class="form-control "   v-model="s_area"   >
                            <option value="0"  selected >All areas</option>
@@ -334,16 +344,20 @@ small {
     <div class=" row border myprop" >
 
              <div class='prop_img col-sm-4'>
+
                  <img :src="offlinePath+'/commprop/public/property/'+item.id+'/'+ item.images[0].name  " width="98%"  >
                  <div class='caption'>
-                    <a href="#" class="camera"><span class="glyphicon glyphicon-camera"></span> </a>
+                 <p class="captiontext"> @{{ item.images[0].caption }}</p>
+                    <a href="showproperty@{{item.id}}" class="camera"> <span class="glyphicon glyphicon-camera"></span> </a>
                  </div>
 
              </div>
 
-            <div class='descrip col-sm-6'>
-            <p class="red" >Erf: @{{ item.erf }}     <i class="spanUser"> Id: @{{ item.id }} </i></p>
+            <div class='descrip col-sm-8'>
+            <div style="height:210px;width:100%;border:0px solid #ccc;overflow:auto; padding:0px">
+            <p class="red" >Erf: @{{ item.erf }}     <i class="spanUser">  </i><a a href="showproperty@{{item.id}}"}}>Id: @{{ item.id }}</a></p>
                 @{{ item.description }}
+            </div>
             </div>
 
      </div>
@@ -444,6 +458,8 @@ small {
                                @if ( Auth::user()->getRoleName()  == "Admin")
                                    <button class="btn btn-danger btn-xs pull right" @click.prevent="deleteUnit(unit)">Delete</button>
                                @endif
+
+                                 <a href="showunit@{{unit.id}}" class="btn btn-default btn-xs pull right" role="button">Details</a>
                             </td>
                         </tr>
                      </tbody>
@@ -452,7 +468,8 @@ small {
 
 
          </div>
-            <hr class="style-one">
+
+         <hr class="style-one">
          </div>
 
         <!-- Pagination -->
@@ -527,6 +544,13 @@ small {
                     </div>
 
                     <div class="form-group">
+                        <label for="Surname">Address:</label>
+                        <textarea type="text" name="address" rows="5" class="form-control" v-model="newItem.address" ></textarea>
+                        <span v-if="formErrors['address']" class="error text-danger">@{{ formErrors['address'] }}</span>
+
+                    </div>
+
+                    <div class="form-group">
                         <label for="Firstname">Area:</label>
 
                         <select  id ='area_id' name='area_id' class="form-control "  v-model="newItem.area_id"  style="width: 100%;"  >
@@ -596,6 +620,13 @@ small {
                         <label for="Firstname">Description:</label>
                         <textarea type="text" name="description" rows="5" class="form-control" v-model="fillItem.description"  ></textarea>
                         <span v-if="formErrorsUpdate['description']" class="error text-danger">@{{ formErrorsUpdate['description'] }}</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Surname">Address:</label>
+                        <textarea type="text" name="address" rows="5" class="form-control" v-model="fillItem.address" ></textarea>
+                        <span v-if="formErrorsUpdate['address']" class="error text-danger">@{{ formErrorsUpdate['address'] }}</span>
+
                     </div>
 
                     <div class="form-group">

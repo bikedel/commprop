@@ -2,6 +2,11 @@
 
 <style>
 
+
+body {
+
+  background-color: #8BCE92 !important;
+}
 .searchbar {
 
     background-color: #F39C12  ;
@@ -37,7 +42,7 @@
 
 
 
-<link href="https://cdnjs.cloudflare.com/ajax/libs/flexslider/2.6.3/flexslider.css" rel="stylesheet">
+
 
 
 @section('content')
@@ -119,41 +124,18 @@
 <li  class="list-group-item">  <span class="badge">39</span>Property24 id and other listing id's</li>
 <li  class="list-group-item">  <span class="badge">40</span>geolocate on map - add properties</li>
 <li  class="list-group-item">  <span class="badge">41</span>geoogle api key</li>
-
+<li  class="list-group-item">  <span class="badge">42</span>Descrip - div scroll</li>
+<li  class="list-group-item">  <span class="badge">43</span>Images max 4 for flex</li>
+<li  class="list-group-item">  <span class="badge">44</span>Property24 API credentials</li>
+<li  class="list-group-item">  <span class="badge">45</span>showproperty rest api</li>
+<li  class="list-group-item">  <span class="badge">46</span>showunit rest api</li>
+<li  class="list-group-item">  <span class="badge">47</span>auth from Arnold - private prop and prop24 api</li>
 </ul>
 </div>
         <button type="button" class="btn btn-default btn-sm pull-right">
           <span class="glyphicon glyphicon-arrow-down"></span> <span class="glyphicon glyphicon-arrow-up"></span> Scroll
         </button>
-<br><br>
-<!-- Place somewhere in the <body> of your page -->
-<div class="flexslider flexImg" >
-  <ul class="slides">
-    <li data-thumb="property/1/1.jpg">
-      <img src="property/1/1.jpg" />
-    </li>
-    <li data-thumb="property/2/1.jpg">
-      <img src="property/2/1.jpg" />
-    </li>
-    <li data-thumb="property/4/1.jpg">
-      <img src="property/2/1.jpg" />
-    </li>
-    <li data-thumb="property/3/1.jpg">
-      <img src="property/3/1.jpg" />
-    </li>
 
-  </ul>
-</div>
 
-  <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.2.4.min.js"></script>
-    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/flexslider/2.6.3/jquery.flexslider.js"></script>
-<script>
-// Can also be used with $(document).ready()
-$(window).load(function() {
-  $('.flexslider').flexslider({
-    animation: "slide",
-    controlNav: "thumbnails"
-  });
-});
 </script>
 @endsection

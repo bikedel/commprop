@@ -77,6 +77,7 @@ data:  {
           'id': '',
           'erf': '',
           'title':'',
+          'address':'',
           'description':'',
           'area_id': '',
           'image': [],
@@ -87,6 +88,7 @@ data:  {
           'id':'',
           'erf': '',
           'title':'',
+           'address':'',
           'description':'',
           'area_id': '',
           'image': [],
@@ -120,6 +122,8 @@ data:  {
           'email': '',
 
     },
+
+        s_erf: '',
         s_area: '',
         s_stype: '',
         s_ptype: '',
@@ -224,6 +228,7 @@ data:  {
           // then in your code...
           let data = new FormData(document.getElementById('search'));
        
+          data.append('s_erf',this.s_erf);
           data.append('s_area',this.s_area);
           data.append('s_stype',this.s_stype);
           data.append('s_ptype',this.s_ptype);
@@ -279,6 +284,7 @@ data:  {
                   'id': '',
                   'erf': '',
                   'title':'',
+                   'address':'',
                   'description':'',
                   'area_id': '',
                   'image': [],
@@ -300,7 +306,8 @@ data:  {
                 this.resetErrors();
                 this.newItem = {
                 'erf': '',
-                'title':'',
+                'title':'', 
+                'address':'',
                 'description':'',
                 'area_id':'',
                 'image': '',
@@ -340,6 +347,7 @@ data:  {
           this.fillItem.id = item.id;
           this.fillItem.erf = item.erf;
           this.fillItem.title = item.title;
+          this.fillItem.address = item.address;
           this.fillItem.description = item.description ;
           this.fillItem.area_id = item.area_id ;
           this.fillItem.image = item.images ;
@@ -551,6 +559,7 @@ data:  {
               'id':'',
               'erf': '',
                 'title':'',
+                'address':'',
                 'description':'',
                 'area_id':'',
                 'image':'',
@@ -584,7 +593,8 @@ data:  {
          // $('.form-group').each(function () { $(this).closest("span").removeClass('error text-danger'); });
          //  $('.form-group').each(function () { $(this).removeClass('form-control'); });
       //    $( ".text-danger" ).remove();
-
+console.log('reset search');
+        this.s_erf= '';
         this.s_area= 0;
         this.s_stype= 0;
         this.s_ptype= 0;

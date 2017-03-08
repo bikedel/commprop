@@ -2,6 +2,10 @@
 
 <style>
 
+body {
+
+  background-color: #6594B4 !important;
+}
 .searchbar {
 
     background-color: #F39C12  ;
@@ -36,8 +40,16 @@
 #map-canvas {
   width:100%;
   height:80%;
+
 }
 
+.main {
+        border: 10px solid white;
+    border-radius: 0px;
+
+padding-right: 0px !important;
+padding-left: 0px!important;
+}
 </style>
 
 
@@ -48,16 +60,16 @@
 @section('content')
 
 
-
+<br>
 <div id="map-canvas" class="container-fluid">
 <div class="row">
-  <div class="col-md-2">
+  <div class="col-md-1">
 
   </div>
-  <div class="col-sm-8">
+  <div class=" main col-sm-10">
     {!! Mapper::render() !!}
   </div>
-  <div class="col-sm-2">
+  <div class="col-sm-1">
 
   </div>
   </div>

@@ -16,7 +16,7 @@
 
                     </a>
 
-                     <a class="navbar-brand divider-vertical" >     {{ config('app.name', 'Laravel') }}
+                     <a class="navbar-brand divider-vertical" >     <!--  {{ config('app.name', 'Laravel') }} -->
 
                     </a>
                 </div>
@@ -26,15 +26,13 @@
                     <ul class="nav navbar-nav">
 
                             <li>
-                               <a href="{{ url('/manage-properties') }}"> Search </a>
+                               <a href="{{ url('/manage-properties') }}"> Property </a>
                             </li>
 
-                            <li>
-                               <a  href="{{ url('/readme') }}">Todo</a>
-                            </li>
+
 
                             <li>
-                               <a  href="{{ url('/map') }}">Map</a>
+                               <a  href="{{ url('/map') }}">Location</a>
                             </li>
 
                     </ul>
@@ -55,6 +53,9 @@
 
                                 <ul class="dropdown-menu" role="menu">
                                 <li><a href="#" >Role: {{ Auth::user()->getRoleName() }}</a></li>
+                                <li>
+                                  <a  href="{{ url('/readme') }}">Todo</a>
+                                </li>
                                     <li>
                                         <a href="{{ url('/logout') }}"
                                             onclick="event.preventDefault();

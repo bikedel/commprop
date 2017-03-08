@@ -52,8 +52,47 @@ th {
                  <br>
              </div>
              <div >
- <br>
                  <br>
+                 <br>
+
+
+                                 <table  class="table  ">
+
+                     <tbody>
+                     <tr>
+                         <td v-if="seen" width="150">Type   </td>
+                         <td v-if="seen" width="200">{{ $property->type }}</td>
+                     </tr>
+                     <tr>
+                         <td v-if="seen" >Status   </td>
+                         <td v-if="seen">{{ $property->status }}</td>
+                     </tr>
+                     <tr>
+                         <td v-if="seen" >Grade   </td>
+                         <td v-if="seen">{{ $property->grade }}</td>
+                     </tr>
+                     <tr>
+                         <td v-if="seen" >Erf Size   </td>
+                         <td v-if="seen">{{ $property->erf_size }}</td>
+                     </tr>
+                     <tr>
+                         <td v-if="seen" width="100">Building Size   </td>
+                         <td v-if="seen">{{ $property->building_size }}</td>
+                     </tr>
+                                          <tr>
+                         <td v-if="seen" width="100">Land Size   </td>
+                         <td v-if="seen">{{ $property->land_size }}</td>
+                     </tr>
+                     <tr>
+                         <td v-if="seen" width="100">Covered Parking   </td>
+                         <td v-if="seen">{{ $property->covered_parking_bays }}</td>
+                     </tr>
+                     <tr>
+                         <td v-if="seen" width="100">Open Parking   </td>
+                         <td v-if="seen">{{ $property->open_parking_bays }}</td>
+                     </tr>
+                     </tbody>
+                     </table>
              </div>
 
                                   <table class="table table-bordered">

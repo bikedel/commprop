@@ -297,7 +297,7 @@ small {
                          <td v-if="seen" width="100">Covered Parking   </td>
                          <td v-if="seen">{{ $property->covered_parking_bays }}</td>
                      </tr>
-                                          <tr>
+                     <tr>
                          <td v-if="seen" width="100">Open Parking   </td>
                          <td v-if="seen">{{ $property->open_parking_bays }}</td>
                      </tr>

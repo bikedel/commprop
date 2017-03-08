@@ -29,7 +29,7 @@ body {
 
 
 
-	   background-blend-mode: screen;
+	   background-blend-mode: overlay;
 }
 
 input:-webkit-autofill {

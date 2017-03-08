@@ -52,7 +52,7 @@ th {
                  <br>
              </div>
              <div >
-                 <br>
+
                  <br>
 
 
@@ -94,7 +94,7 @@ th {
                      </tbody>
                      </table>
              </div>
-
+<br><br>
                                   <table class="table table-bordered">
                                         <thead>
                                             <tr>

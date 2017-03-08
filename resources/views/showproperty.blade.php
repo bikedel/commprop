@@ -19,7 +19,7 @@
 
 body {
 
-	 background-color: #D5EAF3    ;
+	 background-color: #E9F7EF      ;
 }
 
 input:-webkit-autofill {
@@ -266,7 +266,7 @@ small {
             <h3>Details</h3>
 
 			             <div id="itemdetails" class=" table-responsive table-no-bordered" width="350" style="overflow-x:auto; width:350px;">
-                <table  class="table  ">
+                <table  class="table table-hover  ">
 
                      <tbody>
                      <tr>

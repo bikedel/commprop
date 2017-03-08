@@ -29,14 +29,17 @@ input:-webkit-autofill {
     table
     {
       table-layout:fixed;
+       border-color: #666 !important;
     }
 
     th {
 
         color:black;
+         border-color: #666 !important;
     }
 
     table td  {
+         border-color: #666 !important;
         padding: 5px;
         text-overflow: ellipsis;
         max-width:1500px;

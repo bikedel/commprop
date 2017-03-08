@@ -39,7 +39,7 @@ border-color: black  !important;
     }
 
     table td  {
-    	border-color: black !important;
+    	 border-color: #666 !important;
         padding: 5px;
         text-overflow: ellipsis;
         max-width:1500px;
@@ -48,12 +48,12 @@ border-color: black  !important;
     }
 
     .newAgent{
-          border-color: black !important;
+          border-color: #666 !important;
           color:red;
     }
 
     .table-bordered td, .table-bordered th{
-        border-color: black !important;
+        border-color: #666 !important;
     }
 
     .slategrey-background {

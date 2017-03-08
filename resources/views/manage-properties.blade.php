@@ -403,15 +403,15 @@ small {
                      </tr>
                      <tr>
                          <td v-if="seen" >Erf Size   </td>
-                         <td v-if="seen"></td>
+                         <td v-if="seen">@{{ item.erf_size }}</td>
                      </tr>
                      <tr>
                          <td v-if="seen" width="100">Building Size   </td>
-                         <td v-if="seen"></td>
+                         <td v-if="seen">@{{ item.building_size }}</td>
                      </tr>
                      <tr>
-                         <td v-if="seen" width="100">Parking Ratio   </td>
-                         <td v-if="seen"></td>
+                         <td v-if="seen" width="100">Open Parking   </td>
+                         <td v-if="seen">@{{ item.open_parking_bays }}</td>
                      </tr>
                      </tbody>
                      </table>
@@ -643,7 +643,10 @@ small {
                     </div>
 
 
-                    <div style="height:330px;width:100%;border:1px solid #ccc;overflow:auto; padding:0px">
+
+
+
+                    <div style="height:130px;width:100%;border:1px solid #ccc;overflow:auto; padding:0px">
 
 
                             <ul  class="list-group"  v-sortable  >

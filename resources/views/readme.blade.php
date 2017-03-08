@@ -130,6 +130,7 @@ body {
 <li  class="list-group-item">  <span class="badge">45</span>showproperty rest api</li>
 <li  class="list-group-item">  <span class="badge">46</span>showunit rest api</li>
 <li  class="list-group-item">  <span class="badge">47</span>auth from Arnold - private prop and prop24 api</li>
+<li  class="list-group-item">  <span class="badge">48</span>add user - set role default</li>
 </ul>
 </div>
         <button type="button" class="btn btn-default btn-sm pull-right">

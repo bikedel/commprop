@@ -19,7 +19,7 @@
 
 body {
 
-	 background-color: #EC7063      ;
+	 background-color: #A2D9CE        ;
 }
 
 input:-webkit-autofill {

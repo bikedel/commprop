@@ -30,6 +30,7 @@ input:-webkit-autofill {
     table
     {
       table-layout:fixed;
+       border-color: black;
     }
 
     th {

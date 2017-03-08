@@ -35,7 +35,7 @@ input:-webkit-autofill {
 
     th {
 border-color:  #ccc  !important;
-        color:black !important;
+        color:#333 !important;
     }
 
     table td  {

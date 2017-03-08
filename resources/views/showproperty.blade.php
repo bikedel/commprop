@@ -20,6 +20,7 @@
 body {
 
 	 background-color: #b0d3ea        ;
+	  background-image: url('building_small.jpg');
 }
 
 input:-webkit-autofill {

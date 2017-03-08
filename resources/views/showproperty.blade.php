@@ -19,17 +19,8 @@
 
 body {
 
-	 background-color: #b0d3ea        ;
-	  background-image: url('building_small.jpg') no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+	 background-color: #F5F5DC         ;
 
-
-
-
-	   background-blend-mode: overlay;
 }
 
 input:-webkit-autofill {

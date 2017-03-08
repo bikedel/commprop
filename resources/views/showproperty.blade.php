@@ -30,15 +30,16 @@ input:-webkit-autofill {
     table
     {
       table-layout:fixed;
-       border-color: black;
+       border-color: black !important;
     }
 
     th {
-
-        color:black;
+border-color: black;
+        color:black !important;
     }
 
     table td  {
+    	border-color: black !important;
         padding: 5px;
         text-overflow: ellipsis;
         max-width:1500px;

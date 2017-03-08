@@ -30,7 +30,7 @@ input:-webkit-autofill {
     table
     {
       table-layout:fixed;
- border-color: #666 !important;
+ border-color: #ccc !important;
     }
 
     th {
@@ -39,7 +39,7 @@ border-color: black  !important;
     }
 
     table td  {
-    	 border-color: #666 !important;
+    	 border-color: #ccc !important;
         padding: 5px;
         text-overflow: ellipsis;
         max-width:1500px;
@@ -53,7 +53,7 @@ border-color: black  !important;
     }
 
     .table-bordered td, .table-bordered th{
-        border-color: #666 !important;
+        border-color: #ccc !important;
     }
 
     .slategrey-background {

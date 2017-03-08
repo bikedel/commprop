@@ -17,7 +17,7 @@
     color:white;
 }
 
-body {
+html {
 
 	 background-color: #b0d3ea        ;
 	  background-image: url('building_small.jpg') no-repeat center center fixed;

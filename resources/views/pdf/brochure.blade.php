@@ -107,7 +107,7 @@ table, tr, td, th, tbody, thead, tfoot {
 <h1> Presentation for Paul </h1>
 </div>
 
-
+<!--
 <div class ="row    " style="margin: auto;">
 
 
@@ -115,10 +115,12 @@ table, tr, td, th, tbody, thead, tfoot {
 
 
 </div>
+-->
+
 <div class ="row  page" style="margin: auto;">
 
 
-         <img src = "http://maps.googleapis.com/maps/api/staticmap?size=1280x580&markers={{$item->long}},{{$item->lat}}&maptype=hybrid&scale=2&zoom=15&sensor=false&label=Hello"  alt='Google Map'/>
+         <img src = "http://maps.googleapis.com/maps/api/staticmap?size=1280x800&markers={{$item->long}},{{$item->lat}}&maptype=hybrid&scale=2&zoom=15&sensor=false&label=Hello"  alt='Google Map'/>
 
 
 </div>

@@ -32,7 +32,7 @@ class VuePropertyController extends Controller
 
     public function manageVue()
     {
-        date_default_timezone_set('Africa/Johannesburg');
+        //date_default_timezone_set('Africa/Johannesburg');
         return view('manage-properties');
     }
 
@@ -548,6 +548,9 @@ $image->save();
     public function createPdf($item)
     {
 
+        // $img = Barryvdh\Snappy\Facades\SnappyImage::loadView('readme');
+        // return $img->download('test.pdf');
+
         $users  = User::all();
         $areas  = Area::all();
         $stypes = SaleType::all();
@@ -564,10 +567,15 @@ $image->save();
 
         // $pdf = new Pdf('http:://www.google.com');
         // $pdf->download("google.pdf");
+        //  Mapper::location('cape town')->map(['zoom' => 10, 'center' => true, 'marker' => false, 'type' => 'HYBRID', 'overlay' => 'NONE']);
+        //->setOrientation('landscape')
+        // PDF::loadHTML($html)->setOption('footer-center', 'Page [page]')->save('myfile.pdf');
+        $cover = '<div class="flexme" <h1>Sotheby Brochure</h1></div>';
 
-//->setOrientation('landscape')
-        return PDF::loadView('pdf.brochure', compact('item', 'areas', 'ptypes', 'stypes', 'users'))->setOption('margin-bottom', 0)->download('Property_brochure_erf' . $item->erf . '.pdf');
+        return PDF::loadView('pdf.brochure', compact('item', 'areas', 'ptypes', 'stypes', 'users'))->setOption('margin-bottom', 10)->setOption('footer-html', "<img src = '{{public_path()}}/img/sothebys_logo_flat.jpeg' />")->setOption('footer-center', 'Page [page]')->setOption('header-center', date('D d M Y'))->download('Property_brochure_erf' . $item->erf . '.pdf');
         //  return response()->json(['done']);
+
+        //return PDF::loadView('pdf.brochure', compact('item', 'areas', 'ptypes', 'stypes', 'users'))->setOption('margin-bottom', 0)->setOption('footer-center', 'Page [page]')->setOption('cover', $cover)->download('Property_brochure_erf' . $item->erf . '.pdf');
 
     }
 

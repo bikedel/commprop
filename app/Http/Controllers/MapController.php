@@ -73,8 +73,8 @@ $formatted_address = $output->results[0]->formatted_address;
 
 dd($status, $lat, $lng, $formatted_address, $province, $city, $city_area, $output);
  */
-
-        Mapper::location('cape town')->map(['zoom' => 10, 'center' => true, 'marker' => false, 'type' => 'STREET', 'overlay' => 'NONE']);
+//marker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png')
+        Mapper::location('cape town')->map(['zoom' => 10, 'center' => true, 'marker' => false, 'type' => 'HYBRID', 'overlay' => 'NONE']);
         // Mapper::informationWindow('cape town', 'Content');
         // get all properties
         $areas      = Area::all();
@@ -94,8 +94,18 @@ dd($status, $lat, $lng, $formatted_address, $province, $city, $city_area, $outpu
 
             // check for lat and long
             if ($property->long && $property->lat) {
-                Mapper::marker($property->long, $property->lat, ['title' => $property->type . 'Erf: ' . $property->erf, 'eventRightClick' => 'console.log("right click");', 'symbol' => 'circle', 'strokeColor' => '#FFFFFF', 'content' => $content . '<br> <img src=' . $image . '  style="width:120px;" />', 'scale' => 13, 'animation' => 'DROP']);
+
+                if ($property->status == "To Let") {
+                    Mapper::marker($property->long, $property->lat, ['title' => $property->type . 'Erf: ' . $property->erf, 'eventRightClick' => 'console.log("right click");', 'content' => $content . '<br> <img src=' . $image . '  style="width:120px;" />', 'scale' => 13, 'animation' => 'DROP', 'icon' => "http://maps.google.com/mapfiles/ms/icons/green-dot.png"]);
+                } elseif ($property->status == "For Sale") {
+                    Mapper::marker($property->long, $property->lat, ['title' => $property->type . 'Erf: ' . $property->erf, 'eventRightClick' => 'console.log("right click");', 'content' => $content . '<br> <img src=' . $image . '  style="width:120px;" />', 'scale' => 13, 'animation' => 'DROP', 'icon' => "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png"]);
+                } else {
+                    Mapper::marker($property->long, $property->lat, ['title' => $property->type . 'Erf: ' . $property->erf, 'eventRightClick' => 'console.log("right click");', 'content' => $content . '<br> <img src=' . $image . '  style="width:120px;" />', 'scale' => 13, 'animation' => 'DROP', 'icon' => "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"]);
+                }
             }
+
+            //  $m->setIcon("http://maps.google.com/mapfiles/ms/icons/purple-dot.png");
+
             //  echo 'erf ' . $property->erf . ' <BR>';
             //  echo 'long ' . $property->long . ' <BR>';
             //  echo 'lat ' . $property->lat . ' <BR>';

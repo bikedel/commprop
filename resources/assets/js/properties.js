@@ -48,6 +48,7 @@ const vm = new Vue({
 // this is our Model
 data:  {
 
+
     // set to '/laravel' for local and online set to ''
     //offlinePath: '/laravel',
     offlinePath: '',

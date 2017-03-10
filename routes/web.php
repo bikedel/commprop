@@ -17,6 +17,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::get('/dashboard', 'HomeController@dashboard');
+//Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::post('/propsearch', 'HomeController@propsearch')->name('propsearch');

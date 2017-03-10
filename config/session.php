@@ -122,7 +122,7 @@ return [
     |
      */
 
-    'cookie'          => 'laravel_session_commprop',
+    'cookie'          => 'laravel_session_commprop2',
 
     /*
     |--------------------------------------------------------------------------

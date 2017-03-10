@@ -1,5 +1,10 @@
 @extends('layouts.app')
+<style>
+label {
+    margin-right:20px !important;
 
+}
+</style>
 @section('content')
 <div class="container">
     <div class="row">

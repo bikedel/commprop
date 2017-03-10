@@ -3,10 +3,32 @@
 <html>
 <head>
 <title>{{$item->title}}</title>
+<link href='http://fonts.googleapis.com/css?family=Fira Sans' rel='stylesheet' type='text/css'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.css' rel='stylesheet' type='text/css'>
+
 <style>
 body{
-
+    font-family: 'Fira Sans';
+font-size: 1em;
+padding:5px;
 }
+
+h1 {
+    font-family: 'Fira Sans';
+    font-size: 3.5em; /* 40px/16=2.5em */
+}
+
+h2 {
+    font-family: 'Fira Sans';
+    font-size: 2.875em; /* 30px/16=1.875em */
+}
+
+p {
+    font-family: 'Fira Sans';
+    font-size: 2em; /* 14px/16=0.875em */
+}
+
+
 .prop_img{
 
 
@@ -17,20 +39,92 @@ body{
 }
 
 table {
-    border-collapse: collapse;
+
 }
 
 
-
+.fieldname {
+    background-color: #B0C4DE;
+}
 
 th {
-    background-color:#ccc;
+background-color: #B0C4DE;
     text-align: left;
 }
 
+
+    .page {
+        overflow: hidden;
+        page-break-after: always;
+    }
+
+table, tr, td, th, tbody, thead, tfoot {
+        border-style: solid !important;
+    border-color: #333;
+     font-size:0.95em;
+     padding:5px;
+    page-break-inside: avoid !important;
+}
+
+ .flexme{
+      display: -webkit-box;
+      display: -moz-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      display: flex;
+    }
+
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+    #header, #footer {
+        width:100%;
+        float:left;
+        bottom: 0;
+    }
+
+    .myc {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    padding: 270px 0;
+    }
 </style>
 
 </head>
+
+<div class="myc page">
+
+
+
+
+<img src = "{{public_path()}}/img/sothebys_logo_big_blue.jpg" width="800px"/>
+<br><br>
+
+<h1> Presentation for Paul </h1>
+</div>
+
+
+<div class ="row    " style="margin: auto;">
+
+
+         <img src = "http://maps.googleapis.com/maps/api/staticmap?size=1280x240&markers={{$item->long}},{{$item->lat}}&maptype=hybrid&scale=2&zoom=12&sensor=false" />
+
+
+</div>
+<div class ="row  page" style="margin: auto;">
+
+
+         <img src = "http://maps.googleapis.com/maps/api/staticmap?size=1280x580&markers={{$item->long}},{{$item->lat}}&maptype=hybrid&scale=2&zoom=15&sensor=false&label=Hello"  alt='Google Map'/>
+
+
+</div>
+
+
+
 
 
 <div class="container-fluid">
@@ -42,54 +136,59 @@ th {
 
 
 
-             <div >
+             <div class="page">
                @if (sizeof($item->images)>0)
-                 <img src="{{public_path()}}/property/{{$item->id}}/{{$item->images[0]->name}}" width="200" class='prop_img '>
+                 <img src="{{public_path()}}/property/{{$item->id}}/{{$item->images[0]->name}}" width="600"  class='prop_img '><br><br>
                @endif
+
                @if (sizeof($item->images)>1)
-                 <img src="{{public_path()}}/property/{{$item->id}}/{{$item->images[1]->name}}" width="200" class='prop_img '>
+                 <img src="{{public_path()}}/property/{{$item->id}}/{{$item->images[1]->name}}" width="600"  class='prop_img '>
                 @endif
-                 <br>
+
              </div>
+
+             <br>
+             <h1>Details</h1>
+             <br>
              <div >
 
                  <br>
 
 
-                                 <table  class="table  ">
+                     <table  class="table  table-bordered">
 
                      <tbody>
                      <tr>
-                         <td v-if="seen" width="150">Type   </td>
-                         <td v-if="seen" width="200">{{ $item->type }}</td>
+                         <td class="fieldname" width="350"><p>Type </p>  </td>
+                         <td  width="300"><p>{{ $item->type }}</p></td>
                      </tr>
                      <tr>
-                         <td v-if="seen" >Status   </td>
-                         <td v-if="seen">{{ $item->status }}</td>
+                         <td class="fieldname" ><p>Status   </p></td>
+                         <td ><p>{{ $item->status }}</p></td>
                      </tr>
                      <tr>
-                         <td v-if="seen" >Grade   </td>
-                         <td v-if="seen">{{ $item->grade }}</td>
+                         <td class="fieldname" ><p>Grade  </p> </td>
+                         <td ><p>{{ $item->grade }}</p></td>
                      </tr>
                      <tr>
-                         <td v-if="seen" >Erf Size   </td>
-                         <td v-if="seen">{{ $item->erf_size }}</td>
+                         <td class="fieldname"><p>Erf Size  </p> </td>
+                         <td ><p>{{ $item->erf_size }}</p></td>
                      </tr>
                      <tr>
-                         <td v-if="seen" width="100">Building Size   </td>
-                         <td v-if="seen">{{ $item->building_size }}</td>
-                     </tr>
-                                          <tr>
-                         <td v-if="seen" width="100">Land Size   </td>
-                         <td v-if="seen">{{ $item->land_size }}</td>
+                         <td class="fieldname" width="100"><p>Building Size   </p></td>
+                         <td ><p>{{ $item->building_size }}</p></td>
                      </tr>
                      <tr>
-                         <td v-if="seen" width="100">Covered Parking   </td>
-                         <td v-if="seen">{{ $item->covered_parking_bays }}</td>
+                         <td class="fieldname" width="100"><p>Land Size  </p> </td>
+                         <td ><p>{{ $item->land_size }}</p></td>
                      </tr>
                      <tr>
-                         <td v-if="seen" width="100">Open Parking   </td>
-                         <td v-if="seen">{{ $item->open_parking_bays }}</td>
+                         <td class="fieldname" width="100"><p>Covered Parking </p>  </td>
+                         <td ><p>{{ $item->covered_parking_bays }}</p></td>
+                     </tr>
+                     <tr>
+                         <td class="fieldname" width="100"><p>Open Parking  </p> </td>
+                         <td ><p>{{ $item->open_parking_bays }}</p></td>
                      </tr>
                      </tbody>
                      </table>
@@ -98,10 +197,10 @@ th {
                                   <table class="table table-bordered">
                                         <thead>
                                             <tr>
-                                                <th width="100" class="hidden-xs">Unit ID</th>
-                                                <th width="300" >Type</th>
-                                                <th width="120">Size</th>
-                                                <th width="120">Price</th>
+                                                <th width="300" class="hidden-xs"><p>Unit ID</p></th>
+                                                <th width="300" ><p>Type</p></th>
+                                                <th width="220"><p>Size</p></th>
+                                                <th width="220"><p>Price</p></th>
 
 
                                             </tr>
@@ -114,13 +213,13 @@ th {
 
                                             <tr>
                                                 <td class="hidden-xs">
-                                                     Unit {{ $loop->iteration }}
+                                                    <p> Unit {{ $loop->iteration }}</p>
                                                 </td>
                                                 <td>
                                                    <p> {{ $ptypes[$unit->property_type_id -1]->name }}  {{ $stypes[$unit->sale_type_id -1]->name }}</p>
                                                 </td>
                                                 <td><p>{{ $unit->size}}   m<sup>2</sup></p></td>
-                                                <td>R {{ $unit->price}}  m<sup>2</sup></td>
+                                                <td><p>R {{ $unit->price}}  m<sup>2</sup></p></td>
 
 
                                             </tr>
@@ -132,5 +231,8 @@ th {
 
 
 </div>
+
+
+
 </body>
 </html>

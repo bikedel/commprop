@@ -56,6 +56,9 @@
                                 <li>
                                   <a  href="{{ url('/readme') }}">Todo</a>
                                 </li>
+                                                                <li>
+                                  <a  href="{{ url('/dashboard') }}">Dashboard</a>
+                                </li>
                                     <li>
                                         <a href="{{ url('/logout') }}"
                                             onclick="event.preventDefault();

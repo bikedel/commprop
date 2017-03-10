@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Area;
+use App\Http\Controllers\Controller;
 use App\Property;
 use App\PropertyType;
 use App\SaleType;
+use App\Unit;
+use App\User;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -17,6 +20,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
+        // dd("home controller");
         $this->middleware('auth');
     }
 
@@ -140,6 +144,20 @@ class HomeController extends Controller
         $search = ' [' . $properties->total() . "] " . "&nbsp;&nbsp;&nbsp;&nbsp;" . $sarea . ' | ' . $sstype . ' | ' . $sptype . ' | ' . $sminsize . ' | ' . $smaxsize;
 
         return view('home', compact('properties', 'areas', 'stypes', 'ptypes', 'search', 'select_area', 'select_minsize', 'select_maxsize', 'select_ptype', 'select_stype'));
+    }
+
+    public function dashboard()
+    {
+
+        $users  = User::all();
+        $areas  = Area::all();
+        $stypes = SaleType::all();
+        $units  = Unit::all();
+        $ptypes = PropertyType::all();
+        //dd('test pdf');
+        $properties = Property::latest()->get();
+        $properties->load('units', 'images', 'notes', 'owners');
+        return view('dashboard', compact('properties', 'areas', 'stypes', 'ptypes', 'users', 'units'));
     }
 
     public function test()

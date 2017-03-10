@@ -18,7 +18,7 @@ return array(
             'footer-font-size' => 10,
             'header-font-size' => 10,
             'footer-left'      => 'Confidential',
-            'footer-right'     => 'Sothebys',
+            'footer-right'     => 'Sothebys ',
         ),
         'env'     => array(),
     ),

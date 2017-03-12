@@ -104,7 +104,7 @@ table, tr, td, th, tbody, thead, tfoot {
 <img src = "{{public_path()}}/img/sothebys_logo_big_blue.jpg" width="800px"/>
 <br><br>
 
-<h1> Presentation for Paul </h1>
+
 </div>
 
 <!--
@@ -120,7 +120,7 @@ table, tr, td, th, tbody, thead, tfoot {
 <div class ="row  page" style="margin: auto;">
 
 
-         <img src = "http://maps.googleapis.com/maps/api/staticmap?size=800x600&markers={{$item->long}},{{$item->lat}}&maptype=hybrid&scale=1&zoom=15&sensor=false&label=Hello"  alt='Google Map'/>
+         <img src = "http://maps.googleapis.com/maps/api/staticmap?size=600x600&markers={{$item->long}},{{$item->lat}}&maptype=hybrid&scale=2&zoom=15&sensor=false&label=Hello"  alt='Google Map'/>
 
 
 </div>

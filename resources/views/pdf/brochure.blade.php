@@ -120,7 +120,7 @@ table, tr, td, th, tbody, thead, tfoot {
 <div class ="row  page" style="margin: auto;">
 
 
-         <img src = "http://maps.googleapis.com/maps/api/staticmap?size=600x600&markers={{$item->long}},{{$item->lat}}&maptype=hybrid&scale=2&zoom=15&sensor=false&label=Hello"  alt='Google Map'/>
+         <img src = "http://maps.googleapis.com/maps/api/staticmap?size=400x300&markers={{$item->long}},{{$item->lat}}&maptype=hybrid&scale=2&zoom=15&sensor=false&label=Hello"  alt='Google Map'/>
 
 
 </div>

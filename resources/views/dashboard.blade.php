@@ -112,73 +112,7 @@ mySidenav {
     </div>
   </div>
 
-  <div class="w3-container w3-section">
-    <div class="w3-row-padding" style="margin:0 -16px">
-      <div class="w3-third">
-        <h5>Office</h5>
-        <img src="img/protearoad.png" style="width:90%" alt="Google Regional Map"/>
 
-      </div>
-      <div class="w3-twothird">
-        <h5>Property24 Feeds</h5>
-        <table class="w3-table w3-striped w3-white">
-          <tr>
-            <td><i class="fa fa-user w3-blue w3-padding-tiny"></i></td>
-            <td>New record, over 90 views.</td>
-            <td><i>10 mins</i></td>
-          </tr>
-          <tr>
-            <td><i class="fa fa-bell w3-red w3-padding-tiny"></i></td>
-            <td>Database error.</td>
-            <td><i>15 mins</i></td>
-          </tr>
-          <tr>
-            <td><i class="fa fa-users w3-orange w3-text-white w3-padding-tiny"></i></td>
-            <td>New record, over 40 users.</td>
-            <td><i>17 mins</i></td>
-          </tr>
-          <tr>
-            <td><i class="fa fa-comment w3-red w3-padding-tiny"></i></td>
-            <td>New comments.</td>
-            <td><i>25 mins</i></td>
-          </tr>
-          <tr>
-            <td><i class="fa fa-bookmark w3-light-blue w3-padding-tiny"></i></td>
-            <td>Check transactions.</td>
-            <td><i>28 mins</i></td>
-          </tr>
-          <tr>
-            <td><i class="fa fa-laptop w3-red w3-padding-tiny"></i></td>
-            <td>CPU overload.</td>
-            <td><i>35 mins</i></td>
-          </tr>
-          <tr>
-            <td><i class="fa fa-share-alt w3-green w3-padding-tiny"></i></td>
-            <td>New shares.</td>
-            <td><i>39 mins</i></td>
-          </tr>
-        </table>
-      </div>
-    </div>
-  </div>
-  <hr>
-  <div class="w3-container">
-    <h5>General Stats</h5>
-    <p>New Visitors</p>
-    <div class="w3-grey">
-      <div class="w3-container w3-center w3-padding w3-green" style="width:25%">+25%</div>
-    </div>
-
-    <p>New Users</p>
-    <div class="w3-grey">
-      <div class="w3-container w3-center w3-padding w3-orange" style="width:50%">50%</div>
-    </div>
-
-    <p>Bounce Rate</p>
-    <div class="w3-grey">
-      <div class="w3-container w3-center w3-padding w3-red" style="width:75%">75%</div>
-    </div>
-  </div>
   <hr>
 
   <div class="w3-container">
@@ -188,6 +122,7 @@ mySidenav {
 
     @for($x = 0; $x < 6; $x++)
           <tr>
+          <td>{{$properties[$x]->created_at}}</td>
             <td>{{$properties[$x]->title}}</td>
             <td>{{$properties[$x]->type}}</td>
             <td>{{$properties[$x]->status}}</td>
@@ -195,8 +130,17 @@ mySidenav {
     @endfor
 
 
-    </table><br>
-    <button class="w3-button w3-dark-grey">Search Properties  <i class="fa fa-arrow-right"></i></button>
+    </table>
+    <!--
+     <div class="" style="z-index:-10 !important;float:right;">
+
+     </div>
+
+     -->
+    <br>
+
+
+    <a href="{{ url('/home') }}" class="w3-button w3-dark-grey" role="button">Search Properties  <i class="fa fa-arrow-right"></i></a>
   </div>
   <hr>
   <div class="w3-container">
@@ -204,11 +148,15 @@ mySidenav {
     <ul class="w3-ul w3-card-4 w3-white">
 
     @for($x = 0; $x < 4; $x++)
+    @if ( sizeof($properties[$x]->images) > 0 )
       <li class="w3-padding-32">
         <span onclick="this.parentElement.style.display='none'" class="w3-closebtn w3-padding w3-margin-right w3-medium">x</span>
+
         <img src="{{ 'property/' . $properties[$x]->id .'/'.  $properties[$x]->images[0]->name }}" class="w3-left  w3-margin-right" style="width:60px;height:60px;">
-        <span class="w3-xlarge">Erf: {{$properties[$x]->erf }} Unit: {{$properties[$x]->images[0]->id}}</span><br>
+
+        <span class="w3-small">Erf: {{$properties[$x]->erf }} <br>Unit: {{$properties[$x]->id}}</span><br>
       </li>
+      @endif
     @endfor
 
     </ul>
@@ -262,12 +210,12 @@ mySidenav {
     </div>
   </div>
 
-  <!-- Footer -->
+  <!-- Footer
   <footer class="w3-container w3-padding-16 w3-light-grey">
     <h4>FOOTER</h4>
     <p>Powered by <a href="https://www.proteadb.co.za/commprop" target="_blank">Paul</a></p>
   </footer>
-
+-->
   <!-- End page content -->
 </div>
 

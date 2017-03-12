@@ -226,7 +226,7 @@ small {
     left:0;
     bottom:0;
     top:-25px;
-    z-index:30;
+    z-index:1;
 }
 
 .captiontext {
@@ -361,16 +361,26 @@ small {
 
 
     <h1>@{{ item.title }}</h1>
-    <p>@{{ suburbs[item.area_id-1].name }}</p>
+    <p>@{{ suburbName(item.area_id) }}</p>
+
     <div class=" row border myprop" >
 
-             <div class='prop_img col-sm-4'>
+             <div class='prop_img col-sm-4' >
 
-                 <img :src="offlinePath+'/commprop/public/property/'+item.id+'/'+ item.images[0].name  " width="98%"  >
-                 <div class='caption'>
-                 <p class="captiontext"> @{{ item.images[0].caption }}</p>
-                    <a href="showproperty@{{item.id}}" class="camera"> <span class="glyphicon glyphicon-camera"></span> </a>
-                 </div>
+                   <div v-if ="item.images[0]">
+                     <img :src="offlinePath+'/commprop/public/property/'+item.id+'/'+ item.images[0].name  " width="98%"  >
+                     <div class='caption'>
+                     <p class="captiontext"> @{{ item.images[0].caption }}</p>
+                        <a href="showproperty@{{item.id}}" class="camera"> <span class="glyphicon glyphicon-camera"></span> </a>
+                     </div>
+                    </div>
+                     <div v-else>
+                     <img :src="offlinePath+'/commprop/public/img/building_small.jpg'" width="98%"  >
+                                          <div class='caption'>
+                     <p class="captiontext">This property has no Image</p>
+                        <a href="showproperty@{{item.id}}" class="camera"> <span class="glyphicon glyphicon-camera"></span> </a>
+                     </div>
+                    </div>
 
              </div>
 
@@ -464,7 +474,7 @@ small {
                                 Unit  @{{ unit.id }}
                             </td>
                             <td>
-                                @{{  ptypes[ unit.property_type_id -1].name }}
+                                @{{  propertyTypeName( unit.property_type_id ) }}   @{{  saleTypeName( unit.sale_type_id ) }}
 
                             </td>
                             <td>
@@ -575,7 +585,7 @@ small {
                         <label for="Firstname">Suburb:</label>
 
                         <select  id ='area_id' name='area_id' class="form-control "  v-model="newItem.area_id"  style="width: 100%;"  >
-                           <option value="" disabled selected hidden>Please select an area...</option>
+                           <option value="" disabled selected hidden>Please select a suburb...</option>
                                <option v-for="suburb in suburbs" v-bind:value="suburb.id"  >
                                     @{{ suburb.name }}
                                </option>
@@ -651,13 +661,16 @@ small {
                     </div>
 
                     <div class="form-group">
-                        <label for="Firstname">Area:</label>
+                        <label for="Firstname">Suburb:</label>
 
-                        <select  id ='area_id' name='area_id' class="form-control "  v-model="fillItem.area_id"  style="width: 100%;"  >
-                               <option value="null" disabled selected hidden>Please select an area...</option>
-                               <option v-for="area in areas" value=" @{{ area.id }}" >
-                                    @{{ area.name }}
-                               </option>
+                      <!--  <select  id ='area_id' name='area_id' class="form-control "  v-model="fillItem.area_id"  style="width: 100%;"  >   -->
+
+   <select id="area_id" name="area_id" class="selectpicker form-control"    data-live-search="true" title="Please select suburb(s)"  v-model="fillItem.area_id" >
+
+
+                                       <optgroup v-for="area in areas" label="@{{ area.name }}">
+                                          <option   v-for="suburb in area.suburbs" data-content="<span class='label label-default'> @{{ suburb.name }}</span>" v-bind:value="suburb.id" > @{{ area.name }}</option>
+                                        </optgroup>
                         </select>
 
                         <span v-if="formErrorsUpdate['area_id']" class="error text-danger">@{{ formErrorsUpdate['area_id'] }}</span>

@@ -86,7 +86,7 @@ mySidenav {
 <form id="search-form"  name="contact-form" action="{{route('/psearch')}}" method="get">
 
 <!--  areas  -->
-  <select name="areas[]" class="selectpicker" multiple data-width="75%" title="Please select suburb(s)">
+  <select name="areas[]" class="selectpicker" multiple data-width="100%" title="Please select suburb(s)">
 
       @foreach ($areas as $area)
             <optgroup label="{{$area->name}}">
@@ -101,7 +101,7 @@ mySidenav {
   </select>
 
 <!--  prop types  -->
-  <select name="ptypes[]" class="selectpicker" multiple data-width="75%" title="Please select property type(s)">
+  <select name="ptypes[]" class="selectpicker" multiple data-width="100%" title="Please select property type(s)">
 
 
             <optgroup label="Property Types">
@@ -117,7 +117,7 @@ mySidenav {
 
 
 <!--  sales types  -->
-  <select name="stypes[]" class="selectpicker" multiple data-width="75%" title="Please select sales type(s)">
+  <select name="stypes[]" class="selectpicker" multiple data-width="100%" title="Please select sales type(s)">
 
 
             <optgroup label="Sales Types">
@@ -133,7 +133,7 @@ mySidenav {
 
 
 <!--  status  -->
-  <select name="status[]" class="selectpicker" multiple data-width="75%" title="Please select status(s)">
+  <select name="status[]" class="selectpicker" multiple data-width="100%" title="Please select status(s)">
 
 
             <optgroup label="Property Status">
@@ -149,9 +149,9 @@ mySidenav {
   </select>
 
 <!--  min  -->
-  <input type="text" class="form-control" name="min" style="width:75%" placeholder="Min size">
+  <input type="text" class="form-control" name="min" style="width:100%" placeholder="Min size">
   <!--  max  -->
-  <input type="text" class="form-control" name="max" style="width:75%" placeholder="Min size">
+  <input type="text" class="form-control" name="max" style="width:100%" placeholder="Min size">
 
 
 
@@ -216,7 +216,7 @@ mySidenav {
                      </table>
       </div>
 
-     <div class="right" style="z-index:-10 !important;float:right;">
+     <div class="" style="z-index:-10 !important;float:right;">
           {{$properties->links()}}
      </div>
 

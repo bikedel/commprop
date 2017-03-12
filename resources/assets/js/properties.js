@@ -21,7 +21,9 @@ Vue.filter('uppercase',function(value){
 Vue.filter('dateFrom',function(value){
   //return moment(value).format('Do MMMM YYYY');
   //return moment.tz(value,'Africa/Johannesburg').fromNow();
-  return moment(value).fromNow();
+ // moment().subtract(4, 'hours');
+  return moment(value).add(2, 'hours').fromNow();
+
 });
 
 Vue.filter('dateNormal',function(value){
@@ -131,7 +133,6 @@ data:  {
         s_minsize: '',
         s_maxsize: '',
 
-
     },
 
 
@@ -157,7 +158,9 @@ data:  {
                 from++;
             }
             return pagesArray;
-        }
+        },
+
+ 
     },
 
 
@@ -215,6 +218,7 @@ data:  {
               this.$set('users', response.data.users);
               this.$set('areas', response.data.areas);
                this.$set('suburbs', response.data.suburbs);
+               console.log('suburbs loaded');
               this.$set('stypes', response.data.stypes);
               this.$set('ptypes', response.data.ptypes);
             });
@@ -236,8 +240,8 @@ data:  {
 
 
 
-          console.log(this.s_area);
-          console.log(this.s_area.length);
+         // console.log(this.s_area);
+         // console.log(this.s_area.length);
 
 
           data.append('s_stype',this.s_stype);
@@ -604,9 +608,11 @@ data:  {
          // $('.form-group').each(function () { $(this).closest("span").removeClass('error text-danger'); });
          //  $('.form-group').each(function () { $(this).removeClass('form-control'); });
       //    $( ".text-danger" ).remove();
-console.log('reset search');
-$('.selectpicker').selectpicker('deselectAll');
-$('.selectpicker').actionsBox('true');
+
+
+      console.log('reset search');
+      $('.selectpicker').selectpicker('deselectAll');
+
 
 
 
@@ -636,6 +642,40 @@ $('.selectpicker').actionsBox('true');
         alert("change log");
         $('#log').append(str + "<br>");
       },
+
+
+    // get suburb name
+    suburbName: function (suburb_id) {
+          for(var i = 0; i < this.suburbs.length; i++){
+              if (this.suburbs[i].id == suburb_id ){
+                     return this.suburbs[i].name ;
+              }  
+          }
+          return "error" ;  
+   
+     },
+
+    // get ptype name
+    propertyTypeName: function (property_type_id) {
+          for(var i = 0; i < this.ptypes.length; i++){
+              if (this.ptypes[i].id == property_type_id ){
+                     return this.ptypes[i].name ;
+              }  
+          }
+          return "error" ;  
+   
+     },
+
+    // get stype name
+    saleTypeName: function (sale_type_id) {
+          for(var i = 0; i < this.stypes.length; i++){
+              if (this.stypes[i].id == sale_type_id ){
+                     return this.stypes[i].name ;
+              }  
+          }
+          return "error" ;  
+   
+     },
 
       changePage: function (page) {
           this.pagination.current_page = page;

@@ -83,7 +83,7 @@ class VuePropertyController extends Controller
 
         $users   = User::all();
         $areas   = Area::with('suburbs')->get();
-        $suburbs = Suburb::all();
+        $suburbs = Suburb::orderBy('id')->get();
         $stypes  = SaleType::all();
         $ptypes  = PropertyType::all();
 
@@ -109,7 +109,7 @@ class VuePropertyController extends Controller
     public function search(Request $request, $search)
     {
 
-        $areas = Area::with('suburbs')->select('id')->get();
+        $areas = Suburb::select('id')->get();
 
         $erf     = $request->input('s_erf');
         $area    = $request->input('s_area');
@@ -139,7 +139,7 @@ class VuePropertyController extends Controller
 
         // if array is empty then select all areas
         if (sizeof($area) <= 0) {
-
+            $area = $areas;
         } else {
             $noseach = 1;
             $area    = $sel;
@@ -253,7 +253,7 @@ class VuePropertyController extends Controller
         $tosave['title']       = $request->input('title');
         $tosave['address']     = $request->input('address');
         $tosave['description'] = $request->input('description');
-        $tosave['area_id']     = $request->input('area_id') - 1;
+        $tosave['area_id']     = $request->input('area_id');
 
         $tosave = $request->except(['id']);
         $tosave = $request->except(['area']);
@@ -493,7 +493,7 @@ $image->save();
         $tosave['title']       = $request->input('title');
         $tosave['address']     = $request->input('address');
         $tosave['description'] = $request->input('description');
-        $tosave['area_id']     = $request->input('area_id') - 1;
+        $tosave['area_id']     = $request->input('area_id');
 
         $tosave = $request->except(['id']);
         $tosave = $request->except(['query_myTextEditBox']);

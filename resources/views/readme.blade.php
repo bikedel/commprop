@@ -131,6 +131,13 @@ body {
 <li  class="list-group-item">  <span class="badge">46</span>showunit rest api</li>
 <li  class="list-group-item">  <span class="badge">47</span>auth from Arnold - private prop and prop24 api</li>
 <li  class="list-group-item">  <span class="badge">48</span>add user - set role default</li>
+<li  class="list-group-item">  <span class="badge">49</span>vue suburb / ptype /stype </li>
+<li  class="list-group-item">  <span class="badge">50</span>brochure fix  suburb / ptype /stype - cant use array index</li>
+<li  class="list-group-item">  <span class="badge">51</span>dashboard</li>
+<li  class="list-group-item">  <span class="badge">52</span>dashboard sidebar partial</li>
+<li  class="list-group-item">  <span class="badge">53</span>bootstrap-select multi</li>
+<li  class="list-group-item">  <span class="badge">54</span>entegral oms</li>
+
 </ul>
 </div>
         <button type="button" class="btn btn-default btn-sm pull-right">

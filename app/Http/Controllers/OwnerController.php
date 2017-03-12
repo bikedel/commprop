@@ -4,13 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Area;
 use App\Http\Controllers\Controller;
+use App\Owner;
+use App\Property;
 use App\PropertyType;
 use App\SaleType;
-use App\Suburb;
-use App\Unit;
 use Illuminate\Http\Request;
 
-class UnitController extends Controller
+class OwnerController extends Controller
 {
 
     public function __construct()
@@ -25,7 +25,14 @@ class UnitController extends Controller
      */
     public function index()
     {
-        //
+        $areas  = Area::all();
+        $stypes = SaleType::all();
+        $ptypes = PropertyType::all();
+
+        $owners = Owner::latest()->paginate(10);
+        $owners->load('properties');
+        //dd($property);
+        return view('dashboard2', compact('owners', 'areas', 'stypes', 'ptypes'));
     }
 
     /**
@@ -57,17 +64,14 @@ class UnitController extends Controller
      */
     public function show($id)
     {
-        $areas   = Area::all();
-        $suburbs = Suburb::all();
-        $stypes  = SaleType::all();
-        $ptypes  = PropertyType::all();
+        $areas  = Area::all();
+        $stypes = SaleType::all();
+        $ptypes = PropertyType::all();
 
-        $unit = Unit::find($id);
-        if ($unit) {
-            $unit->load('property', 'images', 'notes', 'owners');
-        }
-        //dd($unit, $unit->property->id);
-        return view('showunit', compact('unit', 'areas', 'suburbs', 'stypes', 'ptypes'));
+        $property = Property::find($id);
+        $property->load('units', 'images', 'notes', 'owners');
+        //dd($property);
+        return view('showproperty', compact('property', 'areas', 'stypes', 'ptypes'));
     }
 
     /**

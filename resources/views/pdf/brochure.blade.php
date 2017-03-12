@@ -131,7 +131,7 @@ table, tr, td, th, tbody, thead, tfoot {
 
 <div class="container-fluid">
 <header><h1>{{$item->title}}</h1></header>
-<h2> {{$areas[$item->area_id-1]->name}} </h2>
+<h2> {{$suburbs[$item->area_id-1]->name}} </h2>
 
 <p> {{$item->description}} </p>
 

@@ -15,6 +15,11 @@
 
      <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css rel="stylesheet">
 
+  <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
+
+
+
 <style type="text/css">
 
 /*
@@ -248,6 +253,12 @@ small {
     border-bottom: none !important;
     background-color:white;
 }
+
+.pagination>.active>a, .pagination>.active>span, .pagination>.active>a:hover, .pagination>.active>span:hover, .pagination>.active>a:focus, .pagination>.active>span:focus {
+    z-index: -100;
+
+}
+
 </style>
 
 
@@ -264,12 +275,22 @@ small {
 <br>
                         <input id='s_erf' type="text"  class="form-control" style="width:100px" placeholder="Erf" v-model="s_erf" />
 
+<!--
                         <select  id ='s_area'  name='s_area' class="form-control "   v-model="s_area"   >
                            <option value="0"  selected >All areas</option>
                                <option v-for="area in areas" v-bind:value="area.id"  >
                                     @{{ area.name }}
                                </option>
                         </select>
+-->
+
+                        <!--  areas  -->
+                          <select id="picker" name="sel[]" class="selectpicker" multiple data-width="200"  data-liveSearchPlaceholder="Search" data-live-search="true" title="Please select suburb(s)"  v-model="s_area" >
+                                       <optgroup v-for="area in areas" label="@{{ area.name }}">
+                                          <option   v-for="suburb in area.suburbs" data-content="<span class='label label-default'> @{{ suburb.name }}</span>" v-bind:value="suburb.id" > @{{ area.name }}</option>
+                                        </optgroup>
+                          </select>
+
 
                         <select  id ='s_ptype'  class="form-control "   v-model="s_ptype"    >
                            <option value="0"  selected >All properties</option>
@@ -307,7 +328,7 @@ small {
 
 
         <!-- Pagination -->
-        <nav>
+        <nav style="z-index:-100;">
             <ul class="pagination .pagination-sm">
             <li> <button class="btn btn-success newprop" @click.prevent="createForms">New Property</button> </li>
             <li><button type="button" class="btn btn-default total" disabled >@{{pagination.total}} records</button></li>
@@ -340,7 +361,7 @@ small {
 
 
     <h1>@{{ item.title }}</h1>
-    <p>@{{ areas[item.area_id-1].name }}</p>
+    <p>@{{ suburbs[item.area_id-1].name }}</p>
     <div class=" row border myprop" >
 
              <div class='prop_img col-sm-4'>
@@ -551,12 +572,12 @@ small {
                     </div>
 
                     <div class="form-group">
-                        <label for="Firstname">Area:</label>
+                        <label for="Firstname">Suburb:</label>
 
                         <select  id ='area_id' name='area_id' class="form-control "  v-model="newItem.area_id"  style="width: 100%;"  >
                            <option value="" disabled selected hidden>Please select an area...</option>
-                               <option v-for="area in areas" v-bind:value="area.id"  >
-                                    @{{ area.name }}
+                               <option v-for="suburb in suburbs" v-bind:value="suburb.id"  >
+                                    @{{ suburb.name }}
                                </option>
                         </select>
 
@@ -945,14 +966,21 @@ small {
 
 
 
+
     <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.2.4.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.26/vue.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/vue.resource/0.9.3/vue-resource.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/toastr/2.1.3/toastr.min.js"></script>
 
-
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
     <!--<script src="js/properties.js"></script>-->
     <script type="text/javascript" src="{!! asset('js/properties.js') !!}"></script>
 
+<script>
+$( document ).ready(function() {
+    console.log( "ready!" );
 
+});
+</script>
     @endsection

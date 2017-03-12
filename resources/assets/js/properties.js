@@ -1,5 +1,4 @@
 
-
 Vue.http.headers.common['X-CSRF-TOKEN'] = $("#token").attr("value");
 
 Vue.http.interceptors.push(function (request, next) {
@@ -57,6 +56,7 @@ data:  {
     items: [],
     users: [],
     areas: [],
+    suburbs: [],
     ptypes: [],
     stypes: [],
 
@@ -125,7 +125,7 @@ data:  {
     },
 
         s_erf: '',
-        s_area: '',
+        s_area: [],
         s_stype: '',
         s_ptype: '',
         s_minsize: '',
@@ -214,6 +214,7 @@ data:  {
             this.$http.get(this.offlinePath+'/commprop/public/vuepropertiesSelects').then((response) => {
               this.$set('users', response.data.users);
               this.$set('areas', response.data.areas);
+               this.$set('suburbs', response.data.suburbs);
               this.$set('stypes', response.data.stypes);
               this.$set('ptypes', response.data.ptypes);
             });
@@ -228,9 +229,17 @@ data:  {
 
           // then in your code...
           let data = new FormData(document.getElementById('search'));
-       
+
+
           data.append('s_erf',this.s_erf);
           data.append('s_area',this.s_area);
+
+
+
+          console.log(this.s_area);
+          console.log(this.s_area.length);
+
+
           data.append('s_stype',this.s_stype);
           data.append('s_ptype',this.s_ptype);
           data.append('s_minsize',this.s_minsize);
@@ -241,6 +250,7 @@ data:  {
 
            // clear search
            if (!input) {
+            console.log('has no search data');
             this.$http.get(this.offlinePath+'/commprop/public/vueproperties?page='+page).then((response) => {
               this.$set('items', response.data.data.data);
               this.$set('pagination', response.data.pagination);
@@ -595,8 +605,13 @@ data:  {
          //  $('.form-group').each(function () { $(this).removeClass('form-control'); });
       //    $( ".text-danger" ).remove();
 console.log('reset search');
+$('.selectpicker').selectpicker('deselectAll');
+$('.selectpicker').actionsBox('true');
+
+
+
         this.s_erf= '';
-        this.s_area= 0;
+        this.s_area= [];
         this.s_stype= 0;
         this.s_ptype= 0;
         this.s_minsize= '';

@@ -2,7 +2,6 @@
 
 namespace App;
 
-use App\Property;
 use Illuminate\Database\Eloquent\Model;
 
 class Owner extends Model
@@ -10,7 +9,7 @@ class Owner extends Model
     //
     protected $guarded = [];
 
-    public function property()
+    public function properties()
     {
         return $this->belongsTo('App\Property');
     }

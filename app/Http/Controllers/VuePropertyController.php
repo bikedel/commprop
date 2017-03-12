@@ -11,6 +11,7 @@ use App\Owner;
 use App\Property;
 use App\PropertyType;
 use App\SaleType;
+use App\Suburb;
 use App\Unit;
 use App\User;
 use Auth;
@@ -80,19 +81,21 @@ class VuePropertyController extends Controller
     public function selects(Request $request)
     {
 
-        $users  = User::all();
-        $areas  = Area::all();
-        $stypes = SaleType::all();
-        $ptypes = PropertyType::all();
+        $users   = User::all();
+        $areas   = Area::with('suburbs')->get();
+        $suburbs = Suburb::all();
+        $stypes  = SaleType::all();
+        $ptypes  = PropertyType::all();
 
         // $streets = Street::on($database)->select('id', 'strStreetName')->get();
 
         //array_unshift($users, ['name' => 'Select ']);
         $response = [
-            'users'  => $users,
-            'areas'  => $areas,
-            'stypes' => $stypes,
-            'ptypes' => $ptypes,
+            'users'   => $users,
+            'areas'   => $areas,
+            'suburbs' => $suburbs,
+            'stypes'  => $stypes,
+            'ptypes'  => $ptypes,
         ];
 
         return response()->json($response);
@@ -106,6 +109,8 @@ class VuePropertyController extends Controller
     public function search(Request $request, $search)
     {
 
+        $areas = Area::with('suburbs')->select('id')->get();
+
         $erf     = $request->input('s_erf');
         $area    = $request->input('s_area');
         $ptype   = $request->input('s_ptype');
@@ -113,6 +118,8 @@ class VuePropertyController extends Controller
         $minsize = $request->input('s_minsize');
         $maxsize = $request->input('s_maxsize');
 
+        // sel is the selected areas - vue issue with v-model
+        $sel     = $request->input('sel');
         $noseach = 0;
 
         // get search criteria
@@ -130,11 +137,12 @@ class VuePropertyController extends Controller
             $noseach  = 1;
         }
 
-        if ($area == 0) {
-            $aaction = ">";
+        // if array is empty then select all areas
+        if (sizeof($area) <= 0) {
+
         } else {
-            $aaction = "=";
-            //$noseach = 1;
+            $noseach = 1;
+            $area    = $sel;
         }
 
         if ($ptype == 0) {
@@ -171,10 +179,10 @@ class VuePropertyController extends Controller
 
             // if nosearch is set then do search else return all
             if ($noseach == 1) {
-                $items = Property::where('area_id', $aaction, $area)->whereHas('units', function ($query) use ($ptype, $paction, $stype, $saction, $minsize, $maxsize) {$query->where('size', '>', $minsize)->where('size', '<', $maxsize)->where('property_type_id', $paction, $ptype)->where('sale_type_id', $saction, $stype);})->with(['units' => function ($query) use ($ptype, $paction, $stype, $saction, $minsize, $maxsize) {$query->where('size', '>', $minsize)->where('size', '<', $maxsize)->where('property_type_id', $paction, $ptype)->where('sale_type_id', $saction, $stype);}])->with('images', 'notes', 'owners')->paginate(10);
+                $items = Property::whereIn('area_id', $area)->whereHas('units', function ($query) use ($ptype, $paction, $stype, $saction, $minsize, $maxsize) {$query->where('size', '>', $minsize)->where('size', '<', $maxsize)->where('property_type_id', $paction, $ptype)->where('sale_type_id', $saction, $stype);})->with(['units' => function ($query) use ($ptype, $paction, $stype, $saction, $minsize, $maxsize) {$query->where('size', '>', $minsize)->where('size', '<', $maxsize)->where('property_type_id', $paction, $ptype)->where('sale_type_id', $saction, $stype);}])->with('images', 'notes', 'owners')->paginate(5);
             } else {
 
-                $items = Property::where('area_id', $aaction, $area)->latest()->paginate(5);
+                $items = Property::latest()->paginate(5);
                 $items->load('units', 'images', 'notes', 'owners');
 
             }
@@ -551,10 +559,11 @@ $image->save();
         // $img = Barryvdh\Snappy\Facades\SnappyImage::loadView('readme');
         // return $img->download('test.pdf');
 
-        $users  = User::all();
-        $areas  = Area::all();
-        $stypes = SaleType::all();
-        $ptypes = PropertyType::all();
+        $users   = User::all();
+        $areas   = Area::all();
+        $suburbs = Suburb::all();
+        $stypes  = SaleType::all();
+        $ptypes  = PropertyType::all();
         //dd('test pdf');
         $item = Property::find($item);
         $item->load('units', 'images', 'notes', 'owners');
@@ -572,9 +581,9 @@ $image->save();
         // PDF::loadHTML($html)->setOption('footer-center', 'Page [page]')->save('myfile.pdf');
         $cover = '<div class="flexme" <h1>Sotheby Brochure</h1></div>';
 
-        return PDF::loadView('pdf.brochure', compact('item', 'areas', 'ptypes', 'stypes', 'users'))->setOption('margin-bottom', 10)->setOption('footer-html', "<img src = '{{public_path()}}/img/sothebys_logo_flat.jpeg' />")->setOption('footer-center', 'Page [page]')->setOption('header-center', date('D d M Y'))->download('Property_brochure_erf' . $item->erf . '.pdf');
+        return PDF::loadView('pdf.brochure', compact('item', 'areas', 'suburbs', 'ptypes', 'stypes', 'users'))->setOption('margin-bottom', 10)->setOption('footer-center', 'Page [page]')->setOption('header-center', date('D d M Y'))->download('Property_brochure_erf' . $item->erf . '.pdf');
         //  return response()->json(['done']);
-
+        //->setOption('footer-html', "<img src = '{{public_path()}}/img/sothebys_logo_flat.jpeg' />")
         //return PDF::loadView('pdf.brochure', compact('item', 'areas', 'ptypes', 'stypes', 'users'))->setOption('margin-bottom', 0)->setOption('footer-center', 'Page [page]')->setOption('cover', $cover)->download('Property_brochure_erf' . $item->erf . '.pdf');
 
     }

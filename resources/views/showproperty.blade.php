@@ -247,7 +247,7 @@ small {
 	  <div class="col-md-6">
 
 			<h1>{{$property->title}}</h1>
-            <p> {{$areas[$property->area_id-1]->name }}</p>
+            <p> {{$suburbs[$property->area_id-1]->name }}</p>
             <!-- <p> {{$property->address }}</p> -->
 			<div class="flexslider flexImg" style="width:600px;">
 			  <ul class="slides">

@@ -18,8 +18,16 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/dashboard', 'HomeController@dashboard');
+
+Route::get('/owners', 'OwnerController@index');
+
+Route::get('/properties', 'PropertyController@index');
+Route::get('/psearch', 'PropertyController@search')->name('/psearch');
+
 //Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/owners', 'OwnerController@index');
 
 Route::post('/propsearch', 'HomeController@propsearch')->name('propsearch');
 Route::get('/propsearch', 'HomeController@propsearch')->name('propsearch');

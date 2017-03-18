@@ -984,7 +984,7 @@ small {
 
 
     <!--<script src="js/properties.js"></script>-->
-    <script type="text/javascript" src="{!! asset("js/properties.js?v=Cache::get('js_version_number')" !!}"></script>
+    <script type="text/javascript" src="js/properties.js" "></script>
 
 <script>
 // Can also be used with $(document).ready()

@@ -12,7 +12,7 @@ window.Vue2Filters = require('vue2-filters');
 window.$ = window.jQuery = require('jquery');
 
 window.toastr = require('toastr');
-window.$ = window.bootstrapSelect = require('bootstrap-select');
+window.bootstrapSelect = require('bootstrap-select');
 
 window.axios = require('axios');
 

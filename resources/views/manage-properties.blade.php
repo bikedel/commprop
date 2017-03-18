@@ -989,7 +989,7 @@ small {
 <script>
 // Can also be used with $(document).ready()
 $(window).load(function() {
-window.$('.selectpicker').selectpicker();
+window.$('.selectpicker').selectpicker('refresh');
 });
 </script>
 

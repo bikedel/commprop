@@ -984,8 +984,8 @@ small {
 
 
     <!--<script src="js/properties.js"></script>-->
-    <script type="text/javascript" src="{!! asset('js/properties.js') !!}"></script>
-  <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.2.4.min.js"></script>
+    <script type="text/javascript" src="{!! asset('js/properties.js?v={{ Cache::get('js_version_number') }}') !!}"></script>
+
 <script>
 // Can also be used with $(document).ready()
 $(window).load(function() {

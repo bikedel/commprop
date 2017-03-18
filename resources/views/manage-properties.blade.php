@@ -359,7 +359,7 @@ small {
 
 
 
-    <h1>@{{ item.title | lowercase }}</h1>
+    <h1>@{{ item.title }}</h1>
     <p>@{{ suburbName(item.area_id) }}</p>
 
     <div class=" row border myprop" >
@@ -984,14 +984,8 @@ small {
 
 
     <!--<script src="js/properties.js"></script>-->
-    <script type="text/javascript" src="js/properties.js?v={{strtotime('now')}}" ></script>
+    <script type="text/javascript" src="js/properties.js" ></script>
 
-<script>
-// Can also be used with $(document).ready()
-$(window).load(function() {
-window.$('.selectpicker').selectpicker('refresh');
-});
-</script>
 
 
 

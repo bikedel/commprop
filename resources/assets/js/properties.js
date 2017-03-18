@@ -231,8 +231,11 @@ data:  {
                     "hideMethod": "fadeOut"
                 };
                //  console.log("refresh picker");
-                $('.selectpicker').selectpicker('refresh');
+                
+    setTimeout(function() {
 
+      $('.selectpicker').selectpicker('refresh');
+    }, 5000);
 
         });
 

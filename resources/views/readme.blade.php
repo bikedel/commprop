@@ -135,6 +135,7 @@ body {
 <li  class="list-group-item">  <span class="badge">57</span>gulp --production</li>
 <li  class="list-group-item">  <span class="badge">57</span>date order filter - notes and owners</li>
 <li  class="list-group-item">  <span class="badge">57</span>https://github.com/freearhey/vue2-filters</li>
+<li  class="list-group-item">  <span class="badge">57</span>disable cache on server .htaccess selectpicker</li>
 
 
 

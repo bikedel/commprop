@@ -984,7 +984,7 @@ small {
 
 
     <!--<script src="js/properties.js"></script>-->
-    <script type="text/javascript" src="js/properties.js?v={{ date('h:i:sa') }}" ></script>
+    <script type="text/javascript" src="js/properties.js?v={{strtotime('now')}}" ></script>
 
 <script>
 // Can also be used with $(document).ready()

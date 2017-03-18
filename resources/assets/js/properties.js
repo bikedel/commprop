@@ -231,7 +231,7 @@ data:  {
                     "hideMethod": "fadeOut"
                 };
                //  console.log("refresh picker");
-              //  $('.selectpicker').selectpicker('refresh');
+                $('.selectpicker').selectpicker('refresh');
 
 
         });

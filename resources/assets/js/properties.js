@@ -232,12 +232,15 @@ data:  {
                 };
                //  console.log("refresh picker");
                 
-    setTimeout(function() {
+                setTimeout(function() {
+                  $('.selectpicker').selectpicker('refresh');
+                }, 3000);
 
-      $('.selectpicker').selectpicker('refresh');
-    }, 5000);
+                setTimeout(function() {
+                  $('.selectpicker').selectpicker('refresh');
+                }, 5000);
 
-        });
+          });
 
   },
 
@@ -485,7 +488,7 @@ data:  {
       deleteItem: function(item){
 
 
-          Vue.http.options.emulateJSON = true;
+         // Vue.http.options.emulateJSON = true;
 
           var result = confirm("Are you sure you would like to delete this Property?");
           if (result) {
@@ -616,7 +619,7 @@ data:  {
           if (this.fillNote.newnote.length > 0 ){
 
 
-                Vue.http.options.emulateJSON = true;
+              //  Vue.http.options.emulateJSON = true;
 
                 // then in your code...
                 let data = new FormData(document.getElementById('createNote'));
@@ -697,7 +700,7 @@ data:  {
 
           // only add it test in newnote
 
-                Vue.http.options.emulateJSON = true;
+            //    Vue.http.options.emulateJSON = true;
 
                 // then in your code...
                 let data = new FormData(document.getElementById('createOwner'));

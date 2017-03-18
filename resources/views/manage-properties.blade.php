@@ -984,7 +984,7 @@ small {
 
 
     <!--<script src="js/properties.js"></script>-->
-    <script type="text/javascript" src="js/properties.js" "></script>
+    <script type="text/javascript" src="js/properties.js?v={{ date() }}" ></script>
 
 <script>
 // Can also be used with $(document).ready()

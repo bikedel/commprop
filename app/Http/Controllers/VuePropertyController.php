@@ -106,7 +106,8 @@ class VuePropertyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function search(Request $request, $search)
+    //public function search(Request $request, $search)
+    public function search(Request $request)
     {
 
         $areas = Suburb::select('id')->get();
@@ -117,6 +118,14 @@ class VuePropertyController extends Controller
         $stype   = $request->input('s_stype');
         $minsize = $request->input('s_minsize');
         $maxsize = $request->input('s_maxsize');
+
+        if ($ptype == "0") {
+            $ptype = 0;
+        }
+
+        if ($stype == "0") {
+            $stype = 0;
+        }
 
         // sel is the selected areas - vue issue with v-model
         $sel     = $request->input('sel');
@@ -180,6 +189,7 @@ class VuePropertyController extends Controller
             // if nosearch is set then do search else return all
             if ($noseach == 1) {
                 $items = Property::whereIn('area_id', $area)->whereHas('units', function ($query) use ($ptype, $paction, $stype, $saction, $minsize, $maxsize) {$query->where('size', '>', $minsize)->where('size', '<', $maxsize)->where('property_type_id', $paction, $ptype)->where('sale_type_id', $saction, $stype);})->with(['units' => function ($query) use ($ptype, $paction, $stype, $saction, $minsize, $maxsize) {$query->where('size', '>', $minsize)->where('size', '<', $maxsize)->where('property_type_id', $paction, $ptype)->where('sale_type_id', $saction, $stype);}])->with('images', 'notes', 'owners')->paginate(5);
+
             } else {
 
                 $items = Property::latest()->paginate(5);
@@ -335,12 +345,15 @@ $image->save();
     {
 
         $rules = array(
-            'property_type_id' => 'required',
-            'sale_type_id'     => 'required',
+            'property_type_id' => 'numeric|min:1',
+            'sale_type_id'     => 'numeric|min:1',
+            'size'             => 'numeric|min:0',
+            'price'            => 'numeric|min:0',
         );
 
         $messsages = array(
-
+            'min'     => 'This field is required',
+            'numeric' => 'This field is required and must be numeric',
         );
 
         $validator = \Illuminate\Support\Facades\Validator::make($request->all(), $rules, $messsages);

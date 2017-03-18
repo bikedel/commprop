@@ -1,10 +1,34 @@
 
-Vue.http.headers.common['X-CSRF-TOKEN'] = $("#token").attr("value");
+window._ = require('lodash');
 
-Vue.http.interceptors.push(function (request, next) {
-    request.headers['X-CSRF-TOKEN'] = Laravel.csrfToken;
-    next();
-});
+window.Vue = require('vue');
+
+//window.vueResource = require('vue-resource');
+
+window.sortable = require('sortablejs');
+
+window.Vue2Filters = require('vue2-filters');
+
+window.$ = window.jQuery = require('jquery');
+
+window.toastr = require('toastr');
+window.$ = window.bootstrapSelect = require('bootstrap-select');
+
+window.axios = require('axios');
+
+
+
+window.axios.defaults.headers.common = {
+    'X-Requested-With': 'XMLHttpRequest',
+    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+};
+
+
+
+
+//window.vueResource = require('vue-resource');
+
+require('bootstrap-sass');
 
 
 
@@ -30,17 +54,21 @@ Vue.filter('dateNormal',function(value){
   return moment(value).format('Do MMMM YYYY');
 
 });
+
+Vue.filter('reverse', function(value) {
+  // slice to make a copy of array, then reverse the copy
+  return value.slice().reverse();
+});
+
+Vue.component('child', {
+  props: ['text'],
+  template: `<div><h1>{{ text }}</h1><div>`
+});
 //Vue.component('drop', require('./components/DropDown.vue'));
 //Vue.component('Multiselect', VueMultiselect.Multiselect)
 
 
-
-Vue.directive('sortable', {
-  inserted: function (el, binding) {
-    new Sortable(el, binding.value || {})
-  }
-})
-
+Vue.config.ignoredElements = ['blue','red'];
 
 const vm = new Vue({
 
@@ -99,8 +127,8 @@ data:  {
 
  
     newUnit : {
-         'property_type_id':'',
-         'sale_type_id':'',
+         'property_type_id':'0',
+         'sale_type_id':'0',
          'size':'',
          'price':'',
     },
@@ -128,8 +156,8 @@ data:  {
 
         s_erf: '',
         s_area: [],
-        s_stype: '',
-        s_ptype: '',
+        s_stype: '0',
+        s_ptype: '0',
         s_minsize: '',
         s_maxsize: '',
 
@@ -165,85 +193,142 @@ data:  {
 
 
 
-  ready : function(){
+  mounted : function(){
+
+
+         this.$nextTick(function () {
+             //  console.log("starting properties.js");
+
+
+              // get all select box data
+              this.getVueSelects();
+//console.log("loaded selects");
+
+              // get all items
+          		this.getVueItems(this.pagination.current_page);
+              
+            //  console.log("loaded main items");
 
 
 
-      // get all items
-  		this.getVueItems(this.pagination.current_page);
-      
+              
 
-      // get all select box data
-      this.getVueSelects();
+                toastr.options = {
+                    "closeButton": true,
+                    "debug": false,
+                    "newestOnTop": false,
+                    "progressBar": true,
+                    "positionClass": "toast-top-center",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                };
+               //  console.log("refresh picker");
+              //  $('.selectpicker').selectpicker('refresh');
 
 
-        toastr.options = {
-            "closeButton": true,
-            "debug": false,
-            "newestOnTop": false,
-            "progressBar": true,
-            "positionClass": "toast-top-center",
-            "preventDuplicates": false,
-            "onclick": null,
-            "showDuration": "300",
-            "hideDuration": "1000",
-            "timeOut": "5000",
-            "extendedTimeOut": "1000",
-            "showEasing": "swing",
-            "hideEasing": "linear",
-            "showMethod": "fadeIn",
-            "hideMethod": "fadeOut"
-        };
-
+        });
 
   },
 
   methods : {
 
- 
-        moment: {},
 
         getVueItems: function(page){
+
+          var vm = this; 
+
+          axios.get(vm.offlinePath+'/commprop/public/vueproperties?page='+page).then(function (response) {
+              //  axios.get(this.offlinePath+'/commprop/public/vuepropertiesSelects?page='+page).then(function (response) {
+
+            vm.items = response.data.data.data;
+            vm.pagination = response.data.pagination;
+
+           // console.log("axios getVueItems completed");
+
+          })
+          .catch(function (error) {
+        //    console.log(error);
+                     status = error.response.status;
+                 //    console.log(error.response.status);
+                    
+                    if (status == 422)
+                    {
+                          vm.formErrors = error.response.data;
+                          toastr.warning("You have an error "+status, 'Warning', {timeOut: 5000});
+                    }else{
+                          toastr.error("Please refresh the browser.", 'Session expired', {timeOut: 5000});
+                    }
+          });
+
+/*
             this.$http.get(this.offlinePath+'/commprop/public/vueproperties?page='+page).then((response) => {
-              this.$set('items', response.data.data.data);
-              this.$set('pagination', response.data.pagination);
+              this.$set(this,'items', response.data.data.data);
+              this.$set(this,'pagination', response.data.pagination);
+
+           //   console.log("getVueItems completed");
+
 
             });
-
+*/
 
         },
 
         getVueSelects: function(){
-            this.$http.get(this.offlinePath+'/commprop/public/vuepropertiesSelects').then((response) => {
-              this.$set('users', response.data.users);
-              this.$set('areas', response.data.areas);
-               this.$set('suburbs', response.data.suburbs);
-               console.log('suburbs loaded');
-              this.$set('stypes', response.data.stypes);
-              this.$set('ptypes', response.data.ptypes);
-            });
+
+            var vm = this; 
+
+            axios.get(vm.offlinePath+'/commprop/public/vuepropertiesSelects').then(function (response) {
+          
+              vm.users = response.data.users;
+              vm.areas =  response.data.areas;
+              vm.suburbs = response.data.suburbs;
+              vm.stypes = response.data.stypes;
+              vm.ptypes = response.data.ptypes;
+
+ //$('.selectpicker').selectpicker('render');
+             // console.log('axios getVueSelects completed');
+              // console.log('refresh picker again');
+
+
+              })
+             .catch(function (error) {
+                     status = error.response.status;
+                   //  console.log(error.response.status);
+                    
+                    if (status == 422)
+                    {
+                          vm.formErrors = error.response.data;
+                          toastr.warning("You have an error "+status, 'Warning', {timeOut: 5000});
+                    }else{
+                          toastr.error("Please refresh the browser.", 'Session expired', {timeOut: 5000});
+                    }
+             });
         },
 
 
         searchVueItems: function(page){
            //var input = this.search.s_area;
+       //    console.log("searchVueItems page = " + page)
 
-
-          Vue.http.options.emulateJSON = true;
+          //Vue.http.options.emulateJSON = true;
 
           // then in your code...
-          let data = new FormData(document.getElementById('search'));
+         let data = new FormData(document.getElementById('search'));
+         // let data = new FormData();
 
+  //        console.log("getting formdata for searchVueItems");
 
+         // data.append('_token', this.token); // just the csrf token
           data.append('s_erf',this.s_erf);
           data.append('s_area',this.s_area);
-
-
-
-         // console.log(this.s_area);
-         // console.log(this.s_area.length);
-
-
           data.append('s_stype',this.s_stype);
           data.append('s_ptype',this.s_ptype);
           data.append('s_minsize',this.s_minsize);
@@ -251,29 +336,70 @@ data:  {
 
           var input = data;
 
-
+           /*
+          // console.log("s_erf "+this.s_erf);
+          // console.log("s_area "+this.s_area);
+         //  console.log("s_stype "+this.s_stype);
+          // console.log("s_ptype "+this.s_ptype);
+          // console.log("s_minsize "+this.s_minsize);
+         //  console.log("s_maxsize "+this.s_maxsize);
+*/
+            var vm = this; 
            // clear search
            if (!input) {
-            console.log('has no search data');
-            this.$http.get(this.offlinePath+'/commprop/public/vueproperties?page='+page).then((response) => {
-              this.$set('items', response.data.data.data);
-              this.$set('pagination', response.data.pagination);
-            //  this.$set('agents', response.data.agents);
-            });
+              axios.get(vm.offlinePath+'/commprop/public/vueproperties?page='+page).then(function (response) {
+                vm.items = response.data.data.data;
+                vm.pagination = response.data.pagination;
+
+              })
+              .catch(function (error) {
+           //     console.log(error);
+                    status = error.response.status;
+             //        console.log(error.response.status);
+                    
+                    if (status == 422)
+                    {
+                          vm.formErrors = error.response.data;
+                          toastr.warning("You have an error "+status, 'Warning', {timeOut: 5000});
+                    }else{
+                          toastr.error("Please refresh the browser.", 'Session expired', {timeOut: 5000});
+                    }
+              });
           // do search
            } else {
-            this.$http.post(this.offlinePath+'/commprop/public/searchvueproperties/'+input+'?page='+page,input).then((response) => {
-              this.$set('items', response.data.data.data);
-              this.$set('pagination', response.data.pagination);
-           //   this.$set('agents', response.data.agents);
-            });
+
+              axios.post(vm.offlinePath+'/commprop/public/searchvueproperties?page='+page,input).then(function (response) {
+                vm.items = response.data.data.data;
+                vm.pagination = response.data.pagination;
+           //     console.log(vm.items[0].id);
+           //     console.log(vm.pagination.total );
+           //     console.log("axios earchtVueItems completed");
+
+              })
+              .catch(function (error) {
+             //   console.log(error);
+                    status = error.response.status;
+                   //  console.log(error.response.status);
+                    
+                    if (status == 422)
+                    {
+                          vm.formErrors = error.response.data;
+                          toastr.warning("You have an error "+status, 'Warning', {timeOut: 5000});
+                    }else{
+                          toastr.error("Please refresh the browser.", 'Session expired', {timeOut: 5000});
+                    }
+              });
 
            }
+            //console.log("searchVueItems completed "+this.items[1].id);
+
+     //      console.log("searchVueItems completed");
+
         },
 
         getImage: function(e) {
             e.preventDefault();
-              console.log('success!');
+            //  console.log('getImage success!');
             this.image = e.target.files[0];
         },
 
@@ -281,7 +407,7 @@ data:  {
         createItem: function(){
 
           // somewhere in your Vue app.js file
-          Vue.http.options.emulateJSON = true;
+          //Vue.http.options.emulateJSON = true;
 
           // then in your code...
           let data = new FormData(document.getElementById('createProp'));
@@ -293,26 +419,46 @@ data:  {
           var input = data;
       		 // var input = this.newItem;
             //alert(this.newItem.selected);
-      		  this.$http.post(this.offlinePath+'/commprop/public/vueproperties',input).then((response) => {
-          		  this.changePage(this.pagination.current_page);
-          			this.newItem = {
-                  'id': '',
-                  'erf': '',
-                  'title':'',
-                   'address':'',
-                  'description':'',
-                  'area_id': '',
-                  'image': [],
-                               };
-                this.resetErrors();
-          			$("#create-item").modal('hide');
-                $(".modal-header button").click();
 
-          			toastr.success('Property Created Successfully.', 'Success Alert', {timeOut: 5000});
-          		}, (response) => {
-          			this.formErrors = response.data;
-                toastr.error('Error in form.', 'Warning', {timeOut: 5000});
-        	    });
+
+                var vm = this; 
+
+                axios.post(vm.offlinePath+'/commprop/public/vueproperties',input).then(function (response) {
+
+                      vm.changePage(vm.pagination.current_page);
+
+                      this.newItem = {
+                        'id': '',
+                        'erf': '',
+                        'title':'',
+                         'address':'',
+                        'description':'',
+                        'area_id': '',
+                        'image': [],
+                       };
+
+                      vm.resetErrors();
+                      $("#create-item").modal('hide');
+                      $(".modal-header button").click();
+
+                      toastr.success('Property Created Successfully.', 'Success Alert', {timeOut: 5000});
+
+                })
+                .catch(function (error) {
+                    status = error.response.status;
+                  //   console.log(error.response.status);
+                    
+                    if (status < 500)
+                    {
+                          vm.formErrors = error.response.data;
+                          toastr.warning("Errors in form.", 'Warning', {timeOut: 5000});
+                    }else{
+                          toastr.error("Please refresh the browser.", 'Session expired', {timeOut: 5000});
+                    }
+                   //   vm.$set(vm,'formErrors', error.response.data);
+
+                });
+
       	},
 
       // add new owner
@@ -335,12 +481,38 @@ data:  {
 
       deleteItem: function(item){
 
+
+          Vue.http.options.emulateJSON = true;
+
           var result = confirm("Are you sure you would like to delete this Property?");
           if (result) {
-                  this.$http.delete(this.offlinePath+'/commprop/public/vueproperties/'+item.id).then((response) => {
-                      this.changePage(this.pagination.current_page);
-                      toastr.success('Property Deleted Successfully.', 'Success Alert', {timeOut: 5000});
-                  });
+
+
+              var vm = this; 
+
+              axios.delete(vm.offlinePath+'/commprop/public/vueproperties/'+item.id).then(function (response) {
+                vm.changePage(vm.pagination.current_page);
+                 toastr.success('Property Deleted Successfully.', 'Success Alert', {timeOut: 5000});
+
+              })
+              .catch(function (error) {
+
+                    status = error.response.status;
+                  //   console.log(error.response.status);
+                    
+                    if (status < 500)
+                    {
+                          vm.formErrors = error.response.data;
+                          toastr.warning("Property not deleted.", 'Warning', {timeOut: 5000});
+                    }else{
+                          toastr.error("Please refresh the browser.", 'Session expired', {timeOut: 5000});
+                    }
+                   //   vm.$set(vm,'formErrors', error.response.data);
+
+
+              });
+
+
           }
 
       },
@@ -350,10 +522,33 @@ data:  {
 
           var result = confirm("Are you sure you would like to delete this Unit?");
           if (result) {
-                  this.$http.delete(this.offlinePath+'/commprop/public/vuepropertiesDeleteUnit/'+unit.id).then((response) => {
-                      this.changePage(this.pagination.current_page);
-                      toastr.success('Unit deleted successfully.', 'Success Alert', {timeOut: 5000});
-                  });
+
+
+
+              var vm = this; 
+
+              axios.delete(vm.offlinePath+'/commprop/public/vuepropertiesDeleteUnit/'+unit.id).then(function (response) {
+                vm.changePage(vm.pagination.current_page);
+                toastr.success('Unit deleted successfully.', 'Success', {timeOut: 5000});
+
+              })
+              .catch(function (error) {
+
+                    status = error.response.status;
+                   //  console.log(error.response.status);
+                    
+                    if (status < 500)
+                    {
+                          vm.formErrors = error.response.data;
+                          toastr.warning("Unit not deleted.", 'Warning', {timeOut: 5000});
+                    }else{
+                          toastr.error("Please refresh the browser.", 'Session expired', {timeOut: 5000});
+                    }
+                   //   vm.$set(vm,'formErrors', error.response.data);
+
+
+              });
+
           }
 
       },
@@ -373,6 +568,8 @@ data:  {
 
           this.resetErrors();
       },
+
+
 
        editNote: function(item,unit){
           this.fillNote.id = item.id;
@@ -398,7 +595,7 @@ data:  {
           this.$nextTick(() => {
       
               var container = this.$el.querySelector("#notetable");
-              console.log('edit scrollHeight  ' + container.scrollHeight);
+              //console.log('edit scrollHeight  ' + container.scrollHeight);
               container.scrollTop = 0;
 
           })
@@ -406,13 +603,16 @@ data:  {
           $("#edit-note").modal('show');
 
           this.resetErrors();
-      },
+
+        },
 
         createNote: function(){
 
 
           // only add it test in newnote
           if (this.fillNote.newnote.length > 0 ){
+
+
                 Vue.http.options.emulateJSON = true;
 
                 // then in your code...
@@ -421,25 +621,41 @@ data:  {
              
                 var input = data;
     
-                  this.$http.post(this.offlinePath+'/commprop/public/vuepropertiesAddNote',input).then((response) => {
-                  this.changePage(this.pagination.current_page);
 
-                  this.fillNote = { 
-                        'id':'',
-                        'unit_id':'',
-                        'note':[],
-                        'newnote': '',
-                  }
+                var vm = this; 
 
-                      this.resetErrors();
+                axios.post(vm.offlinePath+'/commprop/public/vuepropertiesAddNote',input).then(function (response) {
+
+                      vm.changePage(vm.pagination.current_page);
+
+                      vm.fillNote = { 
+                            'id':'',
+                            'unit_id':'',
+                            'note':[],
+                            'newnote': '',
+                      }
+
+                      vm.resetErrors();
                       $("#edit-note").modal('hide');
                       $(".modal-header button").click();
 
                       toastr.success('Note added successfully.', 'Success Alert', {timeOut: 5000});
-                    }, (response) => {
-                      this.formErrors = response.data;
-                      toastr.error('Error in form.', 'Warning', {timeOut: 5000});
-                    });
+
+                })
+                .catch(function (error) {
+                     status = error.response.status;
+                   //  console.log(error.response.status);
+                    
+                    if (status == 422)
+                    {
+                          vm.formErrors = error.response.data;
+                          toastr.warning("You have errors in the form.", 'Warning', {timeOut: 5000});
+                    }else{
+                          toastr.error("Please refresh the browser.", 'Session expired', {timeOut: 5000});
+                    }
+                });
+
+
 
             } else {
                       $("#edit-note").modal('hide');
@@ -486,10 +702,13 @@ data:  {
              
                 var input = data;
     
-                  this.$http.post(this.offlinePath+'/commprop/public/vuepropertiesAddOwner',input).then((response) => {
-                      this.changePage(this.pagination.current_page);
+               var vm = this; 
 
-                  this.fillOwner = { 
+                axios.post(vm.offlinePath+'/commprop/public/vuepropertiesAddOwner',input).then(function (response) {
+
+                      vm.changePage(vm.pagination.current_page);
+
+                  vm.fillOwner = { 
                         'id':'',
                         'erf':'',
                         'unit_id':'',
@@ -500,24 +719,39 @@ data:  {
                         'email': '',
                   }
 
-                      this.resetErrors();
+                      vm.resetErrors();
                       $("#edit-owner").modal('hide');
                       $(".modal-header button").click();
 
-                      toastr.success('Owner created successfully.', 'Success Alert', {timeOut: 5000});
-                    }, (response) => {
-                      this.formErrors = response.data;
-                      toastr.error('Error in form.', 'Warning', {timeOut: 5000});
-                    });
+                      toastr.success('Owner created successfully.', 'Success ', {timeOut: 5000});
+
+                })
+                .catch(function (error) {
+                     status = error.response.status;
+                   //  console.log(error.response.status);
+                    
+                    if (status == 422)
+                    {
+                          vm.formErrors = error.response.data;
+                          toastr.warning("You have errors in the form.", 'Warning', {timeOut: 5000});
+                    }else{
+                          toastr.error("Please refresh the browser.", 'Session expired', {timeOut: 5000});
+                    }
+                    
+                    
+                });
 
 
         },
 
 
       addUnit: function(item){
-          //this.fillItem.id = item.id;
-          this.newItem.id = item.id;
-          this.newItem.title = item.title;
+         // this.fillItem.id = item.id;
+         this.newItem.id = item.id;
+        //  this.newItem.title = item.title;
+        this.newUnit.erf = item.erf;
+          this.newUnit.property_type_id = "0";
+          this.newUnit.sale_type_id = "0";
 
           $("#myCreateModalLabel").text("Add Unit");
           $("#create-unit").modal('show');
@@ -526,37 +760,52 @@ data:  {
       },
 
         createUnit: function(){
-          Vue.http.options.emulateJSON = true;
+          
 
           // then in your code...
           let data = new FormData(document.getElementById('createUnit'));
-       
+
           data.append('property_id', this.newItem.id);
           data.append('property_type_id', this.newUnit.property_type_id);
           data.append('sale_type_id', this.newUnit.sale_type_id);
 
           var input = data;
 
-           // var input = this.newItem;
-            //alert(this.newItem.selected);
-            this.$http.post(this.offlinePath+'/commprop/public/vuepropertiesAddunit',input).then((response) => {
-                this.changePage(this.pagination.current_page);
 
-                 this.newUnit = { 
-                   'property_type_id':'',
-                   'sale_type_id':'',
-                   'size':'',
-                   'price':'',
-                };
-                this.resetErrors();
-                $("#create-unit").modal('hide');
-                $(".modal-header button").click();
+                var vm = this; 
 
-                toastr.success('Unit added successfully.', 'Success Alert', {timeOut: 5000});
-              }, (response) => {
-                this.formErrors = response.data;
-                toastr.error('Error in form.', 'Warning', {timeOut: 5000});
-              });
+                axios.post(vm.offlinePath+'/commprop/public/vuepropertiesAddunit',input).then(function (response) {
+
+                      vm.changePage(vm.pagination.current_page);
+
+                       vm.newUnit = { 
+                         'property_type_id':'0',
+                         'sale_type_id':'0',
+                         'size':'',
+                         'price':'',
+                      };
+                      vm.resetErrors();
+                      $("#create-unit").modal('hide');
+                      $(".modal-header button").click();
+
+                      toastr.success('Unit added successfully.', 'Success Alert', {timeOut: 5000});
+
+                })
+                .catch(function (error) {
+                     status = error.response.status;
+                   //  console.log(error.response.status);
+                    
+                    if (status == 422)
+                    {
+                          vm.formErrors = error.response.data;
+                          toastr.warning("You have errors in the form.", 'Warning', {timeOut: 5000});
+                    }else{
+                          toastr.error("Please refresh the browser.", 'Session expired', {timeOut: 5000});
+                    }
+                   //   vm.$set(vm,'formErrors', error.response.data);
+                    
+                    
+                });
 
 
         },
@@ -568,35 +817,52 @@ data:  {
      
         //this.fillItem.selected = this.selectedAgent;
         var input = this.fillItem;
-        this.$http.put(this.offlinePath+'/commprop/public/vueproperties/'+id,input).then((response) => {
-            this.changePage(this.pagination.current_page);
-            this.fillItem = {
-              'id':'',
-              'erf': '',
-                'title':'',
-                'address':'',
-                'description':'',
-                'area_id':'',
-                'image':'',
 
-          };
-            $("#edit-item").modal('hide');
-            toastr.success('Property Updated Successfully.', 'Success Alert', {timeOut: 5000});
-          }, (response) => {
-              this.formErrorsUpdate = response.data;
-              toastr.error('Error in form.', 'Warning', {timeOut: 5000});
-          });
+                var vm = this; 
+
+                axios.put(this.offlinePath+'/commprop/public/vueproperties/'+id,input).then(function (response) {
+
+                      vm.changePage(vm.pagination.current_page);
+
+                      this.fillItem = {
+                        'id':'',
+                        'erf': '',
+                        'title':'',
+                        'address':'',
+                        'description':'',
+                        'area_id':'',
+                        'image':'',
+                    };
+
+
+                      vm.resetErrors();
+                      $("#edit-item").modal('hide');
+                      $(".modal-header button").click();
+
+                       toastr.success('Property Updated Successfully.', 'Success Alert', {timeOut: 5000});
+
+                })
+                .catch(function (error) {
+                     status = error.response.status;
+                    // console.log(error.response.status);
+                    
+                    if (status == 422)
+                    {
+                          vm.formErrors = error.response.data;
+                          toastr.warning("You have errors in the form.", 'Warning', {timeOut: 5000});
+                    }else{
+                          toastr.error("Please refresh the browser.", 'Session expired', {timeOut: 5000});
+                    }
+                    
+                    
+                });
+
       },
 
 
       createPDF: function(item){
 
                   window.location.href = this.offlinePath+'/commprop/public/createpdf/'+item.id ;
-                 
-                 // this.$http.post('/laravel/commprop/public/createpdf/'+item.id).then((response) => {
-
-                  //    toastr.success('Brochure created successfully.', 'Success Alert', {timeOut: 5000});
-                  // });
 
 
       },
@@ -610,7 +876,7 @@ data:  {
       //    $( ".text-danger" ).remove();
 
 
-      console.log('reset search');
+     // console.log('resetSearch started');
       $('.selectpicker').selectpicker('deselectAll');
 
 
@@ -618,8 +884,8 @@ data:  {
 
         this.s_erf= '';
         this.s_area= [];
-        this.s_stype= 0;
-        this.s_ptype= 0;
+        this.s_stype= "0";
+        this.s_ptype= "0";
         this.s_minsize= '';
         this.s_maxsize= '';
         this.searchVueItems();
@@ -646,8 +912,10 @@ data:  {
 
     // get suburb name
     suburbName: function (suburb_id) {
+          //console.log("get suburbName");
           for(var i = 0; i < this.suburbs.length; i++){
               if (this.suburbs[i].id == suburb_id ){
+                     //console.log("get suburbName "+ this.suburbs[i].name);
                      return this.suburbs[i].name ;
               }  
           }
@@ -657,8 +925,10 @@ data:  {
 
     // get ptype name
     propertyTypeName: function (property_type_id) {
+      //console.log("get propertyTypeName");
           for(var i = 0; i < this.ptypes.length; i++){
               if (this.ptypes[i].id == property_type_id ){
+                     //console.log("get propertyTypeName "+this.ptypes[i].name);
                      return this.ptypes[i].name ;
               }  
           }
@@ -668,8 +938,10 @@ data:  {
 
     // get stype name
     saleTypeName: function (sale_type_id) {
+      //console.log("get saleTypeName");
           for(var i = 0; i < this.stypes.length; i++){
               if (this.stypes[i].id == sale_type_id ){
+                     //console.log("get saleTypeName "+ this.stypes[i].name );
                      return this.stypes[i].name ;
               }  
           }
@@ -678,19 +950,21 @@ data:  {
      },
 
       changePage: function (page) {
+                //    console.log('changPage '+page);
           this.pagination.current_page = page;
           // check if any search items selected
           if( this.s_area  || this.s_ptype  || this.s_stype   || this.s_minsize || this.s_maxsize ){
-            console.log('searchVueItems');
-            console.log(this.s_area);
-            console.log(this.s_stype);
-            console.log(this.s_ptype);
-            console.log(this.s_minsize);
-            console.log(this.s_maxsize);
-
+/*
+            console.log("s_area= " + this.s_area);
+            console.log("s_stype= " + this.s_stype);
+            console.log("s_ptype= " + this.s_ptype);
+            console.log("s_minsize= " + this.s_minsize);
+            console.log("s_maxsize= " + this.s_maxsize);
+            console.log('changepage searchVueItems');
+            */
             this.searchVueItems(page);
           }else{
-            console.log('getVueItems');
+         //   console.log('changepagegetVueItems');
             this.getVueItems(page);
           }
 

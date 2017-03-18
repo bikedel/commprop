@@ -6,16 +6,12 @@
 
 
 
-     <!-- select2 -->
-     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/css/select2.css" media="all" rel="stylesheet" type="text/css" />
-     <!-- CSS to make Select2 fit in with Bootstrap 3.x -->
-     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/select2/3.5.0/select2-bootstrap.min.css" />
+
      <!-- toastr -->
      <link href="https://cdn.jsdelivr.net/toastr/2.1.3/toastr.min.css" rel="stylesheet">
 
-     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css rel="stylesheet">
 
-
+    <link href="css/bootstrap-select.css" rel="stylesheet">
 
 
 
@@ -30,6 +26,10 @@
     background-color: lightblue;
     color:white;
 }
+
+
+
+
 
 input:-webkit-autofill {
     -webkit-box-shadow: 0 0 0px 1000px #ffffff inset!important;
@@ -130,9 +130,8 @@ pre {
 [v-cloak] { display: none; }
 
 .searchbar {
-    position:relative;
     top:-22px;
-
+    padding:0px;
     background-color: #6594B4  ;
     padding-top: 45px;
     padding-bottom: 45px;
@@ -258,6 +257,7 @@ small {
 
 }
 
+
 </style>
 
 
@@ -284,30 +284,30 @@ small {
 -->
 
                         <!--  areas  -->
-                          <select id="picker" name="sel[]" class="selectpicker" multiple data-width="200"  data-liveSearchPlaceholder="Search" data-live-search="true" title="Please select suburb(s)"  v-model="s_area" >
-                                       <optgroup v-for="area in areas" label="@{{ area.name }}">
-                                          <option   v-for="suburb in area.suburbs" data-content="<span class='label label-default'> @{{ suburb.name }}</span>" v-bind:value="suburb.id" > @{{ area.name }}</option>
+                          <select id="picker" name="sel[]" class="selectpicker form-control" multiple  data-width="200px" data-live-search="true" title="Please select suburb(s)"  v-model="s_area" >
+                                       <optgroup v-for="area in areas" :label="area.name">
+                                          <option   v-for="suburb in area.suburbs"  v-bind:value="suburb.id" > @{{ suburb.name }}</option>
                                         </optgroup>
                           </select>
 
 
-                        <select  id ='s_ptype'  class="form-control "   v-model="s_ptype"    >
-                           <option value="0"  selected >All properties</option>
+                        <select  id ='s_ptype'  name ='s_ptype' class="form-control "  v-model="s_ptype">
+                           <option  value='0'  >All properties</option>
                                <option v-for="ptype in ptypes" v-bind:value="ptype.id"  >
                                     @{{ ptype.name }}
                                </option>
                         </select>
 
-                        <select  id ='s_stype' class="form-control "   v-model="s_stype"    >
-                           <option value="0"  selected >Rentals and sales</option>
+                        <select  id ='s_stype' name ='s_stype' class="form-control "   placeholder="min size"  v-model="s_stype" >
+                           <option value='0'   >Rentals and sales</option>
                                <option v-for="stype in stypes" v-bind:value="stype.id"  >
                                     @{{ stype.name }}
                                </option>
                         </select>
 
-                        <input id='s_minsize' type="text" name="id" class="form-control" style="width:100px" placeholder="min size" v-model="s_minsize" />
+                        <input id='s_minsize' type="text" name="s_minsize" class="form-control" style="width:100px" placeholder="min size" v-model="s_minsize" />
 
-                        <input id='s_maxsize' type="text" name="id" class="form-control" style="width:100px" placeholder="max size" v-model="s_maxsize"  />
+                        <input id='s_maxsize' type="text" name="s_maxsize" class="form-control" style="width:100px" placeholder="max size" v-model="s_maxsize"  />
 
                           <label>
                             {!! Form::submit('Search',array('class'=>'btn btn-primary')) !!}
@@ -355,11 +355,11 @@ small {
 
 
 
-<div class="items" v-for="item in items">
+<div class="items" v-for="item in items" :key="item.id">
 
 
 
-    <h1>@{{ item.title }}</h1>
+    <h1>@{{ item.title | lowercase }}</h1>
     <p>@{{ suburbName(item.area_id) }}</p>
 
     <div class=" row border myprop" >
@@ -370,14 +370,14 @@ small {
                      <img :src="offlinePath+'/commprop/public/property/'+item.id+'/'+ item.images[0].name  " width="98%"  >
                      <div class='caption'>
                      <p class="captiontext"> @{{ item.images[0].caption }}</p>
-                        <a href="showproperty@{{item.id}}" class="camera"> <span class="glyphicon glyphicon-camera"></span> </a>
+                        <a v-bind:href="'showproperty'+item.id" class="camera"> <span class="glyphicon glyphicon-camera"></span> </a>
                      </div>
                     </div>
                      <div v-else>
                      <img :src="offlinePath+'/commprop/public/img/building_small.jpg'" width="98%"  >
                                           <div class='caption'>
                      <p class="captiontext">This property has no Image</p>
-                        <a href="showproperty@{{item.id}}" class="camera"> <span class="glyphicon glyphicon-camera"></span> </a>
+                        <a v-bind:href="'showproperty'+item.id" class="camera"> <span class="glyphicon glyphicon-camera"></span> </a>
                      </div>
                     </div>
 
@@ -385,7 +385,7 @@ small {
 
             <div class='descrip col-sm-8'>
             <div style="height:210px;width:100%;border:0px solid #ccc;overflow:auto; padding:0px">
-            <p class="red" >Erf: @{{ item.erf }}     <i class="spanUser">  </i><a a href="showproperty@{{item.id}}"}}>Id: @{{ item.id }}</a></p>
+            <p class="red" ><red>Erf: @{{ item.erf }}  </red>   <i class="spanUser">  </i><a  v-bind:href="'showproperty'+item.id">Id: @{{ item.id }}</a></p>
                 @{{ item.description }}
             </div>
             </div>
@@ -480,7 +480,7 @@ small {
                                 @{{ unit.size}}   m<sup>2</sup>
                             </td>
                             <td>
-                                R @{{ unit.price}}  m<sup>2</sup>
+                                 @{{ unit.price | currency('R ')}}  m<sup>2</sup>
                             </td>
                             <td class="actions">
                                <button class="btn btn-warning btn-xs pull right" @click.prevent="editNote(item,unit)">Notes</button>
@@ -489,7 +489,7 @@ small {
                                    <button class="btn btn-danger btn-xs pull right" @click.prevent="deleteUnit(unit)">Delete</button>
                                @endif
 
-                                 <a href="showunit@{{unit.id}}" class="btn btn-default btn-xs pull right" role="button">Details</a>
+                                 <a v-bind:href="'showunit'+unit.id" class="btn btn-default btn-xs pull right" role="button">Details</a>
                             </td>
                         </tr>
                      </tbody>
@@ -551,46 +551,46 @@ small {
                     @endif
 
                     <div class="form-group">
-                       <span v-if="formErrors['test']" class="error text-danger">@{{ formErrors['test'] }}</span>
+                       <span v-if="formErrors['test']" class="error text-danger">@{{ formErrors['test'][0] }}</span>
                     </div>
 
                     <div class="form-group">
                         <label for="Surname">Erf Number:</label>
                         <input type="text" name="erf" class="form-control" v-model="newItem.erf" />
-                        <span v-if="formErrors['erf']" class="error text-danger">@{{ formErrors['erf'] }}</span>
+                        <span v-if="formErrors['erf']" class="error text-danger">@{{ formErrors['erf'][0] }}</span>
                     </div>
 
                     <div class="form-group">
                         <label for="Surname">Title:</label>
                         <input type="text" name="title" class="form-control" v-model="newItem.title" />
-                        <span v-if="formErrors['title']" class="error text-danger">@{{ formErrors['title'] }}</span>
+                        <span v-if="formErrors['title']" class="error text-danger">@{{ formErrors['title'][0] }}</span>
                     </div>
 
                     <div class="form-group">
                         <label for="Surname">Description:</label>
                         <textarea type="text" name="description" rows="5" class="form-control" v-model="newItem.description" ></textarea>
-                        <span v-if="formErrors['description']" class="error text-danger">@{{ formErrors['description'] }}</span>
+                        <span v-if="formErrors['description']" class="error text-danger">@{{ formErrors['description'][0] }}</span>
 
                     </div>
 
                     <div class="form-group">
                         <label for="Surname">Address:</label>
                         <textarea type="text" name="address" rows="5" class="form-control" v-model="newItem.address" ></textarea>
-                        <span v-if="formErrors['address']" class="error text-danger">@{{ formErrors['address'] }}</span>
+                        <span v-if="formErrors['address']" class="error text-danger">@{{ formErrors['address'][0] }}</span>
 
                     </div>
 
                     <div class="form-group">
                         <label for="Firstname">Suburb:</label>
 
-                        <select  id ='area_id' name='area_id' class="form-control "  v-model="newItem.area_id"  style="width: 100%;"  >
+                        <select  id ='area_id' name='area_id' class="form-control "    style="width: 100%;"  >
                            <option value="" disabled selected hidden>Please select a suburb...</option>
                                <option v-for="suburb in suburbs" v-bind:value="suburb.id"  >
                                     @{{ suburb.name }}
                                </option>
                         </select>
 
-                        <span v-if="formErrors['area_id']" class="error text-danger">@{{ formErrors['area_id'] }}</span>
+                        <span v-if="formErrors['area_id']" class="error text-danger">@{{ formErrors['area_id'][0] }}</span>
                     </div>
 
                     <div class="form-group">
@@ -598,7 +598,7 @@ small {
 
                         <input type="file" id="image" name="image[]" multiple  @change="getImage"/>
 
-                        <span v-if="formErrors['image']" class="error text-danger">@{{ formErrors['image'] }}</span>
+                        <span v-if="formErrors['image']" class="error text-danger">@{{ formErrors['image'][0] }}</span>
                     </div>
 
                     <div class="form-group">
@@ -625,54 +625,57 @@ small {
                     <form method="POST" enctype="multipart/form-data" v-on:submit.prevent="updateItem(fillItem.id)">
 
                     <div class="form-group">
-                       <span v-if="formErrorsUpdate['test']" class="error text-danger">@{{ formErrorsUpdate['test'] }}</span>
+                       <span v-if="formErrorsUpdate['test']" class="error text-danger">@{{ formErrorsUpdate['test'][0] }}</span>
                     </div>
 
                     <div class="form-group" hidden>
                         <label for="Surname">Id:</label>
                         <input type="text" name="id" class="form-control" v-model="fillItem.id" />
-                        <span v-if="formErrorsUpdate['id']" class="error text-danger">@{{ formErrorsUpdate['id'] }}</span>
+                        <span v-if="formErrorsUpdate['id']" class="error text-danger">@{{ formErrorsUpdate['id'][0] }}</span>
                     </div>
 
                     <div class="form-group">
                         <label for="Surname">Erf Number:</label>
                         <input type="text" name="erf" class="form-control" v-model="fillItem.erf" />
-                        <span v-if="formErrorsUpdate['erf']" class="error text-danger">@{{ formErrorsUpdate['erf'] }}</span>
+                        <span v-if="formErrorsUpdate['erf']" class="error text-danger">@{{ formErrorsUpdate['erf'][0] }}</span>
                     </div>
 
                     <div class="form-group">
                         <label for="Surname">Title:</label>
                         <input type="text" name="title" class="form-control" v-model="fillItem.title" />
-                        <span v-if="formErrorsUpdate['title']" class="error text-danger">@{{ formErrorsUpdate['title'] }}</span>
+                        <span v-if="formErrorsUpdate['title']" class="error text-danger">@{{ formErrorsUpdate['title'][0] }}</span>
                     </div>
 
                     <div class="form-group">
                         <label for="Firstname">Description:</label>
                         <textarea type="text" name="description" rows="5" class="form-control" v-model="fillItem.description"  ></textarea>
-                        <span v-if="formErrorsUpdate['description']" class="error text-danger">@{{ formErrorsUpdate['description'] }}</span>
+                        <span v-if="formErrorsUpdate['description']" class="error text-danger">@{{ formErrorsUpdate['description'][0] }}</span>
                     </div>
 
                     <div class="form-group">
                         <label for="Surname">Address:</label>
                         <textarea type="text" name="address" rows="5" class="form-control" v-model="fillItem.address" ></textarea>
-                        <span v-if="formErrorsUpdate['address']" class="error text-danger">@{{ formErrorsUpdate['address'] }}</span>
+                        <span v-if="formErrorsUpdate['address']" class="error text-danger">@{{ formErrorsUpdate['address'][0] }}</span>
 
                     </div>
 
                     <div class="form-group">
                         <label for="Firstname">Suburb:</label>
 
-                      <!--  <select  id ='area_id' name='area_id' class="form-control "  v-model="fillItem.area_id"  style="width: 100%;"  >   -->
+    <child :text="fillItem.area_id"></child>
+    <select  id ='area_id' name='area_id' class="form-control "  v-model="fillItem.area_id"  style="width: 100%;"  >
 
-   <select id="area_id" name="area_id" class="selectpicker form-control"    data-live-search="true" title="Please select suburb(s)"  v-model="fillItem.area_id" >
+                     <!--       <select id="area_id" name="area_id" class="selectpicker form-control"   data-live-search="true"   v-model="fillItem.area_id" >-->
 
 
-                                       <optgroup v-for="area in areas" label="@{{ area.name }}">
-                                          <option   v-for="suburb in area.suburbs" data-content="<span class='label label-default'> @{{ suburb.name }}</span>" v-bind:value="suburb.id" > @{{ area.name }}</option>
+                                       <optgroup v-for="area in areas" :label="area.name">
+
+                                          <option   v-for="suburb in area.suburbs"     v-bind:value="suburb.id" > @{{ suburb.name }}</option>
+
                                         </optgroup>
                         </select>
 
-                        <span v-if="formErrorsUpdate['area_id']" class="error text-danger">@{{ formErrorsUpdate['area_id'] }}</span>
+                        <span v-if="formErrorsUpdate['area_id']" class="error text-danger">@{{ formErrorsUpdate['area_id'][0] }}</span>
                     </div>
 
 
@@ -682,7 +685,7 @@ small {
                     <div style="height:130px;width:100%;border:1px solid #ccc;overflow:auto; padding:0px">
 
 
-                            <ul  class="list-group"  v-sortable  >
+                            <ul  class="list-group"    >
 
 
                                  <li class="list-group-item"  v-for="item  in fillItem.image " ><img :src="offlinePath+'/commprop/public/property/'+fillItem.id+'/'+ item.name  " width="80px" /> </li>
@@ -710,7 +713,7 @@ small {
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" id="create-item-modal-header-button" class="close" data-dismiss="modal"  aria-label="Close"><span aria-hidden="true">×</span></button>
-                <h4 class="modal-title" id="myCreateModalLabel">Add Unit - <small>Erf @{{fillItem.erf}}</small></h4>
+                <h4 class="modal-title" id="myCreateModalLabel">Add Unit - <small>Erf @{{newUnit.erf}}</small></h4>
               </div>
               <div class="modal-body">
 
@@ -725,13 +728,13 @@ small {
                     @endif
 
                     <div class="form-group">
-                       <span v-if="formErrors['test']" class="error text-danger">@{{ formErrors['test'] }}</span>
+                       <span v-if="formErrors['test']" class="error text-danger">@{{ formErrors['test'][0] }}</span>
                     </div>
 
                     <div class="form-group" hidden>
                         <label for="Surname">Id:</label>
                         <input type="text" name="id" class="form-control" v-model="newItem.id" readonly/>
-                        <span v-if="formErrors['id']" class="error text-danger">@{{ formErrors['id'] }}</span>
+                        <span v-if="formErrors['id']" class="error text-danger">@{{ formErrors['id'][0] }}</span>
                     </div>
 
 
@@ -739,43 +742,43 @@ small {
                     <div class="form-group">
                         <label for="Firstname">Property Type:</label>
 
-                        <select  id='property_type_id' class="form-control "  v-model="newUnit.property_type_id"  style="width: 100%;"  >
-                           <option value="" disabled selected hidden>Please select property type...</option>
-                               <option v-for="ptype in ptypes" value=" @{{ ptype.id }}"  >
+                        <select  id='property_type_id' name='property_type_id' class="form-control "  v-model="newUnit.property_type_id"  style="width: 100%;"  >
+                           <option value="0" disabled  hidden>Please select property type...</option>
+                               <option v-for="ptype in ptypes" :value="ptype.id"  >
                                     @{{ ptype.name }}
                                </option>
                         </select>
 
 
-                        <span v-if="formErrors['property_type_id']" class="error text-danger">@{{ formErrors['property_type_id'] }}</span>
+                        <span v-if="formErrors['property_type_id']" class="error text-danger">@{{ formErrors['property_type_id'][0] }}</span>
                     </div>
 
 
                     <div class="form-group">
                         <label for="Firstname">Sale Type:</label>
 
-                        <select  id='sale_type_id' class="form-control "  v-model="newUnit.sale_type_id"  style="width: 100%;"  >
-                           <option value="" disabled selected hidden>Please select sale type...</option>
-                               <option v-for="stype in stypes" value=" @{{ stype.id }}"  >
+                        <select  id='sale_type_id' name='sale_type_id' class="form-control "  v-model="newUnit.sale_type_id"  style="width: 100%;"  >
+                           <option value="0" disabled  hidden>Please select sale type...</option>
+                               <option v-for="stype in stypes" :value="stype.id"  >
                                     @{{ stype.name }}
                                </option>
                         </select>
 
 
-                        <span v-if="formErrors['sale_type_id']" class="error text-danger">@{{ formErrors['sale_type_id'] }}</span>
+                        <span v-if="formErrors['sale_type_id']" class="error text-danger">@{{ formErrors['sale_type_id'][0] }}</span>
                     </div>
 
                     <div class="form-group" >
                         <label for="Surname">Size:</label>
                         <input type="text" name="size" class="form-control" v-model="newUnit.size" />
-                        <span v-if="formErrors['size']" class="error text-danger">@{{ formErrors['size'] }}</span>
+                        <span v-if="formErrors['size']" class="error text-danger">@{{ formErrors['size'][0] }}</span>
                     </div>
 
 
                     <div class="form-group" >
                         <label for="Surname">Price:</label>
                         <input type="text" name="price" class="form-control" v-model="newUnit.price" />
-                        <span v-if="formErrors['price']" class="error text-danger">@{{ formErrors['price'] }}</span>
+                        <span v-if="formErrors['price']" class="error text-danger">@{{ formErrors['price'][0] }}</span>
                     </div>
 
                     <div class="form-group">
@@ -831,7 +834,8 @@ small {
 
                         <table class="table  table-hover"  >
 
-                            <tr v-for="item  in fillNote.note | orderBy 'unit_id' -1 | orderBy 'date' -1" v-if=" item.unit_id == fillNote.unit_id ">
+                            <tr v-for="item  in orderBy(fillNote.note, 'date', -1)   " v-if=" item.unit_id == fillNote.unit_id ">
+                          <!--  <tr v-for="item  in fillNote.note | orderBy 'unit_id' -1 | orderBy 'date' -1" v-if=" item.unit_id === fillNote.unit_id "> -->
                                 <td style="white-space:pre-wrap ; word-wrap:break-word;">Unit @{{ item.unit_id  }} <blue> @{{  item.date |  dateFrom }}  <red>@{{ users[ item.user_id -1 ].name  }}</red></blue><br>@{{ item.description }}</td>
 
                             </tr>
@@ -914,7 +918,8 @@ small {
                                 <th width="180px">Date</th>
 
                             </tr>
-                            <tr v-for="item  in fillOwner.owners | orderBy 'unit_id' -1 | orderBy 'date' -1" v-if=" item.unit_id == fillOwner.unit_id ">
+                           <!--  <tr v-for="item  in fillOwner.owners | orderBy 'unit_id' -1 | orderBy 'date' -1" v-if=" item.unit_id === fillOwner.unit_id "> -->
+                            <tr v-for="item  in orderBy(fillOwner.owners, 'date', -1) " v-if=" item.unit_id == fillOwner.unit_id ">
 
 
                                  <td>@{{ item.contact }}</td>
@@ -977,25 +982,17 @@ small {
  </div>
 
 
-  <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
 
-    <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.2.4.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.26/vue.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/vue.resource/0.9.3/vue-resource.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/toastr/2.1.3/toastr.min.js"></script>
-
-<!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
     <!--<script src="js/properties.js"></script>-->
     <script type="text/javascript" src="{!! asset('js/properties.js') !!}"></script>
-
+  <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.2.4.min.js"></script>
 <script>
-$( document ).ready(function() {
-    console.log( "ready!" );
-
+// Can also be used with $(document).ready()
+$(window).load(function() {
+window.$('.selectpicker').selectpicker();
 });
 </script>
+
+
+
     @endsection

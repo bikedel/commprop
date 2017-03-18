@@ -58,21 +58,7 @@ body {
 
 
 
-<div class="drop" hidden>
 
-  <drop
-    :options="options"
-    v-model="value"
-    :multiple="true"
-    :searchable="false"
-    deselect-label="Can't remove this value"
-     :selected.sync="selected"
-        :show-label="false"
-  ></drop>
-
- <pre class="language-json"><code>@{{ selected  }}</code></pre>
-
-</div>
 
 
 <br>
@@ -137,6 +123,20 @@ body {
 <li  class="list-group-item">  <span class="badge">52</span>dashboard sidebar partial</li>
 <li  class="list-group-item">  <span class="badge">53</span>bootstrap-select multi</li>
 <li  class="list-group-item">  <span class="badge">54</span>entegral oms</li>
+<li  class="list-group-item">  <span class="badge">55</span>eremove app.js add bootstrap js to manage-prop</li>
+<li  class="list-group-item">  <span class="badge">56</span>maps - load thumbnails</li>
+<li  class="list-group-item">  <span class="badge">57</span>maps - if no image it is loading the last one</li>
+<li  class="list-group-item">  <span class="badge">57</span>centos - caching on server?? </li>
+<li  class="list-group-item">  <span class="badge">57</span>install toastr on server</li>
+<li  class="list-group-item">  <span class="badge">57</span>install bootstrap-select</li>
+<li  class="list-group-item">  <span class="badge">57</span>update to vue 2 - and all the shit that goes with it!!</li>
+<li  class="list-group-item">  <span class="badge">57</span>replace vue-resource with axios</li>
+<li  class="list-group-item">  <span class="badge">57</span>node npm axios on server</li>
+<li  class="list-group-item">  <span class="badge">57</span>gulp --production</li>
+<li  class="list-group-item">  <span class="badge">57</span>date order filter - notes and owners</li>
+<li  class="list-group-item">  <span class="badge">57</span>https://github.com/freearhey/vue2-filters</li>
+
+
 
 </ul>
 </div>
@@ -144,6 +144,7 @@ body {
           <span class="glyphicon glyphicon-arrow-down"></span> <span class="glyphicon glyphicon-arrow-up"></span> Scroll
         </button>
 
+  <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.2.4.min.js"></script>
+    <script type="text/javascript" src="{!! asset('js/app.js') !!}"></script>
 
-</script>
 @endsection

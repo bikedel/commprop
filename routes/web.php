@@ -42,7 +42,8 @@ Route::get('/manage-properties', 'VuePropertyController@manageVue')->name('addPr
 Route::resource('/vueproperties', 'VuePropertyController');
 
 //search
-Route::post('searchvueproperties/{search}', 'VuePropertyController@search');
+//Route::post('searchvueproperties/{search}', 'VuePropertyController@search');
+Route::post('searchvueproperties', 'VuePropertyController@search');
 
 // inlude relation tables
 Route::get('/vuepropertiesSelects', 'VuePropertyController@selects');

@@ -208,8 +208,8 @@ mySidenav {
       </div>
       <div class="w3-container w3-third">
         <h5 class="w3-bottombar w3-border-orange">Support</h5>
-        <p>User</p>
-        <p>Action</p>
+        <p>User {{ Auth::user()->name }}</p>
+        <p>Action Dashboard</p>
         <p>Log</p>
 
       </div>

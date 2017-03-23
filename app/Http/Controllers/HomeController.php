@@ -137,7 +137,7 @@ class HomeController extends Controller
     public function dashboard()
     {
 
-        $useragent = $request->header('User-Agent');
+        $useragent = request()->header('User-Agent');
         $ip        = request()->ip();
         $users     = User::all();
         $areas     = Area::all();

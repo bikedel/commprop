@@ -10,6 +10,7 @@ use App\SaleType;
 use App\Status;
 use App\Unit;
 use App\User;
+use Cornford\Googlmapper\Facades\MapperFacade as Mapper;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -149,6 +150,46 @@ class HomeController extends Controller
         $properties = Property::latest()->get();
         $properties->load('units', 'images', 'notes', 'owners');
         return view('dashboard', compact('properties', 'areas', 'stypes', 'ptypes', 'users', 'units', 'statuses', 'ip', 'useragent'));
+    }
+
+    public function dashboardmap()
+    {
+
+        activity("Google")->log('Map');
+
+        Mapper::location('cape town')->map(['zoom' => 10, 'center' => true, 'marker' => false, 'type' => 'HYBRID', 'overlay' => 'NONE']);
+        // Mapper::informationWindow('cape town', 'Content');
+        // get all properties
+        $areas      = Area::all();
+        $properties = Property::all();
+        $properties->load('images');
+
+        foreach ($properties as $property) {
+            //echo $areas[$property->area_id]->name;
+            if (sizeof($property->images) > 0) {
+                $image = 'property/' . $property->id . '/' . $property->images[0]['name'];
+            }
+            $link    = "<a href=" . url("/showproperty" . $property->id) . " >VIEW</a>";
+            $content = 'Erf : ' . $property->erf . '<br>';
+            $content = $content . $property->type . '<br>';
+            $content = $content . $property->status . '<br>';
+            $content = $content . $link . '<br>';
+
+            // check for lat and long
+            if ($property->long && $property->lat) {
+
+                if ($property->status == "To Let") {
+                    Mapper::marker($property->long, $property->lat, ['title' => $property->type . 'Erf: ' . $property->erf, 'eventRightClick' => 'console.log("right click");', 'content' => $content . '<br> <img src=' . $image . '  style="width:120px;" />', 'scale' => 13, 'animation' => 'DROP', 'icon' => "http://maps.google.com/mapfiles/ms/icons/green-dot.png"]);
+                } elseif ($property->status == "For Sale") {
+                    Mapper::marker($property->long, $property->lat, ['title' => $property->type . 'Erf: ' . $property->erf, 'eventRightClick' => 'console.log("right click");', 'content' => $content . '<br> <img src=' . $image . '  style="width:120px;" />', 'scale' => 13, 'animation' => 'DROP', 'icon' => "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png"]);
+                } else {
+                    Mapper::marker($property->long, $property->lat, ['title' => $property->type . 'Erf: ' . $property->erf, 'eventRightClick' => 'console.log("right click");', 'content' => $content . '<br> <img src=' . $image . '  style="width:120px;" />', 'scale' => 13, 'animation' => 'DROP', 'icon' => "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"]);
+                }
+            }
+
+        }
+
+        return view('map');
     }
 
     public function test()

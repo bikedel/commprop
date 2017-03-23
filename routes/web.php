@@ -42,6 +42,8 @@ Route::get('/logs', 'LogsController@index');
 
 Route::get('/dashboard', 'HomeController@dashboard');
 
+Route::get('/dashboardmap', 'HomeController@dashboardmap');
+
 Route::get('/owners', 'OwnerController@index');
 
 Route::get('/properties', 'PropertyController@index');

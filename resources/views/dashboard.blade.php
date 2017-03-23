@@ -46,7 +46,7 @@ mySidenav {
   <a href="{{ url('/dashboard') }}" class="w3-padding w3-blue"><i class="fa fa-users fa-fw"></i>  Overview</a>
   <a href="{{ url('/owners') }}" class="w3-padding"><i class="fa fa-eye fa-fw"></i>  Contacts</a>
   <a href="{{ url('/properties') }}" class="w3-padding"><i class="fa fa-users fa-fw"></i>  Properties</a>
-    <a href="#" class="w3-padding"><i class="fa fa-bank fa-fw"></i>  Map</a>
+    <a href="{{ url('/dashboardmap') }}" class="w3-padding"><i class="fa fa-bank fa-fw"></i>  Map</a>
 
   <a href="#" class="w3-padding"><i class="fa fa-bullseye fa-fw"></i>  Legal Docs</a>
   <a href="#" class="w3-padding"><i class="fa fa-diamond fa-fw"></i>  Broker Reports</a>

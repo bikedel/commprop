@@ -122,7 +122,7 @@ mySidenav {
 
     @for($x = 0; $x < 6; $x++)
           <tr>
-          <td>{{$properties[$x]->created_at}}</td>
+          <td>{{ $properties[$x]->created_at->diffForHumans()}}</td>
             <td>{{$properties[$x]->title}}</td>
             <td>{{$properties[$x]->type}}</td>
             <td>{{$properties[$x]->status}}</td>

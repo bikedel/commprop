@@ -203,7 +203,6 @@ mySidenav {
       </div>
       <div class="w3-container w3-third">
         <h5 class="w3-bottombar w3-border-red">System</h5>
-        <p>Browser</p>
         <p>OS {{$useragent }}</p>
         <p>IP {{$ip}}</p>
       </div>

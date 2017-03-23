@@ -251,11 +251,14 @@ small {
             <!-- <p> {{$property->address }}</p> -->
 			<div class="flexslider flexImg" style="width:600px;">
 			  <ul class="slides">
+			  <?php $count = 0;?>
 					@foreach ($property->images as $image)
-
+                        <?php $count++;?>
+                        @if ($count <= 4 ){
 					    <li data-thumb={{ "property/" . $property->id ."/". $image->name }}>
 					      <img src={{ "property/" . $property->id ."/". $image->name }} />
 					    </li>
+					    }
 
 
 					@endforeach

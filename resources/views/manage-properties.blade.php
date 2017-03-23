@@ -396,7 +396,7 @@ small {
             <p class="red" ><red>Erf: @{{ item.erf }}  </red>   <i class="spanUser">  </i><a  v-bind:href="'showproperty'+item.id">Id: @{{ item.id }}</a></p>
                 @{{ item.description }}
             </div>
-            <div><p>hello</p>
+            <div><br><hr><p>hello</p>
             </div>
             </div>
 

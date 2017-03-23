@@ -196,10 +196,9 @@ mySidenav {
   <div class="w3-container w3-dark-grey w3-padding-32">
     <div class="w3-row">
       <div class="w3-container w3-third">
-        <h5 class="w3-bottombar w3-border-green">Claremont Office</h5>
-        <p>Address</p>
-        <p>Tel</p>
-        <p>Email</p>
+        <h5 class="w3-bottombar w3-border-green">Location</h5>
+        <p>Claremont Office</p>
+        <p>Protea Rd, Claremont</p>
       </div>
       <div class="w3-container w3-third">
         <h5 class="w3-bottombar w3-border-red">System</h5>
@@ -210,7 +209,7 @@ mySidenav {
         <h5 class="w3-bottombar w3-border-orange">Support</h5>
         <p>User {{ Auth::user()->name }}</p>
         <p>Action Dashboard</p>
-        <p>Log</p>
+
 
       </div>
     </div>

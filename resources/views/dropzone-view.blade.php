@@ -15,9 +15,10 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <h1>Property upload</h1>
+            <h1>Property Drop</h1>
+            <h3>Please enter the <red>Erf # </red>before dropping documents.<br>Word documents and images accepted.<br></h3>
             {!! Form::open([ 'route' => [ 'dropzone.store' ], 'files' => true, 'enctype' => 'multipart/form-data', 'class' => 'dropzone', 'id' => 'image-upload' ]) !!}
-                         Folder <input type="text" name="fname"><br>
+                         Erf # <input type="text" name="fname"><br>
             <div>
 
               <!--  <h3>Upload images and word docs</h3> -->

@@ -158,7 +158,7 @@ mySidenav {
         <span class="w3-small">Erf: {{$properties[$x]->erf }} <br>Unit: {{$properties[$x]->units[sizeof($properties[$x]->units)]->id}} <br>
 
 
-                  Status: {{ $statuses[$properties[$x]->units[sizeof($properties[$x]->units)]->status_id-1]->name}}</span><br>
+                  Status: {{ $statuses[$properties[$x]->units[sizeof($properties[$x]->units-1)]->status_id-1]->name}}</span><br>
 
            @endif
 

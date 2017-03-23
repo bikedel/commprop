@@ -342,7 +342,7 @@ $image->save();
             foreach ($all['image'] as $img) {
                 // move image to public
 
-                $file_name = preg_replace("/[^a-zA-Z0-9.]/", "", $img->getClientOriginalName());
+                $file_name = preg_replace("/[^a-zA-Z0-9.-]/", "", $img->getClientOriginalName());
 
                 $name = time() . $file_name;
                 $img->move(public_path('/property/' . $propertyId), $name);

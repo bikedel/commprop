@@ -254,11 +254,11 @@ small {
 			  <?php $count = 0;?>
 					@foreach ($property->images as $image)
                         <?php $count++;?>
-                        @if ($count <= 4 ){
-					    <li data-thumb={{ "property/" . $property->id ."/". $image->name }}>
-					      <img src={{ "property/" . $property->id ."/". $image->name }} />
-					    </li>
-					    }
+                        @if ($count <= 4 )
+						    <li data-thumb={{ "property/" . $property->id ."/". $image->name }}>
+						      <img src={{ "property/" . $property->id ."/". $image->name }} />
+						    </li>
+					    @endif
 
 
 					@endforeach

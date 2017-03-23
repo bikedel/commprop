@@ -154,7 +154,7 @@ mySidenav {
 
         <img src="{{ 'property/' . $properties[$x]->id .'/'.  $properties[$x]->images[0]->name }}" class="w3-left  w3-margin-right" style="width:60px;height:60px;">
 
-        <span class="w3-small">Erf: {{$properties[$x]->erf }} <br>Unit: {{$properties[$x]->id}}</span><br>
+        <span class="w3-small">Erf: {{$properties[$x]->erf }} <br>Unit: {{$properties[$x]->id}} <br>Status: {{ $statuses[$properties[$x]->units[0]->status_id]->name}}</span><br>
       </li>
       @endif
     @endfor
@@ -164,24 +164,24 @@ mySidenav {
   <hr>
 
   <div class="w3-container">
-    <h5>Agents</h5>
+    <h5>Brokers</h5>
     <div class="w3-row">
       <div class="w3-col m2 text-center">
-        <img class="w3-circle" src="/w3images/avatar3.png" style="width:96px;height:96px">
+        <img class="w3-circle" src="agents/Jack Bass.jpg" style="width:96px;height:96px">
       </div>
       <div class="w3-col m10 w3-container">
-        <h4>John <span class="w3-opacity w3-medium">Sep 29, 2014, 9:12 PM</span></h4>
-        <p>Keep up the GREAT work! I am cheering for you!! Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p><br>
+        <h4>Jack Bass <span class="w3-opacity w3-medium"></span></h4>
+        <p>Before joining the property sector, I was involved in the manufacturing, design and distribution of casual furniture and accessories in the USA. After selling my business and moving back to South Africa, I wanted a change in career and decided to give property a try and it?s a choice I?m glad I made! I specialise in industrial property in the Western Cape but I also have experience in retail, commercial and investment properties.</p><br>
       </div>
     </div>
 
     <div class="w3-row">
       <div class="w3-col m2 text-center">
-        <img class="w3-circle" src="/w3images/avatar1.png" style="width:96px;height:96px">
+        <img class="w3-circle" src="agents/Rob Odendaal.jpg" style="width:96px;height:96px">
       </div>
       <div class="w3-col m10 w3-container">
-        <h4>Bo <span class="w3-opacity w3-medium">Sep 28, 2014, 10:15 PM</span></h4>
-        <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p><br>
+        <h4>Rob Odendaal <span class="w3-opacity w3-medium"></span></h4>
+        <p>My career in property began when Tony Galetti asked me to join the company as a broker in 2006. Before becoming a broker, I was a teacher in Cape Town and I also taught in the U.K. for a while. Today, I specialise in industrial and commercial property in the Western Cape. My biggest strength lies in meeting people. I network well and build up relationships and this leads naturally to doing deals on all levels.</p><br>
       </div>
     </div>
   </div>

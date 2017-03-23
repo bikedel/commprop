@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Property;
 use App\PropertyType;
 use App\SaleType;
+use App\Status;
 use App\Unit;
 use App\User;
 use Illuminate\Http\Request;
@@ -136,15 +137,16 @@ class HomeController extends Controller
     public function dashboard()
     {
 
-        $users  = User::all();
-        $areas  = Area::all();
-        $stypes = SaleType::all();
-        $units  = Unit::all();
-        $ptypes = PropertyType::all();
+        $users    = User::all();
+        $areas    = Area::all();
+        $stypes   = SaleType::all();
+        $statuses = Status::all();
+        $units    = Unit::all();
+        $ptypes   = PropertyType::all();
         //dd('test pdf');
         $properties = Property::latest()->get();
         $properties->load('units', 'images', 'notes', 'owners');
-        return view('dashboard', compact('properties', 'areas', 'stypes', 'ptypes', 'users', 'units'));
+        return view('dashboard', compact('properties', 'areas', 'stypes', 'ptypes', 'users', 'units', 'statuses'));
     }
 
     public function test()

@@ -341,7 +341,10 @@ $image->save();
         if (isset($all['image']) && count($all['image']) > 0) {
             foreach ($all['image'] as $img) {
                 // move image to public
-                $name = time() . $img->getClientOriginalName();
+
+                $file_name = preg_replace("/[^a-zA-Z0-9.]/", "", $img->getClientOriginalName());
+
+                $name = time() . $file_name;
                 $img->move(public_path('/property/' . $propertyId), $name);
                 // save to database
                 $image              = new Image;

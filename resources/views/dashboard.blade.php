@@ -154,7 +154,11 @@ mySidenav {
 
         <img src="{{ 'property/' . $properties[$x]->id .'/'.  $properties[$x]->images[0]->name }}" class="w3-left  w3-margin-right" style="width:60px;height:60px;">
 
-        <span class="w3-small">Erf: {{$properties[$x]->erf }} <br>Unit: {{$properties[$x]->id}} <br>Status: {{ $statuses[$properties[$x]->units[0]->status_id]->name}}</span><br>
+        <span class="w3-small">Erf: {{$properties[$x]->erf }} <br>Unit: {{$properties[$x]->id}} <br>
+           @if ( sizeof($properties[$x]->units) > 0 )
+                  Status: {{ $statuses[$properties[$x]->units[0]->status_id]->name}}</span><br>
+           @endif
+
       </li>
       @endif
     @endfor

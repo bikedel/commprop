@@ -25,7 +25,7 @@ mySidenav {
 <!-- Top container -->
 <div class="w3-container w3-top w3-white w3-large w3-padding" style="z-index:4">
   <button class="w3-button w3-hide-large w3-padding-0 w3-black w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i>  Menu</button>
-  <span class="w3-right"> <a class="navbar-brand logo" href="{{ url('/') }}"><img src="img/commprop1.png" width="40px" height="40px" alt="CommProp"></span>
+  <span class="w3-right"> <a class="navbar-brand logo" href="{{ url('/home') }}"><img src="img/commprop1.png" width="40px" height="40px" alt="CommProp"></span>
 </div>
 
 

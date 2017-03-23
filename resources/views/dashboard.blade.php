@@ -21,7 +21,7 @@ mySidenav {
 <!-- Top container -->
 <div class="w3-container w3-top w3-white w3-large w3-padding" style="z-index:4">
   <button class="w3-button w3-hide-large w3-padding-0 w3-black w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i>  Menu</button>
-  <span class="w3-right"> <a class="navbar-brand logo" href="{{ url('/') }}"><img src="img/commprop1.png" width="40px" height="40px" alt="CommProp"></span>
+  <span class="w3-right"> <a class="navbar-brand logo" href="{{ url('/home') }}"><img src="img/commprop1.png" width="40px" height="40px" alt="CommProp"></span>
 </div>
 
 
@@ -124,9 +124,8 @@ mySidenav {
           <tr>
           <td>{{ $properties[$x]->created_at->diffForHumans()}}</td>
             <td>{{$properties[$x]->title}}</td>
-            <td>{{$properties[$x]->type}}</td>
-            <td>{{$properties[$x]->status}}</td>
-            <td> <a href="{{ url('showproperty'+$properties[$x]->id) }}" class="w3-padding"><i class="fa fa-cog fa-fw"></i>  View</a></td>
+            <td>{{$properties[$x]->address}}</td>
+            <td> <a href="{{ url('/showproperty'.$properties[$x]->id) }}" class="w3-padding"><i class="fa fa-cog fa-fw"></i>  View</a></td>
 
           </tr>
     @endfor
@@ -197,10 +196,10 @@ mySidenav {
   <div class="w3-container w3-dark-grey w3-padding-32">
     <div class="w3-row">
       <div class="w3-container w3-third">
-        <h5 class="w3-bottombar w3-border-green">Demographic</h5>
-        <p>Language</p>
-        <p>Country</p>
-        <p>City</p>
+        <h5 class="w3-bottombar w3-border-green">Claremont Office</h5>
+        <p>Address</p>
+        <p>Tel</p>
+        <p>Email</p>
       </div>
       <div class="w3-container w3-third">
         <h5 class="w3-bottombar w3-border-red">System</h5>
@@ -209,11 +208,11 @@ mySidenav {
         <p>More</p>
       </div>
       <div class="w3-container w3-third">
-        <h5 class="w3-bottombar w3-border-orange">Target</h5>
-        <p>Users</p>
-        <p>Active</p>
-        <p>Geo</p>
-        <p>Interests</p>
+        <h5 class="w3-bottombar w3-border-orange">Support</h5>
+        <p>User</p>
+        <p>Action</p>
+        <p>Log</p>
+
       </div>
     </div>
   </div>

@@ -173,7 +173,7 @@ class HomeController extends Controller
 
         $folder    = $request->input('fname');
         $image     = $request->file('file');
-        $imageName = $folder . time() . $image->getClientOriginalName();
+        $imageName = time() . $image->getClientOriginalName();
         $image->move(public_path('drop/' . $folder), $imageName);
         return response()->json(['success' => $imageName]);
     }

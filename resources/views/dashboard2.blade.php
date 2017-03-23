@@ -33,7 +33,7 @@ mySidenav {
 <nav class=" w3-sidenav w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidenav"><br>
   <div class="w3-container w3-row">
     <div class="w3-col s4">
-      <img src="w3images/avatar2.png" class="w3-circle w3-margin-right" style="width:46px">
+      <img src="agents/avatar2.png" class="w3-circle w3-margin-right" style="width:46px">
     </div>
     <div class="w3-col s8">
       <span>Welcome, <strong> {{ Auth::user()->name }}</strong></span><br>

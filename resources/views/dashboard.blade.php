@@ -126,6 +126,8 @@ mySidenav {
             <td>{{$properties[$x]->title}}</td>
             <td>{{$properties[$x]->type}}</td>
             <td>{{$properties[$x]->status}}</td>
+            <td> <a href="{{ url('showproperty'+$properties[$x]->id) }}" class="w3-padding"><i class="fa fa-cog fa-fw"></i>  View</a></td>
+
           </tr>
     @endfor
 

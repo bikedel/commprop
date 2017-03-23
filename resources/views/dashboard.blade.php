@@ -205,7 +205,7 @@ mySidenav {
         <h5 class="w3-bottombar w3-border-red">System</h5>
         <p>Browser</p>
         <p>OS</p>
-        <p>IP <?php $_SERVER['REMOTE_ADDR'];?></p>
+        <p>IP {{$ip}}</p>
       </div>
       <div class="w3-container w3-third">
         <h5 class="w3-bottombar w3-border-orange">Support</h5>

@@ -137,6 +137,7 @@ class HomeController extends Controller
     public function dashboard()
     {
 
+        $ip       = request()->ip();
         $users    = User::all();
         $areas    = Area::all();
         $stypes   = SaleType::all();
@@ -146,7 +147,7 @@ class HomeController extends Controller
         //dd('test pdf');
         $properties = Property::latest()->get();
         $properties->load('units', 'images', 'notes', 'owners');
-        return view('dashboard', compact('properties', 'areas', 'stypes', 'ptypes', 'users', 'units', 'statuses'));
+        return view('dashboard', compact('properties', 'areas', 'stypes', 'ptypes', 'users', 'units', 'statuses', 'ip'));
     }
 
     public function test()

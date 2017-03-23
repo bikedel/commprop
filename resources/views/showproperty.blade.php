@@ -263,8 +263,8 @@ small {
 						      <img src={{ "property/" . $property->id ."/". $image->name }} />
 						    </li>
 						  @else
-						    <li data-thumb={{ "agents/avatar2.png" }}>
-						      <img src={{  "agents/avatar2.png" }} />
+						    <li data-thumb={{ "property/no_image.png" }}>
+						      <img src={{  "property/no_image.png" }} />
 						    </li>
 						  @endif
 

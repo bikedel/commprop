@@ -137,17 +137,18 @@ class HomeController extends Controller
     public function dashboard()
     {
 
-        $ip       = request()->ip();
-        $users    = User::all();
-        $areas    = Area::all();
-        $stypes   = SaleType::all();
-        $statuses = Status::all();
-        $units    = Unit::all();
-        $ptypes   = PropertyType::all();
+        $useragent = $request->header('User-Agent');
+        $ip        = request()->ip();
+        $users     = User::all();
+        $areas     = Area::all();
+        $stypes    = SaleType::all();
+        $statuses  = Status::all();
+        $units     = Unit::all();
+        $ptypes    = PropertyType::all();
         //dd('test pdf');
         $properties = Property::latest()->get();
         $properties->load('units', 'images', 'notes', 'owners');
-        return view('dashboard', compact('properties', 'areas', 'stypes', 'ptypes', 'users', 'units', 'statuses', 'ip'));
+        return view('dashboard', compact('properties', 'areas', 'stypes', 'ptypes', 'users', 'units', 'statuses', 'ip', 'useragent'));
     }
 
     public function test()

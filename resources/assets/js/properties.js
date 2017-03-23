@@ -30,7 +30,11 @@ window.axios.defaults.headers.common = {
 
 require('bootstrap-sass');
 
-
+Vue.directive('sortable', {
+  inserted: function (el, binding) {
+    new sortable(el, binding.value || {})
+  }
+})
 
 
 //Requires
@@ -89,6 +93,7 @@ data:  {
     suburbs: [],
     ptypes: [],
     stypes: [],
+    statuses: [],
 
     pagination: {
         total: 0, 
@@ -129,6 +134,7 @@ data:  {
     newUnit : {
          'property_type_id':'0',
          'sale_type_id':'0',
+         'status_id':'0',
          'size':'',
          'price':'',
     },
@@ -156,8 +162,9 @@ data:  {
 
         s_erf: '',
         s_area: [],
-        s_stype: '0',
-        s_ptype: '0',
+        s_stype: [],
+        s_ptype: [],
+        s_status: [],
         s_minsize: '',
         s_maxsize: '',
 
@@ -296,6 +303,7 @@ data:  {
               vm.users = response.data.users;
               vm.areas =  response.data.areas;
               vm.suburbs = response.data.suburbs;
+              vm.statuses = response.data.statuses;
               vm.stypes = response.data.stypes;
               vm.ptypes = response.data.ptypes;
 
@@ -337,6 +345,7 @@ data:  {
           data.append('s_area',this.s_area);
           data.append('s_stype',this.s_stype);
           data.append('s_ptype',this.s_ptype);
+          data.append('s_status',this.s_status);
           data.append('s_minsize',this.s_minsize);
           data.append('s_maxsize',this.s_maxsize);
 
@@ -427,6 +436,8 @@ data:  {
             //alert(this.newItem.selected);
 
 
+
+                $("#create-item-submit").attr('disabled', true);
                 var vm = this; 
 
                 axios.post(vm.offlinePath+'/commprop/public/vueproperties',input).then(function (response) {
@@ -444,6 +455,7 @@ data:  {
                        };
 
                       vm.resetErrors();
+                      $("#create-item-submit").attr('disabled', false);
                       $("#create-item").modal('hide');
                       $(".modal-header button").click();
 
@@ -462,6 +474,7 @@ data:  {
                           toastr.error("Please refresh the browser.", 'Session expired', {timeOut: 5000});
                     }
                    //   vm.$set(vm,'formErrors', error.response.data);
+                   $("#create-item-submit").attr('disabled', false);
 
                 });
 
@@ -626,7 +639,9 @@ data:  {
 
              
                 var input = data;
-    
+
+                $("#edit-note-submit").attr('disabled', true);
+                
 
                 var vm = this; 
 
@@ -640,7 +655,7 @@ data:  {
                             'note':[],
                             'newnote': '',
                       }
-
+                      $("#edit-note-submit").attr('disabled', false);
                       vm.resetErrors();
                       $("#edit-note").modal('hide');
                       $(".modal-header button").click();
@@ -659,6 +674,8 @@ data:  {
                     }else{
                           toastr.error("Please refresh the browser.", 'Session expired', {timeOut: 5000});
                     }
+
+                     $("#edit-note-submit").attr('disabled', false);
                 });
 
 
@@ -707,6 +724,9 @@ data:  {
 
              
                 var input = data;
+
+                $("#edit-owner-submit").attr('disabled', true);
+                
     
                var vm = this; 
 
@@ -725,6 +745,7 @@ data:  {
                         'email': '',
                   }
 
+                      $("#edit-owner-submit").attr('disabled', false);
                       vm.resetErrors();
                       $("#edit-owner").modal('hide');
                       $(".modal-header button").click();
@@ -743,7 +764,7 @@ data:  {
                     }else{
                           toastr.error("Please refresh the browser.", 'Session expired', {timeOut: 5000});
                     }
-                    
+                    $("#edit-owner-submit").attr('disabled', false);
                     
                 });
 
@@ -752,10 +773,9 @@ data:  {
 
 
       addUnit: function(item){
-         // this.fillItem.id = item.id;
-         this.newItem.id = item.id;
-        //  this.newItem.title = item.title;
-        this.newUnit.erf = item.erf;
+
+          this.newItem.id = item.id;
+          this.newUnit.erf = item.erf;
           this.newUnit.property_type_id = "0";
           this.newUnit.sale_type_id = "0";
 
@@ -774,10 +794,12 @@ data:  {
           data.append('property_id', this.newItem.id);
           data.append('property_type_id', this.newUnit.property_type_id);
           data.append('sale_type_id', this.newUnit.sale_type_id);
+          data.append('status_id', this.newUnit.status_id);
 
           var input = data;
 
-
+                $("#create-unit-submit").attr('disabled', true);
+                
                 var vm = this; 
 
                 axios.post(vm.offlinePath+'/commprop/public/vuepropertiesAddunit',input).then(function (response) {
@@ -787,9 +809,11 @@ data:  {
                        vm.newUnit = { 
                          'property_type_id':'0',
                          'sale_type_id':'0',
+                         'status_id':'0',
                          'size':'',
                          'price':'',
                       };
+                       $("#create-unit-submit").attr('disabled', false);
                       vm.resetErrors();
                       $("#create-unit").modal('hide');
                       $(".modal-header button").click();
@@ -809,7 +833,7 @@ data:  {
                           toastr.error("Please refresh the browser.", 'Session expired', {timeOut: 5000});
                     }
                    //   vm.$set(vm,'formErrors', error.response.data);
-                    
+                    $("#create-unit-submit").attr('disabled', false);
                     
                 });
 
@@ -826,6 +850,9 @@ data:  {
 
                 var vm = this; 
 
+                $("#edit-item-submit").attr('disabled', true);
+                
+
                 axios.put(this.offlinePath+'/commprop/public/vueproperties/'+id,input).then(function (response) {
 
                       vm.changePage(vm.pagination.current_page);
@@ -840,7 +867,7 @@ data:  {
                         'image':'',
                     };
 
-
+                      $("#edit-item-submit").attr('disabled', false);
                       vm.resetErrors();
                       $("#edit-item").modal('hide');
                       $(".modal-header button").click();
@@ -859,7 +886,7 @@ data:  {
                     }else{
                           toastr.error("Please refresh the browser.", 'Session expired', {timeOut: 5000});
                     }
-                    
+                    $("#edit-item-submit").attr('disabled', false);
                     
                 });
 
@@ -890,8 +917,9 @@ data:  {
 
         this.s_erf= '';
         this.s_area= [];
-        this.s_stype= "0";
-        this.s_ptype= "0";
+        this.s_stype= [];
+        this.s_ptype= [];
+        this.s_status= [];
         this.s_minsize= '';
         this.s_maxsize= '';
         this.searchVueItems();
@@ -954,6 +982,20 @@ data:  {
           return "error" ;  
    
      },
+
+    // get status name
+    statusName: function (status_id) {
+      //console.log("get saleTypeName");
+          for(var i = 0; i < this.statuses.length; i++){
+              if (this.statuses[i].id == status_id ){
+                     //console.log("get saleTypeName "+ this.stypes[i].name );
+                     return this.statuses[i].name ;
+              }  
+          }
+          return "error" ;  
+   
+     },
+
 
       changePage: function (page) {
                 //    console.log('changPage '+page);

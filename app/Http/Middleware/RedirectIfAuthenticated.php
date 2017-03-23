@@ -22,7 +22,9 @@ class RedirectIfAuthenticated
         //  dd($password, "ok", Auth::guard($guard)->check(), $guard, Auth::user(), $request);
 
         if (Auth::guard($guard)->check()) {
+
             return redirect('/home');
+
         }
 
         return $next($request);

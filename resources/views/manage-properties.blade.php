@@ -284,26 +284,34 @@ small {
 -->
 
                         <!--  areas  -->
-                          <select id="picker" name="sel[]" class="selectpicker form-control" multiple  data-width="200px" data-live-search="true" title="Please select suburb(s)"  v-model="s_area" >
+                          <select id="picker" name="sel[]" class="selectpicker form-control" multiple  data-width="150px" data-live-search="true" title="All suburbs"  v-model="s_area" >
                                        <optgroup v-for="area in areas" :label="area.name">
-                                          <option   v-for="suburb in area.suburbs"  v-bind:value="suburb.id" > @{{ suburb.name }}</option>
+                                          <option   v-for="suburb in area.suburbs"   v-bind:value="suburb.id" > @{{ suburb.name }}</option>
                                         </optgroup>
                           </select>
 
 
-                        <select  id ='s_ptype'  name ='s_ptype' class="form-control "  v-model="s_ptype">
-                           <option  value='0'  >All properties</option>
+                        <select  id ='s_ptype'  name ='s_ptype[]' class="form-control selectpicker" multiple  data-width="150px" title="All properties" v-model="s_ptype">
+
                                <option v-for="ptype in ptypes" v-bind:value="ptype.id"  >
                                     @{{ ptype.name }}
                                </option>
                         </select>
 
-                        <select  id ='s_stype' name ='s_stype' class="form-control "   placeholder="min size"  v-model="s_stype" >
-                           <option value='0'   >Rentals and sales</option>
+                        <select  id ='s_stype' name ='s_stype[]' class="form-control selectpicker"  multiple  data-width="100px" title="All types" v-model="s_stype" >
+
                                <option v-for="stype in stypes" v-bind:value="stype.id"  >
                                     @{{ stype.name }}
                                </option>
                         </select>
+
+                        <select  id ='s_status' name ='s_status[]' class="form-control selectpicker"  multiple  data-width="150px" title="All status" v-model="s_status" >
+
+                               <option v-for="status in statuses" v-bind:value="status.id"  >
+                                    @{{ status.name }}
+                               </option>
+                        </select>
+
 
                         <input id='s_minsize' type="text" name="s_minsize" class="form-control" style="width:100px" placeholder="min size" v-model="s_minsize" />
 
@@ -407,7 +415,7 @@ small {
            @endif
 
            <button id="notes_button" class="btn btn-warning btn-xs" @click.prevent="editNote(item,unit)">Notes</button>
-           <button class="btn btn-info btn-xs" @click.prevent="editOwner(item,unit)">Owners</button>
+           <button class="btn btn-info btn-xs" @click.prevent="editOwner(item,unit)">Contacts</button>
 
            <button class="btn btn-default btn-xs" @click.prevent="createPDF(item)">Brochure</button>
      </div>
@@ -460,6 +468,7 @@ small {
                     <thead>
                          <tr>
                             <th width="80px" class="hidden-xs">Unit ID</th>
+                            <th width="180px">Status</th>
                             <th width="180px">Type</th>
                             <th width="180px">Size</th>
                             <th width="180px">Price</th>
@@ -473,6 +482,10 @@ small {
                                 Unit  @{{ unit.id }}
                             </td>
                             <td>
+                                @{{  statusName( unit.status_id ) }}
+
+                            </td>
+                            <td>
                                 @{{  propertyTypeName( unit.property_type_id ) }}   @{{  saleTypeName( unit.sale_type_id ) }}
 
                             </td>
@@ -484,12 +497,13 @@ small {
                             </td>
                             <td class="actions">
                                <button class="btn btn-warning btn-xs pull right" @click.prevent="editNote(item,unit)">Notes</button>
-                               <button class="btn btn-info btn-xs pull right" @click.prevent="editOwner(item,unit)">Owner</button>
+                               <button class="btn btn-info btn-xs pull right" @click.prevent="editOwner(item,unit)">Contacts</button>
                                @if ( Auth::user()->getRoleName()  == "Admin")
+                                   <button class="btn btn-primary btn-xs" @click.prevent="editUnit(item)">Edit</button>
                                    <button class="btn btn-danger btn-xs pull right" @click.prevent="deleteUnit(unit)">Delete</button>
                                @endif
 
-                                 <a v-bind:href="'showunit'+unit.id" class="btn btn-default btn-xs pull right" role="button">Details</a>
+                               <!--  <a v-bind:href="'showunit'+unit.id" class="btn btn-default btn-xs pull right" role="button">Details</a>  -->
                             </td>
                         </tr>
                      </tbody>
@@ -602,7 +616,7 @@ small {
                     </div>
 
                     <div class="form-group">
-                        <button type="submit" class="btn btn-success">Submit</button>
+                        <button id="create-item-submit" type="submit" class="btn btn-success">Submit</button>
                     </div>
 
                     </form>
@@ -662,8 +676,8 @@ small {
                     <div class="form-group">
                         <label for="Firstname">Suburb:</label>
 
-    <child :text="fillItem.area_id"></child>
-    <select  id ='area_id' name='area_id' class="form-control "  v-model="fillItem.area_id"  style="width: 100%;"  >
+
+                       <select  id ='area_id' name='area_id' class="form-control selectpicker"  data-live-search="true"  v-model="fillItem.area_id"  style="width: 100%;"  >
 
                      <!--       <select id="area_id" name="area_id" class="selectpicker form-control"   data-live-search="true"   v-model="fillItem.area_id" >-->
 
@@ -682,13 +696,13 @@ small {
 
 
 
-                    <div style="height:130px;width:100%;border:1px solid #ccc;overflow:auto; padding:0px">
+                    <div style="height:200px;width:100%;border:1px solid #ccc;overflow:auto; padding:0px">
 
 
-                            <ul  class="list-group"    >
+                            <ul  class="list-group"  v-sortable  >
 
 
-                                 <li class="list-group-item"  v-for="item  in fillItem.image " ><img :src="offlinePath+'/commprop/public/property/'+fillItem.id+'/'+ item.name  " width="80px" /> </li>
+                                 <li class="list-group-item "  v-for="item  in fillItem.image " ><img :src="offlinePath+'/commprop/public/property/'+fillItem.id+'/'+ item.name  " width="40px" />    @{{ item.name }} </li>
 
 
                             </ul>
@@ -696,8 +710,8 @@ small {
                     </div>
 
 
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-success">Submit</button>
+                    <div  class="form-group">
+                        <button id="edit-item-submit" type="submit" class="btn btn-success">Submit</button>
                     </div>
 
                     </form>
@@ -768,6 +782,21 @@ small {
                         <span v-if="formErrors['sale_type_id']" class="error text-danger">@{{ formErrors['sale_type_id'][0] }}</span>
                     </div>
 
+                    <div class="form-group">
+                        <label for="Firstname">Status:</label>
+
+                        <select  id='status_id' name='status_id' class="form-control "  v-model="newUnit.status_id"  style="width: 100%;"  >
+                           <option value="0" disabled  hidden>Please select status...</option>
+                               <option v-for="status in statuses" :value="status.id"  >
+                                    @{{ status.name }}
+                               </option>
+                        </select>
+
+
+                        <span v-if="formErrors['status_id']" class="error text-danger">@{{ formErrors['status_id'][0] }}</span>
+                    </div>
+
+
                     <div class="form-group" >
                         <label for="Surname">Size:</label>
                         <input type="text" name="size" class="form-control" v-model="newUnit.size" />
@@ -782,7 +811,7 @@ small {
                     </div>
 
                     <div class="form-group">
-                        <button type="submit" class="btn btn-success">Submit</button>
+                        <button id="create-unit-submit" type="submit" class="btn btn-success">Submit</button>
                     </div>
 
                     </form>
@@ -857,7 +886,7 @@ small {
 
 
                     <div class="form-group">
-                        <button type="submit" class="btn btn-success">Submit</button>
+                        <button id="edit-note-submit" type="submit" class="btn btn-success">Submit</button>
                     </div>
 
                     </form>
@@ -872,7 +901,7 @@ small {
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" id="create-note-modal-header-button" class="close" data-dismiss="modal"  aria-label="Close"><span aria-hidden="true">×</span></button>
-                <h4 class="modal-title" id="myCreateModalLabel">Owners  - <small>Erf @{{fillOwner.erf}}</small></h4>
+                <h4 class="modal-title" id="myCreateModalLabel">Contacts  - <small>Erf @{{fillOwner.erf}}</small></h4>
               </div>
               <div class="modal-body">
 
@@ -910,7 +939,7 @@ small {
                             <tr>
 
 
-                                <th width="200px">Owner</th>
+                                <th width="200px">Contact</th>
                                 <th width="120px">Tel</th>
                                 <th width="120px">Cell</th>
                                 <th width="220px">Email</th>
@@ -967,7 +996,7 @@ small {
                     </div>
 
                     <div class="form-group">
-                        <button type="submit" class="btn btn-success">Submit</button>
+                        <button id="edit-owner-submit" type="submit" class="btn btn-success">Submit</button>
                     </div>
 
                     </form>

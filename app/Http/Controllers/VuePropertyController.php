@@ -11,6 +11,7 @@ use App\Owner;
 use App\Property;
 use App\PropertyType;
 use App\SaleType;
+use App\Status;
 use App\Suburb;
 use App\Unit;
 use App\User;
@@ -45,7 +46,7 @@ class VuePropertyController extends Controller
     public function index(Request $request)
     {
 
-        $items = Property::latest()->paginate(5);
+        $items = Property::latest()->paginate(15);
         $items->load('units', 'images', 'notes', 'owners');
 
         //  $streets = Street::on($database)->select('id', 'strStreetName')->get();
@@ -81,21 +82,23 @@ class VuePropertyController extends Controller
     public function selects(Request $request)
     {
 
-        $users   = User::all();
-        $areas   = Area::with('suburbs')->get();
-        $suburbs = Suburb::orderBy('id')->get();
-        $stypes  = SaleType::all();
-        $ptypes  = PropertyType::all();
+        $users    = User::all();
+        $areas    = Area::with('suburbs')->get();
+        $suburbs  = Suburb::orderBy('id')->get();
+        $stypes   = SaleType::all();
+        $ptypes   = PropertyType::all();
+        $statuses = Status::all();
 
         // $streets = Street::on($database)->select('id', 'strStreetName')->get();
 
         //array_unshift($users, ['name' => 'Select ']);
         $response = [
-            'users'   => $users,
-            'areas'   => $areas,
-            'suburbs' => $suburbs,
-            'stypes'  => $stypes,
-            'ptypes'  => $ptypes,
+            'users'    => $users,
+            'areas'    => $areas,
+            'suburbs'  => $suburbs,
+            'stypes'   => $stypes,
+            'ptypes'   => $ptypes,
+            'statuses' => $statuses,
         ];
 
         return response()->json($response);
@@ -110,26 +113,63 @@ class VuePropertyController extends Controller
     public function search(Request $request)
     {
 
-        $areas = Suburb::select('id')->get();
+        $areas    = Suburb::select('id')->get();
+        $stypes   = SaleType::select('id')->get();
+        $statuses = Status::select('id')->get();
+        $ptypes   = PropertyType::select('id')->get();
 
         $erf     = $request->input('s_erf');
         $area    = $request->input('s_area');
         $ptype   = $request->input('s_ptype');
         $stype   = $request->input('s_stype');
+        $status  = $request->input('s_status');
         $minsize = $request->input('s_minsize');
         $maxsize = $request->input('s_maxsize');
 
-        if ($ptype == "0") {
-            $ptype = 0;
-        }
+        $model = Property::first();
 
-        if ($stype == "0") {
-            $stype = 0;
+        // dont log reset or reload pages
+        if ($erf == null && $area == null && sizeof($ptype) <= 0 && sizeof($stype) <= 0 && sizeof($status) <= 0 && $minsize == null && $maxsize == null) {
+            $action = "Reset";
+        } else {
+            $action = "Search";
+            activity("Database")->performedOn($model)->withProperties(
+
+                ['Erf'    => $erf,
+                    'area'    => $area,
+                    'ptype'   => $ptype,
+                    'stype'   => $stype,
+                    'status'  => $status,
+                    'minsize' => $minsize,
+                    'maxsize' => $maxsize,
+
+                ])->log($action);
         }
 
         // sel is the selected areas - vue issue with v-model
         $sel     = $request->input('sel');
         $noseach = 0;
+
+        if (sizeof($ptype) <= 0) {
+            $ptype = $ptypes->toArray();
+        } else {
+            $noseach = 1;
+            $ptype   = explode(',', $ptype);
+        }
+
+        if (sizeof($stype) <= 0) {
+            $stype = $stypes->toArray();
+        } else {
+            $noseach = 1;
+            $stype   = explode(',', $stype);
+        }
+
+        if (sizeof($status) <= 0) {
+            $status = $statuses->toArray();
+        } else {
+            $noseach = 1;
+            $status  = explode(',', $status);
+        }
 
         // get search criteria
         if (empty($minsize)) {
@@ -154,20 +194,6 @@ class VuePropertyController extends Controller
             $area    = $sel;
         }
 
-        if ($ptype == 0) {
-            $paction = ">";
-        } else {
-            $paction = "=";
-            $noseach = 1;
-        }
-
-        if ($stype == 0) {
-            $saction = ">";
-        } else {
-            $saction = "=";
-            $noseach = 1;
-        }
-
         /* $items = Property::where('area_id', $aaction, $area)->whereHas('units', function ($query) use ($ptype, $paction, $stype, $saction, $minsize, $maxsize) {
         $query->where('size', '>', $minsize)->where('size', '<', $maxsize)->where('property_type_id', $paction, $ptype)->where('sale_type_id', $saction, $stype);
 
@@ -182,17 +208,17 @@ class VuePropertyController extends Controller
         // find erf
 
         if ($erf) {
-            $items = Property::where('erf', "=", $erf)->latest()->paginate(5);
+            $items = Property::where('erf', "=", $erf)->latest()->paginate(15);
             $items->load('units', 'images', 'notes', 'owners');
         } else {
 
             // if nosearch is set then do search else return all
             if ($noseach == 1) {
-                $items = Property::whereIn('area_id', $area)->whereHas('units', function ($query) use ($ptype, $paction, $stype, $saction, $minsize, $maxsize) {$query->where('size', '>', $minsize)->where('size', '<', $maxsize)->where('property_type_id', $paction, $ptype)->where('sale_type_id', $saction, $stype);})->with(['units' => function ($query) use ($ptype, $paction, $stype, $saction, $minsize, $maxsize) {$query->where('size', '>', $minsize)->where('size', '<', $maxsize)->where('property_type_id', $paction, $ptype)->where('sale_type_id', $saction, $stype);}])->with('images', 'notes', 'owners')->paginate(5);
+                $items = Property::whereIn('area_id', $area)->whereHas('units', function ($query) use ($status, $ptype, $stype, $minsize, $maxsize) {$query->where('size', '>', $minsize)->where('size', '<', $maxsize)->whereIn('property_type_id', $ptype)->whereIn('sale_type_id', $stype)->whereIn('status_id', $status);})->with(['units' => function ($query) use ($status, $ptype, $stype, $minsize, $maxsize) {$query->where('size', '>', $minsize)->where('size', '<', $maxsize)->whereIn('property_type_id', $ptype)->whereIn('sale_type_id', $stype)->whereIn('status_id', $status);}])->with('images', 'notes', 'owners')->latest()->paginate(15);
 
             } else {
 
-                $items = Property::latest()->paginate(5);
+                $items = Property::latest()->paginate(15);
                 $items->load('units', 'images', 'notes', 'owners');
 
             }
@@ -347,6 +373,7 @@ $image->save();
         $rules = array(
             'property_type_id' => 'numeric|min:1',
             'sale_type_id'     => 'numeric|min:1',
+            'status_id'        => 'numeric|min:1',
             'size'             => 'numeric|min:0',
             'price'            => 'numeric|min:0',
         );
@@ -366,6 +393,7 @@ $image->save();
         $tosave['property_id']      = $request->input('property_id');
         $tosave['property_type_id'] = $request->input('property_type_id');
         $tosave['sale_type_id']     = $request->input('sale_type_id');
+        $tosave['status_id']        = $request->input('status_id');
         $tosave['size']             = $request->input('size');
         $tosave['price']            = $request->input('price');
 
@@ -568,6 +596,10 @@ $image->save();
 
     public function createPdf($item)
     {
+
+        activity("Brochure")->withProperties(
+
+            ['Property' => $item])->log('PDF ');
 
         // $img = Barryvdh\Snappy\Facades\SnappyImage::loadView('readme');
         // return $img->download('test.pdf');

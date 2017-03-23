@@ -3,11 +3,14 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Owner extends Model
 {
-    //
-    protected $guarded = [];
+    use LogsActivity;
+
+    protected static $logAttributes = ['property_id', 'unit_id', 'company', 'contact', 'tel', 'cell', 'email'];
+    protected $guarded              = [];
 
     public function properties()
     {

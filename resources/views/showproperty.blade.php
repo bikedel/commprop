@@ -351,7 +351,9 @@ small {
 <BR><BR><BR><BR><BR><BR><BR>
 </div>
 
+
   <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.2.4.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/flexslider/2.6.3/jquery.flexslider.js"></script>
 <script>
 // Can also be used with $(document).ready()

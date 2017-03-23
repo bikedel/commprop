@@ -26,6 +26,7 @@ class MapController extends Controller
     public function index()
     {
 
+        activity("Google")->log('Map');
 /*
 // add lat long
 //$add = urlencode("11 belair, constantia");

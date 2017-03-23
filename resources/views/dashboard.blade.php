@@ -144,7 +144,7 @@ mySidenav {
   </div>
   <hr>
   <div class="w3-container">
-    <h5>Recent Photos</h5>
+    <h5>Recent Units added</h5>
     <ul class="w3-ul w3-card-4 w3-white">
 
     @for($x = 0; $x < 4; $x++)

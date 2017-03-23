@@ -126,16 +126,28 @@ body {
 <li  class="list-group-item">  <span class="badge">55</span>eremove app.js add bootstrap js to manage-prop</li>
 <li  class="list-group-item">  <span class="badge">56</span>maps - load thumbnails</li>
 <li  class="list-group-item">  <span class="badge">57</span>maps - if no image it is loading the last one</li>
-<li  class="list-group-item">  <span class="badge">57</span>centos - caching on server?? </li>
-<li  class="list-group-item">  <span class="badge">57</span>install toastr on server</li>
-<li  class="list-group-item">  <span class="badge">57</span>install bootstrap-select</li>
-<li  class="list-group-item">  <span class="badge">57</span>update to vue 2 - and all the shit that goes with it!!</li>
-<li  class="list-group-item">  <span class="badge">57</span>replace vue-resource with axios</li>
-<li  class="list-group-item">  <span class="badge">57</span>node npm axios on server</li>
-<li  class="list-group-item">  <span class="badge">57</span>gulp --production</li>
-<li  class="list-group-item">  <span class="badge">57</span>date order filter - notes and owners</li>
-<li  class="list-group-item">  <span class="badge">57</span>https://github.com/freearhey/vue2-filters</li>
-<li  class="list-group-item">  <span class="badge">57</span>disable cache on server .htaccess selectpicker</li>
+<li  class="list-group-item">  <span class="badge">58</span>centos - caching on server?? </li>
+<li  class="list-group-item">  <span class="badge">59</span>install toastr on server</li>
+<li  class="list-group-item">  <span class="badge">60</span>install bootstrap-select</li>
+<li  class="list-group-item">  <span class="badge">61</span>update to vue 2 - and all the shit that goes with it!!</li>
+<li  class="list-group-item">  <span class="badge">62</span>replace vue-resource with axios</li>
+<li  class="list-group-item">  <span class="badge">63</span>node npm axios on server</li>
+<li  class="list-group-item">  <span class="badge">64</span>gulp --production</li>
+<li  class="list-group-item">  <span class="badge">65</span>date order filter - notes and owners</li>
+<li  class="list-group-item">  <span class="badge">66</span>https://github.com/freearhey/vue2-filters</li>
+<li  class="list-group-item">  <span class="badge">67</span>disable cache on server .htaccess selectpicker</li>
+<li  class="list-group-item">  <span class="badge">68</span>jquery selectpicker('reset') in 3 secs</li>
+<li  class="list-group-item">  <span class="badge">69</span>location - login dropdown not visible</li>
+<li  class="list-group-item">  <span class="badge">70</span>log activity - spatie/laravel-activitylog</li>
+<li  class="list-group-item">  <span class="badge">71</span>log activity - sview</li>
+<li  class="list-group-item">  <span class="badge">72</span>log activity - spatie/laravel-activitylog</li>
+<li  class="list-group-item">  <span class="badge">73</span>redo search with selectpicker</li>
+<li  class="list-group-item">  <span class="badge">74</span>add status to search and  unit</li>
+<li  class="list-group-item">  <span class="badge">75</span>Forms - disable submit so no double entries</li>
+<li  class="list-group-item">  <span class="badge">76</span>Unit - edit</li>
+<li  class="list-group-item">  <span class="badge">77</span>sortable fixed in edit item - make practical</li>
+<li  class="list-group-item">  <span class="badge">69</span>edit item - add more images</li>
+
 
 
 

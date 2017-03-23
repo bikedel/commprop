@@ -22,6 +22,7 @@ class HomeController extends Controller
     {
         // dd("home controller");
         $this->middleware('auth');
+
     }
 
     public function readme()
@@ -38,21 +39,7 @@ class HomeController extends Controller
     public function index()
     {
 
-        //$properties = Property::has('Unit')->where('area_id', '2')->get();
-        $properties = Property::has('Units')->paginate(5);
-        $properties->load('Images');
-        $areas  = Area::all();
-        $stypes = SaleType::all();
-        $ptypes = PropertyType::all();
-        //dd($properties, $areas);
-
-        $select_area    = 0;
-        $select_minsize = "";
-        $select_maxsize = "";
-        $select_ptype   = 0;
-        $select_stype   = 0;
-
-        $search = "";
+        //  activity("auth")->log('log_In ' . Auth::user()->name);
 
         //   return view('home', compact('properties', 'areas', 'stypes', 'ptypes', 'select_area', 'select_minsize', 'select_maxsize', 'select_ptype', 'select_stype', 'search'));
         return view('manage-properties');
@@ -162,6 +149,32 @@ class HomeController extends Controller
 
     public function test()
     {
+
         dd("test");
+    }
+
+    /**
+     * Generate Image upload View
+     *
+     * @return void
+     */
+    public function dropzone()
+    {
+        return view('dropzone-view');
+    }
+
+    /**
+     * Image Upload Code
+     *
+     * @return void
+     */
+    public function dropzoneStore(Request $request)
+    {
+
+        $folder    = $request->input('fname');
+        $image     = $request->file('file');
+        $imageName = $folder . time() . $image->getClientOriginalName();
+        $image->move(public_path('drop/' . $folder), $imageName);
+        return response()->json(['success' => $imageName]);
     }
 }

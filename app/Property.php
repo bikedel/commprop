@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Property extends Model
 {
@@ -12,7 +13,10 @@ class Property extends Model
      *
      * @var array
      */
-    protected $guarded = [];
+    use LogsActivity;
+
+    protected $guarded              = [];
+    protected static $logAttributes = ['erf', 'title', 'description', 'long', 'lat'];
 
     public function units()
     {

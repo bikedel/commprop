@@ -5,6 +5,7 @@
 body {
 
   background-color: #6594B4 !important;
+  z-index:-5;
 }
 .searchbar {
 
@@ -78,7 +79,8 @@ padding-left: 0px!important;
 
 
 
-
+  <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.2.4.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 
 @endsection

@@ -4,11 +4,14 @@ namespace App;
 
 use App\Property;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Unit extends Model
 {
-    //
-    protected $guarded = [];
+    use LogsActivity;
+
+    protected static $logAttributes = ['property_id', 'property_type_id', 'sale_type_id', 'size', 'price'];
+    protected $guarded              = [];
 
     public function property()
     {

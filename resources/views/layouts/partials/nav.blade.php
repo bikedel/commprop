@@ -42,7 +42,7 @@
                         <!-- Authentication Links -->
                         @if (Auth::guest())
                             <li><a href="{{ url('/login') }}">Login</a></li>
-                            <li><a href="{{ url('/register') }}">Register</a></li>
+                            <!--  <li><a href="{{ url('/register') }}">Register</a></li>   -->
                         @else
 
                             <li class="dropdown">
@@ -56,9 +56,13 @@
                                 <li>
                                   <a  href="{{ url('/readme') }}">Todo</a>
                                 </li>
-                                                                <li>
+                                <li>
                                   <a  href="{{ url('/dashboard') }}">Dashboard</a>
                                 </li>
+                                <li>
+                                  <a  href="{{ url('/logs') }}">Logs</a>
+                                </li>
+
                                     <li>
                                         <a href="{{ url('/logout') }}"
                                             onclick="event.preventDefault();

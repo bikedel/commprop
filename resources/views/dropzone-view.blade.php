@@ -11,10 +11,9 @@
 
     <style>
         .dropzone {
-            height: 200px;
-            width: 500px;
+
             border: dashed 1px red;
-            background-color: lightblue;
+
         }
     </style>
 @section('content')

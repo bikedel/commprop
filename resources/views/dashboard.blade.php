@@ -173,7 +173,7 @@ mySidenav {
     <h5>Brokers</h5>
     <div class="w3-row">
       <div class="w3-col m2 text-center">
-        <img class="w3-circle" src="agents/Jack Bass.jpg" style="width:96px;height:96px">
+        <img class="img-thumbnail" src="agents/Jack Bass.jpg" style="width:96px;height:96px">
       </div>
       <div class="w3-col m10 w3-container">
         <h4>Jack Bass <span class="w3-opacity w3-medium"></span></h4>
@@ -183,7 +183,7 @@ mySidenav {
 
     <div class="w3-row">
       <div class="w3-col m2 text-center">
-        <img class="w3-circle" src="agents/Rob Odendaal.jpg" style="width:96px;height:96px">
+        <img class="img-thumbnail" src="agents/Rob Odendaal.jpg" style="width:96px;height:96px">
       </div>
       <div class="w3-col m10 w3-container">
         <h4>Rob Odendaal <span class="w3-opacity w3-medium"></span></h4>

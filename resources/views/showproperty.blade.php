@@ -254,10 +254,20 @@ small {
 			  <?php $count = 0;?>
 					@foreach ($property->images as $image)
                         <?php $count++;?>
+
+
+
                         @if ($count <= 4 )
+                          @if  (  file_exists(public_path("property/" . $property->id ."/". $image->name)))
 						    <li data-thumb={{ "property/" . $property->id ."/". $image->name }}>
 						      <img src={{ "property/" . $property->id ."/". $image->name }} />
 						    </li>
+						  @else
+						    <li data-thumb={{ "agents/avatar2.png" }}>
+						      <img src={{  "agents/avatar2.png" }} />
+						    </li>
+						  @endif
+
 					    @endif
 
 

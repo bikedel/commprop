@@ -152,9 +152,9 @@ mySidenav {
       <li class="w3-padding-32">
         <span onclick="this.parentElement.style.display='none'" class="w3-closebtn w3-padding w3-margin-right w3-medium">x</span>
 
-        <img class="img-thumbnail" src="{{ 'property/' . $properties[$x]->id .'/'.  $properties[$x]->images[0]->name }}" class="w3-left  w3-margin-right" style="width:96px;height:96px;">
+        <img class="img-thumbnail" src="{{ 'property/' . $properties[$x]->id .'/'.  $properties[$x]->images[0]->name }}" class="w3-left  w3-margin-right" style="width:60px;height:60px;">
 
-        <span class="w3-small">Erf: {{$properties[$x]->erf }} <br>Unit: {{$properties[$x]->id}}
+        <span class="w3-small">Erf: {{$properties[$x]->erf }} Unit: {{$properties[$x]->id}}
            @if ( sizeof($properties[$x]->units) > 0 )
 
                   Status: {{ $statuses[$properties[$x]->units[0]->status_id-1]->name}}</span>

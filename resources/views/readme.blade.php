@@ -147,6 +147,7 @@ body {
 <li  class="list-group-item">  <span class="badge">76</span>Unit - edit</li>
 <li  class="list-group-item">  <span class="badge">77</span>sortable fixed in edit item - make practical</li>
 <li  class="list-group-item">  <span class="badge">69</span>edit item - add more images</li>
+<li  class="list-group-item">  <span class="badge">69</span>Dashboard - showing unit status - using array index nor matching status id !!!!</li>
 
 
 

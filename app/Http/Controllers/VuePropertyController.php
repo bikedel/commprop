@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App;
 use App\Area;
+use App\Contact;
+use App\ContactType;
 use App\Http\Controllers\Controller;
 use App\Image;
 use App\Note;
@@ -82,23 +84,27 @@ class VuePropertyController extends Controller
     public function selects(Request $request)
     {
 
-        $users    = User::all();
-        $areas    = Area::with('suburbs')->get();
-        $suburbs  = Suburb::orderBy('id')->get();
-        $stypes   = SaleType::all();
-        $ptypes   = PropertyType::all();
-        $statuses = Status::all();
+        $users        = User::all();
+        $areas        = Area::with('suburbs')->get();
+        $suburbs      = Suburb::orderBy('id')->get();
+        $contacts     = Contact::all();
+        $stypes       = SaleType::all();
+        $ptypes       = PropertyType::all();
+        $statuses     = Status::all();
+        $contacttypes = ContactType::all();
 
         // $streets = Street::on($database)->select('id', 'strStreetName')->get();
 
         //array_unshift($users, ['name' => 'Select ']);
         $response = [
-            'users'    => $users,
-            'areas'    => $areas,
-            'suburbs'  => $suburbs,
-            'stypes'   => $stypes,
-            'ptypes'   => $ptypes,
-            'statuses' => $statuses,
+            'users'        => $users,
+            'areas'        => $areas,
+            'suburbs'      => $suburbs,
+            'contacts'     => $contacts,
+            'stypes'       => $stypes,
+            'ptypes'       => $ptypes,
+            'contacttypes' => $contacttypes,
+            'statuses'     => $statuses,
         ];
 
         return response()->json($response);
@@ -463,11 +469,12 @@ $image->save();
     {
 
         $rules = array(
-
+            'contact_type_id' => 'required|numeric|min:1',
         );
 
         $messsages = array(
-
+            'min'     => 'This field is required',
+            'numeric' => 'This field is required and must be numeric',
         );
 
         $validator = \Illuminate\Support\Facades\Validator::make($request->all(), $rules, $messsages);
@@ -480,13 +487,16 @@ $image->save();
         $now = Carbon\Carbon::now();
 
         // remove id from the form request
-        $tosave['property_id'] = $request->input('id');
-        $tosave['unit_id']     = $request->input('unit_id');
-        $tosave['contact']     = $request->input('contact');
-        $tosave['tel']         = $request->input('tel');
-        $tosave['cell']        = $request->input('cell');
-        $tosave['email']       = $request->input('email');
-        $tosave['date']        = $now;
+        $tosave['property_id']     = $request->input('id');
+        $tosave['unit_id']         = $request->input('unit_id');
+        $tosave['company']         = $request->input('company');
+        $tosave['firstname']       = $request->input('firstname');
+        $tosave['lastname']        = $request->input('lastname');
+        $tosave['tel']             = $request->input('tel');
+        $tosave['cell']            = $request->input('cell');
+        $tosave['email']           = $request->input('email');
+        $tosave['website']         = $request->input('website');
+        $tosave['contact_type_id'] = $request->input('contact_type_id');
         // $tosave = $request->except(['id']);
 
         $owner = Owner::create($tosave);

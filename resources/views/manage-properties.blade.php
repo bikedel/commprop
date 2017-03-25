@@ -415,9 +415,9 @@ small {
                <button class="btn btn-danger btn-xs" @click.prevent="deleteItem(item)">Delete</button>
 
            @endif
-
-           <button id="notes_button" class="btn btn-warning btn-xs" @click.prevent="editNote(item,unit)">Notes</button>
-           <button class="btn btn-info btn-xs" @click.prevent="editOwner(item,unit)">Contacts</button>
+           <!-- editnote and contacts - second param is 0 for main property -->
+           <button id="notes_button" class="btn btn-warning btn-xs" @click.prevent="editNote(item,0)">Notes</button>
+           <button class="btn btn-info btn-xs" @click.prevent="editOwner(item,0)">Contacts</button>
 
            <button class="btn btn-default btn-xs" @click.prevent="createPDF(item)">Brochure</button>
      </div>
@@ -610,12 +610,28 @@ small {
                     </div>
 
                     <div class="form-group">
-                    <label for="Firstname">Image:</label>
+                    <label for="Firstname">Image(s):</label>
 
-                        <input type="file" id="image" name="image[]" multiple  @change="getImage"/>
+                        <input type="file" id="image" class="btn btn-default " name="image[]" multiple  style="width: 100%;"  @change="getImage"/>
 
                         <span v-if="formErrors['image']" class="error text-danger">@{{ formErrors['image'][0] }}</span>
                     </div>
+
+                    <div class="form-group">
+                        <label for="Firstname">Sale Type:</label>
+
+                        <select  id='sale_type_id' name='sale_type_id' class="form-control "  v-model="newUnit.sale_type_id"  style="width: 100%;"  >
+                           <option value="0" disabled  hidden>Please select sale type...</option>
+                               <option v-for="stype in stypes" :value="stype.id"  >
+                                    @{{ stype.name }}
+                               </option>
+                        </select>
+
+
+                        <span v-if="formErrors['sale_type_id']" class="error text-danger">@{{ formErrors['sale_type_id'][0] }}</span>
+                    </div>
+
+
 
                     <div class="form-group">
                         <button id="create-item-submit" type="submit" class="btn btn-success">Submit</button>
@@ -866,7 +882,7 @@ small {
                         <table class="table  table-hover"  >
 
                             <tr v-for="item  in orderBy(fillNote.note, 'date', -1)   " v-if=" item.unit_id == fillNote.unit_id ">
-                          <!--  <tr v-for="item  in fillNote.note | orderBy 'unit_id' -1 | orderBy 'date' -1" v-if=" item.unit_id === fillNote.unit_id "> -->
+                          <!--  == for online === for local <tr v-for="item  in fillNote.note | orderBy 'unit_id' -1 | orderBy 'date' -1" v-if=" item.unit_id === fillNote.unit_id "> -->
                                 <td style="white-space:pre-wrap ; word-wrap:break-word;">Unit @{{ item.unit_id  }} <blue> @{{  item.date |  dateFrom }}  <red>@{{ users[ item.user_id -1 ].name  }}</red></blue><br>@{{ item.description }}</td>
 
                             </tr>
@@ -934,31 +950,38 @@ small {
                         <span v-if="formErrors['unit_id']" class="error text-danger">@{{ formErrors['unit_id'] }}</span>
                     </div>
 
-                    <div style="height:130px;width:100%;border:1px solid #ccc;overflow:auto; padding:0px">
+                    <div id="ownertable" style="height:160px;width:100%;border:1px solid #ccc;overflow:auto; padding:0px">
 
 
                         <table class="table  table-hover">
                             <tr>
 
-
-                                <th width="200px">Contact</th>
+                                <th width="200px">Type</th>
+                                <th width="200px">Company</th>
+                                <th width="200px">Firstname</th>
+                                <th width="200px">Lastname</th>
                                 <th width="120px">Tel</th>
                                 <th width="120px">Cell</th>
                                 <th width="220px">Email</th>
+                                <th width="220px">Website</th>
                                 <th width="100px">Unit</th>
                                 <th width="180px">Date</th>
 
                             </tr>
-                           <!--  <tr v-for="item  in fillOwner.owners | orderBy 'unit_id' -1 | orderBy 'date' -1" v-if=" item.unit_id === fillOwner.unit_id "> -->
-                            <tr v-for="item  in orderBy(fillOwner.owners, 'date', -1) " v-if=" item.unit_id == fillOwner.unit_id ">
+                           <!--    == for online === for local  <tr v-for="item  in fillOwner.owners | orderBy 'unit_id' -1 | orderBy 'date' -1" v-if=" item.unit_id === fillOwner.unit_id "> -->
+                            <tr v-for="item  in orderBy(fillOwner.owners, 'created_at', -1) " v-if=" item.unit_id == fillOwner.unit_id ">
 
 
-                                 <td>@{{ item.contact }}</td>
+                                 <td>@{{ contacttypes[item.contact_type_id-1].name }}</td>
+                                 <td>@{{ item.company }}</td>
+                                 <td>@{{ item.firstname }}</td>
+                                 <td>@{{ item.lastname }}</td>
                                  <td>@{{ item.tel }}</td>
                                  <td>@{{ item.cell }}</td>
-                                 <td>@{{ item.email }}</td>
+                                 <td><a :href="'mailto:'+item.email">@{{ item.email }}</a></td>
+                                 <td><a :href="'http://'+item.website" target="_blank">@{{ item.website }}</a></td>
                                  <td>@{{ item.unit_id }}</td>
-                                 <td>@{{ item.date | dateNormal }}</td>
+                                 <td>@{{ item.created_at | dateNormal }}</td>
                             </tr>
                         </table>
 
@@ -969,10 +992,47 @@ small {
 
 @if ( Auth::user()->getRoleName()  == "Admin")
 
+
                     <div class="form-group">
-                        <label for="Surname">Contact:</label>
-                        <input type="text" name="contact" class="form-control" placeholder="Add contact name" v-model="fillOwner.contact" />
-                        <span v-if="formErrors['contact']" class="error text-danger">@{{ formErrors['contact'] }}</span>
+                        <label for="Surname">Existing Contact:</label>
+                        <select  id ='unitowner'  name ='unitowner' class="form-control selectpicker"  data-live-search="true" data-width="100%" title="Select contact" v-on:change="setContact(fillOwner.selectedContact)" v-model="fillOwner.selectedContact">
+
+                               <option v-for="contact in contacts" v-bind:value="contact.id"  >
+                                    @{{ contact.company }}
+                               </option>
+                        </select>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="Surname">Contact Type:</label>
+                        <select  id ='contact_type_id'  name ='contact_type_id' class="form-control selectpicker"   data-width="100%" title="Select contact type"   v-model="fillOwner.contact_type_id" >
+
+                               <option v-for="contacttype in contacttypes" v-bind:value="contacttype.id"  >
+                                    @{{ contacttype.name }}
+                               </option>
+                        </select>
+                        <span v-if="formErrors['contact_type_id']" class="error text-danger">@{{ formErrors['contact_type_id'][0] }}</span>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="Surname">Company:</label>
+                        <input type="text" name="company" class="form-control" placeholder="Add company name" v-model="fillOwner.company" />
+                        <span v-if="formErrors['company']" class="error text-danger">@{{ formErrors['company'] }}</span>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="Surname">Firstname:</label>
+                        <input type="text" name="firstname" class="form-control" placeholder="Add firstname " v-model="fillOwner.firstname" />
+                        <span v-if="formErrors['firstname']" class="error text-danger">@{{ formErrors['firstname'] }}</span>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Surname">Lastname:</label>
+                        <input type="text" name="lastname" class="form-control" placeholder="Add lastname " v-model="fillOwner.lastname" />
+                        <span v-if="formErrors['lastname']" class="error text-danger">@{{ formErrors['lastname'] }}</span>
 
                     </div>
 
@@ -994,6 +1054,13 @@ small {
                         <label for="Surname">Email:</label>
                         <input type="text" name="email" class="form-control" placeholder="Add contact email" v-model="fillOwner.email" />
                         <span v-if="formErrors['email']" class="error text-danger">@{{ formErrors['email'] }}</span>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Surname">Website:</label>
+                        <input type="text" name="website" class="form-control" placeholder="Add website address" v-model="fillOwner.website" />
+                        <span v-if="formErrors['website']" class="error text-danger">@{{ formErrors['website'] }}</span>
 
                     </div>
 

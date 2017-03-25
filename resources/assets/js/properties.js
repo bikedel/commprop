@@ -83,6 +83,7 @@ data:  {
 
 
     // set to '/laravel' for local and online set to ''
+    // for local use /laravel - online ''
     //offlinePath: '/laravel',
     offlinePath: '',
     seen: false,
@@ -91,6 +92,8 @@ data:  {
     users: [],
     areas: [],
     suburbs: [],
+    contacts: [],
+    contacttypes: [],
     ptypes: [],
     stypes: [],
     statuses: [],
@@ -153,10 +156,15 @@ data:  {
           'erf':'',
           'unit_id':'',
           'owners':[],
-          'contact':'',
+          'company':'',
+          'firstname':'',
+          'lastname':'',
+          'contact_type_id':'',
+          'selectedContact':'',
           'tel': '',
           'cell': '',
           'email': '',
+          'website': '',
 
     },
 
@@ -167,6 +175,7 @@ data:  {
         s_status: [],
         s_minsize: '',
         s_maxsize: '',
+
 
     },
 
@@ -306,6 +315,8 @@ data:  {
               vm.statuses = response.data.statuses;
               vm.stypes = response.data.stypes;
               vm.ptypes = response.data.ptypes;
+              vm.contacttypes = response.data.contacttypes;
+              vm.contacts = response.data.contacts;
 
  //$('.selectpicker').selectpicker('render');
              // console.log('axios getVueSelects completed');
@@ -616,6 +627,7 @@ data:  {
               var container = this.$el.querySelector("#notetable");
               //console.log('edit scrollHeight  ' + container.scrollHeight);
               container.scrollTop = 0;
+              container.scrollLeft = 0;
 
           })
 
@@ -693,6 +705,8 @@ data:  {
           this.fillOwner.id = item.id;
           this.fillOwner.erf = item.erf;
          
+
+          // if unit is 0 then it applies to the main property otherwise it is a unit
           if (unit){
              this.fillOwner.unit_id = unit.id;
           } else {
@@ -706,12 +720,50 @@ data:  {
           
           }
 
+          // set these to null
+          this.fillOwner.contact_type_id = 0;
+          this.fillOwner.selectedContact = 0;
+
+          // reset scroll bat to the top
+          this.$nextTick(() => {
+      
+              var container = this.$el.querySelector("#ownertable");
+              //console.log('edit scrollHeight  ' + container.scrollHeight);
+              container.scrollTop = 0;
+              container.scrollLeft = 0;
+
+          })
 
 
           $("#edit-owner").modal('show');
 
           this.resetErrors();
       },
+
+
+
+
+    // get suburb name
+    setContact: function (id) {
+          //console.log("get suburbName");
+          for(var i = 0; i < this.contacts.length; i++){
+              if (this.contacts[i].id == id ){
+                     //console.log("get suburbName "+ this.suburbs[i].name);
+                     this.fillOwner.company = this.contacts[i].company;
+                      this.fillOwner.firstname = this.contacts[i].firstname;
+                      this.fillOwner.lastname = this.contacts[i].lastname;
+                      this.fillOwner.tel = this.contacts[i].tel;
+                      this.fillOwner.cell = this.contacts[i].cell;
+                      this.fillOwner.email = this.contacts[i].email;
+                      this.fillOwner.website = this.contacts[i].website;
+                     
+              }  
+          }
+         
+   
+     },
+
+
 
     createOwner: function(){
 
@@ -735,14 +787,19 @@ data:  {
                       vm.changePage(vm.pagination.current_page);
 
                   vm.fillOwner = { 
-                        'id':'',
-                        'erf':'',
-                        'unit_id':'',
-                        'owners':[],
-                        'contact':'',
-                        'tel': '',
-                        'cell': '',
-                        'email': '',
+                    'id':'',
+                    'erf':'',
+                    'unit_id':'',
+                    'owners':[],
+                    'company':'',
+                    'firstname':'',
+                    'lastname':'',
+                    'contact_type_id':'',
+                    'selectedContact':'',
+                    'tel': '',
+                    'cell': '',
+                    'email': '',
+                    'website': '',
                   }
 
                       $("#edit-owner-submit").attr('disabled', false);

@@ -146,9 +146,18 @@ body {
 <li  class="list-group-item">  <span class="badge">75</span>Forms - disable submit so no double entries</li>
 <li  class="list-group-item">  <span class="badge">76</span>Unit - edit</li>
 <li  class="list-group-item">  <span class="badge">77</span>sortable fixed in edit item - make practical</li>
-<li  class="list-group-item">  <span class="badge">69</span>edit item - add more images</li>
-<li  class="list-group-item">  <span class="badge">69</span>Dashboard - showing unit status - using array index nor matching status id !!!!</li>
+<li  class="list-group-item">  <span class="badge">78</span>edit item - add more images</li>
+<li  class="list-group-item">  <span class="badge">79</span>Dashboard - showing unit status - using array index nor matching status id !!!!</li>
 
+<li  class="list-group-item">  <span class="badge">80</span> new VPS configure </li>
+<li  class="list-group-item">  <span class="badge">81</span> yum install missing libs mbstring sql gd....</li>
+<li  class="list-group-item">  <span class="badge">82</span> whktopdf install </li>
+<li  class="list-group-item">  <span class="badge">83</span>  selinux enforce 0 </li>
+<li  class="list-group-item">  <span class="badge">84</span>  storage user group apache</li>
+<li  class="list-group-item">  <span class="badge">85</span>  brochure footer for agents</li>
+<li  class="list-group-item">  <span class="badge">86</span>  brochure cover </li>
+<li  class="list-group-item">  <span class="badge">87</span> multi units in brochuhre </li>
+<li  class="list-group-item">  <span class="badge">88</span>  </li>
 
 
 

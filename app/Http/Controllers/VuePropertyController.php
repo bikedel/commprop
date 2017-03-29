@@ -469,24 +469,24 @@ $image->save();
     {
 
         $rules = array(
+            'company'         => 'unique:contacts',
+            'firstname'       => 'required',
+            'lastname'        => 'required',
             'contact_type_id' => 'required|numeric|min:1',
         );
 
         $messsages = array(
+            'unique'  => 'This company already exists or the lastname, firstame below',
             'min'     => 'This field is required',
             'numeric' => 'This field is required and must be numeric',
         );
-
-        $validator = \Illuminate\Support\Facades\Validator::make($request->all(), $rules, $messsages);
-
-        if ($validator->fails()) {
-            return response()->json($validator->errors()->getMessages(), 422);
-        }
 
         // curent timestamp
         $now = Carbon\Carbon::now();
 
         // remove id from the form request
+
+        // $tosave = $request->except(['id']);
         $tosave['property_id']     = $request->input('id');
         $tosave['unit_id']         = $request->input('unit_id');
         $tosave['company']         = $request->input('company');
@@ -497,9 +497,56 @@ $image->save();
         $tosave['email']           = $request->input('email');
         $tosave['website']         = $request->input('website');
         $tosave['contact_type_id'] = $request->input('contact_type_id');
-        // $tosave = $request->except(['id']);
 
-        $owner = Owner::create($tosave);
+        // no company name and it is not an existing contact
+        $savecontact['company'] = $request->input('company');
+        if ($request->input('company') == "" && $request->input('checked') == 'false') {
+            $savecontact['company'] = $request->input('lastname') . ' ' . $request->input('firstname');
+            $tosave['company']      = $request->input('lastname') . ' ' . $request->input('firstname');
+
+            // only validate on new contact
+            $tosave = $request->except(['company']);
+        }
+
+// only need to validate if not an existing one ie. it is a new contact
+        if ($request->input('checked') == 'false') {
+            $validator = \Illuminate\Support\Facades\Validator::make($tosave, $rules, $messsages);
+            if ($validator->fails()) {
+                return response()->json($validator->errors()->getMessages(), 422);
+            }
+        }
+        // existing contact so only save in owners
+        if ($request->input('checked') === 'true') {
+
+            // save in owners table
+            $saveowner['property_id']     = $request->input('id');
+            $saveowner['unit_id']         = $request->input('unit_id');
+            $saveowner['contact_id']      = $request->input('selectedContact');
+            $saveowner['contact_type_id'] = $request->input('contact_type_id');
+            $owner                        = Owner::create($saveowner);
+
+        } else {
+
+            // check if contact already exists, else save it
+            //$savecontact['company']   = $request->input('company');
+            $savecontact['firstname'] = $request->input('firstname');
+            $savecontact['lastname']  = $request->input('lastname');
+            $savecontact['tel']       = $request->input('tel');
+            $savecontact['cell']      = $request->input('cell');
+            $savecontact['email']     = $request->input('email');
+            $savecontact['website']   = $request->input('website');
+
+            $contact = Contact::create($savecontact);
+
+            // save the contact id
+            $saveowner['contact_id'] = $contact->id;
+            // save in owners table
+            $saveowner['property_id']     = $request->input('id');
+            $saveowner['unit_id']         = $request->input('unit_id');
+            $saveowner['contact_type_id'] = $request->input('contact_type_id');
+            $owner                        = Owner::create($saveowner);
+
+        }
 
         return response()->json($owner);
         //return response()->json(['test' => 'all data ok so far.'], 422);
@@ -639,7 +686,10 @@ $image->save();
         // PDF::loadHTML($html)->setOption('footer-center', 'Page [page]')->save('myfile.pdf');
         $cover = '<div class="flexme" <h1>Sotheby Brochure</h1></div>';
 
-        return PDF::loadView('pdf.brochure', compact('item', 'areas', 'suburbs', 'ptypes', 'stypes', 'users'))->setOption('margin-bottom', 10)->setOption('footer-center', 'Page [page]')->setOption('header-center', date('D d M Y'))->download('Property_brochure_erf' . $item->erf . '.pdf');
+        return PDF::loadView('pdf.brochure', compact('item', 'areas', 'suburbs', 'ptypes', 'stypes', 'users'))->setOption('toc', true)->setOption('outline', true)->setOption('margin-top', 10)->setOption('margin-bottom', 40)->setOption('footer-line', false)->setOption('header-center', 'Page [page]')->setOption('cover', "hello")->setOption('footer-html', url('header.html?4ffffkfkff'))->download('Property_brochure_erf' . $item->erf . '.pdf');
+
+//->setOption('header-center', date('D d M Y'))
+
         //  return response()->json(['done']);
         //->setOption('footer-html', "<img src = '{{public_path()}}/img/sothebys_logo_flat.jpeg' />")
         //return PDF::loadView('pdf.brochure', compact('item', 'areas', 'ptypes', 'stypes', 'users'))->setOption('margin-bottom', 0)->setOption('footer-center', 'Page [page]')->setOption('cover', $cover)->download('Property_brochure_erf' . $item->erf . '.pdf');

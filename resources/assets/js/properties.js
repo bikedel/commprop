@@ -176,6 +176,7 @@ data:  {
         s_minsize: '',
         s_maxsize: '',
 
+        checked: '',
 
     },
 
@@ -321,7 +322,6 @@ data:  {
  //$('.selectpicker').selectpicker('render');
              // console.log('axios getVueSelects completed');
               // console.log('refresh picker again');
-
 
               })
              .catch(function (error) {
@@ -724,6 +724,8 @@ data:  {
           this.fillOwner.contact_type_id = 0;
           this.fillOwner.selectedContact = 0;
 
+         
+
           // reset scroll bat to the top
           this.$nextTick(() => {
       
@@ -731,6 +733,7 @@ data:  {
               //console.log('edit scrollHeight  ' + container.scrollHeight);
               container.scrollTop = 0;
               container.scrollLeft = 0;
+               this.checked = 'true';
 
           })
 
@@ -743,7 +746,7 @@ data:  {
 
 
 
-    // get suburb name
+    // get contact fields
     setContact: function (id) {
           //console.log("get suburbName");
           for(var i = 0; i < this.contacts.length; i++){
@@ -763,7 +766,19 @@ data:  {
    
      },
 
+    getContactId: function (id) {
+          //console.log("get suburbName");
 
+
+          for(var i = 0; i < this.contacts.length; i++){
+              if (this.contacts[i].id == id ){
+                     //console.log("get suburbName "+ this.suburbs[i].name);
+                     return i;
+              }  
+          }
+         
+   
+     },
 
     createOwner: function(){
 
@@ -774,7 +789,11 @@ data:  {
                 // then in your code...
                 let data = new FormData(document.getElementById('createOwner'));
 
-             
+                data.append('checked',this.checked);
+                 data.append('selectedContact',this.fillOwner.selectedContact);
+
+                
+
                 var input = data;
 
                 $("#edit-owner-submit").attr('disabled', true);
@@ -785,6 +804,14 @@ data:  {
                 axios.post(vm.offlinePath+'/commprop/public/vuepropertiesAddOwner',input).then(function (response) {
 
                       vm.changePage(vm.pagination.current_page);
+
+
+                      // get selects as the contacts has changed
+                      vm.getVueSelects();
+                      // refresh selectpicker
+                      setTimeout(function() {
+                        $('.selectpicker').selectpicker('refresh');
+                      }, 5000);
 
                   vm.fillOwner = { 
                     'id':'',

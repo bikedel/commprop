@@ -157,7 +157,8 @@ body {
 <li  class="list-group-item">  <span class="badge">85</span>  brochure footer for agents</li>
 <li  class="list-group-item">  <span class="badge">86</span>  brochure cover </li>
 <li  class="list-group-item">  <span class="badge">87</span> multi units in brochuhre </li>
-<li  class="list-group-item">  <span class="badge">88</span>  </li>
+<li  class="list-group-item">  <span class="badge">88</span>  vps - domain - arecord for dns</li>
+<li  class="list-group-item">  <span class="badge">89</span> rest </li>
 
 
 

@@ -179,6 +179,7 @@ data:  {
         checked: '',
 
          thetoggle: false,
+         searching: true,
     },
 
 
@@ -373,6 +374,9 @@ data:  {
 */
             var vm = this; 
            // clear search
+
+           vm.searching = true;
+
            if (!input) {
               axios.get(vm.offlinePath+'/commprop/public/vueproperties?page='+page).then(function (response) {
                 vm.items = response.data.data.data;
@@ -416,6 +420,9 @@ data:  {
                           toastr.error("Please refresh the browser.", 'Session expired', {timeOut: 5000});
                     }
               });
+
+            // search complete
+            vm.searching = false;
 
            }
             //console.log("searchVueItems completed "+this.items[1].id);

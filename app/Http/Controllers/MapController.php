@@ -75,7 +75,7 @@ $formatted_address = $output->results[0]->formatted_address;
 dd($status, $lat, $lng, $formatted_address, $province, $city, $city_area, $output);
  */
 //marker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png')
-        Mapper::location('cape town')->map(['zoom' => 10, 'center' => true, 'marker' => false, 'type' => 'HYBRID', 'overlay' => 'NONE']);
+        Mapper::map(-34.0249, 18.9241, ['zoom' => 10, 'center' => true, 'marker' => false, 'type' => 'HYBRID', 'overlay' => 'NONE']);
         // Mapper::informationWindow('cape town', 'Content');
         // get all properties
         $areas      = Area::all();

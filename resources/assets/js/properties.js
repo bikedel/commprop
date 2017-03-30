@@ -178,6 +178,7 @@ data:  {
 
         checked: '',
 
+         thetoggle: false,
     },
 
 
@@ -636,6 +637,17 @@ data:  {
           this.resetErrors();
 
         },
+
+
+       toggle: function(item,unit){
+
+           console.log("toggle");
+            this.thetoggle = ! this.thetoggle
+
+        },
+
+
+
 
         createNote: function(){
 

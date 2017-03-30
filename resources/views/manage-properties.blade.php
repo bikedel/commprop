@@ -260,6 +260,13 @@ small {
 
 }
 
+.thetoggle {
+line-height: 1.8;
+    opacity:0.1;
+     outline: none;
+     color:white;
+
+}
 
 </style>
 
@@ -501,6 +508,7 @@ small {
                                  @{{ unit.price | currency('R ')}}  m<sup>2</sup>
                             </td>
                             <td class="actions">
+                               <button title="Toggle" class="btn btn-danger btn-xs pull right"  :class="{active: thetoggle}" @click.prevent="toggle(item,unit)"><span class="glyphicon glyphicon-ok"></span>  </button>
                                <button title="Notes" class="btn btn-warning btn-xs pull right" @click.prevent="editNote(item,unit)"><span class="glyphicon glyphicon-list-alt"></span>  </button>
                                <button title="Contacts" class="btn btn-info btn-xs pull right" @click.prevent="editOwner(item,unit)"> <span class="glyphicon glyphicon-user"></span> </button>
                                @if ( Auth::user()->getRoleName()  == "Admin")

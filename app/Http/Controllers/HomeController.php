@@ -197,7 +197,7 @@ class HomeController extends Controller
     public function test()
     {
 
-        dd('test');
+        // dd('test');
 
         $temps = Temp::all();
 

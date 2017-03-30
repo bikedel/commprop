@@ -381,12 +381,16 @@ data:  {
               axios.get(vm.offlinePath+'/commprop/public/vueproperties?page='+page).then(function (response) {
                 vm.items = response.data.data.data;
                 vm.pagination = response.data.pagination;
+                            // search complete
+            vm.searching = false;
 
               })
               .catch(function (error) {
            //     console.log(error);
                     status = error.response.status;
              //        console.log(error.response.status);
+                         // search complete
+            vm.searching = false;
                     
                     if (status == 422)
                     {
@@ -402,6 +406,8 @@ data:  {
               axios.post(vm.offlinePath+'/commprop/public/searchvueproperties?page='+page,input).then(function (response) {
                 vm.items = response.data.data.data;
                 vm.pagination = response.data.pagination;
+                            // search complete
+            vm.searching = false;
            //     console.log(vm.items[0].id);
            //     console.log(vm.pagination.total );
            //     console.log("axios earchtVueItems completed");
@@ -410,6 +416,8 @@ data:  {
               .catch(function (error) {
              //   console.log(error);
                     status = error.response.status;
+                                // search complete
+            vm.searching = false;
                    //  console.log(error.response.status);
                     
                     if (status == 422)
@@ -421,8 +429,8 @@ data:  {
                     }
               });
 
-            // search complete
-            vm.searching = false;
+
+
 
            }
             //console.log("searchVueItems completed "+this.items[1].id);

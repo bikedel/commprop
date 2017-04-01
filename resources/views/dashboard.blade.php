@@ -102,7 +102,7 @@ mySidenav {
 
     <div class="w3-quarter">
       <div class="w3-container w3-orange w3-text-white w3-padding-16">
-        <div class="w3-left"><i class="fa fa-credit-card w3-large"></i></div>
+        <div class="w3-left"><i class="fa fa-credit-card w3-xxxlarge"></i></div>
         <div class="w3-right">
           <h3>{{$units->where('sale_type_id','=','2')->count()}}</h3>
         </div>
@@ -115,7 +115,7 @@ mySidenav {
 <br>
   <div class="w3-row-padding w3-margin-bottom">
     <div class="w3-quarter">
-      <div class="w3-container w3-lime w3-text-white w3-padding-16">
+      <div class="w3-container w3-lime w3-text-white w3-padding">
         <div class="w3-left"><i class="fa fa-credit-card w3-large"></i></div>
         <div class="w3-right">
           <h3>{{$units->where('status_id','=','1')->count()}}</h3>
@@ -127,7 +127,7 @@ mySidenav {
 
 
     <div class="w3-quarter">
-      <div class="w3-container w3-pink w3-text-white w3-padding-16">
+      <div class="w3-container w3-pink w3-text-white w3-padding">
         <div class="w3-left"><i class="fa fa-credit-card w3-large"></i></div>
         <div class="w3-right">
           <h3>{{$units->where('status_id','=','2')->count()}}</h3>
@@ -139,7 +139,7 @@ mySidenav {
 
 
     <div class="w3-quarter">
-      <div class="w3-container w3-indigo w3-text-white w3-padding-16">
+      <div class="w3-container w3-indigo w3-text-white w3-padding">
         <div class="w3-left"><i class="fa fa-credit-card w3-large"></i></div>
         <div class="w3-right">
           <h3>{{$units->where('status_id','=','3')->count()}}</h3>
@@ -151,7 +151,7 @@ mySidenav {
 
 
     <div class="w3-quarter">
-      <div class="w3-container w3-brown w3-text-white w3-padding-16">
+      <div class="w3-container w3-brown w3-text-white w3-padding">
         <div class="w3-left"><i class="fa fa-credit-card w3-large"></i></div>
         <div class="w3-right">
           <h3>{{$units->where('status_id','=','4')->count()}}</h3>

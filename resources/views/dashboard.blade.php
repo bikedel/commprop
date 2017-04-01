@@ -112,6 +112,7 @@ mySidenav {
     </div>
   </div>
 
+  <div class="w3-row-padding w3-margin-bottom">
     <div class="w3-quarter">
       <div class="w3-container w3-lime w3-text-white w3-padding-16">
         <div class="w3-left"><i class="fa fa-credit-card w3-xxxlarge"></i></div>
@@ -159,7 +160,7 @@ mySidenav {
       </div>
     </div>
   </div>
-
+</div>
   <hr>
 
   <div class="w3-container">

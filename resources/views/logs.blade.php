@@ -113,7 +113,7 @@ body {
                              {{$activity->subject_type}}
                             </td>
                             <td>
-                              {{$users[$activity->causer_id-1]->name}}
+                              {{$activity->causer_id->name}}
                             </td>
                             <td>
                               {{$activity->properties}}

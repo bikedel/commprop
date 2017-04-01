@@ -898,7 +898,7 @@ line-height: 1.8;
                         <table class="table  table-hover"  >
 
                             <tr v-for="item  in orderBy(fillNote.note, 'date', -1)   " v-if=" item.unit_id == fillNote.unit_id ">
-                          <!--  === for online == for local <tr v-for="item  in fillNote.note | orderBy 'unit_id' -1 | orderBy 'date' -1" v-if=" item.unit_id === fillNote.unit_id "> -->
+                          <!--  == for online === for local <tr v-for="item  in fillNote.note | orderBy 'unit_id' -1 | orderBy 'date' -1" v-if=" item.unit_id === fillNote.unit_id "> -->
                                 <td style="white-space:pre-wrap ; word-wrap:break-word;">Unit @{{ item.unit_id  }} <blue> @{{  item.date |  dateFrom }}  <red>@{{ item.user_id  }}</red></blue><br>@{{ item.description }}</td>
 
                             </tr>
@@ -984,7 +984,7 @@ line-height: 1.8;
                                 <th width="180px">Date</th>
 
                             </tr>
-                           <!--    === for online == for local  <tr v-for="item  in fillOwner.owners | orderBy 'unit_id' -1 | orderBy 'date' -1" v-if=" item.unit_id === fillOwner.unit_id "> -->
+                           <!--    == for online === for local  <tr v-for="item  in fillOwner.owners | orderBy 'unit_id' -1 | orderBy 'date' -1" v-if=" item.unit_id === fillOwner.unit_id "> -->
                             <tr v-for="item  in orderBy(fillOwner.owners, 'created_at', -1) " v-if=" item.unit_id == fillOwner.unit_id ">
 
 

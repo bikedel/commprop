@@ -775,9 +775,10 @@ $image->save();
         // PDF::loadHTML($html)->setOption('footer-center', 'Page [page]')->save('myfile.pdf');
         $cover = '<div class="flexme" <h1>Sotheby Brochure</h1></div>';
 
-        return PDF::loadView('pdf.brochure', compact('items', 'areas', 'suburbs', 'ptypes', 'stypes', 'users', 'markers', 'locations'))->setOption('toc', true)->setOption('outline', true)->setOption('margin-top', 10)->setOption('margin-bottom', 40)->setOption('footer-line', false)->setOption('header-center', 'Page [page]')->setOption('cover', "hello")->setOption('footer-html', url('header.html?4ffffkfkff'))->download('Property_brochure_erf' . $item->erf . '.pdf');
+        return PDF::loadView('pdf.brochure', compact('items', 'areas', 'suburbs', 'ptypes', 'stypes', 'users', 'markers', 'locations'))->setOption('toc', true)->setOption('outline', true)->setOption('margin-top', 10)->setOption('margin-bottom', 40)->setOption('footer-line', false)->setOption('header-center', 'Page [page]')->setOption('footer-html', url('header.html?4ffffkfkff'))->download('Property_brochure_erf' . $item->erf . '.pdf');
 
-//->setOption('header-center', date('D d M Y'))
+//->setOption('cover', "hello")
+        //->setOption('header-center', date('D d M Y'))
 
         //  return response()->json(['done']);
         //->setOption('footer-html', "<img src = '{{public_path()}}/img/sothebys_logo_flat.jpeg' />")

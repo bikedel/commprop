@@ -99,7 +99,7 @@ data:  {
     stypes: [],
     statuses: [],
     brochures: [],
-    
+
     pagination: {
         total: 0, 
         per_page: 2,

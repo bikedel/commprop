@@ -331,7 +331,7 @@ line-height: 1.8;
                             {!! Form::submit('Search',array('class'=>'btn btn-primary')) !!}
 
                           </label>
-                        <button class="btn btn-success " @click.prevent="resetSearch()">Reset</button><p v-if="searching == true" style="color:white;">Searching...</p>
+                        <button class="btn btn-success " @click.prevent="resetSearch()">Reset</button><p v-if="searching == true" style="color:white;"><i class="fa fa-refresh fa-spin fa-3x fa-fw" aria-hidden="true"></i>Searching...</p>
 
    </form>
 </div>

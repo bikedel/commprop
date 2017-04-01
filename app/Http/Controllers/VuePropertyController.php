@@ -105,6 +105,7 @@ class VuePropertyController extends Controller
             'ptypes'       => $ptypes,
             'contacttypes' => $contacttypes,
             'statuses'     => $statuses,
+            'user'         => Auth::user()->id,
         ];
 
         return response()->json($response);
@@ -405,6 +406,7 @@ $image->save();
         $tosave['status_id']        = $request->input('status_id');
         $tosave['size']             = $request->input('size');
         $tosave['price']            = $request->input('price');
+        $tosave['brochure_users']   = array('');
 
         $tosave = $request->except(['id']);
 
@@ -628,6 +630,74 @@ $image->save();
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    public function setbrochure(Request $request)
+    {
+
+        //  $prop = Property::find($id)->delete();
+
+        //  $directory = public_path() . '/property/' . $id;
+
+        //  $success = File::deleteDirectory($directory);
+        $user   = Auth::user()->id;
+        $unit   = $request->input('unit_id');
+        $update = Unit::find($unit);
+        $return = false;
+        // $tosave['brochure_users'] = $update->brochure_users . ',' . Auth::user()->id;
+
+        // check if the user_id is already in the array
+        // remove it if it is
+        // add it if not
+        $field = $update->brochure_users;
+
+        if (($key = array_search($user, $field)) !== false) {
+            unset($field[$key]);
+            $field  = array_values($field);
+            $return = false;
+
+        } else {
+            array_push($field, $user);
+            $return = true;
+        }
+
+        $tosave['brochure_users'] = $field;
+
+        $update->update($tosave);
+
+        return response()->json(['data' => $return]);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function listbrochure(Request $request)
+    {
+
+        //  $prop = Property::find($id)->delete();
+
+        //  $directory = public_path() . '/property/' . $id;
+
+        //  $success = File::deleteDirectory($directory);
+        $user  = Auth::user()->id;
+        $units = Unit::where('brochure_users', '!=', '[]')->orderBy('property_id')->get();
+        $units->load('property');
+
+        $response = [
+            'brochures' => $units,
+        ];
+
+        return response()->json($response);
+
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function destroy($id)
     {
 
@@ -654,24 +724,43 @@ $image->save();
         return response()->json(['done']);
     }
 
-    public function createPdf($item)
+    public function createPdf()
     {
-
-        activity("Brochure")->withProperties(
-
-            ['Property' => $item])->log('PDF ');
-
-        // $img = Barryvdh\Snappy\Facades\SnappyImage::loadView('readme');
-        // return $img->download('test.pdf');
 
         $users   = User::all();
         $areas   = Area::all();
         $suburbs = Suburb::all();
         $stypes  = SaleType::all();
         $ptypes  = PropertyType::all();
+
+        // get all units for brochure
+        $user = Auth::user()->id;
+        // $units = Unit::where('brochure_users', '!=', '[]')->where('brochure_users', 'like', "%[$user%")->orWhere('brochure_users', 'like', "%$user]%")->orWhere('brochure_users', 'like', "%,$user,%")->orderBy('property_id')->get();
+        //  $units->load('property');
+
+        $items = Property::whereHas('units', function ($query) use ($user) {$query->where('brochure_users', '!=', '[]')->where('brochure_users', 'like', "%[$user%")->orWhere('brochure_users', 'like', "%$user]%")->orWhere('brochure_users', 'like', "%,$user,%");})->with(['units' => function ($query) use ($user) {$query->where('brochure_users', '!=', '[]')->where('brochure_users', 'like', "%[$user%")->orWhere('brochure_users', 'like', "%$user]%")->orWhere('brochure_users', 'like', "%,$user,%");}])->with('images', 'notes', 'owners')->get();
+
+        $markers   = '';
+        $locations = '';
+        $loop      = 0;
+
+        foreach ($items as $item) {
+            $loop      = $loop + 1;
+            $marker    = '&markers=color:navy%7Clabel:' . $loop . '%7C' . $item->long . ',' . $item->lat;
+            $markers   = $markers . $marker;
+            $locations = $locations . $loop . '. Erf: ' . $item->erf . ' ';
+        }
+
+        //   dd("pdf", $units, $items);
+
+        // activity("Brochure")->withProperties(['Property' => $item])->log('PDF ');
+
+        // $img = Barryvdh\Snappy\Facades\SnappyImage::loadView('readme');
+        // return $img->download('test.pdf');
+
         //dd('test pdf');
-        $item = Property::find($item);
-        $item->load('units', 'images', 'notes', 'owners');
+        //  $item = Property::find($item);
+        //  $item->load('units', 'images', 'notes', 'owners');
         // $items->load('units', 'images', 'notes', 'owners');
 
         // $pdf = PDF::loadView('pdf.property', ['items' => $items]);
@@ -686,7 +775,7 @@ $image->save();
         // PDF::loadHTML($html)->setOption('footer-center', 'Page [page]')->save('myfile.pdf');
         $cover = '<div class="flexme" <h1>Sotheby Brochure</h1></div>';
 
-        return PDF::loadView('pdf.brochure', compact('item', 'areas', 'suburbs', 'ptypes', 'stypes', 'users'))->setOption('toc', true)->setOption('outline', true)->setOption('margin-top', 10)->setOption('margin-bottom', 40)->setOption('footer-line', false)->setOption('header-center', 'Page [page]')->setOption('cover', "hello")->setOption('footer-html', url('header.html?4ffffkfkff'))->download('Property_brochure_erf' . $item->erf . '.pdf');
+        return PDF::loadView('pdf.brochure', compact('items', 'areas', 'suburbs', 'ptypes', 'stypes', 'users', 'markers', 'locations'))->setOption('toc', true)->setOption('outline', true)->setOption('margin-top', 10)->setOption('margin-bottom', 40)->setOption('footer-line', false)->setOption('header-center', 'Page [page]')->setOption('cover', "hello")->setOption('footer-html', url('header.html?4ffffkfkff'))->download('Property_brochure_erf' . $item->erf . '.pdf');
 
 //->setOption('header-center', date('D d M Y'))
 

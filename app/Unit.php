@@ -10,8 +10,18 @@ class Unit extends Model
 {
     use LogsActivity;
 
-    protected static $logAttributes = ['property_id', 'property_type_id', 'sale_type_id', 'size', 'price'];
+    protected static $logAttributes = ['property_id', 'property_type_id', 'sale_type_id', 'size', 'price', 'brochure_users'];
     protected $guarded              = [];
+
+    public function getBrochureUsersAttribute()
+    {
+        //return $this->attributes['brochure_users'];
+        return json_decode($this->attributes['brochure_users']);
+    }
+    public function setBrochureUsersAttribute(array $val)
+    {
+        $this->attributes['brochure_users'] = json_encode($val);
+    }
 
     public function property()
     {

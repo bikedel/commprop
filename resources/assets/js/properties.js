@@ -88,6 +88,7 @@ data:  {
     offlinePath: '',
     seen: false,
 
+    user: '',
     items: [],
     users: [],
     areas: [],
@@ -97,6 +98,7 @@ data:  {
     ptypes: [],
     stypes: [],
     statuses: [],
+    brochures: [],
 
     pagination: {
         total: 0, 
@@ -178,7 +180,6 @@ data:  {
 
         checked: '',
 
-         thetoggle: false,
          searching: false,
     },
 
@@ -320,6 +321,7 @@ data:  {
               vm.ptypes = response.data.ptypes;
               vm.contacttypes = response.data.contacttypes;
               vm.contacts = response.data.contacts;
+              vm.user = response.data.user;
 
  //$('.selectpicker').selectpicker('render');
              // console.log('axios getVueSelects completed');
@@ -525,6 +527,57 @@ data:  {
                             
       },
 
+
+      // fetch brochures
+      listBrochures: function(){
+
+                var vm = this; 
+
+                axios.get(vm.offlinePath+'/commprop/public/listbrochures').then(function (response) {
+                
+
+
+                      if (response.data.brochures) {
+                        vm.brochures = response.data.brochures;
+
+                      } else
+                      {
+
+                      }
+                })
+                .catch(function (error) {
+                     status = error.response.status;
+                   //  console.log(error.response.status);
+                    
+                    if (status == 422)
+                    {
+                          vm.formErrors = error.response.data;
+                          toastr.warning("Error setting brochure", 'Warning', {timeOut: 5000});
+                    }else{
+                          toastr.error("Please refresh the browser.", 'Session expired', {timeOut: 5000});
+                    }
+
+  
+                });
+
+
+                               
+                            
+      },
+
+
+      // show modal brochures after fetching latest
+      showBrochures: function(){
+
+           var vm = this;
+           this.listBrochures();
+
+           $("#listBrochures").modal('show');
+                               
+                            
+      },
+
+
       deleteItem: function(item){
 
 
@@ -654,15 +707,56 @@ data:  {
         },
 
 
-       toggle: function(item,unit){
+       setBrochure: function(item,unit){
 
-           console.log("toggle");
-            this.thetoggle = ! this.thetoggle
+                console.log("Brochure toggle item: "+item.id+" unit: "+unit.id);
+
+                let data = new FormData();
+                data.append('property_id',item.id);
+                data.append('unit_id',unit.id);
+             
+                var input = data;
+
+                var vm = this; 
+
+                axios.post(vm.offlinePath+'/commprop/public/setbrochure',input).then(function (response) {
+
+                      vm.listBrochures();
+                      vm.changePage(vm.pagination.current_page);
+
+
+                      if (response.data.data == true) {
+                         toastr.success('added to Brochure ',  {timeOut: 5000});
+                      } else
+                      {
+                        toastr.warning('removed from Brochure',  {timeOut: 5000});
+                      }
+                })
+                .catch(function (error) {
+                     status = error.response.status;
+                   //  console.log(error.response.status);
+                    
+                    if (status == 422)
+                    {
+                          vm.formErrors = error.response.data;
+                          toastr.warning("Error setting brochure", 'Warning', {timeOut: 5000});
+                    }else{
+                          toastr.error("Please refresh the browser.", 'Session expired', {timeOut: 5000});
+                    }
+
+  
+                });
 
         },
 
 
-
+                inArray: function(needle, haystack) {
+                    var length = haystack.length;
+                    for(var i = 0; i < length; i++) {
+                        if(haystack[i] == needle) return true;
+                    }
+                    return false;
+                },
 
         createNote: function(){
 
@@ -1004,9 +1098,9 @@ data:  {
       },
 
 
-      createPDF: function(item){
+      createPDF: function(){
 
-                  window.location.href = this.offlinePath+'/commprop/public/createpdf/'+item.id ;
+                  window.location.href = this.offlinePath+'/commprop/public/createpdf';
 
 
       },

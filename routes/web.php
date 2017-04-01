@@ -85,8 +85,14 @@ Route::post('/vuepropertiesAddNote', 'VuePropertyController@addnote');
 // addd owner
 Route::post('/vuepropertiesAddOwner', 'VuePropertyController@addowner');
 
+// set brochure
+Route::post('/setbrochure', 'VuePropertyController@setbrochure');
+
+// list brochure
+Route::get('/listbrochures', 'VuePropertyController@listbrochure');
+
 //test pdf
-Route::get('/createpdf/{item}', 'VuePropertyController@createPdf');
+Route::get('/createpdf', 'VuePropertyController@createPdf');
 
 // view property
 //Route::resource('/showproperty', 'PropertyController');

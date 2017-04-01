@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Brochure</title>
+<title>{{$item->title}}</title>
 <link href='http://fonts.googleapis.com/css?family=Fira Sans' rel='stylesheet' type='text/css'>
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -111,11 +111,6 @@ display: inline-block;
 padding:20px;
 }
 
-red{
-    color:red;
-}
-
-
 .space {
     padding:5px;
 }
@@ -140,32 +135,35 @@ red{
 
 </div>
 
+<!--
+<div class ="row    " style="margin: auto;">
 
 
-<div class ="container-fluid  page " style="margin: auto;">
-
-<h2> Map Locations </h2>
+         <img src = "http://maps.googleapis.com/maps/api/staticmap?size=1280x240&markers={{$item->long}},{{$item->lat}}&maptype=hybrid&scale=2&zoom=12&sensor=false" />
 
 
+</div>
+-->
+
+<div class =" page " style="margin: auto;">
+
+<h1> Map Locations </h1>
 
 
-<img align="center" src = "http://maps.googleapis.com/maps/api/staticmap?size=512x512{{$markers}}&maptype=hybrid&scale=1&sensor=false&label=Hello&key=AIzaSyCNgTdT8SN3jIzbdvZu7CBPKw3zz8J4Pww"  width="745"  class='prop_img 'alt='Google Map'/>
+
+         <img src = "http://maps.googleapis.com/maps/api/staticmap?size=512x512&markers=color:navy%7Clabel:1%7C{{$item->long}},{{$item->lat}}&markers=color:navy%7Clabel:2%7C{{$item->long+0.001}},{{$item->lat-0.02}}&maptype=hybrid&scale=1&sensor=false&label=Hello&key=AIzaSyCNgTdT8SN3jIzbdvZu7CBPKw3zz8J4Pww"  width="720"  class='prop_img 'alt='Google Map'/>
 <br><br>
 
-<p>{{$locations}}</p>
-
+<p><span>1.  Address1  </span> 2. Address2  3. Address3</p>
+<p><span>1.  Address1  </span> 2. Address2  3. Address3</p>
 </div>
 
 
-@foreach( $items as $item)
-
-<div class="container-fluid page-break">
 
 
-   <header><h3 style="color:navy;">{{$loop->index+1}}. Erf: {{$item->erf }} </h3><h4>{{$suburbs[$item->area_id-1]->name}}</h4></header>
-<img align="center" src = "http://maps.googleapis.com/maps/api/staticmap?size=600x200&markers=color:red%7Clabel:{{$loop->index+1}}%7C{{$item->long}},{{$item->lat}}&maptype=hybrid&scale=3&sensor=false&label=Hello&key=AIzaSyCNgTdT8SN3jIzbdvZu7CBPKw3zz8J4Pww"  width="745" height="200" class='prop_img 'alt='Google Map'/>
 
-
+<div class="container-fluid">
+<header><h1 style="color:navy;">{{$suburbs[$item->area_id-1]->name}}</h1></header>
 <h4 style="color:navy;"> {{$item->title}} </h4>
 
 <p> {{$item->description}} </p>
@@ -182,7 +180,7 @@ red{
                  <img src="{{public_path()}}/property/{{$item->id}}/{{$item->images[1]->name}}" width="200"  class='prop_img '>
                 @endif
 
-
+         <img src = "http://maps.googleapis.com/maps/api/staticmap?size=200x200&markers=color:blue%7Clabel:1%7C{{$item->long}},{{$item->lat}}&maptype=hybrid&scale=2&sensor=false&label=Hello&key=AIzaSyCNgTdT8SN3jIzbdvZu7CBPKw3zz8J4Pww"  width="200"  class='prop_img 'alt='Google Map'/>
 
 
 
@@ -192,7 +190,6 @@ red{
 
 
              <div >
-             <hr>
 
                          <td  width="300"><p>{{ $item->type }}</p></td>
 
@@ -216,7 +213,7 @@ red{
 
                                         @foreach ($item->units as $unit)
 
-
+                                            @if ($loop->iteration == 1)
 
                                             <tr>
                                                 <td class="hidden-xs">
@@ -231,18 +228,15 @@ red{
 
                                             </tr>
 
-<hr>
+                                            @endif
 
 
                                       @endforeach
 
-@endforeach
 
 
 </div>
-
 <div align="left" class="category  page-break">
-<br><br><br><br><br><br><br><br><br><br><br><br>
 <h1>Disclaimer</h1>
 <p>Sothebys accepts no liability for the content of this document or any attachments attached hereto, or for the consequences of any actions taken on the basis of the information provided which is provided as a rough guideline only. If you are not the intended recipient you are notified that disclosing, copying, distributing or taking any action in reliance on the contents of this information is strictly prohibited. Should this document contain property information this document shall constitute an introduction to the mentioned property. Paul shall be considered the effective cause of any transaction that comes as a result of this introduction and will be due commission on a lease at 5% of the gross value for the first two years, and 2.5% of the gross value for each following year or at 5% of the deal value on any concluded sale.</p>
 </div>

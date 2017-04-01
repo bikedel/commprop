@@ -331,7 +331,7 @@ line-height: 1.8;
                             {!! Form::submit('Search',array('class'=>'btn btn-primary')) !!}
 
                           </label>
-                        <button class="btn btn-success " @click.prevent="resetSearch()">Reset</button><p v-if="searching == true">Searching...</p>
+                        <button class="btn btn-success " @click.prevent="resetSearch()">Reset</button><p v-if="searching == true" style="color:white;">Searching...</p>
 
    </form>
 </div>
@@ -347,7 +347,9 @@ line-height: 1.8;
         <!-- Pagination -->
         <nav style="z-index:-100;">
             <ul class="pagination .pagination-sm">
+            <li> <button class="btn btn-default newprop" @click.prevent="showBrochures">Print Brochure</button> </li>
             <li> <button class="btn btn-success newprop" @click.prevent="createForms">New Property</button> </li>
+
             <li><button type="button" class="btn btn-default total" disabled >@{{pagination.total}} records</button></li>
                 <li v-if="pagination.current_page > 1">
                     <a href="#" aria-label="Previous"
@@ -429,7 +431,6 @@ line-height: 1.8;
            <button id="notes_button" class="btn btn-warning btn-xs" @click.prevent="editNote(item,0)">Notes</button>
            <button class="btn btn-info btn-xs" @click.prevent="editOwner(item,0)">Contacts</button>
 
-           <button class="btn btn-default btn-xs" @click.prevent="createPDF(item)">Brochure</button>
      </div>
 
 
@@ -479,7 +480,7 @@ line-height: 1.8;
                 <table class="table table-hover ">
                     <thead>
                          <tr>
-                            <th width="80px" class="hidden-xs">Unit ID</th>
+                            <th width="120px" class="hidden-xs">Unit ID</th>
                             <th width="180px">Status</th>
                             <th width="180px">Type</th>
                             <th width="180px">Size</th>
@@ -508,8 +509,12 @@ line-height: 1.8;
                                  @{{ unit.price | currency('R ')}}  m<sup>2</sup>
                             </td>
                             <td class="actions">
-                               <button title="Toggle" class="btn btn-danger btn-xs pull right"  :class="{active: thetoggle}" @click.prevent="toggle(item,unit)"><span class="glyphicon glyphicon-ok"></span>  </button>
-                               <button title="Notes" class="btn btn-warning btn-xs pull right" @click.prevent="editNote(item,unit)"><span class="glyphicon glyphicon-list-alt"></span>  </button>
+
+                               <button title="Brochure On" v-if="inArray(user,unit.brochure_users)" class="btn btn-success btn-xs pull right"   @click.prevent="setBrochure(item,unit)">B<span class="glyphicon "></span>  </button>
+                               <button title="Brochure Off" v-else class="btn btn-default btn-xs pull right"   @click.prevent="setBrochure(item,unit)">B<span class="glyphicon "></span>  </button>
+
+
+                               <button title="Notes" class="btn btn-warning btn-xs pull right" @click.prevent="editNote(item,unit)"><span class="glyphicon glyphicon-list-alt"></span> </button>
                                <button title="Contacts" class="btn btn-info btn-xs pull right" @click.prevent="editOwner(item,unit)"> <span class="glyphicon glyphicon-user"></span> </button>
                                @if ( Auth::user()->getRoleName()  == "Admin")
                                    <button title="Edit" class="btn btn-primary btn-xs" @click.prevent="editUnit(item)"><span class="glyphicon glyphicon-pencil"></span> </button>
@@ -1001,96 +1006,136 @@ line-height: 1.8;
                      <br>
                      </div>
 
-@if ( Auth::user()->getRoleName()  == "Admin")
+                    @if ( Auth::user()->getRoleName()  == "Admin")
+
+                        <div class="form-group">
+
+                            <label for="Surname">  Existing Contact:</label><input type="radio" name="checkbox" value="true" v-model="checked" style="margin-left:20px;margin-right:20px;">
+                            <label for="Surname">  New Contact:</label> <input type="radio" name="checkbox" value="false" v-model="checked" style="margin-left:20px;">
+                            <div v-show="checked=='true'">
+                            <!-- v-on:change="setContact(fillOwner.selectedContact)"   -->
+                                <select  id ='unitowner'  name ='unitowner' class="form-control selectpicker"  data-live-search="true" data-width="100%" data-size="5" title="Select contact"  v-model="fillOwner.selectedContact">
+
+                                       <option v-for="contact in contacts" v-bind:value="contact.id" :data-subtext="contact.email+' '+contact.cell" >
+                                            @{{ contact.company }}
+                                       </option>
+                                </select>
+                            </div>
+                        </div>
 
 
-                    <div class="form-group">
+                        <div class="form-group">
+                            <label for="Surname">Contact Type:</label>
+                            <select  id ='contact_type_id'  name ='contact_type_id' class="form-control selectpicker"   data-width="100%" title="Select contact type"   v-model="fillOwner.contact_type_id" >
 
-                        <label for="Surname">  Existing Contact:</label><input type="radio" name="checkbox" value="true" v-model="checked" style="margin-left:20px;margin-right:20px;">
-                        <label for="Surname">  New Contact:</label> <input type="radio" name="checkbox" value="false" v-model="checked" style="margin-left:20px;">
-                        <div v-show="checked=='true'">
-                        <!-- v-on:change="setContact(fillOwner.selectedContact)"   -->
-                            <select  id ='unitowner'  name ='unitowner' class="form-control selectpicker"  data-live-search="true" data-width="100%" data-size="5" title="Select contact"  v-model="fillOwner.selectedContact">
-
-                                   <option v-for="contact in contacts" v-bind:value="contact.id" :data-subtext="contact.email+' '+contact.cell" >
-                                        @{{ contact.company }}
+                                   <option v-for="contacttype in contacttypes" v-bind:value="contacttype.id"  >
+                                        @{{ contacttype.name }}
                                    </option>
                             </select>
+                            <span v-if="formErrors['contact_type_id']" class="error text-danger">@{{ formErrors['contact_type_id'][0] }}</span>
                         </div>
-                    </div>
 
+                        <div v-show="checked=='false'">
+                            <div class="form-group">
+                                <label for="Surname">Company:</label>
+                                <input type="text" name="company" class="form-control" placeholder="Add company name, leave empty for private entity" v-model="fillOwner.company" />
+                                <span v-if="formErrors['company']" class="error text-danger">@{{ formErrors['company'][0] }}</span>
 
-                    <div class="form-group">
-                        <label for="Surname">Contact Type:</label>
-                        <select  id ='contact_type_id'  name ='contact_type_id' class="form-control selectpicker"   data-width="100%" title="Select contact type"   v-model="fillOwner.contact_type_id" >
+                            </div>
+                            <div class="form-group">
+                                <label for="Surname">Firstname:</label>
+                                <input type="text" name="firstname" class="form-control" placeholder="Add firstname " v-model="fillOwner.firstname" />
+                                <span v-if="formErrors['firstname']" class="error text-danger">@{{ formErrors['firstname'][0] }}</span>
 
-                               <option v-for="contacttype in contacttypes" v-bind:value="contacttype.id"  >
-                                    @{{ contacttype.name }}
-                               </option>
-                        </select>
-                        <span v-if="formErrors['contact_type_id']" class="error text-danger">@{{ formErrors['contact_type_id'][0] }}</span>
-                    </div>
+                            </div>
 
-                    <div v-show="checked=='false'">
+                            <div class="form-group">
+                                <label for="Surname">Lastname:</label>
+                                <input type="text" name="lastname" class="form-control" placeholder="Add lastname " v-model="fillOwner.lastname" />
+                                <span v-if="formErrors['lastname']" class="error text-danger">@{{ formErrors['lastname'][0] }}</span>
+
+                            </div>
+
+                            <div class="form-group">
+                                <label for="Surname">Tel:</label>
+                                <input type="text" name="tel" class="form-control" placeholder="Add contact tel" v-model="fillOwner.tel" />
+                                <span v-if="formErrors['tel']" class="error text-danger">@{{ formErrors['tel'][0] }}</span>
+
+                            </div>
+
+                            <div class="form-group">
+                                <label for="Surname">Cell:</label>
+                                <input type="text" name="cell" class="form-control" placeholder="Add contact cell" v-model="fillOwner.cell" />
+                                <span v-if="formErrors['cell']" class="error text-danger">@{{ formErrors['cell'][0] }}</span>
+
+                            </div>
+
+                            <div class="form-group">
+                                <label for="Surname">Email:</label>
+                                <input type="text" name="email" class="form-control" placeholder="Add contact email" v-model="fillOwner.email" />
+                                <span v-if="formErrors['email']" class="error text-danger">@{{ formErrors['email'][0] }}</span>
+
+                            </div>
+
+                            <div class="form-group">
+                                <label for="Surname">Website:</label>
+                                <input type="text" name="website" class="form-control" placeholder="Add website address" v-model="fillOwner.website" />
+                                <span v-if="formErrors['website']" class="error text-danger">@{{ formErrors['website'][0] }}</span>
+
+                            </div>
+                        </div>
                         <div class="form-group">
-                            <label for="Surname">Company:</label>
-                            <input type="text" name="company" class="form-control" placeholder="Add company name, leave empty for private entity" v-model="fillOwner.company" />
-                            <span v-if="formErrors['company']" class="error text-danger">@{{ formErrors['company'][0] }}</span>
-
-                        </div>
-                        <div class="form-group">
-                            <label for="Surname">Firstname:</label>
-                            <input type="text" name="firstname" class="form-control" placeholder="Add firstname " v-model="fillOwner.firstname" />
-                            <span v-if="formErrors['firstname']" class="error text-danger">@{{ formErrors['firstname'][0] }}</span>
-
+                            <button id="edit-owner-submit" type="submit" class="btn btn-success">Submit</button>
                         </div>
 
-                        <div class="form-group">
-                            <label for="Surname">Lastname:</label>
-                            <input type="text" name="lastname" class="form-control" placeholder="Add lastname " v-model="fillOwner.lastname" />
-                            <span v-if="formErrors['lastname']" class="error text-danger">@{{ formErrors['lastname'][0] }}</span>
-
-                        </div>
-
-                        <div class="form-group">
-                            <label for="Surname">Tel:</label>
-                            <input type="text" name="tel" class="form-control" placeholder="Add contact tel" v-model="fillOwner.tel" />
-                            <span v-if="formErrors['tel']" class="error text-danger">@{{ formErrors['tel'][0] }}</span>
-
-                        </div>
-
-                        <div class="form-group">
-                            <label for="Surname">Cell:</label>
-                            <input type="text" name="cell" class="form-control" placeholder="Add contact cell" v-model="fillOwner.cell" />
-                            <span v-if="formErrors['cell']" class="error text-danger">@{{ formErrors['cell'][0] }}</span>
-
-                        </div>
-
-                        <div class="form-group">
-                            <label for="Surname">Email:</label>
-                            <input type="text" name="email" class="form-control" placeholder="Add contact email" v-model="fillOwner.email" />
-                            <span v-if="formErrors['email']" class="error text-danger">@{{ formErrors['email'][0] }}</span>
-
-                        </div>
-
-                        <div class="form-group">
-                            <label for="Surname">Website:</label>
-                            <input type="text" name="website" class="form-control" placeholder="Add website address" v-model="fillOwner.website" />
-                            <span v-if="formErrors['website']" class="error text-danger">@{{ formErrors['website'][0] }}</span>
-
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <button id="edit-owner-submit" type="submit" class="btn btn-success">Submit</button>
-                    </div>
-
-                    </form>
-@endif
+                        </form>
+                    @endif
 
               </div>
             </div>
           </div>
         </div>
+
+
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="listBrochures" role="dialog">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Brochures </h4>
+        </div>
+        <div class="modal-body">
+
+            <div class="brochures"  v-for="item in brochures" >
+                <div v-if="inArray(user,item.brochure_users)">
+                <tr>
+                    <td>
+                       @{{item.id}}  @{{item.property.address}}  @{{item.brochure_users}} @{{user}}  @{{inArray(user,item.brochure_users)}}
+                    </td>
+                    <td>
+                      <button title="Brochure On"  class="btn btn-danger btn-xs pull right"   @click.prevent="setBrochure(item.property,item)"><span class="glyphicon glyphicon-remove"></span>  </button>
+                    </td>
+                </tr>
+                </div>
+
+            </div>
+
+
+        </div>
+        <div class="modal-footer">
+
+           <button class="btn btn-success " @click.prevent="createPDF(item)">Print</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 
 
  </div>

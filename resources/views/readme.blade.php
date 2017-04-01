@@ -159,6 +159,11 @@ body {
 <li  class="list-group-item">  <span class="badge">87</span> multi units in brochuhre </li>
 <li  class="list-group-item">  <span class="badge">88</span>  vps - domain - arecord for dns</li>
 <li  class="list-group-item">  <span class="badge">89</span> rest </li>
+<li  class="list-group-item">  <span class="badge">90</span> brochure toggle </li>
+<li  class="list-group-item">  <span class="badge">90</span> brochure toggle - add user array in units??? accesors mutators in model</li>
+<li  class="list-group-item">  <span class="badge">90</span> multiple units in brochure </li>
+
+
 
 
 

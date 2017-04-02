@@ -19,12 +19,12 @@ font-size: 1.6em;
 
 h1 {
     font-family: 'Fira Sans';
-    font-size: 3em; /* 40px/16=2.5em */
+    font-size: 2em; /* 40px/16=2.5em */
 }
 
 h2 {
     font-family: 'Fira Sans';
-    font-size: 2.875em; /* 30px/16=1.875em */
+    font-size: 1.875em; /* 30px/16=1.875em */
 }
 
 h4 {

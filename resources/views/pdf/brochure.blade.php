@@ -19,7 +19,7 @@ font-size: 1.6em;
 
 h1 {
     font-family: 'Fira Sans';
-    font-size: 3.5em; /* 40px/16=2.5em */
+    font-size: 3em; /* 40px/16=2.5em */
 }
 
 h2 {
@@ -27,9 +27,14 @@ h2 {
     font-size: 2.875em; /* 30px/16=1.875em */
 }
 
+h4 {
+    font-family: 'Fira Sans';
+    font-size: 1.5em; /* 30px/16=1.875em */
+}
+
 p {
     font-family: 'Fira Sans';
-    font-size: 1em; /* 14px/16=0.875em */
+    font-size: 0.8em; /* 14px/16=0.875em */
 }
 
 

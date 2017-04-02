@@ -135,7 +135,8 @@ red{
 
 <img src = "{{public_path()}}/img/sothebys_logo_big_blue.jpg" width="400px"/>
 <br>
-<h2> Presentation</h2> <p>for Paul </p>
+<h2> Presentation</h2>
+<h4>for Paul </h4>
 <p>Blah blah </p>
 
 </div>

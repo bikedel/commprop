@@ -92,7 +92,8 @@ Route::post('/setbrochure', 'VuePropertyController@setbrochure');
 Route::get('/listbrochures', 'VuePropertyController@listbrochure');
 
 //test pdf
-Route::get('/createpdf', 'VuePropertyController@createPdf');
+//Route::get('/createpdf/{input}', 'VuePropertyController@createPdf');
+Route::get('/createpdf/{myinput}', 'VuePropertyController@createPdf');
 
 // view property
 //Route::resource('/showproperty', 'PropertyController');

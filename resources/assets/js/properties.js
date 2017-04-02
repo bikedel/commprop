@@ -89,6 +89,9 @@ data:  {
     seen: false,
 
     user: '',
+    agent: 0,
+
+    agents: [],
     items: [],
     users: [],
     areas: [],
@@ -313,6 +316,7 @@ data:  {
 
             axios.get(vm.offlinePath+'/commprop/public/vuepropertiesSelects').then(function (response) {
           
+              vm.agents = response.data.agents;
               vm.users = response.data.users;
               vm.areas =  response.data.areas;
               vm.suburbs = response.data.suburbs;
@@ -322,6 +326,9 @@ data:  {
               vm.contacttypes = response.data.contacttypes;
               vm.contacts = response.data.contacts;
               vm.user = response.data.user;
+
+              // if the agent is a user
+              vm.setAgent(vm.user);
 
  //$('.selectpicker').selectpicker('render');
              // console.log('axios getVueSelects completed');
@@ -342,6 +349,25 @@ data:  {
              });
         },
 
+
+        setAgent: function(user){
+
+          console.log(user);
+          if (user){
+             
+          for(var i = 0; i < this.users.length; i++){
+              if (this.users[i].id == user ){
+                     //console.log("get propertyTypeName "+this.ptypes[i].name);
+                     this.agent = this.users[i].agent_id ;
+                     console.log(this.agent);
+              }  
+          }
+
+
+          }
+
+
+        },
 
         searchVueItems: function(page){
            //var input = this.search.s_area;
@@ -572,7 +598,7 @@ data:  {
            var vm = this;
            this.listBrochures();
 
-           $("#listBrochures").modal('show');
+           $("#listBrochures_modal").modal('show');
                                
                             
       },
@@ -1100,7 +1126,13 @@ data:  {
 
       createPDF: function(){
 
-                  window.location.href = this.offlinePath+'/commprop/public/createpdf';
+          console.log("print broc");
+          let brochure_text = document.getElementById('brochure_text').value;
+          let client = document.getElementById('client').value;
+          let agent = document.getElementById('agent_id').value;
+
+
+          window.location.href = this.offlinePath+'/commprop/public/createpdf/'+agent+','+brochure_text+','+client;
 
 
       },

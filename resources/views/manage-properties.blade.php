@@ -826,7 +826,6 @@ line-height: 1.8;
                                </option>
                         </select>
 
-
                         <span v-if="formErrors['status_id']" class="error text-danger">@{{ formErrors['status_id'][0] }}</span>
                     </div>
 
@@ -883,8 +882,9 @@ line-height: 1.8;
                         <label for="Surname">Id:</label>
                         <input type="text" name="id" class="form-control" v-model="fillNote.id" readonly/>
                         <span v-if="formErrors['id']" class="error text-danger">@{{ formErrors['id'] }}</span>
-
                     </div>
+
+
 
                     <div class="form-group" hidden>
                         <label for="Surname">Unit Id:</label>
@@ -1100,36 +1100,77 @@ line-height: 1.8;
 
 
   <!-- Modal -->
-  <div class="modal fade" id="listBrochures" role="dialog">
+  <div class="modal fade" id="listBrochures_modal" role="dialog">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Brochures </h4>
+          <h4 class="modal-title">Print Brochures </h4>
         </div>
         <div class="modal-body">
 
-            <div class="brochures"  v-for="item in brochures" >
-                <div v-if="inArray(user,item.brochure_users)">
-                <tr>
-                    <td>
-                       @{{item.id}}  @{{item.property.address}}  @{{item.brochure_users}} @{{user}}  @{{inArray(user,item.brochure_users)}}
-                    </td>
-                    <td>
-                      <button title="Brochure On"  class="btn btn-danger btn-xs pull right"   @click.prevent="setBrochure(item.property,item)"><span class="glyphicon glyphicon-remove"></span>  </button>
-                    </td>
-                </tr>
-                </div>
 
-            </div>
+<div id="ownertable" style="height:320px;width:100%;border:1px solid #ccc;overflow:auto; padding:0px">
+                        <table class="table  table-hover">
+                            <tr>
+                                <th width="100px">Erf</th>
+                                <th width="100px">Unit</th>
+                                <th width="300px">Address</th>
+                                <th width="150px">Status</th>
+                                <th width="150px">Type</th>
+                                <th width="200px">Action</th>
 
 
+                            </tr>
+                           <!--    == for online === for local  <tr v-for="item  in fillOwner.owners | orderBy 'unit_id' -1 | orderBy 'date' -1" v-if=" item.unit_id === fillOwner.unit_id "> -->
+                            <tr v-for="item in brochures"  v-if="inArray(user,item.brochure_users)">
+
+                                 <td>@{{ item.property.erf }}</td>
+                                 <td>@{{ item.id }}</td>
+                                 <td>@{{ item.property.address }}</td>
+                                 <td>@{{ statusName(item.status_id) }}</td>
+                                 <td>@{{ propertyTypeName(item.property_type_id) }}</td>
+
+                                 <td><button title="Brochure On"  class="btn btn-danger btn-xs pull right"   @click.prevent="setBrochure(item.property,item)"><span class="glyphicon glyphicon-remove"></span>  </button></td>
+
+                            </tr>
+                        </table>
+</div>
+
+
+
+
+                <br>
+                 <hr>
+                 <form id="listBrochures" method="GET"  v-on:submit.prevent="createPDF">
+                    <div class="form-group">
+                        <label for="Firstname">Agent:</label>
+
+                        <select  id='agent_id' name='agent_id' class="form-control "  v-model="agent" style="width: 100%;"  >
+                           <option value="0" disabled  hidden>Please select agent...</option>
+                               <option v-for="agent in agents" :value="agent.id"  >
+                                    @{{ agent.name }}
+                               </option>
+                        </select>
+                    </div>
+                    <div class="form-group" >
+                        <label for="Surname">Client:</label>
+                        <input type="text" id="client" name="client" placeholder="Client name.." class="form-control" />
+                    </div>
+
+                    <div class="form-group" >
+                      <label for="Surname">Presentation Text:</label>
+                      <textarea type="text" id="brochure_text" name="brochure_text" class="form-control" placeholder="Add presentation text ..."  ></textarea>
+                    </div>
         </div>
+
         <div class="modal-footer">
 
-           <button class="btn btn-success " @click.prevent="createPDF(item)">Print</button>
+        <!--  <button id="print" type="submit" class="btn btn-success">Print</button> -->
+          <button class="btn btn-success " @click.prevent="createPDF">Print</button>
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </div>
+        </form>
       </div>
     </div>
   </div>

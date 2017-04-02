@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App;
+use App\Agent;
 use App\Area;
 use App\Contact;
 use App\ContactType;
@@ -84,6 +85,7 @@ class VuePropertyController extends Controller
     public function selects(Request $request)
     {
 
+        $agents       = Agent::all();
         $users        = User::all();
         $areas        = Area::with('suburbs')->get();
         $suburbs      = Suburb::orderBy('id')->get();
@@ -97,6 +99,7 @@ class VuePropertyController extends Controller
 
         //array_unshift($users, ['name' => 'Select ']);
         $response = [
+            'agents'       => $agents,
             'users'        => $users,
             'areas'        => $areas,
             'suburbs'      => $suburbs,
@@ -724,8 +727,26 @@ $image->save();
         return response()->json(['done']);
     }
 
-    public function createPdf()
+    public function createPdf($myinput, Request $request)
     {
+
+        // get inputs
+        // agent
+        // brochure_test
+        // client
+
+        $input = (explode(",", $myinput));
+
+        $client        = $input[2];
+        $brochure_text = $input[1];
+        $footer        = $input[0];
+
+        //dd($request, $footer, $client, $myinput);
+        if ($footer == 1) {
+            $footer = 'footer_1.html';
+        } else {
+            $footer = 'footer_2.html';
+        }
 
         $users   = User::all();
         $areas   = Area::all();
@@ -741,14 +762,14 @@ $image->save();
         $items = Property::whereHas('units', function ($query) use ($user) {$query->where('brochure_users', '!=', '[]')->where('brochure_users', 'like', "%[$user%")->orWhere('brochure_users', 'like', "%$user]%")->orWhere('brochure_users', 'like', "%,$user,%");})->with(['units' => function ($query) use ($user) {$query->where('brochure_users', '!=', '[]')->where('brochure_users', 'like', "%[$user%")->orWhere('brochure_users', 'like', "%$user]%")->orWhere('brochure_users', 'like', "%,$user,%");}])->with('images', 'notes', 'owners')->get();
 
         $markers   = '';
-        $locations = '';
+        $locations = array();
         $loop      = 0;
 
         foreach ($items as $item) {
-            $loop      = $loop + 1;
-            $marker    = '&markers=color:navy%7Clabel:' . $loop . '%7C' . $item->long . ',' . $item->lat;
-            $markers   = $markers . $marker;
-            $locations = $locations . $loop . '. Erf: ' . $item->erf . ' ';
+            $loop    = $loop + 1;
+            $marker  = '&markers=color:navy%7Clabel:' . $loop . '%7C' . $item->long . ',' . $item->lat;
+            $markers = $markers . $marker;
+            array_push($locations, ' Erf: ' . $item->erf . ' ' . $item->address);
         }
 
         //   dd("pdf", $units, $items);
@@ -774,9 +795,12 @@ $image->save();
         //->setOrientation('landscape')
         // PDF::loadHTML($html)->setOption('footer-center', 'Page [page]')->save('myfile.pdf');
         $cover = '<div class="flexme" <h1>Sotheby Brochure</h1></div>';
+        if ($items->count() > 0) {
+            return PDF::loadView('pdf.brochure', compact('items', 'areas', 'suburbs', 'ptypes', 'stypes', 'users', 'markers', 'locations', 'client', 'brochure_text'))->setOption('toc', true)->setOption('outline', true)->setOption('margin-top', 10)->setOption('margin-bottom', 40)->setOption('footer-line', false)->setOption('header-center', 'Page [page]')->setOption('footer-html', url($footer))->download('Property_brochure_erf' . $item->erf . '.pdf');
+        } else {
 
-        return PDF::loadView('pdf.brochure', compact('items', 'areas', 'suburbs', 'ptypes', 'stypes', 'users', 'markers', 'locations'))->setOption('toc', true)->setOption('outline', true)->setOption('margin-top', 10)->setOption('margin-bottom', 40)->setOption('footer-line', false)->setOption('header-center', 'Page [page]')->setOption('footer-html', url('header.html?4ffffkfkff'))->download('Property_brochure_erf' . $item->erf . '.pdf');
-
+            return redirect()->back();
+        }
 //->setOption('cover', "hello")
         //->setOption('header-center', date('D d M Y'))
 

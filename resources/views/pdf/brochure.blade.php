@@ -140,25 +140,29 @@ red{
 
 <img src = "{{public_path()}}/img/sothebys_logo_big_blue.jpg" width="400px"/>
 <br>
-<h2> Presentation</h2>
-<h4>for Paul </h4>
-<p>Blah blah </p>
+<h2> Presentation <small>for</small></h2>
+<h4>{{$client}} </h4>
+<p>{{$brochure_text}} </p>
 
 </div>
 
 
 
-<div class ="container-fluid  page " style="margin: auto;">
+<div class ="container-fluid  page " >
 
 <h2> Property locations </h2>
 
 
 
 
-<img align="center" src = "http://maps.googleapis.com/maps/api/staticmap?size=512x512{{$markers}}&maptype=hybrid&scale=1&sensor=false&label=Hello&key=AIzaSyCNgTdT8SN3jIzbdvZu7CBPKw3zz8J4Pww"  width="745"  class='prop_img 'alt='Google Map'/>
+<img align="center" src = "http://maps.googleapis.com/maps/api/staticmap?size=512x512{{$markers}}&maptype=hybrid&scale=1&sensor=false&label=Hello&key=AIzaSyCNgTdT8SN3jIzbdvZu7CBPKw3zz8J4Pww"  width="745" height="650" class='prop_img 'alt='Google Map'/>
 <br><br>
 
-<p>{{$locations}}</p>
+@foreach( $locations as $loc)
+
+
+   <p><img src="{{public_path()}}/img/marker{{$loop->index+1}}.png" width="20"  > {{$loc}}</p>
+@endforeach
 
 </div>
 
@@ -168,7 +172,7 @@ red{
 <div class="container-fluid page-break">
 
 
-   <header><h3 style="color:navy;">{{$loop->index+1}}. Erf: {{$item->erf }} </h3><h4>{{$suburbs[$item->area_id-1]->name}}</h4></header>
+   <header><h3 style="color:navy;"><img src="{{public_path()}}/img/marker{{$loop->index+1}}.png" width="40"  > Erf: {{$item->erf }} </h3><h4>{{$suburbs[$item->area_id-1]->name}}</h4></header>
 <img align="center" src = "http://maps.googleapis.com/maps/api/staticmap?size=600x200&markers=color:red%7Clabel:{{$loop->index+1}}%7C{{$item->long}},{{$item->lat}}&maptype=hybrid&scale=3&sensor=false&label=Hello&key=AIzaSyCNgTdT8SN3jIzbdvZu7CBPKw3zz8J4Pww"  width="745" height="200" class='prop_img 'alt='Google Map'/>
 
 
@@ -181,14 +185,16 @@ red{
              <div align="center" class="category page">
 
                @if (sizeof($item->images)>0)
-                 <img src="{{public_path()}}/property/{{$item->id}}/{{$item->images[0]->name}}" width="200"  class='prop_img '>
+                 <img src="{{public_path()}}/property/{{$item->id}}/{{$item->images[0]->name}}" style="width:200px" width="200"  class='prop_img '>
                @endif
 
                @if (sizeof($item->images)>1)
-                 <img src="{{public_path()}}/property/{{$item->id}}/{{$item->images[1]->name}}" width="200"  class='prop_img '>
+                 <img src="{{public_path()}}/property/{{$item->id}}/{{$item->images[1]->name}}" style="width:200px" width="200"  class='prop_img '>
                 @endif
 
-
+               @if (sizeof($item->images)>2)
+                 <img src="{{public_path()}}/property/{{$item->id}}/{{$item->images[2]->name}} " style="width:200px" width="200"  class='prop_img '>
+                @endif
 
 
 
@@ -218,7 +224,7 @@ red{
 
              </div>
 
-
+             <div>
 
                                         @foreach ($item->units as $unit)
 
@@ -236,16 +242,20 @@ red{
 
 
                                             </tr>
+                                            <tr>
+                                               <hr>
+                                            </tr>
 
-<hr>
+
 
 
                                       @endforeach
-
-@endforeach
-
-
+            </div>
 </div>
+@endforeach
+</div>
+
+
 
 <div align="left" class="category  page-break">
 <br><br><br><br><br><br><br><br><br><br><br><br>

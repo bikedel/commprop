@@ -135,7 +135,7 @@ red{
 
 <img src = "{{public_path()}}/img/sothebys_logo_big_blue.jpg" width="400px"/>
 <br>
-<h1> Presentation</h1> <h4>for Paul </h4>
+<h2> Presentation</h2> <p>for Paul </p>
 <p>Blah blah </p>
 
 </div>
@@ -144,7 +144,7 @@ red{
 
 <div class ="container-fluid  page " style="margin: auto;">
 
-<h2> Map Locations </h2>
+<h2> Property locations </h2>
 
 
 

@@ -900,7 +900,7 @@ class VuePropertyController extends Controller
         $statuses = $statuses->keyBy('id');
         $grades   = $grades->keyBy('id');
         $stypes   = $stypes->keyBy('id');
-        $stypes   = $stypes->keyBy('id');
+        $ptypes   = $ptypes->keyBy('id');
         $suburbs  = $suburbs->keyBy('id');
 
         // get all units for brochure

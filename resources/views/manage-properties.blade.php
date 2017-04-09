@@ -302,21 +302,18 @@ line-height: 1.8;
 
 
                         <select  id ='s_ptype'  name ='s_ptype[]' class="form-control selectpicker" multiple  data-width="150px" title="All properties" v-model="s_ptype">
-
                                <option v-for="ptype in ptypes" v-bind:value="ptype.id"  >
                                     @{{ ptype.name }}
                                </option>
                         </select>
 
                         <select  id ='s_stype' name ='s_stype[]' class="form-control selectpicker"  multiple  data-width="100px" title="All types" v-model="s_stype" >
-
                                <option v-for="stype in stypes" v-bind:value="stype.id"  >
                                     @{{ stype.name }}
                                </option>
                         </select>
 
                         <select  id ='s_status' name ='s_status[]' class="form-control selectpicker"  multiple  data-width="150px" title="All status" v-model="s_status" >
-
                                <option v-for="status in statuses" v-bind:value="status.id"  >
                                     @{{ status.name }}
                                </option>
@@ -386,16 +383,30 @@ line-height: 1.8;
 
              <div class='prop_img col-sm-4' >
 
-                   <div v-if ="item.images[0]">
+                   <div v-if ="item.images[0] && item.image_id == 0">
                      <img :src="offlinePath+'/commprop/public/property/'+item.id+'/'+ item.images[0].name  " width="98%"  >
                      <div class='caption'>
                      <p class="captiontext"> @{{ item.images[0].caption }}</p>
                         <a v-bind:href="'showproperty'+item.id" class="camera"> <span class="glyphicon glyphicon-camera"></span> </a>
                      </div>
                     </div>
-                     <div v-else>
+
+                   <div v-else-if="item.images[0] && item.image_id > 0">
+
+                     <div v-for="image in item.images" v-if="image.id == item.image_id">
+                         <img :src="offlinePath+'/commprop/public/property/'+item.id+'/'+ image.name " width="98%"  >
+                     </div>
+
+
+                     <div class='caption'>
+                     <p class="captiontext"></p>
+                        <a v-bind:href="'showproperty'+item.id" class="camera"> <span class="glyphicon glyphicon-camera"></span> </a>
+                     </div>
+                    </div>
+
+                   <div v-else>
                      <img :src="offlinePath+'/commprop/public/img/building_small.jpg'" width="98%"  >
-                                          <div class='caption'>
+                     <div class='caption'>
                      <p class="captiontext">This property has no Image</p>
                         <a v-bind:href="'showproperty'+item.id" class="camera"> <span class="glyphicon glyphicon-camera"></span> </a>
                      </div>
@@ -442,23 +453,23 @@ line-height: 1.8;
                      <tbody>
                      <tr>
                          <td v-if="seen" width="150">Type   </td>
-                         <td v-if="seen" width="200">@{{ item.type }}</td>
+                         <td v-if="seen" width="200">@{{ typeName(item.type) }}</td>
                      </tr>
                      <tr>
                          <td v-if="seen" >Status   </td>
-                         <td v-if="seen">@{{ item.status }}</td>
+                         <td v-if="seen">@{{ statusName(item.status) }}</td>
                      </tr>
                      <tr>
                          <td v-if="seen" >Grade   </td>
-                         <td v-if="seen">@{{ item.grade }}</td>
+                         <td v-if="seen">@{{ gradeName(item.grade_id) }}</td>
                      </tr>
                      <tr>
                          <td v-if="seen" >Erf Size   </td>
-                         <td v-if="seen">@{{ item.erf_size }}</td>
+                         <td v-if="seen">@{{ item.erf_size }} m<sup>2</sup></td>
                      </tr>
                      <tr>
                          <td v-if="seen" width="100">Building Size   </td>
-                         <td v-if="seen">@{{ item.building_size }}</td>
+                         <td v-if="seen">@{{ item.building_size }} m<sup>2</sup></td>
                      </tr>
                      <tr>
                          <td v-if="seen" width="100">Open Parking   </td>
@@ -483,8 +494,8 @@ line-height: 1.8;
                             <th width="120px" class="hidden-xs">Unit ID</th>
                             <th width="180px">Status</th>
                             <th width="180px">Type</th>
-                            <th width="180px">Size</th>
-                            <th width="180px">Price</th>
+                            <th width="100px">Size</th>
+                            <th width="120px">Price</th>
                             <th width="220px">Actions</th>
 
                          </tr>
@@ -517,7 +528,7 @@ line-height: 1.8;
                                <button title="Notes" class="btn btn-warning btn-xs pull right" @click.prevent="editNote(item,unit)"><span class="glyphicon glyphicon-list-alt"></span> </button>
                                <button title="Contacts" class="btn btn-info btn-xs pull right" @click.prevent="editOwner(item,unit)"> <span class="glyphicon glyphicon-user"></span> </button>
                                @if ( Auth::user()->getRoleName()  == "Admin")
-                                   <button title="Edit" class="btn btn-primary btn-xs" @click.prevent="editUnit(item)"><span class="glyphicon glyphicon-pencil"></span> </button>
+                                   <button title="Edit" class="btn btn-primary btn-xs" @click.prevent="editUnit(item,unit)"><span class="glyphicon glyphicon-pencil"></span> </button>
                                    <button title="Delete" class="btn btn-danger btn-xs pull right" @click.prevent="deleteUnit(unit)"><span class="glyphicon glyphicon-trash"></span> </button>
                                @endif
 
@@ -566,13 +577,14 @@ line-height: 1.8;
         <div class="modal " id="create-item" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
+            <form id="createProp" method="POST" enctype="multipart/form-data" v-on:submit.prevent="createItem">
               <div class="modal-header">
                 <button type="button" id="create-item-modal-header-button" class="close" data-dismiss="modal"  aria-label="Close"><span aria-hidden="true">×</span></button>
                 <h4 class="modal-title" id="myCreateModalLabel">Create Property</h4>
               </div>
               <div class="modal-body">
 
-                    <form id="createProp" method="POST" enctype="multipart/form-data" v-on:submit.prevent="createItem">
+
 
 
                     @if ( Session::has('flash_message') )
@@ -602,27 +614,88 @@ line-height: 1.8;
                         <label for="Surname">Description:</label>
                         <textarea type="text" name="description" rows="5" class="form-control" v-model="newItem.description" ></textarea>
                         <span v-if="formErrors['description']" class="error text-danger">@{{ formErrors['description'][0] }}</span>
-
                     </div>
 
                     <div class="form-group">
                         <label for="Surname">Address:</label>
-                        <textarea type="text" name="address" rows="5" class="form-control" v-model="newItem.address" ></textarea>
+                        <textarea type="text" name="address" rows="2" class="form-control" v-model="newItem.address" ></textarea>
                         <span v-if="formErrors['address']" class="error text-danger">@{{ formErrors['address'][0] }}</span>
-
                     </div>
 
                     <div class="form-group">
                         <label for="Firstname">Suburb:</label>
+                        <select  id ='area_id' name='area_id' class="form-control selectpicker" data-live-search="true" title='Select area...' data-width="100%" v-model="newItem.area_id"   >
+                                    <optgroup v-for="area in areas" :label="area.name">
+                                          <option   v-for="suburb in area.suburbs"   v-bind:value="suburb.id" > @{{ suburb.name }}</option>
+                                    </optgroup>
+                        </select>
+                        <span v-if="formErrors['area_id']" class="error text-danger">@{{ formErrors['area_id'][0] }}</span>
+                    </div>
 
-                        <select  id ='area_id' name='area_id' class="form-control "    style="width: 100%;"  >
-                           <option value="" disabled selected hidden>Please select a suburb...</option>
-                               <option v-for="suburb in suburbs" v-bind:value="suburb.id"  >
-                                    @{{ suburb.name }}
+                    <div class="form-group">
+                        <label for="Firstname">Ownership Type:</label>
+                       <select  id ='ownership' name ='ownership' class="form-control selectpicker"   title='Select ownership type...' data-width="100%"  v-model="newItem.ownership" >
+                               <option  v-bind:value="0"  > Freehold </option>
+                                <option  v-bind:value="1"  > Sectional Title </option>
+                        </select>
+                        <span v-if="formErrors['ownership']" class="error text-danger">@{{ formErrors['ownership'][0] }}</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Firstname">Status:</label>
+                       <select  id ='status' name ='status' class="form-control selectpicker"   title='Select status...' data-width="100%"  v-model="newItem.status" >
+                               <option v-for="status in statuses" v-bind:value="status.id"  >
+                                    @{{ status.name }}
                                </option>
                         </select>
+                        <span v-if="formErrors['status']" class="error text-danger">@{{ formErrors['status'][0] }}</span>
+                    </div>
 
-                        <span v-if="formErrors['area_id']" class="error text-danger">@{{ formErrors['area_id'][0] }}</span>
+<!--
+                    <div class="form-group">
+                        <label for="Firstname">Sale Type:</label>
+                        <select  id='sale_type_id' name='sale_type_id' class="form-control selectpicker"  title='Select sale type...'v-model="newUnit.sale_type_id"  style="width: 100%;"  >
+
+                               <option v-for="stype in stypes" :value="stype.id"  >
+                                    @{{ stype.name }}
+                               </option>
+                        </select>
+                        <span v-if="formErrors['sale_type_id']" class="error text-danger">@{{ formErrors['sale_type_id'][0] }}</span>
+                    </div>
+-->
+                    <div class="form-group">
+                        <label for="Firstname">Grade:</label>
+                        <select  id='grade_id' name='grade_id' class="form-control selectpicker"  title='Select grade...' v-model="newUnit.grade_id"  style="width: 100%;"  >
+
+                               <option v-for="grade in grades" :value="grade.id"  >
+                                    @{{ grade.name }}
+                               </option>
+                        </select>
+                        <span v-if="formErrors['grade_id']" class="error text-danger">@{{ formErrors['grade_id'][0] }}</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Surname">Erf Size:</label>
+                        <input type="text" name="erf_size" rows="2" class="form-control" v-model="newItem.erf_size" />
+                        <span v-if="formErrors['erf_size']" class="error text-danger">@{{ formErrors['erf_size'][0] }}</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Surname">Building Size:</label>
+                        <input type="text" name="building_size" class="form-control" v-model="newItem.building_size" />
+                        <span v-if="formErrors['building_size']" class="error text-danger">@{{ formErrors['building_size'][0] }}</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Surname">Open Parking:</label>
+                        <input type="text" name="open_parking_bays" class="form-control" v-model="newItem.open_parking_bays" />
+                        <span v-if="formErrors['open_parking_bays']" class="error text-danger">@{{ formErrors['open_parking_bays'][0] }}</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Surname">Covered Parking:</label>
+                        <input type="text" name="covered_parking_bays" class="form-control" v-model="newItem.covered_parking_bays" />
+                        <span v-if="formErrors['covered_parking_bays']" class="error text-danger">@{{ formErrors['covered_parking_bays'][0] }}</span>
                     </div>
 
                     <div class="form-group">
@@ -633,44 +706,30 @@ line-height: 1.8;
                         <span v-if="formErrors['image']" class="error text-danger">@{{ formErrors['image'][0] }}</span>
                     </div>
 
-                    <div class="form-group">
-                        <label for="Firstname">Sale Type:</label>
-
-                        <select  id='sale_type_id' name='sale_type_id' class="form-control "  v-model="newUnit.sale_type_id"  style="width: 100%;"  >
-                           <option value="0" disabled  hidden>Please select sale type...</option>
-                               <option v-for="stype in stypes" :value="stype.id"  >
-                                    @{{ stype.name }}
-                               </option>
-                        </select>
-
-
-                        <span v-if="formErrors['sale_type_id']" class="error text-danger">@{{ formErrors['sale_type_id'][0] }}</span>
-                    </div>
-
-
-
-                    <div class="form-group">
-                        <button id="create-item-submit" type="submit" class="btn btn-success">Submit</button>
-                    </div>
-
-                    </form>
 
               </div>
+            <div class="modal-footer">
+                  <!--  <button id="print" type="submit" class="btn btn-success">Print</button> -->
+                 <button id="create-item-submit" type="submit" class="btn btn-success">Submit</button>
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+            </form>
             </div>
           </div>
         </div>
 
         <!-- Edit Item Modal -->
-        <div class="modal fade" id="edit-item" tabindex="-1050" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal fade" id="edit-item" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
+            <form id="editProp" method="POST" enctype="multipart/form-data" v-on:submit.prevent="updateItem(fillItem.id)">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                 <h4 class="modal-title" id="myModalLabel">Edit Property  - <small>Erf @{{fillItem.erf}}</small></h4>
               </div>
               <div class="modal-body">
 
-                    <form method="POST" enctype="multipart/form-data" v-on:submit.prevent="updateItem(fillItem.id)">
+
 
                     <div class="form-group">
                        <span v-if="formErrorsUpdate['test']" class="error text-danger">@{{ formErrorsUpdate['test'][0] }}</span>
@@ -684,7 +743,7 @@ line-height: 1.8;
 
                     <div class="form-group">
                         <label for="Surname">Erf Number:</label>
-                        <input type="text" name="erf" class="form-control" v-model="fillItem.erf" />
+                        <input type="text" id="erf" name="erf" class="form-control" v-model="fillItem.erf" />
                         <span v-if="formErrorsUpdate['erf']" class="error text-danger">@{{ formErrorsUpdate['erf'][0] }}</span>
                     </div>
 
@@ -702,55 +761,115 @@ line-height: 1.8;
 
                     <div class="form-group">
                         <label for="Surname">Address:</label>
-                        <textarea type="text" name="address" rows="5" class="form-control" v-model="fillItem.address" ></textarea>
+                        <textarea type="text" name="address" rows="2" class="form-control" v-model="fillItem.address" ></textarea>
                         <span v-if="formErrorsUpdate['address']" class="error text-danger">@{{ formErrorsUpdate['address'][0] }}</span>
-
                     </div>
 
                     <div class="form-group">
                         <label for="Firstname">Suburb:</label>
-
-
                        <select  id ='area_id' name='area_id' class="form-control selectpicker"  data-live-search="true"  v-model="fillItem.area_id"  style="width: 100%;"  >
-
-                     <!--       <select id="area_id" name="area_id" class="selectpicker form-control"   data-live-search="true"   v-model="fillItem.area_id" >-->
-
-
                                        <optgroup v-for="area in areas" :label="area.name">
-
                                           <option   v-for="suburb in area.suburbs"     v-bind:value="suburb.id" > @{{ suburb.name }}</option>
-
                                         </optgroup>
                         </select>
-
                         <span v-if="formErrorsUpdate['area_id']" class="error text-danger">@{{ formErrorsUpdate['area_id'][0] }}</span>
                     </div>
 
+                    <div class="form-group">
+                        <label for="Firstname">Ownership Type:</label>
+                       <select  id ='ownership' name ='ownership' class="form-control "   data-width="100%"  v-model="fillItem.ownership" >
+                               <option  v-bind:value='0'  > Freehold </option>
+                                <option  v-bind:value='1'  > Sectional Title </option>
+                        </select>
+                        <span v-if="formErrorsUpdate['ownership']" class="error text-danger">@{{ formErrorsUpdate['ownership'][0] }}</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Firstname">Status:</label>
+                       <select  id ='status' name ='status' class="form-control "   data-width="100%"  v-model="fillItem.status" >
+                               <option v-for="status in statuses" v-bind:value="status.id"  >
+                                    @{{ status.name }}
+                               </option>
+                        </select>
+                        <span v-if="formErrorsUpdate['status']" class="error text-danger">@{{ formErrorsUpdate['status'][0] }}</span>
+                    </div>
+
+<!--
+                    <div class="form-group">
+                        <label for="Firstname">Sale Type:</label>
+                        <select  id='sale_type_id' name='sale_type_id' class="form-control "   v-model="fillItem.sale_type_id"   style="width: 100%;"  >
+
+                               <option v-for="stype in stypes" :value="stype.id"  >
+                                    @{{ stype.name }}
+                               </option>
+                        </select>
+                        <span v-if="formErrorsUpdate['sale_type_id']" class="error text-danger">@{{ formErrorsUpdate['sale_type_id'][0] }}</span>
+                    </div>
+-->
+                    <div class="form-group">
+                        <label for="Firstname">Grade:</label>
+                        <select  id='grade_id' name='grade_id' class="form-control "   v-model="fillItem.grade_id"  style="width: 100%;"  >
+
+                               <option v-for="grade in grades" :value="grade.id"  >
+                                    @{{ grade.name }}
+                               </option>
+                        </select>
+                        <span v-if="formErrorsUpdate['grade_id']" class="error text-danger">@{{ formErrorsUpdate['grade_id'][0] }}</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Surname">Erf Size:</label>
+                        <input type="text" name="erf_size" rows="2" class="form-control" v-model="fillItem.erf_size" />
+                        <span v-if="formErrorsUpdate['erf_size']" class="error text-danger">@{{ formErrorsUpdate['erf_size'][0] }}</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Surname">Building Size:</label>
+                        <input type="text" name="building_size" class="form-control" v-model="fillItem.building_size" />
+                        <span v-if="formErrorsUpdate['building_size']" class="error text-danger">@{{ formErrorsUpdate['building_size'][0] }}</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Surname">Open Parking:</label>
+                        <input type="text" name="open_parking_bays" class="form-control" v-model="fillItem.open_parking_bays" />
+                        <span v-if="formErrorsUpdate['open_parking_bays']" class="error text-danger">@{{ formErrorsUpdate['open_parking_bays'][0] }}</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Surname">Covered Parking:</label>
+                        <input type="text" name="covered_parking_bays" class="form-control" v-model="fillItem.covered_parking_bays" />
+                        <span v-if="formErrorsUpdate['covered_parking_bays']" class="error text-danger">@{{ formErrorsUpdate['covered_parking_bays'][0] }}</span>
+                    </div>
+
+                    <div class="form-group">
+                    <label for="Firstname">Image(s):</label>
+
+                        <input type="file" id="addimage" class="btn btn-default " name="addimage[]" multiple  style="width: 100%;"  @change="getAddImage"/>
+
+                        <span v-if="formErrorsUpdate['image']" class="error text-danger">@{{ formErrorsUpdate['image'][0] }}</span>
+                    </div>
 
 
-
-
+                    <div class="form-group">
+                    <label for="Firstname">Image(s):</label>
                     <div style="height:200px;width:100%;border:1px solid #ccc;overflow:auto; padding:0px">
+                            <ul  id="imageOrder"  name="theimageorder" class="list-group"  v-sortable  >
+                                 <li :id="item.id" class="list-group-item "  v-for="(item, key)  in orderBy(fillItem.image,'order') " >   @{{ item.id }} <img :src="offlinePath+'/commprop/public/property/'+fillItem.id+'/'+ item.name  " width="40px" /> <button  title="item.id "  class="btn btn-danger btn-xs pull right"   @click.prevent="deleteImage(item,key)"><span class="glyphicon glyphicon-remove"></span> Remove </button></li>
 
 
-                            <ul  class="list-group"  v-sortable  >
-
-
-                                 <li class="list-group-item "  v-for="item  in fillItem.image " ><img :src="offlinePath+'/commprop/public/property/'+fillItem.id+'/'+ item.name  " width="40px" />    @{{ item.name }} </li>
-
-
+                                 <li class="list-group-item "  v-if="fillItem.image.length <= 0 " >   No images uploaded </li>
                             </ul>
-
+                    </div>
                     </div>
 
-
-                    <div  class="form-group">
-                        <button id="edit-item-submit" type="submit" class="btn btn-success">Submit</button>
-                    </div>
-
-                    </form>
 
               </div>
+            <div class="modal-footer">
+                  <!--  <button id="print" type="submit" class="btn btn-success">Print</button> -->
+                 <button id="edit-item-submit" type="submit" class="btn btn-success">Submit</button>
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+            </form>
             </div>
           </div>
         </div>
@@ -759,13 +878,12 @@ line-height: 1.8;
         <div class="modal " id="create-unit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
+            <form id="createUnit" method="POST" enctype="multipart/form-data" v-on:submit.prevent="createUnit">
               <div class="modal-header">
                 <button type="button" id="create-item-modal-header-button" class="close" data-dismiss="modal"  aria-label="Close"><span aria-hidden="true">×</span></button>
                 <h4 class="modal-title" id="myCreateModalLabel">Add Unit - <small>Erf @{{newUnit.erf}}</small></h4>
               </div>
               <div class="modal-body">
-
-                    <form id="createUnit" method="POST" enctype="multipart/form-data" v-on:submit.prevent="createUnit">
 
 
                     @if ( Session::has('flash_message') )
@@ -785,7 +903,11 @@ line-height: 1.8;
                         <span v-if="formErrors['id']" class="error text-danger">@{{ formErrors['id'][0] }}</span>
                     </div>
 
-
+                    <div class="form-group" >
+                        <label for="Surname">Unit/Section:</label>
+                        <input type="text" name="section" class="form-control" v-model="newUnit.section" />
+                        <span v-if="formErrors['section']" class="error text-danger">@{{ formErrors['section'][0] }}</span>
+                    </div>
 
                     <div class="form-group">
                         <label for="Firstname">Property Type:</label>
@@ -796,8 +918,6 @@ line-height: 1.8;
                                     @{{ ptype.name }}
                                </option>
                         </select>
-
-
                         <span v-if="formErrors['property_type_id']" class="error text-danger">@{{ formErrors['property_type_id'][0] }}</span>
                     </div>
 
@@ -811,8 +931,6 @@ line-height: 1.8;
                                     @{{ stype.name }}
                                </option>
                         </select>
-
-
                         <span v-if="formErrors['sale_type_id']" class="error text-danger">@{{ formErrors['sale_type_id'][0] }}</span>
                     </div>
 
@@ -825,7 +943,6 @@ line-height: 1.8;
                                     @{{ status.name }}
                                </option>
                         </select>
-
                         <span v-if="formErrors['status_id']" class="error text-danger">@{{ formErrors['status_id'][0] }}</span>
                     </div>
 
@@ -843,13 +960,232 @@ line-height: 1.8;
                         <span v-if="formErrors['price']" class="error text-danger">@{{ formErrors['price'][0] }}</span>
                     </div>
 
-                    <div class="form-group">
-                        <button id="create-unit-submit" type="submit" class="btn btn-success">Submit</button>
+                    <div class="form-group" >
+                        <label for="Surname">Gross Rental:</label>
+                        <input type="text" name="gross_rental" class="form-control" v-model="newUnit.gross_rental" />
+                        <span v-if="formErrors['gross_rental']" class="error text-danger">@{{ formErrors['gross_rental'][0] }}</span>
                     </div>
 
-                    </form>
+                    <div class="form-group" >
+                        <label for="Surname">Net Rental:</label>
+                        <input type="text" name="net_rental" class="form-control" v-model="newUnit.net_rental" />
+                        <span v-if="formErrors['net_rental']" class="error text-danger">@{{ formErrors['net_rental'][0] }}</span>
+                    </div>
+
+                   <div class="form-group" >
+                        <label for="Surname">Ops Costs:</label>
+                        <input type="text" name="ops_costs" class="form-control" v-model="newUnit.ops_costs" />
+                        <span v-if="formErrors['ops_costs']" class="error text-danger">@{{ formErrors['ops_costs'][0] }}</span>
+                    </div>
+
+                   <div class="form-group" >
+                        <label for="Surname">Rates:</label>
+                        <input type="text" name="rates" class="form-control" v-model="newUnit.rates" />
+                        <span v-if="formErrors['rates']" class="error text-danger">@{{ formErrors['rates'][0] }}</span>
+                    </div>
+
+                   <div class="form-group" >
+                        <label for="Surname">Investment Yield:</label>
+                        <input type="text" name="investment_yield" class="form-control" v-model="newUnit.investment_yield" />
+                        <span v-if="formErrors['investment_yield']" class="error text-danger">@{{ formErrors['investment_yield'][0] }}</span>
+                    </div>
+
+                    <div class="form-group" >
+                        <label for="Surname">Availability:</label>
+                        <input type="date" name="availability" class="form-control" v-model="newUnit.availability" />
+                        <span v-if="formErrors['availability']" class="error text-danger">@{{ formErrors['availability'][0] }}</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Firstname">Active Agent:</label>
+
+                        <select  id='agent_id' name='active_broker_id' class="form-control "  v-model="newUnit.active_broker_id" style="width: 100%;"  >
+                           <option value="0" disabled  hidden>Please select agent...</option>
+                               <option v-for="agent in agents" :value="agent.id"  >
+                                    @{{ agent.name }}
+                               </option>
+                        </select>
+                        <span v-if="formErrors['active_broker_id']" class="error text-danger">@{{ formErrors['abroker'][0] }}</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Firstname">Listing Agent:</label>
+
+                        <select  id='agent_id' name='listing_broker_id' class="form-control "  v-model="newUnit.listing_broker_id" style="width: 100%;"  >
+                           <option value="0" disabled  hidden>Please select agent...</option>
+                               <option v-for="agent in agents" :value="agent.id"  >
+                                    @{{ agent.name }}
+                               </option>
+                        </select>
+                        <span v-if="formErrors['listing_broker_id']" class="error text-danger">@{{ formErrors['lbroker'][0] }}</span>
+                    </div>
 
               </div>
+
+            <div class="modal-footer">
+                  <!--  <button id="print" type="submit" class="btn btn-success">Print</button> -->
+                  <button id="create-unit-submit" type="submit" class="btn btn-success">Submit</button>
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+            </form>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="modal " id="edit-unit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <form id="editUnit" method="POST" enctype="multipart/form-data" v-on:submit.prevent="updateUnit(fillUnit.id)">
+              <div class="modal-header">
+                <button type="button" id="create-item-modal-header-button" class="close" data-dismiss="modal"  aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title" id="myCreateModalLabel">Edit Unit - <small>Erf @{{fillUnit.erf}}</small></h4>
+              </div>
+              <div class="modal-body">
+
+
+                    @if ( Session::has('flash_message') )
+                      <div class="alert {{ Session::get('flash_type') }} ">
+                        <button type="button" class="form-group btn close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <p>{{ Session::get('flash_message') }}</p>
+                      </div>
+                    @endif
+
+                    <div class="form-group">
+                       <span v-if="formErrors['test']" class="error text-danger">@{{ formErrors['test'][0] }}</span>
+                    </div>
+
+                    <div class="form-group" hidden>
+                        <label for="Surname">Id:</label>
+                        <input type="text" name="id" class="form-control" v-model="fillUnit.id" readonly/>
+                        <span v-if="formErrors['id']" class="error text-danger">@{{ formErrors['id'][0] }}</span>
+                    </div>
+
+                    <div class="form-group" >
+                        <label for="Surname">Unit/Section:</label>
+                        <input type="text" name="section" class="form-control" v-model="fillUnit.section" />
+                        <span v-if="formErrors['section']" class="error text-danger">@{{ formErrors['section'][0] }}</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Firstname">Property Type:</label>
+
+                        <select  id='property_type_id' name='property_type_id' class="form-control "  v-model="fillUnit.property_type_id"  style="width: 100%;"  >
+                           <option value="0" disabled  hidden>Please select property type...</option>
+                               <option v-for="ptype in ptypes" :value="ptype.id"  >
+                                    @{{ ptype.name }}
+                               </option>
+                        </select>
+                        <span v-if="formErrors['property_type_id']" class="error text-danger">@{{ formErrors['property_type_id'][0] }}</span>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="Firstname">Sale Type:</label>
+
+                        <select  id='sale_type_id' name='sale_type_id' class="form-control "  v-model="fillUnit.sale_type_id"  style="width: 100%;"  >
+                           <option value="0" disabled  hidden>Please select sale type...</option>
+                               <option v-for="stype in stypes" :value="stype.id"  >
+                                    @{{ stype.name }}
+                               </option>
+                        </select>
+                        <span v-if="formErrors['sale_type_id']" class="error text-danger">@{{ formErrors['sale_type_id'][0] }}</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Firstname">Status:</label>
+
+                        <select  id='status_id' name='status_id' class="form-control "  v-model="fillUnit.status_id"  style="width: 100%;"  >
+                           <option value="0" disabled  hidden>Please select status...</option>
+                               <option v-for="status in statuses" :value="status.id"  >
+                                    @{{ status.name }}
+                               </option>
+                        </select>
+                        <span v-if="formErrors['status_id']" class="error text-danger">@{{ formErrors['status_id'][0] }}</span>
+                    </div>
+
+
+                    <div class="form-group" >
+                        <label for="Surname">Size:</label>
+                        <input type="text" name="size" class="form-control" v-model="fillUnit.size" />
+                        <span v-if="formErrors['size']" class="error text-danger">@{{ formErrors['size'][0] }}</span>
+                    </div>
+
+
+                    <div class="form-group" >
+                        <label for="Surname">Price:</label>
+                        <input type="text" name="price" class="form-control" v-model="fillUnit.price" />
+                        <span v-if="formErrors['price']" class="error text-danger">@{{ formErrors['price'][0] }}</span>
+                    </div>
+
+                    <div class="form-group" >
+                        <label for="Surname">Gross Rental:</label>
+                        <input type="text" name="gross_rental" class="form-control" v-model="fillUnit.gross_rental" />
+                        <span v-if="formErrors['gross_rental']" class="error text-danger">@{{ formErrors['gross_rental'][0] }}</span>
+                    </div>
+
+                    <div class="form-group" >
+                        <label for="Surname">Net Rental:</label>
+                        <input type="text" name="net_rental" class="form-control" v-model="fillUnit.net_rental" />
+                        <span v-if="formErrors['net_rental']" class="error text-danger">@{{ formErrors['net_rental'][0] }}</span>
+                    </div>
+
+                   <div class="form-group" >
+                        <label for="Surname">Ops Costs:</label>
+                        <input type="text" name="ops_costs" class="form-control" v-model="fillUnit.ops_costs" />
+                        <span v-if="formErrors['ops_costs']" class="error text-danger">@{{ formErrors['ops_costs'][0] }}</span>
+                    </div>
+
+                   <div class="form-group" >
+                        <label for="Surname">Rates:</label>
+                        <input type="text" name="rates" class="form-control" v-model="fillUnit.rates" />
+                        <span v-if="formErrors['rates']" class="error text-danger">@{{ formErrors['rates'][0] }}</span>
+                    </div>
+
+                   <div class="form-group" >
+                        <label for="Surname">Investment Yield:</label>
+                        <input type="text" name="investment_yield" class="form-control" v-model="fillUnit.investment_yield" />
+                        <span v-if="formErrors['investment_yield']" class="error text-danger">@{{ formErrors['investment_yield'][0] }}</span>
+                    </div>
+
+                    <div class="form-group" >
+                        <label for="Surname">Availability:</label>
+                        <input type="date" name="availability" class="form-control" v-model="fillUnit.availability" />
+                        <span v-if="formErrors['availability']" class="error text-danger">@{{ formErrors['availability'][0] }}</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Firstname">Active Agent:</label>
+
+                        <select  id='agent_id' name='active_broker_id' class="form-control "  v-model="fillUnit.active_broker_id" style="width: 100%;"  >
+                           <option value="0" disabled  hidden>Please select agent...</option>
+                               <option v-for="agent in agents" :value="agent.id"  >
+                                    @{{ agent.name }}
+                               </option>
+                        </select>
+                        <span v-if="formErrors['active_broker_id']" class="error text-danger">@{{ formErrors['abroker'][0] }}</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Firstname">Listing Agent:</label>
+
+                        <select  id='agent_id' name='listing_broker_id' class="form-control "  v-model="fillUnit.listing_broker_id" style="width: 100%;"  >
+                           <option value="0" disabled  hidden>Please select agent...</option>
+                               <option v-for="agent in agents" :value="agent.id"  >
+                                    @{{ agent.name }}
+                               </option>
+                        </select>
+                        <span v-if="formErrors['listing_broker_id']" class="error text-danger">@{{ formErrors['lbroker'][0] }}</span>
+                    </div>
+
+              </div>
+
+            <div class="modal-footer">
+                  <!--  <button id="print" type="submit" class="btn btn-success">Print</button> -->
+                  <button id="edit-unit-submit" type="submit" class="btn btn-success">Submit</button>
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+            </form>
             </div>
           </div>
         </div>
@@ -858,13 +1194,14 @@ line-height: 1.8;
         <div class="modal " id="edit-note" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
+              <form id="createNote" method="POST" enctype="multipart/form-data" v-on:submit.prevent="createNote">
               <div class="modal-header">
                 <button type="button" id="create-note-modal-header-button" class="close" data-dismiss="modal"  aria-label="Close"><span aria-hidden="true">×</span></button>
                 <h4 class="modal-title" id="myCreateModalLabel">Notes  - <small>Erf @{{fillNote.erf}}</small></h4>
               </div>
               <div class="modal-body">
 
-                    <form id="createNote" method="POST" enctype="multipart/form-data" v-on:submit.prevent="createNote">
+
 
 
                     @if ( Session::has('flash_message') )
@@ -899,7 +1236,7 @@ line-height: 1.8;
 
                             <tr v-for="item  in orderBy(fillNote.note, 'date', -1)   " v-if=" item.unit_id == fillNote.unit_id ">
                           <!--  == for online === for local <tr v-for="item  in fillNote.note | orderBy 'unit_id' -1 | orderBy 'date' -1" v-if=" item.unit_id === fillNote.unit_id "> -->
-                                <td style="white-space:pre-wrap ; word-wrap:break-word;">Unit @{{ item.unit_id  }} <blue> @{{  item.date |  dateFrom }}  <red>@{{ item.user_id  }}</red></blue><br>@{{ item.description }}</td>
+                                <td style="white-space:pre-wrap ; word-wrap:break-word;">Unit @{{ item.unit_id  }} <blue> @{{  item.date |  dateFrom }}  <red>@{{ userName(item.user_id)  }}</red></blue><br>@{{ item.description }}</td>
 
                             </tr>
 
@@ -918,14 +1255,13 @@ line-height: 1.8;
 
                     </div>
 
-
-                    <div class="form-group">
-                        <button id="edit-note-submit" type="submit" class="btn btn-success">Submit</button>
-                    </div>
-
-                    </form>
-
-              </div>
+            </div>
+            <div class="modal-footer">
+                <!--  <button id="print" type="submit" class="btn btn-success">Print</button> -->
+                  <button id="edit-note-submit" type="submit" class="btn btn-success">Submit</button>
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+            </form>
             </div>
           </div>
         </div>
@@ -933,13 +1269,14 @@ line-height: 1.8;
         <div class="modal " id="edit-owner" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
+              <form id="createOwner" method="POST" enctype="multipart/form-data" v-on:submit.prevent="createOwner">
               <div class="modal-header">
                 <button type="button" id="create-note-modal-header-button" class="close" data-dismiss="modal"  aria-label="Close"><span aria-hidden="true">×</span></button>
                 <h4 class="modal-title" id="myCreateModalLabel">Contacts  - <small>Erf @{{fillOwner.erf}}</small></h4>
               </div>
               <div class="modal-body">
 
-                    <form id="createOwner" method="POST" enctype="multipart/form-data" v-on:submit.prevent="createOwner">
+
 
 
                     @if ( Session::has('flash_message') )
@@ -1084,14 +1421,16 @@ line-height: 1.8;
 
                             </div>
                         </div>
-                        <div class="form-group">
-                            <button id="edit-owner-submit" type="submit" class="btn btn-success">Submit</button>
-                        </div>
 
-                        </form>
                     @endif
 
               </div>
+              <div class="modal-footer">
+                <!--  <button id="print" type="submit" class="btn btn-success">Print</button> -->
+                 <button id="edit-owner-submit" type="submit" class="btn btn-success">Submit</button>
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+            </form>
             </div>
           </div>
         </div>
@@ -1110,10 +1449,11 @@ line-height: 1.8;
         <div class="modal-body">
 
 
-<div id="ownertable" style="height:320px;width:100%;border:1px solid #ccc;overflow:auto; padding:0px">
+                <div id="ownertable" style="height:320px;width:100%;border:1px solid #ccc;overflow:auto; padding:0px">
                         <table class="table  table-hover">
                             <tr>
-                                <th width="100px">Erf</th>
+                            <th width="20px">#</th>
+                                <th width="80px">Erf</th>
                                 <th width="100px">Unit</th>
                                 <th width="300px">Address</th>
                                 <th width="150px">Status</th>
@@ -1123,9 +1463,11 @@ line-height: 1.8;
 
                             </tr>
                            <!--    == for online === for local  <tr v-for="item  in fillOwner.owners | orderBy 'unit_id' -1 | orderBy 'date' -1" v-if=" item.unit_id === fillOwner.unit_id "> -->
-                            <tr v-for="item in brochures"  v-if="inArray(user,item.brochure_users)">
 
-                                 <td>@{{ item.property.erf }}</td>
+                            <tr v-for="item,key in brochures"  v-if="inArray(user,item.brochure_users)" >
+
+                                 <td>@{{ key+1}}</td>
+                                 <td>@{{ item.property.erf }} </td>
                                  <td>@{{ item.id }}</td>
                                  <td>@{{ item.property.address }}</td>
                                  <td>@{{ statusName(item.status_id) }}</td>
@@ -1134,19 +1476,17 @@ line-height: 1.8;
                                  <td><button title="Brochure On"  class="btn btn-danger btn-xs pull right"   @click.prevent="setBrochure(item.property,item)"><span class="glyphicon glyphicon-remove"></span>  </button></td>
 
                             </tr>
+
                         </table>
-</div>
-
-
-
+                 </div>
 
                 <br>
-                 <hr>
+
                  <form id="listBrochures" method="GET"  v-on:submit.prevent="createPDF">
                     <div class="form-group">
                         <label for="Firstname">Agent:</label>
 
-                        <select  id='agent_id' name='agent_id' class="form-control "  v-model="agent" style="width: 100%;"  >
+                        <select  id='agent' name='agent' class="form-control "  v-model="agent" style="width: 100%;"  >
                            <option value="0" disabled  hidden>Please select agent...</option>
                                <option v-for="agent in agents" :value="agent.id"  >
                                     @{{ agent.name }}
@@ -1154,12 +1494,12 @@ line-height: 1.8;
                         </select>
                     </div>
                     <div class="form-group" >
-                        <label for="Surname">Client:</label>
+                        <label for="Surname">Presentation For:</label>
                         <input type="text" id="client" name="client" placeholder="Client name.." class="form-control" />
                     </div>
 
                     <div class="form-group" >
-                      <label for="Surname">Presentation Text:</label>
+                      <label for="Surname">Client Brief:</label>
                       <textarea type="text" id="brochure_text" name="brochure_text" class="form-control" placeholder="Add presentation text ..."  ></textarea>
                     </div>
         </div>

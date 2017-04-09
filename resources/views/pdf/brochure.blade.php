@@ -31,6 +31,12 @@ h4 {
     font-family: 'Fira Sans';
     font-size: 1.5em; /* 30px/16=1.875em */
 }
+h5 {
+    font-family: 'Fira Sans';
+    font-size: 0.8em; /* 30px/16=1.875em */
+    margin-top: 0 !important;
+    margin-bottom: 0!important;
+}
 
 p {
     font-family: 'Fira Sans';
@@ -42,9 +48,10 @@ p {
 
 
     border-style: solid;
-    border-color: black;
+    border-color: lightgrey;
     border-width: 3px 3px 3px 3px;
     border-radius: 5px;
+    padding:0px;
 
 }
 
@@ -72,9 +79,13 @@ background-color: #B0C4DE;
 
 table, tr, td, th, tbody, thead, tfoot {
 
-     font-size:0.85em;
+     font-size:0.98em;
 
     page-break-inside: avoid !important;
+}
+
+th {
+     font-weight: bold;
 }
 
  .flexme{
@@ -116,7 +127,7 @@ display: inline-block;
 padding:20px;
 }
 
-red{
+.red{
     color:red;
 }
 
@@ -125,6 +136,11 @@ red{
     padding:5px;
 }
 
+.brief
+{
+
+    padding:10px 100px 10px 100px;
+}
 
     .page-break { display: block; page-break-before: always; }
 
@@ -142,7 +158,9 @@ red{
 <br>
 <h2> Presentation <small>for</small></h2>
 <h4>{{$client}} </h4>
+<div class="brief">
 <p>{{$brochure_text}} </p>
+</div>
 
 </div>
 
@@ -160,8 +178,14 @@ red{
 
 @foreach( $locations as $loc)
 
+    @if (file_exists(public_path('/img/marker'.($loop->index+1).'.png')))
+       <p><img src="{{public_path()}}/img/marker{{$loop->index+1}}.png" width="20"  > {{$loc}}</p>
+    @else
+       <p><img src="{{public_path()}}/img/marker.png" width="20"  > {{$loc}}</p>
+    @endif
 
-   <p><img src="{{public_path()}}/img/marker{{$loop->index+1}}.png" width="20"  > {{$loc}}</p>
+
+
 @endforeach
 
 </div>
@@ -172,28 +196,72 @@ red{
 <div class="container-fluid page-break">
 
 
-   <header><h3 style="color:navy;"><img src="{{public_path()}}/img/marker{{$loop->index+1}}.png" width="40"  > Erf: {{$item->erf }} </h3><h4>{{$suburbs[$item->area_id-1]->name}}</h4></header>
+   <header><h3 style="color:navy;"><img src="{{public_path()}}/img/marker{{$loop->index+1}}.png" width="40"  > Erf: {{$item->erf }} </h3><h4>{{$suburbs[$item->area_id]->name}}</h4></header>
 <img align="center" src = "http://maps.googleapis.com/maps/api/staticmap?size=600x200&markers=color:red%7Clabel:{{$loop->index+1}}%7C{{$item->long}},{{$item->lat}}&maptype=hybrid&scale=3&sensor=false&label=Hello&key=AIzaSyCNgTdT8SN3jIzbdvZu7CBPKw3zz8J4Pww"  width="745" height="200" class='prop_img 'alt='Google Map'/>
 
-
+<br>
 <h4 style="color:navy;"> {{$item->title}} </h4>
 
 <p> {{$item->description}} </p>
 
 
+             <div >
+                             <table class="table table-bordered ">
+                    <thead>
+                         <tr>
+                            <th width="120px">Type</th>
+                            <th width="180px">Status</th>
+                            <th width="180px">Grade</th>
+                            <th width="180px">Erf Size</th>
+                            <th width="180px">Building Size</th>
+                            <th width="180px">Parking</th>
+                         </tr>
+                     </thead>
+                     <tbody>
+
+                         @if($item->type == 0)
+                             <td ><p>Sectional Title</p></td>
+                         @else
+                             <td ><p>Freehold</p></td>
+                         @endif
+
+                         @if ($item->status>0)
+                         <td ><p>{{ $statuses[$item->status]->name }}</p></td>
+                         @else
+                          <td ><p></p></td>
+                         @endif
+
+                        @if ($item->grade_id>0)
+                         <td ><p>{{ $grades[$item->grade_id]->name }}</p></td>
+                         @else
+                         <td ><p></p></td>
+                         @endif
+
+                         <td ><p>{{ $item->erf_size }}</p></td>
+
+                         <td ><p>{{ $item->building_size }}</p></td>
+
+                         <td ><p>{{ $item->covered_parking_bays }}</p></td>
+
+                    </tbody>
+                    </table>
+
+
+
+             </div>
 
              <div align="center" class="category page">
 
                @if (sizeof($item->images)>0)
-                 <img src="{{public_path()}}/property/{{$item->id}}/{{$item->images[0]->name}}" style="width:200px" width="200"  class='prop_img '>
+                 <img src="{{public_path()}}/property/{{$item->id}}/{{$item->images[0]->name}}" style="width:220px" width="220"  class='prop_img '>
                @endif
 
                @if (sizeof($item->images)>1)
-                 <img src="{{public_path()}}/property/{{$item->id}}/{{$item->images[1]->name}}" style="width:200px" width="200"  class='prop_img '>
+                 <img src="{{public_path()}}/property/{{$item->id}}/{{$item->images[1]->name}}" style="width:220px" width="220"  class='prop_img '>
                 @endif
 
                @if (sizeof($item->images)>2)
-                 <img src="{{public_path()}}/property/{{$item->id}}/{{$item->images[2]->name}} " style="width:200px" width="200"  class='prop_img '>
+                 <img src="{{public_path()}}/property/{{$item->id}}/{{$item->images[2]->name}} " style="width:220px" width="220"  class='prop_img '>
                 @endif
 
 
@@ -203,53 +271,50 @@ red{
              <br>
 
 
-             <div >
-             <hr>
 
-                         <td  width="300"><p>{{ $item->type }}</p></td>
-
-                         <td ><p>{{ $item->status }}</p></td>
-
-                         <td ><p>{{ $item->grade }}</p></td>
-
-                         <td ><p>{{ $item->erf_size }}</p></td>
-
-                         <td ><p>{{ $item->building_size }}</p></td>
-
-                         <td ><p>{{ $item->land_size }}</p></td>
-
-                         <td ><p>{{ $item->covered_parking_bays }}</p></td>
-
-                         <td ><p>{{ $item->open_parking_bays }}</p></td>
-
-             </div>
 
              <div>
+                    <table class="table table-bordered ">
+                    <thead>
+                         <tr>
+                            <th width="120px">Unit</th>
+                            <th width="180px">Type</th>
+                            <th width="180px">Size</th>
+                            <th width="180px">Price</th>
+                            <th width="180px">Availability</th>
+
+                         </tr>
+                     </thead>
+                     <tbody>
 
                                         @foreach ($item->units as $unit)
 
 
 
-                                            <tr>
-                                                <td class="hidden-xs">
-                                                    <p> Unit {{ $loop->iteration }}</p>
+                                            <tr >
+                                                <td >
+                                                    <h5>Unit {{ $loop->iteration }}.  {{ $unit->section }}</h5>
                                                 </td>
                                                 <td>
-                                                   <p> {{ $ptypes[$unit->property_type_id -1]->name }}  {{ $stypes[$unit->sale_type_id -1]->name }}</p>
+                                                    <p>
+                                                    @if ($unit->property_type_id>0)
+                                                       {{ $ptypes[$unit->property_type_id]->name  }}
+                                                    @endif
+                                                    @if ($unit->sale_type_id>0)
+                                                       {{ $stypes[$unit->sale_type_id]->name  }}
+                                                    @endif
+                                                    </p>
                                                 </td>
                                                 <td><p>{{ $unit->size}}   m<sup>2</sup></p></td>
                                                 <td><p>R {{ $unit->price}}  m<sup>2</sup></p></td>
+                                                <td><p class='red'>{{ $unit->availability}}  </p></td>
 
 
                                             </tr>
-                                            <tr>
-                                               <hr>
-                                            </tr>
-
-
-
 
                                       @endforeach
+                                       </tbody>
+                                      </table>
             </div>
 </div>
 @endforeach

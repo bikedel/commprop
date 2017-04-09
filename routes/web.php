@@ -88,8 +88,17 @@ Route::post('/vuepropertiesAddOwner', 'VuePropertyController@addowner');
 // set brochure
 Route::post('/setbrochure', 'VuePropertyController@setbrochure');
 
+//update property
+Route::post('/updateproperty/{id}', 'VuePropertyController@updateproperty');
+
+//update unit
+Route::post('/updateunit/{id}', 'VuePropertyController@updateunit');
+
 // list brochure
 Route::get('/listbrochures', 'VuePropertyController@listbrochure');
+
+// list brochure
+Route::post('/delimage', 'VuePropertyController@delimage');
 
 //test pdf
 //Route::get('/createpdf/{input}', 'VuePropertyController@createPdf');

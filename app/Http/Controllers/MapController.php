@@ -75,7 +75,13 @@ $formatted_address = $output->results[0]->formatted_address;
 dd($status, $lat, $lng, $formatted_address, $province, $city, $city_area, $output);
  */
 //marker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png')
+
         Mapper::map(-34.0249, 18.9241, ['zoom' => 10, 'center' => true, 'marker' => false, 'type' => 'HYBRID', 'overlay' => 'NONE']);
+
+        //  Mapper::map(-34.381128999999990000, 18.470085000000040000)->rectangle([['latitude' => -34.381128999999990000, 'longitude' => 18.470085000000040000], ['latitude' => -34.381128999999990000, 'longitude' => 18.470085000000040000]], ['strokeColor' => '#000000', 'strokeOpacity' => 0.1, 'strokeWeight' => 2, 'fillColor' => '#FFFFFF']);
+        // Mapper::circle([['latitude' => -34.0249, 'longitude' => 18.9241, 'strokeColor' => '#000000', 'strokeOpacity' => 0.1, 'strokeWeight' => 2, 'fillColor' => '#Fccc', 'radius' => 100]]);
+        //    Mapper::marker(-34.0249, 18.9241, ['symbol' => 'circle', 'scale' => 1000]);
+
         // Mapper::informationWindow('cape town', 'Content');
         // get all properties
         $areas      = Area::all();
@@ -86,6 +92,8 @@ dd($status, $lat, $lng, $formatted_address, $province, $city, $city_area, $outpu
             //echo $areas[$property->area_id]->name;
             if (sizeof($property->images) > 0) {
                 $image = 'property/' . $property->id . '/' . $property->images[0]['name'];
+            } else {
+                $image = 'img/sothebys_footer.png';
             }
             $link    = "<a href=" . url("/showproperty" . $property->id) . " >VIEW</a>";
             $content = 'Erf : ' . $property->erf . '<br>';
@@ -101,7 +109,7 @@ dd($status, $lat, $lng, $formatted_address, $province, $city, $city_area, $outpu
                 } elseif ($property->status == "For Sale") {
                     Mapper::marker($property->long, $property->lat, ['title' => $property->type . 'Erf: ' . $property->erf, 'eventRightClick' => 'console.log("right click");', 'content' => $content . '<br> <img src=' . $image . '  style="width:120px;" />', 'scale' => 13, 'animation' => 'DROP', 'icon' => "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png"]);
                 } else {
-                    Mapper::marker($property->long, $property->lat, ['title' => $property->type . 'Erf: ' . $property->erf, 'eventRightClick' => 'console.log("right click");', 'content' => $content . '<br> <img src=' . $image . '  style="width:120px;" />', 'scale' => 13, 'animation' => 'DROP', 'icon' => "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"]);
+                    Mapper::marker($property->long, $property->lat, ['title' => $property->type . 'Erf: ' . $property->erf, 'eventRightClick' => 'console.log("right click");', 'content' => $content . '<br> <img src=' . $image . '  style="width:120px;" />', 'scale' => 13, 'animation' => 'DROP', 'icon' => "http://maps.google.com/mapfiles/ms/icons/red-dot.png"]);
                 }
             }
 

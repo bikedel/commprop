@@ -95,6 +95,7 @@ data:  {
     items: [],
     users: [],
     areas: [],
+    grades: [],
     suburbs: [],
     contacts: [],
     contacttypes: [],
@@ -136,6 +137,14 @@ data:  {
           'description':'',
           'area_id': '',
           'image': [],
+           'addimage': [],
+           'ownership': '',
+           'status': '',
+           'erf_size': '',
+           'building_size': '',
+           'open_parking_bays': '',
+           'covered_parking_bays': '',
+
     },
 
  
@@ -145,6 +154,34 @@ data:  {
          'status_id':'0',
          'size':'',
          'price':'',
+         'section':'',
+         'investment_yield':'',
+         'gross_rental':'',
+         'net_rental':'',
+         'ops_costs':'',
+         'rates':'',
+         'availability':'',
+         'active_broker_id':'',
+         'listing_broker_id':'',
+    },
+
+    fillUnit : {
+         'id':'',
+         'erf':'',
+         'property_type_id':'',
+         'sale_type_id':'',
+         'status_id':'',
+         'size':'',
+         'price':'',
+         'section':'',
+         'investment_yield':'',
+         'gross_rental':'',
+         'net_rental':'',
+         'ops_costs':'',
+         'rates':'',
+         'availability':'',
+         'active_broker_id':'',
+         'listing_broker_id':'',
     },
 
     fillNote : { 
@@ -184,6 +221,7 @@ data:  {
         checked: '',
 
          searching: false,
+         key: 0,
     },
 
 
@@ -326,6 +364,7 @@ data:  {
               vm.contacttypes = response.data.contacttypes;
               vm.contacts = response.data.contacts;
               vm.user = response.data.user;
+              vm.grades = response.data.grades;
 
               // if the agent is a user
               vm.setAgent(vm.user);
@@ -472,6 +511,16 @@ data:  {
             //  console.log('getImage success!');
             this.image = e.target.files[0];
         },
+
+        getAddImage: function(e) {
+            e.preventDefault();
+              //console.log('getImage success! '+e.target.files[0].name);
+              if (e.target.files > 0){
+            this.addimage = e.target.files[0];
+          }
+           // this.fillItem.addimage= [e.target.files];
+        },
+
 
 
         createItem: function(){
@@ -679,6 +728,7 @@ data:  {
       },
 
       editItem: function(item){
+
           this.fillItem.id = item.id;
           this.fillItem.erf = item.erf;
           this.fillItem.title = item.title;
@@ -686,7 +736,13 @@ data:  {
           this.fillItem.description = item.description ;
           this.fillItem.area_id = item.area_id ;
           this.fillItem.image = item.images ;
-
+          this.fillItem.grade_id = item.grade_id ;
+          this.fillItem.ownership = item.type ;
+          this.fillItem.status = item.status ;
+          this.fillItem.erf_size = item.erf_size ;
+          this.fillItem.building_size = item.building_size ;
+          this.fillItem.open_parking_bays = item.open_parking_bays ;
+          this.fillItem.covered_parking_bays = item.covered_parking_bays ;
           //console.log("rrr" + item.images);
 
           $("#edit-item").modal('show');
@@ -694,6 +750,90 @@ data:  {
           this.resetErrors();
       },
 
+      editUnit: function(item,unit){
+
+         this.fillUnit.id = unit.id;
+         this.fillUnit.erf = item.erf;
+         this.fillUnit.property_type_id = unit.property_type_id;
+         this.fillUnit.sale_type_id = unit.sale_type_id;
+         this.fillUnit.status_id = unit.status_id;
+         this.fillUnit.size = unit.size;
+         this.fillUnit.price = unit.price;
+         this.fillUnit.section = unit.section;
+         this.fillUnit.investment_yield = unit.investment_yield;
+         this.fillUnit.gross_rental = unit.gross_rental;
+         this.fillUnit.net_rental = unit.net_rental;
+         this.fillUnit.ops_costs = unit.ops_costs;
+         this.fillUnit.rates = unit.rates;
+         this.fillUnit.availability = unit.availability;
+         this.fillUnit.active_broker_id = unit.active_broker_id;
+         this.fillUnit.listing_broker_id = unit.listing_broker_id;
+          //console.log("rrr" + item.images);
+
+          $("#edit-unit").modal('show');
+
+          this.resetErrors();
+      },
+
+      updateUnit: function(id){
+     
+        //this.fillItem.selected = this.selectedAgent;
+        let data = new FormData(document.getElementById('editUnit'));
+
+
+        var input = data;
+
+                var vm = this; 
+
+                $("#edit-unit-submit").attr('disabled', true);
+            
+                axios.post(this.offlinePath+'/commprop/public/updateunit/'+id,input).then(function (response) {
+
+                      vm.changePage(vm.pagination.current_page);
+
+                      this.fillUnit = {
+                           'id':'',
+                           'erf':'',
+                           'property_type_id':'',
+                           'sale_type_id':'',
+                           'status_id':'',
+                           'size':'',
+                           'price':'',
+                           'section':'',
+                           'investment_yield':'',
+                           'gross_rental':'',
+                           'net_rental':'',
+                           'ops_costs':'',
+                           'rates':'',
+                           'availability':'',
+                           'active_broker_id':'',
+                           'listing_broker_id':'',
+                    };
+
+                      $("#edit-unit-submit").attr('disabled', false);
+                      vm.resetErrors();
+                      $("#edit-unit").modal('hide');
+                      $(".modal-header button").click();
+
+                       toastr.success('Unit Updated Successfully.', 'Success Alert', {timeOut: 5000});
+
+                })
+                .catch(function (error) {
+                     status = error.response.status;
+                    // console.log(error.response.status);
+                    
+                    if (status == 422)
+                    {
+                          vm.formErrorsUpdate = error.response.data;
+                          toastr.warning("You have errors in the form.", 'Warning', {timeOut: 5000});
+                    }else{
+                          toastr.error("Please refresh the browser.", 'Session expired', {timeOut: 5000});
+                    }
+                    $("#edit-unit-submit").attr('disabled', false);
+                    
+                });
+
+      },
 
 
        editNote: function(item,unit){
@@ -939,8 +1079,6 @@ data:  {
                 data.append('checked',this.checked);
                  data.append('selectedContact',this.fillOwner.selectedContact);
 
-                
-
                 var input = data;
 
                 $("#edit-owner-submit").attr('disabled', true);
@@ -1043,6 +1181,15 @@ data:  {
                          'status_id':'0',
                          'size':'',
                          'price':'',
+                         'section':'',
+                         'investment_yield':'',
+                         'gross_rental':'',
+                         'net_rental':'',
+                         'ops_costs':'',
+                         'rates':'',
+                         'availability':'',
+                         'active_broker_id':'',
+                         'listing_broker_id':'',
                       };
                        $("#create-unit-submit").attr('disabled', false);
                       vm.resetErrors();
@@ -1072,30 +1219,94 @@ data:  {
         },
 
 
+      // get item - image details and key to delete from the fillitem.image array
+      deleteImage: function(item,key){
+
+        //  console.log("sdffdf   " + e.parent.closest("li").attr('id'));
+        //console.log(this.fillItem.image[0].name);
+        //console.log(key);
+          var result = confirm("Are you sure you would like to delete this Image?");
+          if (result) {
+
+
+                // remove from ul
+                this.fillItem.image.splice(key, 1);
+               //$("#edit-item").modal('hide');
+
+
+                let data = new FormData();
+                data.append('id',item.id);
+                data.append('property_id',item.property_id);
+                data.append('image',item.name);
+
+
+             
+                var input = data;
+
+                var vm = this; 
+
+                axios.post(vm.offlinePath+'/commprop/public/delimage',input).then(function (response) {
+
+                      vm.changePage(vm.pagination.current_page);
+
+                         toastr.success('Image deleted',  {timeOut: 5000});
+
+                })
+                .catch(function (error) {
+                     status = error.response.status;
+                   //  console.log(error.response.status);
+                    
+                    if (status == 422)
+                    {
+                          vm.formErrors = error.response.data;
+                          toastr.warning("Problem deleting image", 'Warning', {timeOut: 5000});
+                    }else{
+                          toastr.error("Problem deleting image.", 'Session expired', {timeOut: 5000});
+                    }
+
+  
+                });
+            }
+         //     console.log("delete images ");
+              //window.location.href = this.offlinePath+'/commprop/public/vueproperties/'+id,input;
+      },
+
 
       updateItem: function(id){
-
      
         //this.fillItem.selected = this.selectedAgent;
-        var input = this.fillItem;
+        let data = new FormData(document.getElementById('editProp'));
+
+       data.append('theimageOrder',  document.getElementById('imageOrder').firstChild.innerHTML);
+
+       console.log( document.getElementById('imageOrder').firstChild.innerHTML);
+
+
+        var input = data;
 
                 var vm = this; 
 
                 $("#edit-item-submit").attr('disabled', true);
-                
-
-                axios.put(this.offlinePath+'/commprop/public/vueproperties/'+id,input).then(function (response) {
+            
+                axios.post(this.offlinePath+'/commprop/public/updateproperty/'+id,input).then(function (response) {
 
                       vm.changePage(vm.pagination.current_page);
 
                       this.fillItem = {
-                        'id':'',
-                        'erf': '',
-                        'title':'',
-                        'address':'',
-                        'description':'',
-                        'area_id':'',
-                        'image':'',
+                          'id':'',
+                          'erf': '',
+                          'title':'',
+                           'address':'',
+                          'description':'',
+                          'area_id': '',
+                          'image': [],
+                           'addimage': [],
+                           'ownership': '',
+                           'status': '',
+                           'erf_size': '',
+                           'building_size': '',
+                           'open_parking_bays': '',
+                           'covered_parking_bays': '',
                     };
 
                       $("#edit-item-submit").attr('disabled', false);
@@ -1112,7 +1323,7 @@ data:  {
                     
                     if (status == 422)
                     {
-                          vm.formErrors = error.response.data;
+                          vm.formErrorsUpdate = error.response.data;
                           toastr.warning("You have errors in the form.", 'Warning', {timeOut: 5000});
                     }else{
                           toastr.error("Please refresh the browser.", 'Session expired', {timeOut: 5000});
@@ -1129,10 +1340,14 @@ data:  {
           console.log("print broc");
           let brochure_text = document.getElementById('brochure_text').value;
           let client = document.getElementById('client').value;
-          let agent = document.getElementById('agent_id').value;
 
+            //    axios.put(this.offlinePath+'/commprop/public/createpdf/'+this.agent+','+brochure_text+','+client).then(function (response) {
+            //           toastr.success('Brochure complete.',  {timeOut: 5000});
+            //    })
 
-          window.location.href = this.offlinePath+'/commprop/public/createpdf/'+agent+','+brochure_text+','+client;
+          window.location.href = this.offlinePath+'/commprop/public/createpdf/'+this.agent+','+brochure_text+','+client;
+
+          $("#listBrochures_modal").modal('hide');
 
 
       },
@@ -1180,6 +1395,18 @@ data:  {
         $('#log').append(str + "<br>");
       },
 
+    // get user name
+    userName: function (user_id) {
+          //console.log("get suburbName");
+          for(var i = 0; i < this.users.length; i++){
+              if (this.users[i].id == user_id ){
+                     //console.log("get suburbName "+ this.suburbs[i].name);
+                     return this.users[i].name ;
+              }  
+          }
+          return "error" ;  
+   
+     },
 
     // get suburb name
     suburbName: function (suburb_id) {
@@ -1190,6 +1417,21 @@ data:  {
                      return this.suburbs[i].name ;
               }  
           }
+          return "error" ;  
+   
+     },
+
+
+    // get ptype name
+    typeName: function (type) {
+      //console.log("get propertyTypeName");
+        if (type == 0){
+                return 'Freehold' ;
+         }
+        if (type == 1){
+                return 'Sectional Title' ;
+         }
+ 
           return "error" ;  
    
      },
@@ -1233,6 +1475,18 @@ data:  {
    
      },
 
+    // get status name
+    gradeName: function (grade_id) {
+      //console.log("get saleTypeName");
+          for(var i = 0; i < this.grades.length; i++){
+              if (this.grades[i].id == grade_id ){
+                     //console.log("get saleTypeName "+ this.stypes[i].name );
+                     return this.grades[i].name ;
+              }  
+          }
+          return "error" ;  
+   
+     },
 
       changePage: function (page) {
                 //    console.log('changPage '+page);

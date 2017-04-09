@@ -166,7 +166,7 @@ return [
         Barryvdh\Snappy\ServiceProvider::class,
         Cornford\Googlmapper\MapperServiceProvider::class,
         Spatie\Activitylog\ActivitylogServiceProvider::class,
-
+        Intervention\Image\ImageServiceProvider::class,
         /*
          * Package Service Providers...
          */
@@ -234,6 +234,7 @@ return [
         'PDF'          => Barryvdh\Snappy\Facades\SnappyPdf::class,
         'SnappyImage'  => Barryvdh\Snappy\Facades\SnappyImage::class,
         'Mapper'       => Cornford\Googlmapper\Facades\MapperFacade::class,
+        'IImage'       => Intervention\Image\Facades\Image::class,
     ],
 
 ];

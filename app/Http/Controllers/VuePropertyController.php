@@ -7,6 +7,7 @@ use App\Agent;
 use App\Area;
 use App\Contact;
 use App\ContactType;
+use App\Grade;
 use App\Http\Controllers\Controller;
 use App\Image;
 use App\Note;
@@ -21,6 +22,7 @@ use App\User;
 use Auth;
 use Carbon;
 use File;
+use IImage;
 use Illuminate\Http\Request;
 use PDF;
 use Response;
@@ -94,6 +96,7 @@ class VuePropertyController extends Controller
         $ptypes       = PropertyType::all();
         $statuses     = Status::all();
         $contacttypes = ContactType::all();
+        $grades       = Grade::all();
 
         // $streets = Street::on($database)->select('id', 'strStreetName')->get();
 
@@ -108,6 +111,7 @@ class VuePropertyController extends Controller
             'ptypes'       => $ptypes,
             'contacttypes' => $contacttypes,
             'statuses'     => $statuses,
+            'grades'       => $grades,
             'user'         => Auth::user()->id,
         ];
 
@@ -295,15 +299,16 @@ class VuePropertyController extends Controller
         }
 
         // remove id from the form request
+        $tosave = $request->except(['id']);
+        $tosave = $request->except(['area']);
+        $tosave = $request->except(['image', 'ownership']);
+
         $tosave['erf']         = $request->input('erf');
         $tosave['title']       = $request->input('title');
         $tosave['address']     = $request->input('address');
         $tosave['description'] = $request->input('description');
         $tosave['area_id']     = $request->input('area_id');
-
-        $tosave = $request->except(['id']);
-        $tosave = $request->except(['area']);
-        $tosave = $request->except(['image']);
+        $tosave['type']        = $request->input('ownership');
 
         // check address is not empty
         if (strlen($tosave['address']) > 0) {
@@ -312,12 +317,13 @@ class VuePropertyController extends Controller
             $geocode = file_get_contents("https://maps.googleapis.com/maps/api/geocode/json?address=" . $add . "&key=AIzaSyCNXNSQD49r8fdL-d4RNs4MmWhZue_iAyM");
 
             $output = json_decode($geocode);
+            if (sizeof($output->results) > 0) {
+                $lat            = $output->results[0]->geometry->location->lat;
+                $lng            = $output->results[0]->geometry->location->lng;
+                $tosave['lat']  = $lng;
+                $tosave['long'] = $lat;
+            }
 
-            $lat = $output->results[0]->geometry->location->lat;
-            $lng = $output->results[0]->geometry->location->lng;
-
-            $tosave['lat']  = $lng;
-            $tosave['long'] = $lat;
         }
         //dd($lat, $lng, $output);
 
@@ -332,20 +338,6 @@ class VuePropertyController extends Controller
             File::makeDirectory($destinationPath);
         }
 
-/*
-// image name and copy to
-$imageName = $propertyId . '_' . time() . '.' . $request->image->getClientOriginalExtension();
-
-// copy uploaded file to directory
-$request->image->move(public_path('/property/' . $propertyId), $imageName);
-
-// insert image into images
-$image              = new Image;
-$image->property_id = $propertyId;
-$image->name        = $imageName;
-$image->save();
-
- */
         $all = $request->all();
         // save images
         if (isset($all['image']) && count($all['image']) > 0) {
@@ -355,7 +347,39 @@ $image->save();
                 $file_name = preg_replace("/[^a-zA-Z0-9.-]/", "", $img->getClientOriginalName());
 
                 $name = time() . $file_name;
-                $img->move(public_path('/property/' . $propertyId), $name);
+
+                $img = IImage::make($img->getRealPath())->resize(400, 300);
+                //   $thumb = IImage::make($img)->resize(80, 60);
+                $img->backup();
+
+// write text
+                //$img->text('SirComm');
+
+// write text at position
+                //$img->text('SirComm', 380, 10);
+                //  $img->insert(public_path('/img/watermark.png'));
+
+// use callback to define details
+
+                $img->save(public_path('/property/' . $propertyId) . '/' . $name, 100);
+
+                $img->reset();
+
+// perform other modifications
+                $img->resize(120, 80);
+
+                $img->save(public_path('/property/' . $propertyId) . '/t_' . $name, 100);
+
+                //   $img->resize(400, 300, function ($constraint) {
+                //       $constraint->aspectRatio();
+                //   })->save(public_path('/property/' . $propertyId) . '/' . $name, 80);
+
+//$img = Image::make('public/foo.jpg')->resize(300, 200);
+
+// save file as png with medium quality
+                //$img->save('public/bar.png', 60);
+
+                //  $img->move(public_path('/property/' . $propertyId), $name);
                 // save to database
                 $image              = new Image;
                 $image->property_id = $propertyId;
@@ -565,11 +589,16 @@ $image->save();
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function updateproperty($id, Request $request)
     {
 
         //change database
-        $property = new Property;
+        //$property = new Property;
+
+        $tosave['erf']         = $request->input('erf');
+        $tosave['title']       = $request->input('title');
+        $tosave['address']     = $request->input('address');
+        $tosave['description'] = $request->input('description');
 
         $rules = array(
             'erf'   => 'required| numeric ',
@@ -584,7 +613,7 @@ $image->save();
 
         );
 
-        $validator = \Illuminate\Support\Facades\Validator::make($request->all(), $rules, $messsages);
+        $validator = \Illuminate\Support\Facades\Validator::make($tosave, $rules, $messsages);
 
         if ($validator->fails()) {
             // send back to the page with the input data and errors
@@ -593,17 +622,17 @@ $image->save();
 
         }
 
-        $edit = Property::find($id);
+        $edit       = Property::find($id);
+        $propertyId = $edit->id;
 
-        $tosave['erf']         = $request->input('erf');
-        $tosave['title']       = $request->input('title');
-        $tosave['address']     = $request->input('address');
-        $tosave['description'] = $request->input('description');
-        $tosave['area_id']     = $request->input('area_id');
+        //$tosave['area_id']     = $request->input('area_id');
 
         $tosave = $request->except(['id']);
         $tosave = $request->except(['query_myTextEditBox']);
         $tosave = $request->except(['image']);
+        $tosave = $request->except(['addimage']);
+        $tosave = $request->except(['theimageOrder', 'ownership', 'addimage']);
+
         // update properties
 
         // check address is not empty
@@ -621,10 +650,120 @@ $image->save();
             $tosave['long'] = $lat;
         }
 
+        $all = $request->all();
+        // save images
+
+//set main image
+        if (isset($all['image']) && count($all['image']) > 0) {
+            $imageCount = 0;
+
+            foreach ($all['image'] as $img) {
+                $imageCount = $imageCount + 1;
+
+            }
+        }
+
+        // store image_id - position
+        $mainimage_id = strpos($request->input('theimageOrder'), "<") - 1;
+        $new_image_id = substr($request->input('theimageOrder'), 0, $mainimage_id);
+
+        // check image_id
+        if ($new_image_id && $new_image_id > 0) {
+            $tosave['image_id'] = $new_image_id;
+
+        } else {
+            $tosave['image_id'] = 0;
+        }
+
+        $tosave['type'] = $request->input('ownership');
+
+        // create directory if it does not exist
+        $destinationPath = public_path() . '/property/' . $propertyId;
+
+        if (!file_exists($destinationPath)) {
+            File::makeDirectory($destinationPath);
+        }
+
+        if (isset($all['addimage']) && count($all['addimage']) > 0) {
+            foreach ($all['addimage'] as $img) {
+                // move image to public
+
+                $file_name = preg_replace("/[^a-zA-Z0-9.-]/", "", $img->getClientOriginalName());
+                $name      = time() . $file_name;
+                $img       = IImage::make($img->getRealPath())->resize(400, 300);
+                $img->backup();
+                $img->save(public_path('property/' . $propertyId) . '/' . $name, 100);
+                $img->reset();
+                $img->resize(120, 80);
+                $img->save(public_path('property/' . $propertyId) . '/t_' . $name, 100);
+                $image              = new Image;
+                $image->property_id = $propertyId;
+                $image->name        = $name;
+                $image->save();
+            }
+        }
+        //  $tosave = $request->except(['addimage']);
         $edit->update($tosave);
 
         return response()->json($edit);
         //  return response()->json(['test' => 'all data ok so far.'], 422);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function delimage(Request $request)
+    {
+
+        //  $prop = Property::find($id)->delete();
+
+        //  $directory = public_path() . '/property/' . $id;
+
+        //  $success = File::deleteDirectory($directory);
+        $user        = Auth::user()->id;
+        $id          = $request->input('id');
+        $property_id = $request->input('property_id');
+        $image       = $request->input('image');
+
+        $directory = public_path() . '/property/' . $property_id . '/';
+
+        File::delete($directory . $image);
+        File::delete($directory . 't_' . $image);
+
+        $update = Image::find($id);
+
+        $update->destroy($id);
+
+        return response()->json(['data' => $update]);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function updateunit($id, Request $request)
+    {
+
+        //  $prop = Property::find($id)->delete();
+
+        //  $directory = public_path() . '/property/' . $id;
+
+        //  $success = File::deleteDirectory($directory);
+        $user   = Auth::user()->id;
+        $unit   = $id;
+        $update = Unit::find($unit);
+
+        $tosave = $request->except(['id']);
+        $tosave = $request->except(['erf']);
+
+        $update->update($tosave);
+
+        return response()->json(['data' => $update]);
     }
 
     /**
@@ -741,6 +880,8 @@ $image->save();
         $brochure_text = $input[1];
         $footer        = $input[0];
 
+        $agent = $input[0];
+
         //dd($request, $footer, $client, $myinput);
         if ($footer == 1) {
             $footer = 'footer_1.html';
@@ -748,19 +889,29 @@ $image->save();
             $footer = 'footer_2.html';
         }
 
-        $users   = User::all();
-        $areas   = Area::all();
-        $suburbs = Suburb::all();
-        $stypes  = SaleType::all();
-        $ptypes  = PropertyType::all();
+        $users    = User::all();
+        $areas    = Area::all();
+        $grades   = Grade::all();
+        $suburbs  = Suburb::all();
+        $stypes   = SaleType::all();
+        $ptypes   = PropertyType::all();
+        $statuses = Status::all();
+
+        $statuses = $statuses->keyBy('id');
+        $grades   = $grades->keyBy('id');
+        $stypes   = $stypes->keyBy('id');
+        $stypes   = $stypes->keyBy('id');
+        $suburbs  = $suburbs->keyBy('id');
 
         // get all units for brochure
-        $user = Auth::user()->id;
+        $user     = Auth::user()->id;
+        $username = Auth::user()->name;
         // $units = Unit::where('brochure_users', '!=', '[]')->where('brochure_users', 'like', "%[$user%")->orWhere('brochure_users', 'like', "%$user]%")->orWhere('brochure_users', 'like', "%,$user,%")->orderBy('property_id')->get();
         //  $units->load('property');
 
         $items = Property::whereHas('units', function ($query) use ($user) {$query->where('brochure_users', '!=', '[]')->where('brochure_users', 'like', "%[$user%")->orWhere('brochure_users', 'like', "%$user]%")->orWhere('brochure_users', 'like', "%,$user,%");})->with(['units' => function ($query) use ($user) {$query->where('brochure_users', '!=', '[]')->where('brochure_users', 'like', "%[$user%")->orWhere('brochure_users', 'like', "%$user]%")->orWhere('brochure_users', 'like', "%,$user,%");}])->with('images', 'notes', 'owners')->get();
 
+        $log_units = '';
         $markers   = '';
         $locations = array();
         $loop      = 0;
@@ -770,11 +921,16 @@ $image->save();
             $marker  = '&markers=color:navy%7Clabel:' . $loop . '%7C' . $item->long . ',' . $item->lat;
             $markers = $markers . $marker;
             array_push($locations, ' Erf: ' . $item->erf . ' ' . $item->address);
+            $log_units = $log_units . ',' . $item->erf;
+            foreach ($item->units as $unit) {
+                $log_units = $log_units . '-' . $unit->id;
+            }
+
         }
 
         //   dd("pdf", $units, $items);
 
-        // activity("Brochure")->withProperties(['Property' => $item])->log('PDF ');
+        activity("Brochure")->withProperties(['client' => $client, 'brief' => $brochure_text, 'agent' => $agent, 'user' => $username, 'erfs' => $log_units])->log('PDF ');
 
         // $img = Barryvdh\Snappy\Facades\SnappyImage::loadView('readme');
         // return $img->download('test.pdf');
@@ -796,7 +952,7 @@ $image->save();
         // PDF::loadHTML($html)->setOption('footer-center', 'Page [page]')->save('myfile.pdf');
         $cover = '<div class="flexme" <h1>Sotheby Brochure</h1></div>';
         if ($items->count() > 0) {
-            return PDF::loadView('pdf.brochure', compact('items', 'areas', 'suburbs', 'ptypes', 'stypes', 'users', 'markers', 'locations', 'client', 'brochure_text'))->setOption('toc', true)->setOption('outline', true)->setOption('margin-top', 10)->setOption('margin-bottom', 40)->setOption('footer-line', false)->setOption('header-center', 'Page [page]')->setOption('footer-html', url($footer))->download('Property_brochure_erf' . $item->erf . '.pdf');
+            return PDF::loadView('pdf.brochure', compact('items', 'areas', 'suburbs', 'grades', 'ptypes', 'stypes', 'statuses', 'users', 'markers', 'locations', 'client', 'brochure_text'))->setOption('toc', true)->setOption('outline', true)->setOption('margin-top', 10)->setOption('margin-bottom', 40)->setOption('footer-line', false)->setOption('header-center', 'Page [page]')->setOption('footer-html', url($footer))->download('Property_brochure_erf' . $item->erf . '.pdf');
         } else {
 
             return redirect()->back();

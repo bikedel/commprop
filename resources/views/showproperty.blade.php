@@ -249,7 +249,7 @@ small {
 			<h1>{{$property->title}}</h1>
             <p> {{$suburbs[$property->area_id-1]->name }}</p>
             <!-- <p> {{$property->address }}</p> -->
-			<div class="flexslider flexImg" style="width:600px;">
+			<div class="flexslider flexImg" style="width:400px;">
 			  <ul class="slides">
 			  <?php $count = 0;?>
 					@foreach ($property->images as $image)

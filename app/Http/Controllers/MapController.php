@@ -112,7 +112,7 @@ dd($status, $lat, $lng, $formatted_address, $province, $city, $city_area, $outpu
             }
             $link    = "<a href=" . url("/showproperty" . $property->id) . " >VIEW</a>";
             $content = 'Erf : ' . $property->erf . '<br>';
-            $content = $content . $type[$property->type] . '<br>';
+            $content = $content . $types[$property->type] . '<br>';
             $content = $content . $statuses[$property->status]->name . '<br>';
             $content = $content . $link . '<br>';
 

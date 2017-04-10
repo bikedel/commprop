@@ -842,7 +842,7 @@ line-height: 1.8;
                     </div>
 
                     <div class="form-group">
-                    <label for="Firstname">Image(s):</label>
+                    <label for="Firstname">Add Image(s):</label>
 
                         <input type="file" id="addimage" class="btn btn-default " name="addimage[]" multiple  style="width: 100%;"  @change="getAddImage"/>
 
@@ -851,10 +851,10 @@ line-height: 1.8;
 
 
                     <div class="form-group">
-                    <label for="Firstname">Image(s):</label>
+                    <label for="Firstname">Existing Image(s):</label>
                     <div style="height:200px;width:100%;border:1px solid #ccc;overflow:auto; padding:0px">
                             <ul  id="imageOrder"  name="theimageorder" class="list-group"  v-sortable  >
-                                 <li :id="item.id" class="list-group-item "  v-for="(item, key)  in orderBy(fillItem.image,'order') " >   @{{ item.id }} <img :src="offlinePath+'/commprop/public/property/'+fillItem.id+'/'+ item.name  " width="40px" /> <button  title="item.id "  class="btn btn-danger btn-xs pull right"   @click.prevent="deleteImage(item,key)"><span class="glyphicon glyphicon-remove"></span> Remove </button></li>
+                                 <li :id="item.id" class="list-group-item "  v-for="(item, key)  in orderBy(fillItem.image,'order') " >   @{{ item.id }} <img :src="offlinePath+'/commprop/public/property/'+fillItem.id+'/'+ item.name  " width="40px" /> <button  title="item.id "  class="btn btn-danger btn-xs pull right"   @click.prevent="deleteImage(item,key)"><span class="glyphicon glyphicon-remove"></span> Delete </button></li>
 
 
                                  <li class="list-group-item "  v-if="fillItem.image.length <= 0 " >   No images uploaded </li>

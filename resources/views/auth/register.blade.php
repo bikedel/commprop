@@ -43,6 +43,29 @@ label {
                             </div>
                         </div>
 
+                        <div class="form-group{{ $errors->has('role_id') ? ' has-error' : '' }}">
+                            <label for="email" class="col-md-4 control-label">Role</label>
+
+                            <div class="col-md-6">
+
+
+                       <select  id ='role_id' name ='role_id' class="form-control "   placeholder="Select role" data-width="100%"  value="{{ old('role_id') }} " required>
+                               <option  v-bind:value='1'  > User </option>
+                                <option  v-bind:value='2'  > Manager </option>
+                                <option  v-bind:value='3'  > Admin </option>
+                        </select>
+
+
+
+                                @if ($errors->has('role_id'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('role_id') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+
                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                             <label for="password" class="col-md-4 control-label">Password</label>
 

@@ -327,6 +327,10 @@ class VuePropertyController extends Controller
         }
         //dd($lat, $lng, $output);
 
+        $property = Property::create($tosave);
+
+        $propertyId = $property->id;
+
         // create directory if it does not exist
         $destinationPath = public_path() . '/property/' . $propertyId;
 
@@ -402,9 +406,8 @@ class VuePropertyController extends Controller
             $tosave['image_id'] = $imageid;
         }
 
-        $property = Property::create($tosave);
-
-        $propertyId = $property->id;
+        $property->image_id = $imageid;
+        $property           = Property::save();
 
         return response()->json($property);
         //return response()->json(['test' => 'all data ok so far.'], 422);

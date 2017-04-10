@@ -492,6 +492,7 @@ line-height: 1.8;
                     <thead>
                          <tr>
                             <th width="120px" class="hidden-xs">Unit ID</th>
+                            <th width="120px">Section</th>
                             <th width="120px">Status</th>
                             <th width="240px">Type</th>
                             <th width="100px">Size</th>
@@ -503,8 +504,13 @@ line-height: 1.8;
                      <tbody>
                         <tr v-for="unit in item.units">
                             <td class="hidden-xs">
-                                Unit  @{{ unit.id }}
+                               @{{ unit.id }}
                             </td>
+                            <td>
+                                @{{  unit.section  }}
+
+                            </td>
+
                             <td>
                                 @{{  statusName( unit.status_id ) }}
 

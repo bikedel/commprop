@@ -493,8 +493,8 @@ line-height: 1.8;
                          <tr>
                             <th width="90px" class="hidden-xs">Unit ID</th>
                             <th width="100px">Section</th>
-                            <th width="120px">Status</th>
-                            <th width="240px">Type</th>
+                            <th width="140px">Status</th>
+                            <th width="220px">Type</th>
                             <th width="100px">Size</th>
                             <th width="140px">Price</th>
                             <th width="220px">Actions</th>

@@ -517,7 +517,7 @@ line-height: 1.8;
                                 @{{ unit.size}}   m<sup>2</sup>
                             </td>
                             <td>
-                                 @{{ unit.price | currency('R ')}}  m<sup>2</sup>
+                                 @{{ unit.price | currency('R ')}}
                             </td>
                             <td class="actions">
 

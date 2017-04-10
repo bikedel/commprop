@@ -387,11 +387,11 @@ line-height: 1.8;
                      <img :src="offlinePath+'/commprop/public/property/'+item.id+'/'+ item.images[0].name  " width="98%"  >
                      <div class='caption'>
                      <p class="captiontext"> @{{ item.images[0].caption }}</p>
-                        <a v-bind:href="'showproperty'+item.id" class="camera"> <span class="glyphicon glyphicon-camera"></span> </a>
+                        <a v-bind:href="'showproperty'+item.id" class="camera">@{{ item.images.length }} <span class="glyphicon glyphicon-camera"></span></a>
                      </div>
                     </div>
 
-                   <div v-else-if="item.images[0] && item.image_id > 0">
+                   <div v-else-if="item.images.length > 0 && item.image_id > 0">
 
                      <div v-for="image in item.images" v-if="image.id == item.image_id">
                          <img :src="offlinePath+'/commprop/public/property/'+item.id+'/'+ image.name " width="98%"  >
@@ -400,7 +400,7 @@ line-height: 1.8;
 
                      <div class='caption'>
                      <p class="captiontext"></p>
-                        <a v-bind:href="'showproperty'+item.id" class="camera"> <span class="glyphicon glyphicon-camera"></span> </a>
+                        <a v-bind:href="'showproperty'+item.id" class="camera"> @{{ item.images.length }}<span class="glyphicon glyphicon-camera"></span> </a>
                      </div>
                     </div>
 

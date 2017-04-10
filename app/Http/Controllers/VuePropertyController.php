@@ -411,8 +411,7 @@ class VuePropertyController extends Controller
             'property_type_id' => 'numeric|min:1',
             'sale_type_id'     => 'numeric|min:1',
             'status_id'        => 'numeric|min:1',
-            'size'             => 'numeric|min:0',
-            'price'            => 'numeric|min:0',
+
         );
 
         $messsages = array(

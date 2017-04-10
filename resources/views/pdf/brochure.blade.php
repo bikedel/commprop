@@ -277,12 +277,12 @@ padding:20px;
                     <table class="table table-bordered ">
                     <thead>
                          <tr>
-                            <th width="40px">Unit</th>
-                            <th width="100px">Section</th>
+                            <th width="60px">Unit</th>
+                            <th width="120px">Section</th>
                             <th width="180px">Type</th>
                             <th width="180px">Size</th>
                             <th width="180px">Price</th>
-                            <th width="180px">Availability</th>
+                            <th width="140px">Availability</th>
 
                          </tr>
                      </thead>
@@ -297,7 +297,7 @@ padding:20px;
                                                     <h5>Unit {{ $loop->iteration }}. </h5>
                                                 </td>
                                                 <td>
-                                                    {{ $unit->section }}
+                                                   <p> {{ $unit->section }}</p>
                                                 </td>
                                                 <td>
                                                     <p>

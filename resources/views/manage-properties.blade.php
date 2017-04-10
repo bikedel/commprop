@@ -457,7 +457,7 @@ line-height: 1.8;
                      </tr>
                      <tr>
                          <td v-if="seen" >Status   </td>
-                         <td v-if="seen">@{{ statusName(item.status) }}</td>
+                         <td v-if="seen">@{{ saleTypeName(item.status) }}</td>
                      </tr>
                      <tr>
                          <td v-if="seen" >Grade   </td>

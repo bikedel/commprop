@@ -113,15 +113,15 @@ dd($status, $lat, $lng, $formatted_address, $province, $city, $city_area, $outpu
             $link    = "<a href=" . url("/showproperty" . $property->id) . " >VIEW</a>";
             $content = 'Erf : ' . $property->erf . '<br>';
             $content = $content . $types[$property->type] . '<br>';
-            $content = $content . $statuses[$property->status]->name . '<br>';
+            $content = $content . $stypes[$property->sale_type_id]->name . '<br>';
             $content = $content . $link . '<br>';
 
             // check for lat and long
             if ($property->long && $property->lat) {
 
-                if ($property->status == "To Let") {
+                if ($property->sales_type_id == 2) {
                     Mapper::marker($property->long, $property->lat, ['title' => 'Type: ' . $types[$property->type] . ' Erf: ' . $property->erf, 'eventRightClick' => 'console.log("right click");', 'content' => $content . '<br> <img src=' . $image . '  style="width:120px;" />', 'scale' => 13, 'animation' => 'DROP', 'icon' => "http://maps.google.com/mapfiles/ms/icons/green-dot.png"]);
-                } elseif ($property->status == "For Sale") {
+                } elseif ($property->sales_type_id == 1) {
                     Mapper::marker($property->long, $property->lat, ['title' => 'Type: ' . $types[$property->type] . ' Erf: ' . $property->erf, 'eventRightClick' => 'console.log("right click");', 'content' => $content . '<br> <img src=' . $image . '  style="width:120px;" />', 'scale' => 13, 'animation' => 'DROP', 'icon' => "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png"]);
                 } else {
                     Mapper::marker($property->long, $property->lat, ['title' => 'Type: ' . $types[$property->type] . ' Erf: ' . $property->erf, 'eventRightClick' => 'console.log("right click");', 'content' => $content . '<br> <img src=' . $image . '  style="width:120px;" />', 'scale' => 13, 'animation' => 'DROP', 'icon' => "http://maps.google.com/mapfiles/ms/icons/red-dot.png"]);

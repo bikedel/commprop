@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Area;
 use App\Property;
+use App\PropertyType;
+use App\SaleType;
 use Cornford\Googlmapper\Facades\MapperFacade as Mapper;
 
 class MapController extends Controller

@@ -327,10 +327,6 @@ class VuePropertyController extends Controller
         }
         //dd($lat, $lng, $output);
 
-        $property = Property::create($tosave);
-
-        $propertyId = $property->id;
-
         // create directory if it does not exist
         $destinationPath = public_path() . '/property/' . $propertyId;
 
@@ -339,10 +335,14 @@ class VuePropertyController extends Controller
         }
 
         $all = $request->all();
+
+        $first = 0;
         // save images
         if (isset($all['image']) && count($all['image']) > 0) {
             foreach ($all['image'] as $img) {
                 // move image to public
+
+                $first = $first + 1;
 
                 $file_name = preg_replace("/[^a-zA-Z0-9.-]/", "", $img->getClientOriginalName());
 
@@ -385,12 +385,26 @@ class VuePropertyController extends Controller
                 $image->property_id = $propertyId;
                 $image->name        = $name;
                 $image->save();
+
+                // store image_id to put in property
+                if ($first == 1) {
+                    $imageid = $image->id;
+                }
             }
         }
 
         //update prop reference to image
         //$property->image_id = $image->id;
         //$property->save();
+
+        // set image_id as main pic
+        if ($imageid) {
+            $tosave['image_id'] = $imageid;
+        }
+
+        $property = Property::create($tosave);
+
+        $propertyId = $property->id;
 
         return response()->json($property);
         //return response()->json(['test' => 'all data ok so far.'], 422);

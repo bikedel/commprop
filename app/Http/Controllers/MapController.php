@@ -119,9 +119,9 @@ dd($status, $lat, $lng, $formatted_address, $province, $city, $city_area, $outpu
             // check for lat and long
             if ($property->long && $property->lat) {
 
-                if ($property->sales_type_id == 2) {
+                if ($property->sale_type_id == 2) {
                     Mapper::marker($property->long, $property->lat, ['title' => 'Type: ' . $types[$property->type] . ' Erf: ' . $property->erf, 'eventRightClick' => 'console.log("right click");', 'content' => $content . '<br> <img src=' . $image . '  style="width:120px;" />', 'scale' => 13, 'animation' => 'DROP', 'icon' => "http://maps.google.com/mapfiles/ms/icons/green-dot.png"]);
-                } elseif ($property->sales_type_id == 1) {
+                } elseif ($property->sale_type_id == 1) {
                     Mapper::marker($property->long, $property->lat, ['title' => 'Type: ' . $types[$property->type] . ' Erf: ' . $property->erf, 'eventRightClick' => 'console.log("right click");', 'content' => $content . '<br> <img src=' . $image . '  style="width:120px;" />', 'scale' => 13, 'animation' => 'DROP', 'icon' => "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png"]);
                 } else {
                     Mapper::marker($property->long, $property->lat, ['title' => 'Type: ' . $types[$property->type] . ' Erf: ' . $property->erf, 'eventRightClick' => 'console.log("right click");', 'content' => $content . '<br> <img src=' . $image . '  style="width:120px;" />', 'scale' => 13, 'animation' => 'DROP', 'icon' => "http://maps.google.com/mapfiles/ms/icons/red-dot.png"]);

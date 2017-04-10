@@ -277,7 +277,8 @@ padding:20px;
                     <table class="table table-bordered ">
                     <thead>
                          <tr>
-                            <th width="120px">Unit</th>
+                            <th width="40px">Unit</th>
+                            <th width="100px">Section</th>
                             <th width="180px">Type</th>
                             <th width="180px">Size</th>
                             <th width="180px">Price</th>
@@ -293,7 +294,10 @@ padding:20px;
 
                                             <tr >
                                                 <td >
-                                                    <h5>Unit {{ $loop->iteration }}.  {{ $unit->section }}</h5>
+                                                    <h5>Unit {{ $loop->iteration }}. </h5>
+                                                </td>
+                                                <td>
+                                                    {{ $unit->section }}
                                                 </td>
                                                 <td>
                                                     <p>

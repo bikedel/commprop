@@ -400,7 +400,7 @@ line-height: 1.8;
 
                      <div class='caption'>
                      <p class="captiontext"></p>
-                        <a v-bind:href="'showproperty'+item.id" class="camera"> @{{ item.images.length }}<span class="glyphicon glyphicon-camera"></span> </a>
+                        <a v-bind:href="'showproperty'+item.id" class="camera">@{{ item.images.length }} <span class="glyphicon glyphicon-camera"></span> </a>
                      </div>
                     </div>
 

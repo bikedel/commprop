@@ -237,9 +237,9 @@ padding:20px;
                          <td ><p></p></td>
                          @endif
 
-                         <td ><p>{{ $item->erf_size }}</p></td>
+                         <td ><p>{{ $item->erf_size }} m<sup>2</sup></p></td>
 
-                         <td ><p>{{ $item->building_size }}</p></td>
+                         <td ><p>{{ $item->building_size }} m<sup>2</sup></p></td>
 
                          <td ><p>{{ $item->covered_parking_bays }}</p></td>
 

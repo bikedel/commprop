@@ -492,7 +492,7 @@ line-height: 1.8;
                     <thead>
                          <tr>
                             <th width="90px" class="hidden-xs">Unit ID</th>
-                            <th width="100px">Section</th>
+                            <th width="110px">Section</th>
                             <th width="140px">Status</th>
                             <th width="220px">Type</th>
                             <th width="100px">Size</th>

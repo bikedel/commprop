@@ -226,7 +226,7 @@ padding:20px;
                          @endif
 
                          @if ($item->status>0)
-                         <td ><p>{{ $statuses[$item->status]->name }}</p></td>
+                         <td ><p>{{ $stypes[$item->status]->name }}</p></td>
                          @else
                           <td ><p></p></td>
                          @endif

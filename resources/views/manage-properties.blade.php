@@ -640,7 +640,7 @@ line-height: 1.8;
                         </select>
                         <span v-if="formErrors['ownership']" class="error text-danger">@{{ formErrors['ownership'][0] }}</span>
                     </div>
-
+<!--
                     <div class="form-group">
                         <label for="Firstname">Status:</label>
                        <select  id ='status' name ='status' class="form-control selectpicker"   title='Select status...' data-width="100%"  v-model="newItem.status" >
@@ -651,10 +651,10 @@ line-height: 1.8;
                         <span v-if="formErrors['status']" class="error text-danger">@{{ formErrors['status'][0] }}</span>
                     </div>
 
-<!--
+-->
                     <div class="form-group">
-                        <label for="Firstname">Sale Type:</label>
-                        <select  id='sale_type_id' name='sale_type_id' class="form-control selectpicker"  title='Select sale type...'v-model="newUnit.sale_type_id"  style="width: 100%;"  >
+                        <label for="Firstname">Status:</label>
+                        <select  id='sale_type_id' name='sale_type_id' class="form-control selectpicker"  title='Select sale type...' v-model="newItem.sale_type_id"  style="width: 100%;"  >
 
                                <option v-for="stype in stypes" :value="stype.id"  >
                                     @{{ stype.name }}
@@ -662,10 +662,10 @@ line-height: 1.8;
                         </select>
                         <span v-if="formErrors['sale_type_id']" class="error text-danger">@{{ formErrors['sale_type_id'][0] }}</span>
                     </div>
--->
+
                     <div class="form-group">
                         <label for="Firstname">Grade:</label>
-                        <select  id='grade_id' name='grade_id' class="form-control selectpicker"  title='Select grade...' v-model="newUnit.grade_id"  style="width: 100%;"  >
+                        <select  id='grade_id' name='grade_id' class="form-control selectpicker"  title='Select grade...' v-model="newItem.grade_id"  style="width: 100%;"  >
 
                                <option v-for="grade in grades" :value="grade.id"  >
                                     @{{ grade.name }}
@@ -783,7 +783,7 @@ line-height: 1.8;
                         </select>
                         <span v-if="formErrorsUpdate['ownership']" class="error text-danger">@{{ formErrorsUpdate['ownership'][0] }}</span>
                     </div>
-
+<!--
                     <div class="form-group">
                         <label for="Firstname">Status:</label>
                        <select  id ='status' name ='status' class="form-control "   data-width="100%"  v-model="fillItem.status" >
@@ -793,10 +793,10 @@ line-height: 1.8;
                         </select>
                         <span v-if="formErrorsUpdate['status']" class="error text-danger">@{{ formErrorsUpdate['status'][0] }}</span>
                     </div>
+-->
 
-<!--
                     <div class="form-group">
-                        <label for="Firstname">Sale Type:</label>
+                        <label for="Firstname">Status:</label>
                         <select  id='sale_type_id' name='sale_type_id' class="form-control "   v-model="fillItem.sale_type_id"   style="width: 100%;"  >
 
                                <option v-for="stype in stypes" :value="stype.id"  >
@@ -805,7 +805,7 @@ line-height: 1.8;
                         </select>
                         <span v-if="formErrorsUpdate['sale_type_id']" class="error text-danger">@{{ formErrorsUpdate['sale_type_id'][0] }}</span>
                     </div>
--->
+
                     <div class="form-group">
                         <label for="Firstname">Grade:</label>
                         <select  id='grade_id' name='grade_id' class="form-control "   v-model="fillItem.grade_id"  style="width: 100%;"  >

@@ -340,7 +340,8 @@ class VuePropertyController extends Controller
 
         $all = $request->all();
 
-        $first = 0;
+        $first   = 0;
+        $imageid = 0;
         // save images
         if (isset($all['image']) && count($all['image']) > 0) {
             foreach ($all['image'] as $img) {

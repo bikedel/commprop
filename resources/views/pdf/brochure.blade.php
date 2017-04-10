@@ -225,8 +225,8 @@ padding:20px;
                              <td ><p>Sectional Title</p></td>
                          @endif
 
-                         @if ($item->status>0)
-                         <td ><p>{{ $stypes[$item->status]->name }}</p></td>
+                         @if ($item->sale_type_id>0)
+                         <td ><p>{{ $stypes[$item->sale_type_id]->name }}</p></td>
                          @else
                           <td ><p></p></td>
                          @endif

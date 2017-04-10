@@ -220,9 +220,9 @@ padding:20px;
                      <tbody>
 
                          @if($item->type == 0)
-                             <td ><p>Sectional Title</p></td>
-                         @else
                              <td ><p>Freehold</p></td>
+                         @else
+                             <td ><p>Sectional Title</p></td>
                          @endif
 
                          @if ($item->status>0)

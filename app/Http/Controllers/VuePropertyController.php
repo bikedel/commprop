@@ -407,7 +407,7 @@ class VuePropertyController extends Controller
         }
 
         $property->image_id = $imageid;
-        $property           = Property::save();
+        $property->update();
 
         return response()->json($property);
         //return response()->json(['test' => 'all data ok so far.'], 422);

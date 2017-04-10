@@ -306,7 +306,7 @@ padding:20px;
                                                     </p>
                                                 </td>
                                                 <td><p>{{ $unit->size}}   m<sup>2</sup></p></td>
-                                                <td><p>R {{ $unit->price}}  m<sup>2</sup></p></td>
+                                                <td><p>R {{ $unit->price}}  </p></td>
                                                 <td><p class='red'>{{ $unit->availability}}  </p></td>
 
 

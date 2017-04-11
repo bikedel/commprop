@@ -242,6 +242,7 @@ padding:0px;
                                                    <p> <b>Size: </b> {{ $unit->size}}   m<sup>2</sup></p>
                                                    <p> <b>Gross Rental: </b> R {{ $unit->gross_rental}}</p>
                                                     <p> <b>Available: </b> {{ $unit->availability}}</p>
+                                                    <p> <b>Monthly Rental: </b> {{ "R ".number_format($unit->size * $unit->gross_rental,2) }} </p>
 
                                                </div>
 

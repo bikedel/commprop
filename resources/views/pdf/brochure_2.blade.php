@@ -121,7 +121,7 @@ th {
     }
 
     .category {
-position:relative;
+
 display: inline-block;
 
 padding:0px;
@@ -197,12 +197,13 @@ padding:0px;
 
 
    <header><h3 style="color:navy;width:716px;"><img src="{{public_path()}}/img/marker{{$loop->index+1}}.png" width="40"  > Erf: {{$item->erf }} </h3><h4>{{$suburbs[$item->area_id]->name}}</h4></header>
+
 <img align="center" src = "http://maps.googleapis.com/maps/api/staticmap?size=600x200&markers=color:red%7Clabel:{{$loop->index+1}}%7C{{$item->long}},{{$item->lat}}&maptype=hybrid&scale=3&sensor=false&label=Hello&key=AIzaSyCNgTdT8SN3jIzbdvZu7CBPKw3zz8J4Pww"  width="716" height="200" class='prop_img 'alt='Google Map'/>
 
              <div align="center" class="category page">
 <br>
                @if (sizeof($item->images)>0)
-                 <img src="{{public_path()}}/property/{{$item->id}}/{{$item->images[0]->name}}" style="width:180px"   class='prop_img '>
+                 <img src="{{public_path()}}/property/{{$item->id}}/{{$item->images[0]->name}}" style="width:179px"   class='prop_img '>
                @endif
 
                @if (sizeof($item->images)>1)
@@ -214,7 +215,7 @@ padding:0px;
                 @endif
 
                @if (sizeof($item->images)>3)
-                 <img src="{{public_path()}}/property/{{$item->id}}/{{$item->images[3]->name}} " style="width:180px"   class='prop_img '>
+                 <img src="{{public_path()}}/property/{{$item->id}}/{{$item->images[3]->name}} " style="width:179px"   class='prop_img '>
                @endif
 
 

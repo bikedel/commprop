@@ -124,7 +124,7 @@ th {
 position:relative;
 display: inline-block;
 
-padding:20px;
+padding:0px;
 }
 
 .red{

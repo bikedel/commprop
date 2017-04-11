@@ -251,7 +251,7 @@ padding:0px;
                              <td ><p>Sectional Title</p></td>
                          @endif
   </div>
-  <div class="w3-col s6 w3-dark-teal w3-center">
+  <div class="w3-col s6 w3-dark-grey w3-center">
                          @if ($item->sale_type_id>0)
                          <td ><p>{{ $stypes[$item->sale_type_id]->name }}</p></td>
                          @else
@@ -262,14 +262,14 @@ padding:0px;
 </div>
 <div class="w3-row ">
 
-  <div class="w3-col s6 w3-blue w3-center">
+  <div class="w3-col s6 w3-teal w3-center">
                        @if ($item->grade_id>0)
                          <td ><p>{{ $grades[$item->grade_id]->name }}</p></td>
                          @else
                          <td ><p></p></td>
                          @endif
   </div>
-  <div class="w3-col s6 w3-dark-grey w3-center">
+  <div class="w3-col s6 w3-blue w3-center">
 <p>{{ $item->erf_size }} m<sup>2</sup></p>
   </div>
 

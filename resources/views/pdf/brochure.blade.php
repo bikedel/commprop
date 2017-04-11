@@ -156,6 +156,9 @@ padding:0px;
   margin-right: -15px;
   margin-left: -15px;
 }
+.borderless td, .borderless th {
+    border: none;
+}
 
 </style>
 
@@ -291,7 +294,7 @@ padding:0px;
 
 
              <div>
-                    <table class="table ">
+                    <table class="table borderless">
                     <thead>
                          <tr>
                             <th width="60px">Unit</th>

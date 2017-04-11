@@ -178,7 +178,7 @@ padding:0px;
 
 
 
-<img align="center" src = "http://maps.googleapis.com/maps/api/staticmap?size=512x512{{$markers}}&maptype=hybrid&scale=1&sensor=false&label=Hello&key=AIzaSyCNgTdT8SN3jIzbdvZu7CBPKw3zz8J4Pww"  width="745" height="650" class='prop_img 'alt='Google Map'/>
+<img  style="position: fixed; left: 0; width: 100%;" align="center" src = "http://maps.googleapis.com/maps/api/staticmap?size=512x512{{$markers}}&maptype=hybrid&scale=1&sensor=false&label=Hello&key=AIzaSyCNgTdT8SN3jIzbdvZu7CBPKw3zz8J4Pww"  class='prop_img 'alt='Google Map'/>
 <br><br>
 
 @foreach( $locations as $loc)

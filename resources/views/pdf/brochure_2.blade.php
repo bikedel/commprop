@@ -202,19 +202,19 @@ padding:20px;
              <div align="center" class="category page">
 
                @if (sizeof($item->images)>0)
-                 <img src="{{public_path()}}/property/{{$item->id}}/{{$item->images[0]->name}}" style="width:165px" width="165"  class='prop_img '>
+                 <img src="{{public_path()}}/property/{{$item->id}}/{{$item->images[0]->name}}" style="width:179px"   class='prop_img '>
                @endif
 
                @if (sizeof($item->images)>1)
-                 <img src="{{public_path()}}/property/{{$item->id}}/{{$item->images[1]->name}}" style="width:165px" width="165"  class='prop_img '>
+                 <img src="{{public_path()}}/property/{{$item->id}}/{{$item->images[1]->name}}" style="width:179px"   class='prop_img '>
                 @endif
 
                @if (sizeof($item->images)>2)
-                 <img src="{{public_path()}}/property/{{$item->id}}/{{$item->images[2]->name}} " style="width:165px" width="165"  class='prop_img '>
+                 <img src="{{public_path()}}/property/{{$item->id}}/{{$item->images[2]->name}} " style="width:179px"   class='prop_img '>
                 @endif
 
                @if (sizeof($item->images)>3)
-                 <img src="{{public_path()}}/property/{{$item->id}}/{{$item->images[3]->name}} " style="width:165px" width="165"  class='prop_img '>
+                 <img src="{{public_path()}}/property/{{$item->id}}/{{$item->images[3]->name}} " style="width:179px"   class='prop_img '>
                @endif
 
 
@@ -236,9 +236,9 @@ padding:20px;
 
 
                                                 <h5><b>Unit {{ $loop->iteration }}: </b> {{ $unit->section }}</h5>
-                                                <p><b>Size: </b> {{ $unit->size}}   m<sup>2</sup></p>
-                                                <p><b>Gross Rental: </b> R {{ $unit->gross_rental}}  </p>
-                                                <p><b>Available: </b> {{ $unit->availability}}  </p>
+                                                <b>Size: </b> {{ $unit->size}}   m<sup>2</sup>
+                                                <b>Gross Rental: </b> R {{ $unit->gross_rental}}
+                                                <b>Available: </b> {{ $unit->availability}}
 
 
                                             <hr>

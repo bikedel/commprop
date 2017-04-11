@@ -269,7 +269,7 @@ padding:0px;
   </div>
   <div class="w3-col s6 w3-lightgray w3-center">
                          @if ($item->sale_type_id>0)
-                         <p><{{ $stypes[$item->sale_type_id]->name }}</p>
+                         <p>{{ $stypes[$item->sale_type_id]->name }}</p>
                          @else
                          <p></p>
                          @endif
@@ -281,15 +281,30 @@ padding:0px;
 <div class="w3-row ">
 
   <div class="w3-col s6 w3-teal w3-center">
-                       @if ($item->grade_id>0)
-                      <p><b>Grade:</b>{{ $grades[$item->grade_id]->name }}</p>
-                         @else
+
                          <p><b>Grade:</b></p>
+
+  </div>
+
+  <div class="w3-col s6 w3-blue w3-center">
+           <p><b>Size:</b>
+  </div>
+
+</div>
+
+
+<div class="w3-row ">
+
+  <div class="w3-col s6 w3-teal w3-center">
+                       @if ($item->grade_id>0)
+                      <p>{{ $grades[$item->grade_id]->name }}</p>
+                         @else
+                         <p></p>
                          @endif
   </div>
 
   <div class="w3-col s6 w3-blue w3-center">
-           <p><b>Size:</b>{{ $item->erf_size }} m<sup>2</sup></p>
+           <p>{{ $item->erf_size }} m<sup>2</sup></p>
   </div>
 
 </div>

@@ -240,9 +240,9 @@ padding:0px;
 
                                                     <h5><b>Unit {{ $loop->iteration }}: </b> {{ $unit->section }}</h5><br>
                                                    <p> <b>Size: </b> {{ $unit->size}}   m<sup>2</sup></p>
-                                                   <p> <b>Gross Rental: </b> R {{ $unit->gross_rental}}</p>
+                                                   <p> <b>Gross Rental: </b>  {{ "R ".number_format($unit->gross_rental,2) }} /m<sup>2</sup></p>
                                                     <p> <b>Available: </b> {{ $unit->availability}}</p>
-                                                    <p> <b>Monthly Rental: </b> {{ "R ".number_format($unit->size * $unit->gross_rental,2) }} </p>
+                                                    <p> <b>Monthly Rental: </b> {{ "R ".number_format($unit->size * $unit->gross_rental,2) }} excl. Vat</p>
 
                                                </div>
 

@@ -10,8 +10,8 @@ return array(
         'options' => array(
             'page-size'        => 'A4',
             'margin-top'       => 5,
-            'margin-right'     => 5,
-            'margin-left'      => 5,
+            'margin-right'     => 0,
+            'margin-left'      => 0,
             'margin-bottom'    => 6,
             'orientation'      => 'Portrait',
             // 'footer-center'    => 'Page [page] of [toPage]',

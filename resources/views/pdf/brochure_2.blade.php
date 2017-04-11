@@ -157,8 +157,8 @@ padding:0px;
   margin-left: auto;
 }
 .row {
-  margin-right: -15px;
-  margin-left: -15px;
+  margin-right: -30px;
+  margin-left: -30px;
 }
 
 </style>

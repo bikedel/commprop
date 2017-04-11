@@ -475,6 +475,10 @@ line-height: 1.8;
                          <td v-if="seen" width="100">Open Parking   </td>
                          <td v-if="seen">@{{ item.open_parking_bays }}</td>
                      </tr>
+                      <tr>
+                         <td v-if="seen" width="100">Covered Parking   </td>
+                         <td v-if="seen">@{{ item.covered_parking_bays }}</td>
+                     </tr>
                      </tbody>
                      </table>
             </div>

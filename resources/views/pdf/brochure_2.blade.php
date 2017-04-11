@@ -203,7 +203,7 @@ padding:0px;
 
    <header><h3 style="color:navy;width:716px;"><img src="{{public_path()}}/img/marker{{$loop->index+1}}.png" width="40"  > Erf: {{$item->erf }} </h3><h4>{{$suburbs[$item->area_id]->name}}</h4></header>
 
-<img align="center" src = "http://maps.googleapis.com/maps/api/staticmap?size=600x200&markers=color:red%7Clabel:{{$loop->index+1}}%7C{{$item->long}},{{$item->lat}}&maptype=hybrid&scale=3&sensor=false&label=Hello&key=AIzaSyCNgTdT8SN3jIzbdvZu7CBPKw3zz8J4Pww"  width="688" height="200" class='prop_img 'alt='Google Map'/>
+<img align="center" src = "http://maps.googleapis.com/maps/api/staticmap?size=600x200&markers=color:red%7Clabel:{{$loop->index+1}}%7C{{$item->long}},{{$item->lat}}&maptype=hybrid&scale=3&sensor=false&label=Hello&key=AIzaSyCNgTdT8SN3jIzbdvZu7CBPKw3zz8J4Pww"  width="690" height="200" class='prop_img 'alt='Google Map'/>
 
              <div align="center" class="category page">
 <br>

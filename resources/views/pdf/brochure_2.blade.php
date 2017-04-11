@@ -156,7 +156,7 @@ padding:20px;
 
 <img src = "{{public_path()}}/img/sothebys_logo_big_blue.jpg" width="400px"/>
 <br>
-<h2> Presentation2 <small>for</small></h2>
+<h2> Presentation <small>for</small></h2>
 <h4>{{$client}} </h4>
 <div class="brief">
 <p>{{$brochure_text}} </p>
@@ -199,94 +199,39 @@ padding:20px;
    <header><h3 style="color:navy;"><img src="{{public_path()}}/img/marker{{$loop->index+1}}.png" width="40"  > Erf: {{$item->erf }} </h3><h4>{{$suburbs[$item->area_id]->name}}</h4></header>
 <img align="center" src = "http://maps.googleapis.com/maps/api/staticmap?size=600x200&markers=color:red%7Clabel:{{$loop->index+1}}%7C{{$item->long}},{{$item->lat}}&maptype=hybrid&scale=3&sensor=false&label=Hello&key=AIzaSyCNgTdT8SN3jIzbdvZu7CBPKw3zz8J4Pww"  width="745" height="200" class='prop_img 'alt='Google Map'/>
 
-<br>
-<h4 style="color:navy;"> {{$item->title}} </h4>
-
-<p> {{$item->description}} </p>
-
-
-             <div >
-                             <table class="table table-bordered ">
-                    <thead>
-                         <tr>
-                            <th width="120px">Type</th>
-                            <th width="180px">Status</th>
-                            <th width="180px">Grade</th>
-                            <th width="180px">Erf Size</th>
-                            <th width="180px">Building Size</th>
-                            <th width="180px">Parking</th>
-                         </tr>
-                     </thead>
-                     <tbody>
-
-                         @if($item->type == 0)
-                             <td ><p>Freehold</p></td>
-                         @else
-                             <td ><p>Sectional Title</p></td>
-                         @endif
-
-                         @if ($item->sale_type_id>0)
-                         <td ><p>{{ $stypes[$item->sale_type_id]->name }}</p></td>
-                         @else
-                          <td ><p></p></td>
-                         @endif
-
-                        @if ($item->grade_id>0)
-                         <td ><p>{{ $grades[$item->grade_id]->name }}</p></td>
-                         @else
-                         <td ><p></p></td>
-                         @endif
-
-                         <td ><p>{{ $item->erf_size }} m<sup>2</sup></p></td>
-
-                         <td ><p>{{ $item->building_size }} m<sup>2</sup></p></td>
-
-                         <td ><p>{{ $item->covered_parking_bays }}</p></td>
-
-                    </tbody>
-                    </table>
-
-
-
-             </div>
-
              <div align="center" class="category page">
 
                @if (sizeof($item->images)>0)
-                 <img src="{{public_path()}}/property/{{$item->id}}/{{$item->images[0]->name}}" style="width:220px" width="220"  class='prop_img '>
+                 <img src="{{public_path()}}/property/{{$item->id}}/{{$item->images[0]->name}}" style="width:220px" width="165"  class='prop_img '>
                @endif
 
                @if (sizeof($item->images)>1)
-                 <img src="{{public_path()}}/property/{{$item->id}}/{{$item->images[1]->name}}" style="width:220px" width="220"  class='prop_img '>
+                 <img src="{{public_path()}}/property/{{$item->id}}/{{$item->images[1]->name}}" style="width:220px" width="165"  class='prop_img '>
                 @endif
 
                @if (sizeof($item->images)>2)
-                 <img src="{{public_path()}}/property/{{$item->id}}/{{$item->images[2]->name}} " style="width:220px" width="220"  class='prop_img '>
+                 <img src="{{public_path()}}/property/{{$item->id}}/{{$item->images[2]->name}} " style="width:220px" width="165"  class='prop_img '>
                 @endif
+
+               @if (sizeof($item->images)>3)
+                 <img src="{{public_path()}}/property/{{$item->id}}/{{$item->images[3]->name}} " style="width:220px" width="165"  class='prop_img '>
+               @endif
 
 
 
              </div>
 
              <br>
+<h4 style="color:navy;"> {{$item->title}} </h4>
+
+<p> {{$item->description}} </p>
+
 
 
 
 
              <div>
-                    <table class="table table-bordered ">
-                    <thead>
-                         <tr>
-                            <th width="60px">Unit</th>
-                            <th width="120px">Section</th>
-                            <th width="180px">Type</th>
-                            <th width="180px">Size</th>
-                            <th width="180px">Price</th>
-                            <th width="140px">Availability</th>
 
-                         </tr>
-                     </thead>
-                     <tbody>
 
                                         @foreach ($item->units as $unit)
 
@@ -317,8 +262,7 @@ padding:20px;
                                             </tr>
 
                                       @endforeach
-                                       </tbody>
-                                      </table>
+
             </div>
 </div>
 @endforeach

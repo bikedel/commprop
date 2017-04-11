@@ -82,7 +82,7 @@ table, tr, td, th, tbody, thead, tfoot {
      font-size:0.98em;
 
     page-break-inside: avoid !important;
-    padding:0px !important;
+    padding:4px !important;
 }
 
 th {

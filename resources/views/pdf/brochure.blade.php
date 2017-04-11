@@ -244,11 +244,11 @@ padding:0px;
 
 <div class="w3-row ">
 
-  <div class="w3-col s6 w3-green w3-left">
+  <div class="w3-col s6 w3-green w3-center">
                             @if($item->type == 0)
-                             <td ><p>Freehold</p></td>
+                             <td ><p><b>Type:</b>Freehold</p></td>
                          @else
-                             <td ><p>Sectional Title</p></td>
+                             <td ><p>b>Type:</b>Sectional Title</p></td>
                          @endif
   </div>
   <div class="w3-col s6 w3-dark-grey w3-center">

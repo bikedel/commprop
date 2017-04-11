@@ -191,7 +191,7 @@ padding:0px;
 <div class="row">
 <img align="center" src = "http://maps.googleapis.com/maps/api/staticmap?size=512x512{{$markers}}&maptype=hybrid&scale=1&sensor=false&label=Hello&key=AIzaSyCNgTdT8SN3jIzbdvZu7CBPKw3zz8J4Pww"  width="800" height="650" class='prop_img 'alt='Google Map'/>
 </div>
-<br><br>
+<br>
 
 @foreach( $locations as $loc)
 
@@ -220,19 +220,19 @@ padding:0px;
              <div align="center" class="category page">
 <br>
                @if (sizeof($item->images)>0)
-                 <img src="{{public_path()}}/property/{{$item->id}}/{{$item->images[0]->name}}" style="width:180px"   class='prop_img '>
+                 <img src="{{public_path()}}/property/{{$item->id}}/{{$item->images[0]->name}}" style="width:181px"   class='prop_img '>
                @endif
 
                @if (sizeof($item->images)>1)
-                 <img src="{{public_path()}}/property/{{$item->id}}/{{$item->images[1]->name}}" style="width:180px"   class='prop_img '>
+                 <img src="{{public_path()}}/property/{{$item->id}}/{{$item->images[1]->name}}" style="width:181px"   class='prop_img '>
                 @endif
 
                @if (sizeof($item->images)>2)
-                 <img src="{{public_path()}}/property/{{$item->id}}/{{$item->images[2]->name}} " style="width:180px"   class='prop_img '>
+                 <img src="{{public_path()}}/property/{{$item->id}}/{{$item->images[2]->name}} " style="width:181px"   class='prop_img '>
                 @endif
 
                @if (sizeof($item->images)>3)
-                 <img src="{{public_path()}}/property/{{$item->id}}/{{$item->images[3]->name}} " style="width:180px"   class='prop_img '>
+                 <img src="{{public_path()}}/property/{{$item->id}}/{{$item->images[3]->name}} " style="width:181px"   class='prop_img '>
                @endif
 
 

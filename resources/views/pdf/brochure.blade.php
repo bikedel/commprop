@@ -242,7 +242,7 @@ padding:0px;
 
 
 
-<div class="w3-row w3-container">
+<div class="w3-row ">
   <p>Inside a container:</p>
   <div class="w3-col s6 w3-green w3-center">
     <p>s6</p>

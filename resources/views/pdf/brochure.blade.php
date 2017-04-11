@@ -124,7 +124,7 @@ th {
 position:relative;
 display: inline-block;
 
-padding:20px;
+padding:0px;
 }
 
 .red{
@@ -184,7 +184,7 @@ padding:20px;
 
 
 <div class="row">
-<img align="center" src = "http://maps.googleapis.com/maps/api/staticmap?size=512x512{{$markers}}&maptype=hybrid&scale=1&sensor=false&label=Hello&key=AIzaSyCNgTdT8SN3jIzbdvZu7CBPKw3zz8J4Pww"  width="745" height="650" class='prop_img 'alt='Google Map'/>
+<img align="center" src = "http://maps.googleapis.com/maps/api/staticmap?size=512x512{{$markers}}&maptype=hybrid&scale=1&sensor=false&label=Hello&key=AIzaSyCNgTdT8SN3jIzbdvZu7CBPKw3zz8J4Pww"  width="800" height="650" class='prop_img 'alt='Google Map'/>
 </div>
 <br>
 

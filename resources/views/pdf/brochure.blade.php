@@ -241,6 +241,14 @@ padding:0px;
 <p> {{$item->description}} </p>
 
 
+
+<div class="row">
+  <div class="col-sm-4">.col-sm-4</div>
+  <div class="col-sm-4">.col-sm-4</div>
+  <div class="col-sm-4">.col-sm-4</div>
+</div>
+
+
              <div >
                              <table class="borderless  ">
                     <thead>

@@ -314,7 +314,7 @@ padding:0px;
 
                                             <tr >
                                                 <td >
-                                                    <h5>Unit {{ $loop->iteration }}. </h5>
+                                                    <p>Unit {{ $loop->iteration }}. </p>
                                                 </td>
                                                 <td>
                                                    <p> {{ $unit->section }}</p>

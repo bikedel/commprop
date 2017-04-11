@@ -295,7 +295,7 @@ padding:0px;
 
 <div class="w3-row ">
 
-  <div class="w3-col s6 w3-teal w3-center">
+  <div class="w3-col s6 w3-lightgray w3-center">
                        @if ($item->grade_id>0)
                       <p>{{ $grades[$item->grade_id]->name }}</p>
                          @else
@@ -303,7 +303,7 @@ padding:0px;
                          @endif
   </div>
 
-  <div class="w3-col s6 w3-blue w3-center">
+  <div class="w3-col s6 w3-lightgray w3-center">
            <p>{{ $item->erf_size }} m<sup>2</sup></p>
   </div>
 

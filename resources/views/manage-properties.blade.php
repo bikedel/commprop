@@ -1512,6 +1512,17 @@ line-height: 1.8;
                       <label for="Surname">Client Brief:</label>
                       <textarea type="text" id="brochure_text" name="brochure_text" class="form-control" placeholder="Add presentation text ..."  ></textarea>
                     </div>
+
+
+                    <div class="form-group">
+                        <label for="Firstname">Brochure:</label>
+                       <select  id ='brochure_type' name ='brochure_type' class="form-control "   data-width="100%"   >
+                               <option  v-bind:value='0'  > Format 1 </option>
+                                <option  v-bind:value='1'  > Format 2 </option>
+                        </select>
+
+                    </div>
+
         </div>
 
         <div class="modal-footer">

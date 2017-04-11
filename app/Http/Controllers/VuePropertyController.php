@@ -968,11 +968,28 @@ class VuePropertyController extends Controller
         //->setOrientation('landscape')
         // PDF::loadHTML($html)->setOption('footer-center', 'Page [page]')->save('myfile.pdf');
         $cover = '<div class="flexme" <h1>Sotheby Brochure</h1></div>';
-        if ($items->count() > 0) {
-            return PDF::loadView('pdf.brochure', compact('items', 'areas', 'suburbs', 'grades', 'ptypes', 'stypes', 'statuses', 'users', 'markers', 'locations', 'client', 'brochure_text'))->setOption('toc', true)->setOption('outline', true)->setOption('margin-top', 10)->setOption('margin-bottom', 40)->setOption('footer-line', false)->setOption('header-center', 'Page [page]')->setOption('footer-html', url($footer))->download('Property_brochure_erf' . $item->erf . '.pdf');
-        } else {
 
-            return redirect()->back();
+        $brochure_type = $request->input('brochure_type');
+
+        if ($brochure_type == 0) {
+
+            // type 1 brochure
+            if ($items->count() > 0) {
+                return PDF::loadView('pdf.brochure', compact('items', 'areas', 'suburbs', 'grades', 'ptypes', 'stypes', 'statuses', 'users', 'markers', 'locations', 'client', 'brochure_text'))->setOption('toc', true)->setOption('outline', true)->setOption('margin-top', 10)->setOption('margin-bottom', 40)->setOption('footer-line', false)->setOption('header-center', 'Page [page]')->setOption('footer-html', url($footer))->download('Property_brochure_erf' . $item->erf . '.pdf');
+            } else {
+
+                return redirect()->back();
+            }
+
+        } else {
+            // type 2 brochure
+            if ($items->count() > 0) {
+                return PDF::loadView('pdf.brochure_2', compact('items', 'areas', 'suburbs', 'grades', 'ptypes', 'stypes', 'statuses', 'users', 'markers', 'locations', 'client', 'brochure_text'))->setOption('toc', true)->setOption('outline', true)->setOption('margin-top', 10)->setOption('margin-bottom', 40)->setOption('footer-line', false)->setOption('header-center', 'Page [page]')->setOption('footer-html', url($footer))->download('Property_brochure_erf' . $item->erf . '.pdf');
+            } else {
+
+                return redirect()->back();
+            }
+
         }
 //->setOption('cover', "hello")
         //->setOption('header-center', date('D d M Y'))

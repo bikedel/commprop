@@ -150,6 +150,17 @@ padding:0px;
     .page-break { display: block; page-break-before: always; }
 
 
+.container-fluid {
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+.row {
+  margin-right: -15px;
+  margin-left: -15px;
+}
+
 </style>
 
 </head>
@@ -177,8 +188,9 @@ padding:0px;
 
 
 
-
+<div class="row">
 <img align="center" src = "http://maps.googleapis.com/maps/api/staticmap?size=512x512{{$markers}}&maptype=hybrid&scale=1&sensor=false&label=Hello&key=AIzaSyCNgTdT8SN3jIzbdvZu7CBPKw3zz8J4Pww"  width="745" height="650" class='prop_img 'alt='Google Map'/>
+</div>
 <br><br>
 
 @foreach( $locations as $loc)

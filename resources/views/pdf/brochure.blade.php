@@ -213,6 +213,26 @@ padding:0px;
 <img align="center" src = "http://maps.googleapis.com/maps/api/staticmap?size=600x200&markers=color:red%7Clabel:{{$loop->index+1}}%7C{{$item->long}},{{$item->lat}}&maptype=hybrid&scale=3&sensor=false&label=Hello&key=AIzaSyCNgTdT8SN3jIzbdvZu7CBPKw3zz8J4Pww"  width="740" height="200" class='prop_img 'alt='Google Map'/>
 
 <br>
+             <div align="center" class="category page">
+
+               @if (sizeof($item->images)>0)
+                 <img src="{{public_path()}}/property/{{$item->id}}/{{$item->images[0]->name}}" style="width:181px"   class='prop_img '>
+               @endif
+
+               @if (sizeof($item->images)>1)
+                 <img src="{{public_path()}}/property/{{$item->id}}/{{$item->images[1]->name}}" style="width:181px"   class='prop_img '>
+                @endif
+
+               @if (sizeof($item->images)>2)
+                 <img src="{{public_path()}}/property/{{$item->id}}/{{$item->images[2]->name}} " style="width:181px"  class='prop_img '>
+                @endif
+
+               @if (sizeof($item->images)>3)
+                 <img src="{{public_path()}}/property/{{$item->id}}/{{$item->images[3]->name}} " style="width:181px"   class='prop_img '>
+                @endif
+
+  <br>
+             </div>
 <h4 style="color:navy;"> {{$item->title}} </h4>
 
 <p> {{$item->description}} </p>
@@ -263,26 +283,7 @@ padding:0px;
 
              </div>
 
-             <div align="center" class="category page">
 
-               @if (sizeof($item->images)>0)
-                 <img src="{{public_path()}}/property/{{$item->id}}/{{$item->images[0]->name}}" style="width:181px"   class='prop_img '>
-               @endif
-
-               @if (sizeof($item->images)>1)
-                 <img src="{{public_path()}}/property/{{$item->id}}/{{$item->images[1]->name}}" style="width:181px"   class='prop_img '>
-                @endif
-
-               @if (sizeof($item->images)>2)
-                 <img src="{{public_path()}}/property/{{$item->id}}/{{$item->images[2]->name}} " style="width:181px"  class='prop_img '>
-                @endif
-
-               @if (sizeof($item->images)>3)
-                 <img src="{{public_path()}}/property/{{$item->id}}/{{$item->images[3]->name}} " style="width:181px"   class='prop_img '>
-                @endif
-
-  <br>
-             </div>
 
 
 

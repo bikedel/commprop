@@ -82,6 +82,7 @@ table, tr, td, th, tbody, thead, tfoot {
      font-size:0.98em;
 
     page-break-inside: avoid !important;
+    padding:0px !important;
 }
 
 th {
@@ -280,10 +281,10 @@ padding:0px;
                  <img src="{{public_path()}}/property/{{$item->id}}/{{$item->images[3]->name}} " style="width:181px"   class='prop_img '>
                 @endif
 
-
+  <br>
              </div>
 
-             <br>
+
 
 
 

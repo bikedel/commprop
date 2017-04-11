@@ -294,7 +294,7 @@ padding:0px;
 
 
              <div>
-                    <table class="table borderless">
+                    <table class=" borderless">
                     <thead>
                          <tr>
                             <th width="60px">Unit</th>

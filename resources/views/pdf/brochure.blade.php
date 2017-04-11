@@ -243,12 +243,20 @@ padding:0px;
 
 
 <div class="w3-row ">
-  <p>Inside a container:</p>
+
   <div class="w3-col s6 w3-green w3-center">
-    <p>s6</p>
+                            @if($item->type == 0)
+                             <td ><p>Freehold</p></td>
+                         @else
+                             <td ><p>Sectional Title</p></td>
+                         @endif
   </div>
   <div class="w3-col s6 w3-dark-grey w3-center">
-    <p>s6</p>
+                         @if ($item->sale_type_id>0)
+                         <td ><p>{{ $stypes[$item->sale_type_id]->name }}</p></td>
+                         @else
+                          <td ><p></p></td>
+                         @endif
   </div>
 </div>
 

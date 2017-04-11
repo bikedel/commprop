@@ -246,16 +246,16 @@ padding:0px;
 
   <div class="w3-col s6 w3-green w3-center">
                             @if($item->type == 0)
-                             <td ><p><b>Type:</b>Freehold</p></td>
+                            <p><b>Type:</b>Freehold</p>
                          @else
-                             <td ><p>b>Type:</b>Sectional Title</p></td>
+                             <p>b>Type:</b>Sectional Title</p>
                          @endif
   </div>
   <div class="w3-col s6 w3-dark-grey w3-center">
                          @if ($item->sale_type_id>0)
-                         <td ><p>{{ $stypes[$item->sale_type_id]->name }}</p></td>
+                         <p><b>Status:</b>{{ $stypes[$item->sale_type_id]->name }}</p>
                          @else
-                          <td ><p></p></td>
+                         <p><b>Status:</b></p>
                          @endif
   </div>
 
@@ -264,13 +264,14 @@ padding:0px;
 
   <div class="w3-col s6 w3-teal w3-center">
                        @if ($item->grade_id>0)
-                         <td ><p>{{ $grades[$item->grade_id]->name }}</p></td>
+                      <p><b>Grade:</b>{{ $grades[$item->grade_id]->name }}</p>
                          @else
-                         <td ><p></p></td>
+                         <p><b>Grade:</b></p>
                          @endif
   </div>
+
   <div class="w3-col s6 w3-blue w3-center">
-<p>{{ $item->erf_size }} m<sup>2</sup></p>
+           <p><b>Size:</b>{{ $item->erf_size }} m<sup>2</sup></p>
   </div>
 
 </div>

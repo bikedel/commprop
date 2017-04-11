@@ -203,19 +203,19 @@ padding:0px;
              <div align="center" class="category page">
 <br>
                @if (sizeof($item->images)>0)
-                 <img src="{{public_path()}}/property/{{$item->id}}/{{$item->images[0]->name}}" style="width:178px"   class='prop_img '>
+                 <img src="{{public_path()}}/property/{{$item->id}}/{{$item->images[0]->name}}" style="width:175px"   class='prop_img '>
                @endif
 
                @if (sizeof($item->images)>1)
-                 <img src="{{public_path()}}/property/{{$item->id}}/{{$item->images[1]->name}}" style="width:178px"   class='prop_img '>
+                 <img src="{{public_path()}}/property/{{$item->id}}/{{$item->images[1]->name}}" style="width:175px"   class='prop_img '>
                 @endif
 
                @if (sizeof($item->images)>2)
-                 <img src="{{public_path()}}/property/{{$item->id}}/{{$item->images[2]->name}} " style="width:178px"   class='prop_img '>
+                 <img src="{{public_path()}}/property/{{$item->id}}/{{$item->images[2]->name}} " style="width:175px"   class='prop_img '>
                 @endif
 
                @if (sizeof($item->images)>3)
-                 <img src="{{public_path()}}/property/{{$item->id}}/{{$item->images[3]->name}} " style="width:178px"   class='prop_img '>
+                 <img src="{{public_path()}}/property/{{$item->id}}/{{$item->images[3]->name}} " style="width:175px"   class='prop_img '>
                @endif
 
 
@@ -228,25 +228,18 @@ padding:0px;
 <p> {{$item->description}} </p>
 
 
-
-
-
-             <div class="page">
-
                                         @foreach ($item->units as $unit)
 
-
-                                                <h5><b>Unit {{ $loop->iteration }}: </b> {{ $unit->section }}</h5><br>
-                                               <p> <b>Size: </b> {{ $unit->size}}   m<sup>2</sup></p>
-                                               <p> <b>Gross Rental: </b> R {{ $unit->gross_rental}}</p>
-                                                <p> <b>Available: </b> {{ $unit->availability}}</p>
-
-
-                                            <hr>
+                                                <div class="page">
+                                                    <h5><b>Unit {{ $loop->iteration }}: </b> {{ $unit->section }}</h5><br>
+                                                   <p> <b>Size: </b> {{ $unit->size}}   m<sup>2</sup></p>
+                                                   <p> <b>Gross Rental: </b> R {{ $unit->gross_rental}}</p>
+                                                    <p> <b>Available: </b> {{ $unit->availability}}</p>
+                                                   <hr>
+                                               </div>
 
                                       @endforeach
 
-            </div>
 </div>
 @endforeach
 </div>

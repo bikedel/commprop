@@ -245,21 +245,39 @@ padding:0px;
 <div class="w3-row ">
 
   <div class="w3-col s6 w3-green w3-center">
-                            @if($item->type == 0)
-                            <p><b>Type:</b>Freehold</p>
-                         @else
-                             <p>b>Type:</b>Sectional Title</p>
-                         @endif
+
+                            <p><b>Type:</b></p>
+
   </div>
   <div class="w3-col s6 w3-dark-grey w3-center">
-                         @if ($item->sale_type_id>0)
-                         <p><b>Status:</b>{{ $stypes[$item->sale_type_id]->name }}</p>
-                         @else
+
                          <p><b>Status:</b></p>
+
+  </div>
+
+</div>
+
+
+<div class="w3-row ">
+
+  <div class="w3-col s6 w3-lightgray w3-center">
+                            @if($item->type == 0)
+                            <p>Freehold</p>
+                         @else
+                             <p>Sectional Title</p>
+                         @endif
+  </div>
+  <div class="w3-col s6 w3-lightgray w3-center">
+                         @if ($item->sale_type_id>0)
+                         <p><{{ $stypes[$item->sale_type_id]->name }}</p>
+                         @else
+                         <p></p>
                          @endif
   </div>
 
 </div>
+
+
 <div class="w3-row ">
 
   <div class="w3-col s6 w3-teal w3-center">

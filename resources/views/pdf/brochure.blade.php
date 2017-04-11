@@ -242,7 +242,7 @@ padding:0px;
 
 
              <div >
-                             <table class="table  ">
+                             <table class="borderless  ">
                     <thead>
                          <tr>
                             <th width="120px">Type</th>

@@ -214,7 +214,7 @@ padding:0px;
 
 <br>
              <div align="center" class="category page">
-
+  <br>
                @if (sizeof($item->images)>0)
                  <img src="{{public_path()}}/property/{{$item->id}}/{{$item->images[0]->name}}" style="width:181px"   class='prop_img '>
                @endif
@@ -231,7 +231,7 @@ padding:0px;
                  <img src="{{public_path()}}/property/{{$item->id}}/{{$item->images[3]->name}} " style="width:181px"   class='prop_img '>
                 @endif
 
-  <br>
+
              </div>
 <h4 style="color:navy;"> {{$item->title}} </h4>
 

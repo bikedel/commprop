@@ -244,7 +244,7 @@ padding:0px;
 
 <div class="w3-row ">
 
-  <div class="w3-col s6 w3-green w3-center">
+  <div class="w3-col s6 w3-green w3-left">
                             @if($item->type == 0)
                              <td ><p>Freehold</p></td>
                          @else

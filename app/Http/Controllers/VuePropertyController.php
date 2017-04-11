@@ -893,6 +893,7 @@ class VuePropertyController extends Controller
 
         $input = (explode(",", $myinput));
 
+        $brochure_type = $input[3];
         $client        = $input[2];
         $brochure_text = $input[1];
         $footer        = $input[0];
@@ -968,8 +969,6 @@ class VuePropertyController extends Controller
         //->setOrientation('landscape')
         // PDF::loadHTML($html)->setOption('footer-center', 'Page [page]')->save('myfile.pdf');
         $cover = '<div class="flexme" <h1>Sotheby Brochure</h1></div>';
-
-        $brochure_type = $request->input('brochure_type');
 
         if ($brochure_type == 0) {
 

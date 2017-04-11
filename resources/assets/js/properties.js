@@ -1341,12 +1341,13 @@ data:  {
           console.log("print broc");
           let brochure_text = document.getElementById('brochure_text').value;
           let client = document.getElementById('client').value;
+          let brochure_type = document.getElementById('brochure_type').value;
 
             //    axios.put(this.offlinePath+'/commprop/public/createpdf/'+this.agent+','+brochure_text+','+client).then(function (response) {
             //           toastr.success('Brochure complete.',  {timeOut: 5000});
             //    })
 
-          window.location.href = this.offlinePath+'/commprop/public/createpdf/'+this.agent+','+brochure_text+','+client;
+          window.location.href = this.offlinePath+'/commprop/public/createpdf/'+this.agent+','+brochure_text+','+client+','+brochure_type;
 
           $("#listBrochures_modal").modal('hide');
 

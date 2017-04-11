@@ -49,8 +49,8 @@ p {
 
     border-style: solid;
     border-color: lightgrey;
-    border-width: 3px 3px 3px 3px;
-    border-radius: 5px;
+    border-width: 0px 0px 0px 0px;
+
     padding:0px;
 
 }
@@ -236,9 +236,9 @@ padding:20px;
 
 
                                                 <h5><b>Unit {{ $loop->iteration }}: </b> {{ $unit->section }}</h5>
-                                                <b>Size: </b> {{ $unit->size}}   m<sup>2</sup>
-                                                <b>Gross Rental: </b> R {{ $unit->gross_rental}}
-                                                <b>Available: </b> {{ $unit->availability}}
+                                               <p> <b>Size: </b> {{ $unit->size}}   m<sup>2</sup></p>
+                                               <p> <b>Gross Rental: </b> R {{ $unit->gross_rental}}</p>
+                                                <p> <b>Available: </b> {{ $unit->availability}}</p>
 
 
                                             <hr>

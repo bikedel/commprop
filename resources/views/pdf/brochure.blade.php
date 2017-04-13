@@ -295,16 +295,16 @@ padding:0px;
 
 <div class="w3-row ">
 
-  <div class="w3-col s4 w3-blue w3-center">
+  <div class="w3-col s4 w3-teal w3-center">
            <p><b>Erf Size:</b>
   </div>
-  <div class="w3-col s4 w3-yellow w3-center">
+  <div class="w3-col s4 w3-dark-grey w3-center">
 
                          <p><b>Building Size:</b></p>
 
   </div>
 
-  <div class="w3-col s4 w3-brown w3-center">
+  <div class="w3-col s4 w3-green w3-center">
            <p><b>Open Parking:</b>
   </div>
 

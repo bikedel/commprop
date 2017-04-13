@@ -146,7 +146,11 @@ padding:0px;
 
     padding:10px 100px 10px 100px;
 }
+.disclaimer
+{
 
+    padding:10px 10px 10px 10px;
+}
     .page-break { display: block; page-break-before: always; }
 
 
@@ -266,7 +270,7 @@ padding:0px;
 
 
 
-<div align="left" class="category  page-break">
+<div align="left" class="category  page-break disclaimer">
 <br><br><br><br><br><br><br><br><br><br><br><br>
 <h1>Disclaimer</h1>
 <p>Sothebys accepts no liability for the content of this document or any attachments attached hereto, or for the consequences of any actions taken on the basis of the information provided which is provided as a rough guideline only. If you are not the intended recipient you are notified that disclosing, copying, distributing or taking any action in reliance on the contents of this information is strictly prohibited. Should this document contain property information this document shall constitute an introduction to the mentioned property. Paul shall be considered the effective cause of any transaction that comes as a result of this introduction and will be due commission on a lease at 5% of the gross value for the first two years, and 2.5% of the gross value for each following year or at 5% of the deal value on any concluded sale.</p>

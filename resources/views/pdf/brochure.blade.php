@@ -244,14 +244,20 @@ padding:0px;
 
 <div class="w3-row ">
 
-  <div class="w3-col s6 w3-green w3-center">
+  <div class="w3-col s4 w3-green w3-center">
 
                             <p><b>Type:</b></p>
 
   </div>
-  <div class="w3-col s6 w3-dark-grey w3-center">
+  <div class="w3-col s4 w3-dark-grey w3-center">
 
                          <p><b>Status:</b></p>
+
+  </div>
+
+  <div class="w3-col s4 w3-teal w3-center">
+
+                         <p><b>Grade:</b></p>
 
   </div>
 
@@ -260,14 +266,14 @@ padding:0px;
 
 <div class="w3-row ">
 
-  <div class="w3-col s6 w3-lightgray w3-center">
+  <div class="w3-col s4 w3-lightgray w3-center">
                             @if($item->type == 0)
                             <p>Freehold</p>
                          @else
                              <p>Sectional Title</p>
                          @endif
   </div>
-  <div class="w3-col s6 w3-lightgray w3-center">
+  <div class="w3-col s4 w3-lightgray w3-center">
                          @if ($item->sale_type_id>0)
                          <p>{{ $stypes[$item->sale_type_id]->name }}</p>
                          @else
@@ -275,49 +281,30 @@ padding:0px;
                          @endif
   </div>
 
-</div>
-
-
-<div class="w3-row ">
-
-  <div class="w3-col s6 w3-teal w3-center">
-
-                         <p><b>Grade:</b></p>
-
-  </div>
-
-  <div class="w3-col s6 w3-blue w3-center">
-           <p><b>Size:</b>
-  </div>
-
-</div>
-
-
-<div class="w3-row ">
-
-  <div class="w3-col s6 w3-lightgray w3-center">
+  <div class="w3-col s4 w3-lightgray w3-center">
                        @if ($item->grade_id>0)
                       <p>{{ $grades[$item->grade_id]->name }}</p>
                          @else
                          <p></p>
                          @endif
   </div>
-
-  <div class="w3-col s6 w3-lightgray w3-center">
-           <p>{{ $item->erf_size }} m<sup>2</sup></p>
-  </div>
-
 </div>
+
+
+
 
 <div class="w3-row ">
 
-  <div class="w3-col s6 w3-yellow w3-center">
+  <div class="w3-col s4 w3-blue w3-center">
+           <p><b>Erf Size:</b>
+  </div>
+  <div class="w3-col s4 w3-yellow w3-center">
 
                          <p><b>Building Size:</b></p>
 
   </div>
 
-  <div class="w3-col s6 w3-brown w3-center">
+  <div class="w3-col s4 w3-brown w3-center">
            <p><b>Open Parking:</b>
   </div>
 
@@ -325,11 +312,14 @@ padding:0px;
 
 <div class="w3-row ">
 
-  <div class="w3-col s6 w3-lightgray w3-center">
+  <div class="w3-col s4 w3-lightgray w3-center">
+           <p>{{ $item->erf_size }} m<sup>2</sup></p>
+  </div>
+  <div class="w3-col s4 w3-lightgray w3-center">
         <p>{{   $item->building_size }} m<sup>2</sup></p>
   </div>
 
-  <div class="w3-col s6 w3-lightgray w3-center">
+  <div class="w3-col s4 w3-lightgray w3-center">
            <p>{{ $item->open_parking_bays }} </p>
   </div>
 <br>

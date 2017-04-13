@@ -53,18 +53,18 @@
 
                                 <ul class="dropdown-menu" role="menu">
                                 <li><a href="#" >Role: {{ Auth::user()->getRoleName() }}</a></li>
-                                <li>
+                         <!--       <li>
                                   <a  href="{{ url('/readme') }}">Todo</a>
-                                </li>
+                                </li>   -->
                                 <li>
                                   <a  href="{{ url('/dashboard') }}">Dashboard</a>
                                 </li>
-                                                                <li>
+                                <li>
                                   <a  href="{{ url('/logs') }}">Logs</a>
                                 </li>
-                                <li>
+                           <!--     <li>
                                   <a  href="{{ url('/dropzone2') }}">Dropzone</a>
-                                </li>
+                                </li>    -->
 
                                     <li>
                                         <a href="{{ url('/logout') }}"

@@ -311,13 +311,13 @@ padding:0px;
 
 <div class="w3-row ">
 
-  <div class="w3-col s6 w3-teal w3-center">
+  <div class="w3-col s6 w3-yellow w3-center">
 
                          <p><b>Building Size:</b></p>
 
   </div>
 
-  <div class="w3-col s6 w3-blue w3-center">
+  <div class="w3-col s6 w3-brown w3-center">
            <p><b>Open Parking:</b>
   </div>
 
@@ -325,67 +325,15 @@ padding:0px;
 
 <div class="w3-row ">
 
-  <div class="w3-col s6 w3-yellow w3-center">
+  <div class="w3-col s6 w3-lightgray w3-center">
         <p>{{   $item->building_size }} m<sup>2</sup></p>
   </div>
 
-  <div class="w3-col s6 w3-brown w3-center">
+  <div class="w3-col s6 w3-lightgray w3-center">
            <p>{{ $item->open_parking_bays }} </p>
   </div>
-
+<br>
 </div>
-
-
-
-
-
-             <div >
-                             <table class="borderless  ">
-                    <thead>
-                         <tr>
-                            <th width="120px">Type</th>
-                            <th width="180px">Status</th>
-                            <th width="180px">Grade</th>
-                            <th width="180px">Erf Size</th>
-                            <th width="180px">Building Size</th>
-                            <th width="180px">Parking</th>
-                         </tr>
-                     </thead>
-                     <tbody>
-
-                         @if($item->type == 0)
-                             <td ><p>Freehold</p></td>
-                         @else
-                             <td ><p>Sectional Title</p></td>
-                         @endif
-
-                         @if ($item->sale_type_id>0)
-                         <td ><p>{{ $stypes[$item->sale_type_id]->name }}</p></td>
-                         @else
-                          <td ><p></p></td>
-                         @endif
-
-                        @if ($item->grade_id>0)
-                         <td ><p>{{ $grades[$item->grade_id]->name }}</p></td>
-                         @else
-                         <td ><p></p></td>
-                         @endif
-
-                         <td ><p>{{ $item->erf_size }} m<sup>2</sup></p></td>
-
-                         <td ><p>{{ $item->building_size }} m<sup>2</sup></p></td>
-
-                         <td ><p>{{ $item->covered_parking_bays }}</p></td>
-
-                    </tbody>
-                    </table>
-
-
-
-             </div>
-
-
-
 
 
 

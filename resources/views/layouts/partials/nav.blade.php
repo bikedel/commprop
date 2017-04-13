@@ -52,8 +52,8 @@
                                 </a>
 
                                 <ul class="dropdown-menu" role="menu">
-                                <li><a href="#" >Role: {{ Auth::user()->getRoleName() }}</a></li>
-                         <!--       <li>
+                              <!--       <li><a href="#" >Role: {{ Auth::user()->getRoleName() }}</a></li>
+                           <li>
                                   <a  href="{{ url('/readme') }}">Todo</a>
                                 </li>   -->
                                 <li>

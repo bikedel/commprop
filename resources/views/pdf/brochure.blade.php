@@ -323,6 +323,8 @@ padding:0px;
            <p>{{ $item->open_parking_bays }} </p>
   </div>
 <br>
+<br>
+<br>
 </div>
 
 
@@ -330,7 +332,7 @@ padding:0px;
 
 
              <div>
-                    <table class=" borderless">
+                    <table class=" table table-bordered">
                     <thead>
                          <tr>
                             <th width="60px">Unit</th>

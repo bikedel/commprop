@@ -309,6 +309,36 @@ padding:0px;
 
 </div>
 
+<div class="w3-row ">
+
+  <div class="w3-col s6 w3-teal w3-center">
+
+                         <p><b>Building Size:</b></p>
+
+  </div>
+
+  <div class="w3-col s6 w3-blue w3-center">
+           <p><b>Open Parking:</b>
+  </div>
+
+</div>
+
+<div class="w3-row ">
+
+  <div class="w3-col s6 w3-yellow w3-center">
+        <p>{{   $item->building_size }} m<sup>2</sup></p>
+  </div>
+
+  <div class="w3-col s6 w3-brown w3-center">
+           <p>{{ $item->open_parking_bays }} </p>
+  </div>
+
+</div>
+
+
+
+
+
              <div >
                              <table class="borderless  ">
                     <thead>

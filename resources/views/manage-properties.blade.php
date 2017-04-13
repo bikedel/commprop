@@ -447,7 +447,7 @@ line-height: 1.8;
 
         <div id="myDIV"  >
 
-             <div id="itemdetails" class=" table-responsive table-no-bordered" width="350" style="overflow-x:auto; width:350px;">
+             <div id="itemdetails" class=" table-responsive table-no-bordered"  style="overflow-x:auto;">
                 <table  class="table  ">
 
                      <tbody>

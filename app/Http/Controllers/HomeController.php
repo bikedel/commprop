@@ -11,6 +11,7 @@ use App\Status;
 use App\Temp;
 use App\Unit;
 use App\User;
+use Carbon\Carbon;
 use Cornford\Googlmapper\Facades\MapperFacade as Mapper;
 use Faker\Factory as Faker;
 use Illuminate\Http\Request;
@@ -149,9 +150,17 @@ class HomeController extends Controller
         $units     = Unit::all();
         $ptypes    = PropertyType::all();
         //dd('test pdf');
+
+        // alerts for expirint leases
+        $today  = Carbon::today();
+        $period = Carbon::today()->addMonths(2);
+
+        $alertunits = Unit::where('lease_end', '>', $today)->where('lease_end', '<', $period)->orderBy('lease_end', 'asc')->get();
+        $alertunits->load('property');
+
         $properties = Property::latest()->get();
         $properties->load('units', 'images', 'notes', 'owners');
-        return view('dashboard', compact('properties', 'areas', 'stypes', 'ptypes', 'users', 'units', 'statuses', 'ip', 'useragent'));
+        return view('dashboard', compact('properties', 'areas', 'stypes', 'ptypes', 'users', 'units', 'alertunits', 'statuses', 'ip', 'useragent'));
     }
 
     public function dashboardmap()

@@ -16,4 +16,10 @@ class Owner extends Model
     {
         return $this->belongsTo('App\Property');
     }
+
+    //  public function contacts()
+    // {
+    //      return $this->belongsToMany('App\Contact');
+    //  }
+
 }

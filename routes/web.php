@@ -45,6 +45,8 @@ Route::get('/dashboard', 'HomeController@dashboard');
 Route::get('/dashboardmap', 'HomeController@dashboardmap');
 
 Route::get('/owners', 'OwnerController@index');
+// list contacts with properties
+Route::get('/contactProp', 'OwnerController@contactProp');
 
 Route::get('/properties', 'PropertyController@index');
 Route::get('/psearch', 'PropertyController@search')->name('/psearch');
@@ -60,6 +62,8 @@ Route::get('/propsearch', 'HomeController@propsearch')->name('propsearch');
 Route::get('/readme', 'HomeController@readme')->name('readme');
 
 Route::get('/map', 'MapController@index')->name('map');
+
+Route::get('/gotoProperty{id}', 'MapController@gotoProperty')->name('gotoProperty');
 
 Route::get('/manage-properties', 'VuePropertyController@manageVue')->name('addProp');
 

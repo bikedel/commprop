@@ -29,13 +29,16 @@ mySidenav {
 <nav class=" w3-sidenav w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidenav"><br>
   <div class="w3-container w3-row">
     <div class="w3-col s4">
+      @if (Auth::user()->avatar )
+      <img src="agents/{{ Auth::user()->avatar }}" class="w3-circle w3-margin-right" style="width:46px">
+      @else
       <img src="agents/avatar2.png" class="w3-circle w3-margin-right" style="width:46px">
+      @endif
     </div>
     <div class="w3-col s8">
-      <span>Welcome, <strong> {{ Auth::user()->name }}</strong></span><br>
-      <a href="#" class="w3-hover-none w3-hover-text-red w3-show-inline-block"><i class="fa fa-envelope"></i></a>
-      <a href="#" class="w3-hover-none w3-hover-text-green w3-show-inline-block"><i class="fa fa-user"></i></a>
-      <a href="#" class="w3-hover-none w3-hover-text-blue w3-show-inline-block"><i class="fa fa-cog"></i></a>
+      <span><strong> {{ Auth::user()->name }}</strong></span>
+
+      <a href="#" class="w3-hover-none w3-hover-text-blue w3-show-inline-block"><i class="fa fa-cog">{{ Auth::user()->getRoleName() }}</i></a>
     </div>
   </div>
   <hr>
@@ -121,7 +124,7 @@ mySidenav {
           <h3>{{$units->where('status_id','=','1')->count()}}</h3>
         </div>
         <div class="w3-clear"></div>
-        <h4>Vavant</h4>
+        <h4>Vacant</h4>
       </div>
     </div>
 
@@ -160,11 +163,16 @@ mySidenav {
         <h4>Govt/Provincial</h4>
       </div>
     </div>
+
   </div>
 
-  <hr>
+
 
   <div class="w3-container">
+
+      <br>
+      <a href="{{ url('/home') }}" class="w3-button w3-dark-grey" role="button">Search Properties  <i class="fa fa-arrow-right"></i></a>
+      <br>
     <h5>Latest Properties added</h5>
     <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
 
@@ -190,8 +198,36 @@ mySidenav {
     <br>
 
 
-    <a href="{{ url('/home') }}" class="w3-button w3-dark-grey" role="button">Search Properties  <i class="fa fa-arrow-right"></i></a>
+
   </div>
+
+  <div class="w3-container">
+  <br>
+   <button class="w3-button w3-red" role="button">Alerts  <i class="fa fa-exclamation-triangle"></i></button>
+    <h5>Lease expiring</h5>
+    <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
+
+
+    @foreach( $alertunits as $unit)
+          <tr>
+          <td>Erf: {{ $unit->property->erf}}</td>
+            <td>Unit: {{ $unit->id}}</td>
+            <td>Lease Start : {{ $unit->lease_start}}</td>
+            <td>Lease End : {{ $unit->lease_end}}</td>
+             <td> <a href="{{ url('/showproperty'.$unit->property_id) }}" class="w3-padding"><i class="fa fa-cog fa-fw"></i>  View</a></td>
+
+          </tr>
+    @endforeach
+
+
+    </table>
+
+    <br>
+
+  </div>
+
+
+
   <hr>
   <div class="w3-container">
     <h5>Recent Units added</h5>
@@ -217,6 +253,10 @@ mySidenav {
 
     </ul>
   </div>
+
+
+
+
   <hr>
 
   <div class="w3-container">

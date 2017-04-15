@@ -18,6 +18,11 @@ mySidenav {
     position:absolute;
   top:-60px;
 }
+table {
+
+  background-color: white;
+}
+
 
 </style>
 
@@ -32,14 +37,14 @@ mySidenav {
 <!-- Sidenav/menu -->
 <nav class=" w3-sidenav w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidenav"><br>
   <div class="w3-container w3-row">
-    <div class="w3-col s4">
+      @if (Auth::user()->avatar )
+      <img src="agents/{{ Auth::user()->avatar }}" class="w3-circle w3-margin-right" style="width:46px">
+      @else
       <img src="agents/avatar2.png" class="w3-circle w3-margin-right" style="width:46px">
-    </div>
+      @endif
     <div class="w3-col s8">
-      <span>Welcome, <strong> {{ Auth::user()->name }}</strong></span><br>
-      <a href="#" class="w3-hover-none w3-hover-text-red w3-show-inline-block"><i class="fa fa-envelope"></i></a>
-      <a href="#" class="w3-hover-none w3-hover-text-green w3-show-inline-block"><i class="fa fa-user"></i></a>
-      <a href="#" class="w3-hover-none w3-hover-text-blue w3-show-inline-block"><i class="fa fa-cog"></i></a>
+      <span><strong> {{ Auth::user()->name }}</strong></span>
+      <a href="#" class="w3-hover-none w3-hover-text-blue w3-show-inline-block"><i class="fa fa-cog">{{ Auth::user()->getRoleName() }}</i></a>
     </div>
   </div>
   <hr>
@@ -79,11 +84,15 @@ mySidenav {
      <div class="table-responsive " style="overflow-x:auto;width:100%; ">
                 <table class="table table-bordered table-hover ">
                     <thead>
-                         <tr>
+                         <tr class=" w3-blue">
                             <th width="80px" class="hidden-xs">Id</th>
-                            <th width="180px">Contact</th>
+                            <th width="180px">Company</th>
+                            <th width="180px">FirstName</th>
+                            <th width="180px">LastName</th>
+                            <th width="180px">Tel</th>
                             <th width="180px">Cell</th>
                             <th width="180px">Email</th>
+                            <th width="180px">Web</th>
 
 
                          </tr>
@@ -95,14 +104,26 @@ mySidenav {
                                   {{ $owner->id }}
                             </td>
                             <td>
-                                {{  $owner->contact }}
+                                {{  $owner->company }}
 
+                            </td>
+                             <td>
+                                {{ $owner->firstname}}
+                            </td>
+                             <td>
+                                {{ $owner->lastname}}
+                            </td>
+                             <td>
+                                {{ $owner->tel}}
                             </td>
                             <td>
                                 {{ $owner->cell}}
                             </td>
                             <td>
                                  {{ $owner->email}}
+                            </td>
+                             <td>
+                                {{ $owner->website}}
                             </td>
 
                         </tr>

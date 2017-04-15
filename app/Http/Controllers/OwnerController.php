@@ -3,11 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Area;
+use App\Contact;
+use App\ContactType;
 use App\Http\Controllers\Controller;
 use App\Owner;
 use App\Property;
 use App\PropertyType;
 use App\SaleType;
+use App\Unit;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class OwnerController extends Controller
@@ -29,8 +33,8 @@ class OwnerController extends Controller
         $stypes = SaleType::all();
         $ptypes = PropertyType::all();
 
-        $owners = Owner::latest()->paginate(10);
-        $owners->load('properties');
+        $owners = Contact::latest()->paginate(10);
+
         //dd($property);
         return view('dashboard2', compact('owners', 'areas', 'stypes', 'ptypes'));
     }
@@ -106,5 +110,34 @@ class OwnerController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    // list contacts with properties
+    public function contactProp()
+    {
+        $today = Carbon::today();
+
+        $period = Carbon::today()->addMonths(2);
+
+        $alertunits = Unit::where('lease_end', '>', $today)->where('lease_end', '<', $period)->orderBy('lease_end', 'desc')->get();
+        foreach ($alertunits as $unit) {
+            echo $unit->lease_end . '<br>';
+        }
+
+        dd($alertunits);
+
+        $types = ContactType::all();
+
+        $types = $types->keyBy('id');
+        $props = Contact::find(20);
+
+        $owners = Owner::where('contact_id', '=', $props->id)->get();
+
+        echo $owners->count() . 'properties...' . '<br>';
+        foreach ($owners as $owner) {
+            echo 'o ' . $owner->property_id . ' ' . $owner->unit_id . ' ' . $types[$owner->contact_type_id]->name . '<br>';
+        }
+
+        dd($props, $props->properties);
     }
 }

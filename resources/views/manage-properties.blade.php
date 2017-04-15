@@ -376,7 +376,7 @@ line-height: 1.8;
 
 
 
-    <h1>@{{ item.title }}</h1>
+    <h3>@{{ item.title }}</h3>
     <p>@{{ suburbName(item.area_id) }}</p>
 
     <div class=" row border myprop" >
@@ -416,10 +416,11 @@ line-height: 1.8;
 
             <div class='descrip col-sm-8'>
             <div style="height:120px;width:100%;border:0px solid #ccc;overflow:auto; padding:0px">
+               <a v-bind:href="'gotoProperty'+item.id" class="camera"> <span class="glyphicon glyphicon-map-marker"></span></a>
             <p class="red" ><red>Erf: @{{ item.erf }}  </red>   <i class="spanUser">  </i><a  v-bind:href="'showproperty'+item.id">Id: @{{ item.id }}</a></p>
                 @{{ item.description }}
             </div>
-            <div><hr><p>This property has @{{ item.units.length }} units.</p>
+            <div><hr><p>This property has @{{ item.units.length }} unit(s).</p>
             </div>
             </div>
 
@@ -1006,6 +1007,18 @@ line-height: 1.8;
                         <span v-if="formErrors['availability']" class="error text-danger">@{{ formErrors['availability'][0] }}</span>
                     </div>
 
+                    <div class="form-group" >
+                        <label for="Surname">Lease Start:</label>
+                        <input type="date" name="lease_start" class="form-control" v-model="newUnit.lease_start" />
+                        <span v-if="formErrors['lease_start']" class="error text-danger">@{{ formErrors['lease_start'][0] }}</span>
+                    </div>
+
+                    <div class="form-group" >
+                        <label for="Surname">Lease End:</label>
+                        <input type="date" name="lease_end" class="form-control" v-model="newUnit.lease_end" />
+                        <span v-if="formErrors['lease_end']" class="error text-danger">@{{ formErrors['lease_end'][0] }}</span>
+                    </div>
+
                     <div class="form-group">
                         <label for="Firstname">Active Agent:</label>
 
@@ -1162,6 +1175,18 @@ line-height: 1.8;
                         <label for="Surname">Availability:</label>
                         <input type="date" name="availability" class="form-control" v-model="fillUnit.availability" />
                         <span v-if="formErrors['availability']" class="error text-danger">@{{ formErrors['availability'][0] }}</span>
+                    </div>
+
+                    <div class="form-group" >
+                        <label for="Surname">Lease Start:</label>
+                        <input type="date" name="lease_start" class="form-control" v-model="fillUnit.lease_start" />
+                        <span v-if="formErrors['lease_start']" class="error text-danger">@{{ formErrors['lease_start'][0] }}</span>
+                    </div>
+
+                    <div class="form-group" >
+                        <label for="Surname">Lease End:</label>
+                        <input type="date" name="lease_end" class="form-control" v-model="fillUnit.lease_end" />
+                        <span v-if="formErrors['lease_end']" class="error text-danger">@{{ formErrors['lease_end'][0] }}</span>
                     </div>
 
                     <div class="form-group">

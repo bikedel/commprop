@@ -164,6 +164,8 @@ data:  {
          'availability':'',
          'active_broker_id':'',
          'listing_broker_id':'',
+         'lease_start':'',
+         'lease_end':'',
     },
 
     fillUnit : {
@@ -183,6 +185,8 @@ data:  {
          'availability':'',
          'active_broker_id':'',
          'listing_broker_id':'',
+         'lease_start':'',
+         'lease_end':'',
     },
 
     fillNote : { 
@@ -769,6 +773,8 @@ data:  {
          this.fillUnit.availability = unit.availability;
          this.fillUnit.active_broker_id = unit.active_broker_id;
          this.fillUnit.listing_broker_id = unit.listing_broker_id;
+         this.fillUnit.lease_start = unit.lease_start;
+         this.fillUnit.lease_end = unit.lease_end;
           //console.log("rrr" + item.images);
 
           $("#edit-unit").modal('show');
@@ -809,6 +815,8 @@ data:  {
                            'availability':'',
                            'active_broker_id':'',
                            'listing_broker_id':'',
+                           'lease_start':'',
+                           'lease_end':'',
                     };
 
                       $("#edit-unit-submit").attr('disabled', false);
@@ -1191,6 +1199,8 @@ data:  {
                          'availability':'',
                          'active_broker_id':'',
                          'listing_broker_id':'',
+                         'lease_start':'',
+                         'lease_end':'',
                       };
                        $("#create-unit-submit").attr('disabled', false);
                       vm.resetErrors();

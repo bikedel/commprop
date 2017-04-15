@@ -974,7 +974,7 @@ class VuePropertyController extends Controller
 
             // type 1 brochure
             if ($items->count() > 0) {
-                return PDF::loadView('pdf.brochure', compact('items', 'areas', 'suburbs', 'grades', 'ptypes', 'stypes', 'statuses', 'users', 'markers', 'locations', 'client', 'brochure_text'))->setOption('outline', true)->setOption('margin-top', 10)->setOption('margin-bottom', 40)->setOption('footer-line', false)->setOption('header-center', 'Page [page]')->setOption('footer-html', url($footer))->download('Property_brochure_erf_' . $item->erf . '.pdf');
+                return PDF::loadView('pdf.brochure', compact('items', 'areas', 'suburbs', 'grades', 'ptypes', 'stypes', 'statuses', 'users', 'markers', 'locations', 'client', 'brochure_text'))->setOption('outline', true)->setOption('margin-top', 0)->setOption('margin-bottom', 45)->setOption('footer-line', false)->setOption('footer-html', url($footer))->download('Property_brochure_erf_' . $item->erf . '.pdf');
             } else {
 
                 return redirect()->back();
@@ -983,14 +983,14 @@ class VuePropertyController extends Controller
         } else {
             // type 2 brochure
             if ($items->count() > 0) {
-                return PDF::loadView('pdf.brochure_2', compact('items', 'areas', 'suburbs', 'grades', 'ptypes', 'stypes', 'statuses', 'users', 'markers', 'locations', 'client', 'brochure_text'))->setOption('outline', true)->setOption('margin-top', 10)->setOption('margin-bottom', 40)->setOption('footer-line', false)->setOption('header-center', 'Page [page]')->setOption('footer-html', url($footer))->download('Property_brochure_erf_' . $item->erf . '.pdf');
+                return PDF::loadView('pdf.brochure_2', compact('items', 'areas', 'suburbs', 'grades', 'ptypes', 'stypes', 'statuses', 'users', 'markers', 'locations', 'client', 'brochure_text'))->setOption('outline', true)->setOption('margin-top', 0)->setOption('margin-bottom', 45)->setOption('footer-line', false)->setOption('footer-html', url($footer))->download('Property_brochure_erf_' . $item->erf . '.pdf');
             } else {
 
                 return redirect()->back();
             }
 
         }
-
+        // ->setOption('header-center', 'Page [page]')
         //->setOption('toc', true)
         //->setOption('cover', "hello")
         //->setOption('header-center', date('D d M Y'))

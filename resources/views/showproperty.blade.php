@@ -2,7 +2,13 @@
 @extends('layouts.app')
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/flexslider/2.6.3/flexslider.css" rel="stylesheet">
+<link href='http://fonts.googleapis.com/css?family=Fira Sans' rel='stylesheet' type='text/css'>
 
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 @section('content')
 
 <style type="text/css">
@@ -19,7 +25,7 @@
 
 body {
 
-	 background-color: #F8F8FF         ;
+	 background-color: w3-light-grey         ;
 
 }
 
@@ -239,17 +245,27 @@ small {
 </style>
 
 
-<div  class="container-fluid">
-<div class="row">
 
-	<div class="col-md-2">
-	</div>
-	  <div class="col-md-6">
 
-			<h1>{{$property->title}}</h1>
-            <p> {{$suburbs[$property->area_id-1]->name }}</p>
+
+	  <div class="col-md-10 col-md-offset-1">
+
+
+
+
+			<h2>{{$property->title}}</h2>
+            <p> <a href="{{'gotoProperty'.$property->id}}" class="camera"> <span class="glyphicon glyphicon-map-marker"></span></a></p>
+            <p> {{$property->address }}</p>
+            <img align="center" src = "http://maps.googleapis.com/maps/api/staticmap?size=600x200&markers=color:red%7Clabel:1%7C{{$property->long}},{{$property->lat}}&maptype=hybrid&scale=3&sensor=false&label=Hello&key=AIzaSyCNgTdT8SN3jIzbdvZu7CBPKw3zz8J4Pww"  width="100%" height="200" class='prop_img 'alt='Google Map'/>
+	         <h3>Property Description</h3>
+			<div style="height:100px;width:100%;border:0px solid #ccc;overflow:auto; padding:0px">
+			<p>{{$property->description}}</p>
+			</div>
             <!-- <p> {{$property->address }}</p> -->
-			<div class="flexslider flexImg" style="width:400px;">
+              <div class="w3-container">
+	          <div class="w3-col s6 w3-padding">
+
+			<div class="flexslider flexImg " >
 			  <ul class="slides">
 			  <?php $count = 0;?>
 					@foreach ($property->images as $image)
@@ -274,94 +290,320 @@ small {
 					@endforeach
 
 			  </ul>
-	         </div>
-	         <h3>Property Description</h3>
-			<div style="height:150px;width:100%;border:0px solid #ccc;overflow:auto; padding:0px">
-			<p>{{$property->description}}</p>
-			</div>
-            <h3>Details</h3>
+	      </div>
 
-			             <div id="itemdetails" class=" table-responsive table-no-bordered" width="350" style="overflow-x:auto; width:350px;">
-                <table  class="table table-hover  ">
-
-                     <tbody>
-                     <tr>
-                         <td v-if="seen" width="150">Type   </td>
-                         <td v-if="seen" width="200">{{ $property->type }}</td>
-                     </tr>
-                     <tr>
-                         <td v-if="seen" >Status   </td>
-                         <td v-if="seen">{{ $property->status }}</td>
-                     </tr>
-                     <tr>
-                         <td v-if="seen" >Grade   </td>
-                         <td v-if="seen">{{ $property->grade }}</td>
-                     </tr>
-                     <tr>
-                         <td v-if="seen" >Erf Size   </td>
-                         <td v-if="seen">{{ $property->erf_size }}</td>
-                     </tr>
-                     <tr>
-                         <td v-if="seen" width="100">Building Size   </td>
-                         <td v-if="seen">{{ $property->building_size }}</td>
-                     </tr>
-                                          <tr>
-                         <td v-if="seen" width="100">Land Size   </td>
-                         <td v-if="seen">{{ $property->land_size }}</td>
-                     </tr>
-                     <tr>
-                         <td v-if="seen" width="100">Covered Parking   </td>
-                         <td v-if="seen">{{ $property->covered_parking_bays }}</td>
-                     </tr>
-                     <tr>
-                         <td v-if="seen" width="100">Open Parking   </td>
-                         <td v-if="seen">{{ $property->open_parking_bays }}</td>
-                     </tr>
-                     </tbody>
-                     </table>
-            </div>
-             <h3>Available Space</h3>
-             <div class="table-responsive  " style="overflow-x:auto; ">
-                <table class="table table-hover ">
-                    <thead>
-                         <tr>
-                            <th width="80px" class="hidden-xs">Unit ID</th>
-                            <th width="180px">Type</th>
-                            <th width="180px">Size</th>
-                            <th width="180px">Price</th>
+	          </div>
 
 
-                         </tr>
-                     </thead>
-                     <tbody>
-                     @foreach ($property->units as $unit)
-                        <tr>
-                            <td class="hidden-xs">
-                                Unit  {{ $unit->id }}
-                            </td>
-                            <td>
-                                {{  $unit->property_type_id }}
 
-                            </td>
-                            <td>
-                                {{ $unit->size}}   m<sup>2</sup>
-                            </td>
-                            <td>
-                                R {{ $unit->price}}  m<sup>2</sup>
-                            </td>
 
-                        </tr>
-                        @endforeach
-                     </tbody>
-                     </table>
-                        </div>
-            </div>
-	<div class="col-md-4">
-	</div>
+
+
+
+
+
+
+
 
 
 </div>
-<BR><BR><BR><BR><BR><BR><BR>
+
+</div>
+
+<div class="col-md-10 col-md-offset-1">
+
+  <ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#details">Erf: {{$property->erf }}</a></li>
+    <li><a data-toggle="tab" href="#notes">Notes</a></li>
+    <li><a data-toggle="tab" href="#contacts">Contacs</a></li>
+  </ul>
+
+  <div class="tab-content">
+    <div id="details" class="tab-pane fade in active ">
+                  <h3>Details</h3>
+
+				  <div class="w3-col s10 ">
+
+				  <div class="w3-col s5 ">
+				      <p><b>Erf: </b> {{ $property->erf }}</p>
+				  </div>
+				  <div class="w3-col s5 ">
+				      <p><b>Type: </b> @if($property->type == 0) Freehold @else  Sectional Title  @endif</p>
+				  </div>
+				 </div>
+				 <div class="w3-col s10 ">
+				  <div class="w3-col s5 ">
+				      <p><b>Status: </b>     @if ($property->sale_type_id>0) {{ $stypes[$property->sale_type_id]->name }}    @endif </p>
+				  </div>
+				  <div class="w3-col s5">
+				      <p><b>Grade: </b>  @if ($property->grade_id>0) {{ $grades[$property->grade_id]->name }}   @endif </p>
+				  </div>
+				</div>
+				 <div class="w3-col s10 ">
+				  <div class="w3-col s5 ">
+				      <p><b>Erf Size: </b> {{ $property->erf_size }} m<sup>2</sup></p>
+				  </div>
+				  <div class="w3-col s5">
+				             <p><b>Building Size: </b> {{   $property->building_size }} m<sup>2</sup></p>
+				</div>
+				</div>
+				 <div class="w3-col s10 ">
+				  <div class="w3-col s5 ">
+				    <p><b>Open Parking: </b> {{ $property->open_parking_bays }} </p>
+				  </div>
+				  <div class="w3-col s5">
+				     <p><b>Covered Parking: </b> {{ $property->covered_parking_bays }} </p>
+				  </div>
+				</div>
+
+
+  </div>
+    <div id="notes" class="tab-pane fade">
+      <h3>Notes</h3>
+                 <div class="w3-col s12 w3-light-grey ">
+				  <div class="w3-col s2 ">
+				    <p><b>Date</b></p>
+				  </div>
+				  <div class="w3-col s2">
+				     <p><b>User</b></p>
+				  </div>
+				  <div class="w3-col s8">
+				     <p><b>Note</b> </p>
+				  </div>
+				</div>
+      @foreach($property->notes as $note)
+         @if ($note->unit_id == 0 )
+
+         		<div class="w3-col s12 ">
+				  <div class="w3-col s2">
+				    <p>{{$note->created_at}}</p>
+				  </div>
+				  <div class="w3-col s2">
+				     <p>{{$users[$note->user_id]->name }} </p>
+				  </div>
+				  <div class="w3-col s8">
+				     <p>{{ $note->description }} </p>
+				  </div>
+				</div>
+
+         <hr>
+         @endif
+      @endforeach
+
+
+
+
+    </div>
+    <div id="contacts" class="tab-pane fade">
+      <h3>Contacts</h3>
+                 <div class="w3-col s12 w3-light-grey ">
+				  <div class="w3-col s2 ">
+				    <p><b>Type</b></p>
+				  </div>
+				  <div class="w3-col s2">
+				     <p><b>Company</b></p>
+				  </div>
+				  <div class="w3-col s2">
+				     <p><b>Contact</b> </p>
+				  </div>
+				  <div class="w3-col s2">
+				     <p><b>Tel</b> </p>
+				  </div>
+				  <div class="w3-col s2">
+				     <p><b>Cell</b> </p>
+				  </div>
+				  <div class="w3-col s2">
+				     <p><b>Email</b> </p>
+				  </div>
+				</div>
+
+      @foreach($property->owners as $owner)
+       @if ($owner->unit_id == 0 )
+
+                <div class="w3-col s12 ">
+				  <div class="w3-col s2">
+				    <p>{{$contacttypes[$owner->contact_type_id]->name}}</p>
+				  </div>
+				  <div class="w3-col s2">
+				       <p>{{ $contacts[$owner->contact_id]->company  }} </p>
+				  </div>
+				  <div class="w3-col s2">
+				     <p>{{ $contacts[$owner->contact_id]->firstname .' '. $contacts[$owner->contact_id]->lastname }} </p>
+				  </div>
+				  <div class="w3-col s2">
+				     <p>{{ $contacts[$owner->contact_id]->tel }}</p>
+				  </div>
+				  <div class="w3-col s2">
+				     <p>{{ $contacts[$owner->contact_id]->cell  }} </p>
+				  </div>
+				  <div class="w3-col s2">
+				     <p>{{ $contacts[$owner->contact_id]->email  }} </p>
+				  </div>
+				</div>
+
+       @endif
+      @endforeach
+    </div>
+
+  </div>
+
+
+
+
+</div>
+
+<div class="col-md-10 col-md-offset-1">
+ <hr>
+<p>This property has {{$property->units->count()}} units.</p>
+ <hr>
+			  <div class="w3-col s3">
+				     <p><button class="btn btn-primary" type="button"><span class="badge">{{$stat1}}</span>  </button> Vacant</p>
+				  </div>
+				  <div class="w3-col s3">
+				     <p><button class="btn btn-success" type="button"><span class="badge">{{$stat2}}</span>  </button> Owner Occupied</p>
+				  </div>
+				  <div class="w3-col s3">
+				     <p><button class="btn btn-warning" type="button"><span class="badge">{{$stat3}}</span>  </button> Tenant Occupied</p>
+				  </div>
+				  <div class="w3-col s3">
+				     <p><button class="btn btn-danger" type="button"><span class="badge">{{$stat4}}</span>  </button> Govt/Provincial</p>
+				  </div>
+
+</div>
+
+@foreach ($property->units as $unit)
+
+
+
+<div class="col-md-10 col-md-offset-1">
+
+<hr>
+
+
+  <ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#home{{$unit->id}}">Unit: {{$unit->id}}</a></li>
+    <li><a data-toggle="tab" href="#menu1{{$unit->id}}">Notes</a></li>
+    <li><a data-toggle="tab" href="#menu2{{$unit->id}}">Contacts</a></li>
+
+  </ul>
+
+  <div class="tab-content">
+    <div id="home{{$unit->id}}" class="tab-pane fade in active">
+      <h3>Details</h3>
+<p><b>Type: </b> {{$ptypes[$unit->property_type_id]->name}} {{$stypes[$unit->sale_type_id]->name}}</p>
+<p><b>Status: </b> {{$statuses[$unit->status_id]->name}}</p>
+<p><b>Size: </b> {{$unit->size}} m<sup>2</sup></p>
+@if($unit->sale_type_id == 1)
+<p><b>Price: </b> R {{ number_format($unit->price,2)}}</p>
+@else
+<p><b>Gross Rental: </b> R {{ number_format($unit->gross_rental,2) }} /m<sup>2</sup></p>
+@endif
+<p><b>Lease start: </b> {{$unit->lease_start}}</p>
+<p><b>Lease end: </b> {{$unit->lease_end}}</p>
+    </div>
+    <div id="menu1{{$unit->id}}" class="tab-pane fade">
+      <h3>Notes</h3>
+                 <div class="w3-col s12 w3-light-grey ">
+				  <div class="w3-col s2 ">
+				    <p><b>Date</b></p>
+				  </div>
+				  <div class="w3-col s2">
+				     <p><b>User</b></p>
+				  </div>
+				  <div class="w3-col s8">
+				     <p><b>Note</b> </p>
+				  </div>
+				</div>
+      @foreach($property->notes as $note)
+         @if ($note->unit_id == $unit->id )
+
+         		<div class="w3-col s12 ">
+				  <div class="w3-col s2">
+				    <p>{{$note->created_at}}</p>
+				  </div>
+				  <div class="w3-col s2">
+				     <p><{{$users[$note->user_id]->name }} </p>
+				  </div>
+				  <div class="w3-col s8">
+				     <p>{{ $note->description }} </p>
+				  </div>
+				</div>
+
+         <hr>
+         @endif
+      @endforeach
+    </div>
+    <div id="menu2{{$unit->id}}" class="tab-pane fade">
+     <h3>Contacts</h3>
+                 <div class="w3-col s12 w3-light-grey ">
+				  <div class="w3-col s2 ">
+				    <p><b>Type</b></p>
+				  </div>
+				  <div class="w3-col s2">
+				     <p><b>Company</b></p>
+				  </div>
+				  <div class="w3-col s2">
+				     <p><b>Contact</b> </p>
+				  </div>
+				  <div class="w3-col s2">
+				     <p><b>Tel</b> </p>
+				  </div>
+				  <div class="w3-col s2">
+				     <p><b>Cell</b> </p>
+				  </div>
+				  <div class="w3-col s2">
+				     <p><b>Email</b> </p>
+				  </div>
+				</div>
+
+      @foreach($property->owners as $owner)
+       @if ($owner->unit_id == $unit->id )
+
+                <div class="w3-col s12 ">
+				  <div class="w3-col s2">
+				    <p>{{$contacttypes[$owner->contact_type_id]->name}}</p>
+				  </div>
+				  <div class="w3-col s2">
+				       <p>{{ $contacts[$owner->contact_id]->company  }} </p>
+				  </div>
+				  <div class="w3-col s2">
+				     <p>{{ $contacts[$owner->contact_id]->firstname .' '. $contacts[$owner->contact_id]->lastname }} </p>
+				  </div>
+				  <div class="w3-col s2">
+				     <p>{{ $contacts[$owner->contact_id]->tel }}</p>
+				  </div>
+				  <div class="w3-col s2">
+				     <p>{{ $contacts[$owner->contact_id]->cell  }} </p>
+				  </div>
+				  <div class="w3-col s2">
+				     <p>{{ $contacts[$owner->contact_id]->email  }} </p>
+				  </div>
+				</div>
+         <hr>
+       @endif
+      @endforeach
+    </div>
+
+  </div>
+</div>
+
+
+
+
+
+
+
+@endforeach
+</div>
+</div>
+	<div class="col-md-4">
+	<br><br><br><br><br><br><br><br><br><br><br><br>
+	</div>
+
+<br>
+<br>
+<br>
+<br><br><br><br><br><br>
 </div>
 
 

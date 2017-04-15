@@ -161,5 +161,62 @@ dd($status, $lat, $lng, $formatted_address, $province, $city, $city_area, $outpu
 
         return view('map');
     }
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function gotoProperty($id)
+    {
 
+        activity("Google")->log('Map');
+
+        $properties = Property::find($id);
+
+        Mapper::map($properties->long, $properties->lat, ['zoom' => 18, 'center' => true, 'marker' => false, 'type' => 'HYBRID', 'overlay' => 'NONE']);
+
+        $types = ['Freehold', 'Sectional Title'];
+
+        $stypes   = SaleType::all();
+        $ptypes   = PropertyType::all();
+        $statuses = Status::all();
+
+        $statuses = $statuses->keyBy('id');
+        $stypes   = $stypes->keyBy('id');
+        $ptypes   = $ptypes->keyBy('id');
+
+        $areas = Area::all();
+
+        $properties = Property::all();
+        $properties->load('images');
+
+        foreach ($properties as $property) {
+            //echo $areas[$property->area_id]->name;
+            if (sizeof($property->images) > 0) {
+                $image = 'property/' . $property->id . '/' . $property->images[0]['name'];
+            } else {
+                $image = 'img/sothebys_footer.png';
+            }
+            $link    = "<a href=" . url("/showproperty" . $property->id) . " >VIEW</a>";
+            $content = 'Erf : ' . $property->erf . '<br>';
+            $content = $content . $types[$property->type] . '<br>';
+            $content = $content . $stypes[$property->sale_type_id]->name . '<br>';
+            $content = $content . $link . '<br>';
+
+            // check for lat and long
+            if ($property->long && $property->lat) {
+
+                if ($property->sale_type_id == 2) {
+                    Mapper::marker($property->long, $property->lat, ['title' => 'Type: ' . $types[$property->type] . ' Erf: ' . $property->erf, 'eventRightClick' => 'console.log("right click");', 'content' => $content . '<br> <img src=' . $image . '  style="width:120px;" />', 'scale' => 13, 'animation' => 'DROP', 'icon' => "http://maps.google.com/mapfiles/ms/icons/green-dot.png"]);
+                } elseif ($property->sale_type_id == 1) {
+                    Mapper::marker($property->long, $property->lat, ['title' => 'Type: ' . $types[$property->type] . ' Erf: ' . $property->erf, 'eventRightClick' => 'console.log("right click");', 'content' => $content . '<br> <img src=' . $image . '  style="width:120px;" />', 'scale' => 13, 'animation' => 'DROP', 'icon' => "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png"]);
+                } else {
+                    Mapper::marker($property->long, $property->lat, ['title' => 'Type: ' . $types[$property->type] . ' Erf: ' . $property->erf, 'eventRightClick' => 'console.log("right click");', 'content' => $content . '<br> <img src=' . $image . '  style="width:120px;" />', 'scale' => 13, 'animation' => 'DROP', 'icon' => "http://maps.google.com/mapfiles/ms/icons/red-dot.png"]);
+                }
+            }
+
+        }
+
+        return view('map');
+    }
 }

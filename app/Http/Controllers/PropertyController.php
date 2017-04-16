@@ -13,6 +13,7 @@ use App\SaleType;
 use App\Status;
 use App\Suburb;
 use App\User;
+use Auth;
 use Illuminate\Http\Request;
 
 class PropertyController extends Controller
@@ -30,6 +31,9 @@ class PropertyController extends Controller
      */
     public function index()
     {
+
+        $username = Auth::user()->name;
+        activity("Dashboard")->withProperties(['user' => $username])->log('Property ');
         $areas   = Area::with('suburbs')->get();
         $suburbs = Suburb::all();
         $stypes  = SaleType::all();
@@ -38,7 +42,7 @@ class PropertyController extends Controller
         $properties = Property::latest()->paginate(5);
         $properties->load('units', 'images', 'notes', 'owners');
         //dd($areas, $properties);
-        return view('dashboard3', compact('properties', 'areas', 'suburbs', 'stypes', 'ptypes'));
+        return view('dashboard.property', compact('properties', 'areas', 'suburbs', 'stypes', 'ptypes'));
     }
 
     /**
@@ -49,6 +53,8 @@ class PropertyController extends Controller
     public function search(Request $request)
     {
 
+        $username = Auth::user()->name;
+        activity("Dashboard")->withProperties(['user' => $username])->log('Property search ');
         $areas   = Area::with('suburbs')->get();
         $suburbs = Suburb::all();
         $stypes  = SaleType::all();
@@ -66,7 +72,7 @@ class PropertyController extends Controller
 
         $properties->load('units', 'images', 'notes', 'owners');
         //dd($areas, $properties);
-        return view('dashboard3', compact('properties', 'areas', 'suburbs', 'stypes', 'ptypes'));
+        return view('dashboard.property', compact('properties', 'areas', 'suburbs', 'stypes', 'ptypes'));
     }
 
     /**
@@ -120,6 +126,9 @@ class PropertyController extends Controller
 
         $property = Property::find($id);
         $property->load('units', 'images', 'notes', 'owners');
+
+        $username = Auth::user()->name;
+        activity("Property")->withProperties(['user' => $username, 'erf' => $property->erf])->log('Show ');
         //dd($property);
         $stat1 = 0;
         $stat2 = 0;

@@ -10,8 +10,7 @@ use App\Owner;
 use App\Property;
 use App\PropertyType;
 use App\SaleType;
-use App\Unit;
-use Carbon\Carbon;
+use Auth;
 use Illuminate\Http\Request;
 
 class OwnerController extends Controller
@@ -29,6 +28,9 @@ class OwnerController extends Controller
      */
     public function index()
     {
+
+        $username = Auth::user()->name;
+        activity("Dashboard")->withProperties(['user' => $username])->log('Contacts ');
         $areas  = Area::all();
         $stypes = SaleType::all();
         $ptypes = PropertyType::all();
@@ -36,7 +38,7 @@ class OwnerController extends Controller
         $owners = Contact::latest()->paginate(10);
 
         //dd($property);
-        return view('dashboard2', compact('owners', 'areas', 'stypes', 'ptypes'));
+        return view('dashboard.contacts', compact('owners', 'areas', 'stypes', 'ptypes'));
     }
 
     /**
@@ -68,13 +70,17 @@ class OwnerController extends Controller
      */
     public function show($id)
     {
+
         $areas  = Area::all();
         $stypes = SaleType::all();
         $ptypes = PropertyType::all();
 
         $property = Property::find($id);
         $property->load('units', 'images', 'notes', 'owners');
-        //dd($property);
+
+        $username = Auth::user()->name;
+        activity("Property")->withProperties(['user' => $username, 'erf' => $property->erf])->log('Show ');
+
         return view('showproperty', compact('property', 'areas', 'stypes', 'ptypes'));
     }
 
@@ -113,23 +119,13 @@ class OwnerController extends Controller
     }
 
     // list contacts with properties
-    public function contactProp()
+    public function contactProp($id)
     {
-        $today = Carbon::today();
-
-        $period = Carbon::today()->addMonths(2);
-
-        $alertunits = Unit::where('lease_end', '>', $today)->where('lease_end', '<', $period)->orderBy('lease_end', 'desc')->get();
-        foreach ($alertunits as $unit) {
-            echo $unit->lease_end . '<br>';
-        }
-
-        dd($alertunits);
 
         $types = ContactType::all();
 
         $types = $types->keyBy('id');
-        $props = Contact::find(20);
+        $props = Contact::find($id);
 
         $owners = Owner::where('contact_id', '=', $props->id)->get();
 

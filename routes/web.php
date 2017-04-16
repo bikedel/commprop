@@ -42,11 +42,13 @@ Route::get('/logs', 'LogsController@index');
 
 Route::get('/dashboard', 'HomeController@dashboard');
 
+Route::get('/dashboard2', 'HomeController@dashboard2');
+
 Route::get('/dashboardmap', 'HomeController@dashboardmap');
 
 Route::get('/owners', 'OwnerController@index');
 // list contacts with properties
-Route::get('/contactProp', 'OwnerController@contactProp');
+Route::get('/contactProp{id}', 'OwnerController@contactProp')->name('contactProp');
 
 Route::get('/properties', 'PropertyController@index');
 Route::get('/psearch', 'PropertyController@search')->name('/psearch');

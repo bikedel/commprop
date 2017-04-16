@@ -21,6 +21,12 @@ content {
 .right{
 	float: right;
 }
+
+table,tr,td {
+
+  background-color: white !important;
+}
+
 </style>
 <body>
 <br><Br>

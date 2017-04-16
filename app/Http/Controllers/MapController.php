@@ -7,6 +7,7 @@ use App\Property;
 use App\PropertyType;
 use App\SaleType;
 use App\Status;
+use Auth;
 use Cornford\Googlmapper\Facades\MapperFacade as Mapper;
 
 class MapController extends Controller
@@ -169,9 +170,10 @@ dd($status, $lat, $lng, $formatted_address, $province, $city, $city_area, $outpu
     public function gotoProperty($id)
     {
 
-        activity("Google")->log('Map');
-
         $properties = Property::find($id);
+
+        $username = Auth::user()->name;
+        activity("Property")->withProperties(['user' => $username, 'erf' => $properties->erf])->log('Show on map');
 
         Mapper::map($properties->long, $properties->lat, ['zoom' => 18, 'center' => true, 'marker' => false, 'type' => 'HYBRID', 'overlay' => 'NONE']);
 

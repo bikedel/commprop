@@ -231,9 +231,11 @@ small {
 
 .camera {
      position: relative;
-    float:right;
-    left:-20px;
+    float:left;
+    left:0px;
     top:2px;
+     padding:0px 5px 0px 0px;
+
 }
 #itemdetails table tbody tr td {
     border: none  !important;
@@ -248,14 +250,16 @@ small {
 
 
 
-	  <div class="col-md-10 col-md-offset-1">
+	  <div class="col-md-8 col-md-offset-1">
 
 
 
 
 			<h2>{{$property->title}}</h2>
             <p> <a href="{{'gotoProperty'.$property->id}}" class="camera"> <span class="glyphicon glyphicon-map-marker"></span></a></p>
+            <div class="w3-text-blue">
             <p> {{$property->address }}</p>
+            </div>
             <img align="center" src = "http://maps.googleapis.com/maps/api/staticmap?size=600x200&markers=color:red%7Clabel:1%7C{{$property->long}},{{$property->lat}}&maptype=hybrid&scale=3&sensor=false&label=Hello&key=AIzaSyCNgTdT8SN3jIzbdvZu7CBPKw3zz8J4Pww"  width="100%" height="200" class='prop_img 'alt='Google Map'/>
 	         <h3>Property Description</h3>
 			<div style="height:100px;width:100%;border:0px solid #ccc;overflow:auto; padding:0px">
@@ -297,23 +301,14 @@ small {
 
 
 
-
-
-
-
-
-
-
-
-
 </div>
 
 </div>
 
 <div class="col-md-10 col-md-offset-1">
-
+<div class="container">
   <ul class="nav nav-tabs">
-    <li class="active"><a data-toggle="tab" href="#details">Erf: {{$property->erf }}</a></li>
+    <li class="active"><a data-toggle="tab" href="#details">Erf: <b>{{$property->erf }}</b></a></li>
     <li><a data-toggle="tab" href="#notes">Notes</a></li>
     <li><a data-toggle="tab" href="#contacts">Contacs</a></li>
   </ul>
@@ -325,34 +320,34 @@ small {
 				  <div class="w3-col s10 ">
 
 				  <div class="w3-col s5 ">
-				      <p><b>Erf: </b> {{ $property->erf }}</p>
+				      <p>Erf: <b> {{ $property->erf }}</b></p>
 				  </div>
 				  <div class="w3-col s5 ">
-				      <p><b>Type: </b> @if($property->type == 0) Freehold @else  Sectional Title  @endif</p>
+				      <p>Type: <b> @if($property->type == 0) Freehold @else  Sectional Title  @endif</b></p>
 				  </div>
 				 </div>
 				 <div class="w3-col s10 ">
 				  <div class="w3-col s5 ">
-				      <p><b>Status: </b>     @if ($property->sale_type_id>0) {{ $stypes[$property->sale_type_id]->name }}    @endif </p>
+				      <p>Status: <b>     @if ($property->sale_type_id>0) {{ $stypes[$property->sale_type_id]->name }}    @endif </b></p>
 				  </div>
 				  <div class="w3-col s5">
-				      <p><b>Grade: </b>  @if ($property->grade_id>0) {{ $grades[$property->grade_id]->name }}   @endif </p>
+				      <p>Grade: <b>  @if ($property->grade_id>0) {{ $grades[$property->grade_id]->name }}   @endif </b></p>
 				  </div>
 				</div>
 				 <div class="w3-col s10 ">
 				  <div class="w3-col s5 ">
-				      <p><b>Erf Size: </b> {{ $property->erf_size }} m<sup>2</sup></p>
+				      <p>Erf Size: <b> {{ $property->erf_size }} m<sup>2</sup></b></p>
 				  </div>
 				  <div class="w3-col s5">
-				             <p><b>Building Size: </b> {{   $property->building_size }} m<sup>2</sup></p>
+				             <p>Building Size: <b> {{   $property->building_size }} m<sup>2</sup></b></p>
 				</div>
 				</div>
 				 <div class="w3-col s10 ">
 				  <div class="w3-col s5 ">
-				    <p><b>Open Parking: </b> {{ $property->open_parking_bays }} </p>
+				    <p>Open Parking: <b> {{ $property->open_parking_bays }} </b></p>
 				  </div>
 				  <div class="w3-col s5">
-				     <p><b>Covered Parking: </b> {{ $property->covered_parking_bays }} </p>
+				     <p>Covered Parking: <b> {{ $property->covered_parking_bays }} </b></p>
 				  </div>
 				</div>
 
@@ -362,13 +357,13 @@ small {
       <h3>Notes</h3>
                  <div class="w3-col s12 w3-light-grey ">
 				  <div class="w3-col s2 ">
-				    <p><b>Date</b></p>
+				    <p>Date</p>
 				  </div>
 				  <div class="w3-col s2">
-				     <p><b>User</b></p>
+				     <p>User</p>
 				  </div>
 				  <div class="w3-col s8">
-				     <p><b>Note</b> </p>
+				     <p>Note </p>
 				  </div>
 				</div>
       @foreach($property->notes as $note)
@@ -391,29 +386,29 @@ small {
       @endforeach
 
 
-
+</div>
 
     </div>
     <div id="contacts" class="tab-pane fade">
       <h3>Contacts</h3>
                  <div class="w3-col s12 w3-light-grey ">
 				  <div class="w3-col s2 ">
-				    <p><b>Type</b></p>
+				    <p>Type</p>
 				  </div>
 				  <div class="w3-col s2">
-				     <p><b>Company</b></p>
+				     <p>Company</p>
 				  </div>
 				  <div class="w3-col s2">
-				     <p><b>Contact</b> </p>
+				     <p>Contact </p>
 				  </div>
 				  <div class="w3-col s2">
-				     <p><b>Tel</b> </p>
+				     <p>Tel</p>
 				  </div>
 				  <div class="w3-col s2">
-				     <p><b>Cell</b> </p>
+				     <p>Cell</p>
 				  </div>
 				  <div class="w3-col s2">
-				     <p><b>Email</b> </p>
+				     <p>Email </p>
 				  </div>
 				</div>
 
@@ -451,24 +446,28 @@ small {
 
 
 </div>
-
+<div class="container-fluid">
 <div class="col-md-10 col-md-offset-1">
- <hr>
-<p>This property has {{$property->units->count()}} units.</p>
- <hr>
-			  <div class="w3-col s3">
-				     <p><button class="btn btn-primary" type="button"><span class="badge">{{$stat1}}</span>  </button> Vacant</p>
-				  </div>
-				  <div class="w3-col s3">
-				     <p><button class="btn btn-success" type="button"><span class="badge">{{$stat2}}</span>  </button> Owner Occupied</p>
-				  </div>
-				  <div class="w3-col s3">
-				     <p><button class="btn btn-warning" type="button"><span class="badge">{{$stat3}}</span>  </button> Tenant Occupied</p>
-				  </div>
-				  <div class="w3-col s3">
-				     <p><button class="btn btn-danger" type="button"><span class="badge">{{$stat4}}</span>  </button> Govt/Provincial</p>
-				  </div>
 
+<div class="w3-text-blue">
+
+<p >This property has {{$property->units->count()}} units.</p>
+ <hr>
+</div>
+
+			  <div class="w3-col s3">
+				     <p><button class="btn btn-primary" type="button"><span class="badge">{{$stat1}}</span>  </button><br> Vacant</p>
+				  </div>
+				  <div class="w3-col s3">
+				     <p><button class="btn btn-success" type="button"><span class="badge">{{$stat2}}</span>  </button><br> Owner Occupied</p>
+				  </div>
+				  <div class="w3-col s3">
+				     <p><button class="btn btn-warning" type="button"><span class="badge">{{$stat3}}</span>  </button><br> Tenant Occupied</p>
+				  </div>
+				  <div class="w3-col s3">
+				     <p><button class="btn btn-danger" type="button"><span class="badge">{{$stat4}}</span>  </button><br> Govt/Provincial</p>
+				  </div>
+</div>
 </div>
 
 @foreach ($property->units as $unit)
@@ -481,7 +480,7 @@ small {
 
 
   <ul class="nav nav-tabs">
-    <li class="active"><a data-toggle="tab" href="#home{{$unit->id}}">Unit: {{$unit->id}}</a></li>
+    <li class="active"><a data-toggle="tab" href="#home{{$unit->id}}">Unit:<b>{{$unit->id}}</b></a></li>
     <li><a data-toggle="tab" href="#menu1{{$unit->id}}">Notes</a></li>
     <li><a data-toggle="tab" href="#menu2{{$unit->id}}">Contacts</a></li>
 
@@ -490,28 +489,28 @@ small {
   <div class="tab-content">
     <div id="home{{$unit->id}}" class="tab-pane fade in active">
       <h3>Details</h3>
-<p><b>Type: </b> {{$ptypes[$unit->property_type_id]->name}} {{$stypes[$unit->sale_type_id]->name}}</p>
-<p><b>Status: </b> {{$statuses[$unit->status_id]->name}}</p>
-<p><b>Size: </b> {{$unit->size}} m<sup>2</sup></p>
-@if($unit->sale_type_id == 1)
-<p><b>Price: </b> R {{ number_format($unit->price,2)}}</p>
-@else
-<p><b>Gross Rental: </b> R {{ number_format($unit->gross_rental,2) }} /m<sup>2</sup></p>
-@endif
-<p><b>Lease start: </b> {{$unit->lease_start}}</p>
-<p><b>Lease end: </b> {{$unit->lease_end}}</p>
+		<p>Type: <b> {{$ptypes[$unit->property_type_id]->name}} {{$stypes[$unit->sale_type_id]->name}}</b></p>
+		<p>Status: <b> {{$statuses[$unit->status_id]->name}}</b></p>
+		<p>Size: <b> {{$unit->size}} m<sup>2</sup></b></p>
+		@if($unit->sale_type_id == 1)
+		<p>Price: <b> R {{ number_format($unit->price,2)}}</b></p>
+		@else
+		<p>Gross Rental: <b> R {{ number_format($unit->gross_rental,2) }} /m<sup>2</sup></b></p>
+		@endif
+		<p>Lease start: <b> {{$unit->lease_start}}</b></p>
+		<p>Lease end: <b> {{$unit->lease_end}}</b></p>
     </div>
     <div id="menu1{{$unit->id}}" class="tab-pane fade">
       <h3>Notes</h3>
                  <div class="w3-col s12 w3-light-grey ">
 				  <div class="w3-col s2 ">
-				    <p><b>Date</b></p>
+				    <p>Date</p>
 				  </div>
 				  <div class="w3-col s2">
-				     <p><b>User</b></p>
+				     <p>User</p>
 				  </div>
 				  <div class="w3-col s8">
-				     <p><b>Note</b> </p>
+				     <p>Note </p>
 				  </div>
 				</div>
       @foreach($property->notes as $note)
@@ -537,22 +536,22 @@ small {
      <h3>Contacts</h3>
                  <div class="w3-col s12 w3-light-grey ">
 				  <div class="w3-col s2 ">
-				    <p><b>Type</b></p>
+				    <p>Type</p>
 				  </div>
 				  <div class="w3-col s2">
-				     <p><b>Company</b></p>
+				     <p>Company</p>
 				  </div>
 				  <div class="w3-col s2">
-				     <p><b>Contact</b> </p>
+				     <p>Contact </p>
 				  </div>
 				  <div class="w3-col s2">
-				     <p><b>Tel</b> </p>
+				     <p>Tel </p>
 				  </div>
 				  <div class="w3-col s2">
-				     <p><b>Cell</b> </p>
+				     <p>Cell</p>
 				  </div>
 				  <div class="w3-col s2">
-				     <p><b>Email</b> </p>
+				     <p>Email </p>
 				  </div>
 				</div>
 
@@ -576,7 +575,7 @@ small {
 				     <p>{{ $contacts[$owner->contact_id]->cell  }} </p>
 				  </div>
 				  <div class="w3-col s2">
-				     <p>{{ $contacts[$owner->contact_id]->email  }} </p>
+                     <p><a href="mailto:{{ $contacts[$owner->contact_id]->email  }}"> {{ $contacts[$owner->contact_id]->email  }}</a></p>
 				  </div>
 				</div>
          <hr>
@@ -587,7 +586,7 @@ small {
   </div>
 </div>
 
-
+</div>
 
 
 

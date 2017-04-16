@@ -11,6 +11,7 @@ use App\Status;
 use App\Temp;
 use App\Unit;
 use App\User;
+use Auth;
 use Carbon\Carbon;
 use Cornford\Googlmapper\Facades\MapperFacade as Mapper;
 use Faker\Factory as Faker;
@@ -141,6 +142,9 @@ class HomeController extends Controller
     public function dashboard()
     {
 
+        $username = Auth::user()->name;
+        activity("Dashboard")->withProperties(['user' => $username])->log('Overview ');
+
         $useragent = request()->header('User-Agent');
         $ip        = request()->ip();
         $users     = User::all();
@@ -160,13 +164,14 @@ class HomeController extends Controller
 
         $properties = Property::latest()->get();
         $properties->load('units', 'images', 'notes', 'owners');
-        return view('dashboard', compact('properties', 'areas', 'stypes', 'ptypes', 'users', 'units', 'alertunits', 'statuses', 'ip', 'useragent'));
+        return view('dashboard.overview', compact('properties', 'areas', 'stypes', 'ptypes', 'users', 'units', 'alertunits', 'statuses', 'ip', 'useragent'));
     }
 
     public function dashboardmap()
     {
 
-        activity("Google")->log('Map');
+        $username = Auth::user()->name;
+        activity("Dashboard")->withProperties(['user' => $username])->log('Map ');
 
         Mapper::location('cape town')->map(['zoom' => 10, 'center' => true, 'marker' => false, 'type' => 'HYBRID', 'overlay' => 'NONE']);
         // Mapper::informationWindow('cape town', 'Content');
@@ -200,7 +205,7 @@ class HomeController extends Controller
 
         }
 
-        return view('map');
+        return view('dashboard.map');
     }
 
     public function test()

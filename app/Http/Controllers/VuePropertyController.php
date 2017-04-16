@@ -146,10 +146,12 @@ class VuePropertyController extends Controller
         if ($erf == null && $area == null && sizeof($ptype) <= 0 && sizeof($stype) <= 0 && sizeof($status) <= 0 && $minsize == null && $maxsize == null) {
             $action = "Reset";
         } else {
-            $action = "Search";
+            $action   = "Search";
+            $username = Auth::user()->name;
             activity("Database")->performedOn($model)->withProperties(
 
-                ['Erf'    => $erf,
+                ['user'   => $username,
+                    'Erf'     => $erf,
                     'area'    => $area,
                     'ptype'   => $ptype,
                     'stype'   => $stype,
@@ -271,11 +273,11 @@ class VuePropertyController extends Controller
     {
 
         $rules = array(
-            'erf'     => 'required| numeric |unique:properties',
-            'title'   => 'required',
+            'erf'       => 'required| numeric |unique:properties',
+            'title'     => 'required',
             //  'image'   => 'mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'area_id' => 'required',
-
+            'area_id'   => 'required',
+            'ownership' => 'required',
         );
 
         $messsages = array(
@@ -948,7 +950,7 @@ class VuePropertyController extends Controller
 
         //   dd("pdf", $units, $items);
 
-        activity("Brochure")->withProperties(['client' => $client, 'brief' => $brochure_text, 'agent' => $agent, 'user' => $username, 'erfs' => $log_units])->log('PDF ');
+        activity("Brochure")->withProperties(['user' => $username, 'client' => $client, 'brief' => $brochure_text, 'agent' => $agent, 'erfs' => $log_units])->log('PDF ');
 
         // $img = Barryvdh\Snappy\Facades\SnappyImage::loadView('readme');
         // return $img->download('test.pdf');

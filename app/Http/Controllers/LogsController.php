@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Activity;
 use App\Http\Controllers\Controller;
 use App\User;
+use Auth;
 use Illuminate\Http\Request;
 
 class LogsController extends Controller
@@ -22,13 +23,17 @@ class LogsController extends Controller
      */
     public function index()
     {
+        $username = Auth::user()->name;
+        activity("Dashboard")->withProperties(['user' => $username])->log('Logs ');
 
-        $users      = User::orderBy('id')->get();
+        $users = User::orderBy('id')->get();
+        $users = $users->keyBy('id');
+
         $activities = Activity::latest()->get();
 
         //dd($activities);
         //dd($property);
-        return view('logs', compact('activities', 'users'));
+        return view('dashboard.logs', compact('activities', 'users'));
     }
 
     /**

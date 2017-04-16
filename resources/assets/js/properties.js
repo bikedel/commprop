@@ -141,6 +141,7 @@ data:  {
            'addimage': [],
            'ownership': '',
            'status': '',
+           'sale_type_id':'',
            'erf_size': '',
            'building_size': '',
            'open_parking_bays': '',
@@ -744,6 +745,7 @@ data:  {
           this.fillItem.grade_id = item.grade_id ;
           this.fillItem.ownership = item.type ;
           this.fillItem.status = item.status ;
+           this.fillItem.sale_type_id = item.sale_type_id ;
           this.fillItem.erf_size = item.erf_size ;
           this.fillItem.building_size = item.building_size ;
           this.fillItem.open_parking_bays = item.open_parking_bays ;
@@ -1314,6 +1316,7 @@ data:  {
                            'addimage': [],
                            'ownership': '',
                            'status': '',
+                           'sale_type_id':'',
                            'erf_size': '',
                            'building_size': '',
                            'open_parking_bays': '',

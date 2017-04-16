@@ -247,6 +247,14 @@ small {
     left:-20px;
     top:2px;
 }
+
+.map {
+     position: relative;
+    float:left;
+    left:0px;
+    top:2px;
+    padding:0px 5px 0px 0px;
+}
 #itemdetails table tbody tr td {
     border: none  !important;
        border-top: none !important;
@@ -267,7 +275,10 @@ line-height: 1.8;
      color:white;
 
 }
+.spacer {
 
+    padding: 0px 10px 0px 10px;
+}
 </style>
 
 
@@ -377,7 +388,16 @@ line-height: 1.8;
 
 
     <h3>@{{ item.title }}</h3>
-    <p>@{{ suburbName(item.area_id) }}</p>
+ <!--   <p><a v-bind:href="'gotoProperty'+item.id" class="map"> <span class="glyphicon glyphicon-map-marker"></span></a>@{{ suburbName(item.area_id) }}</p>  -->
+
+<div v-if="(item.lat < 18 || item.lat > 1 && Math.abs(item.long) < 33 || Math.abs(item.long) > 34)">
+   <p><a v-bind:href="'gotoProperty'+item.id" class="map"> <span class="glyphicon glyphicon-map-marker"></span></a>@{{ item.address }}<red>- Invalid address</red></p>
+</div>
+<div v-else>
+    <p><a v-bind:href="'gotoProperty'+item.id" class="map"> <span class="glyphicon glyphicon-map-marker"></span></a>@{{ item.address }}</p>
+</div>
+
+
 
     <div class=" row border myprop" >
 
@@ -416,8 +436,8 @@ line-height: 1.8;
 
             <div class='descrip col-sm-8'>
             <div style="height:120px;width:100%;border:0px solid #ccc;overflow:auto; padding:0px">
-               <a v-bind:href="'gotoProperty'+item.id" class="camera"> <span class="glyphicon glyphicon-map-marker"></span></a>
-            <p class="red" ><red>Erf: @{{ item.erf }}  </red>   <i class="spanUser">  </i><a  v-bind:href="'showproperty'+item.id">Id: @{{ item.id }}</a></p>
+
+            <p>Erf: <b>@{{ item.erf }}  </b>   <i >  <a class="spacer" v-bind:href="'showproperty'+item.id"><span class="glyphicon glyphicon-info-sign"></span></a></i></p>
                 @{{ item.description }}
             </div>
             <div><hr><p>This property has @{{ item.units.length }} unit(s).</p>

@@ -44,10 +44,12 @@ class LoginController extends Controller
     protected function authenticated(Request $request, $user)
     {
 
+        $username = Auth::user()->name;
+
         $ip = request()->ip();
         activity("Auth")->withProperties(
 
-            ['Ip' => $ip])->log('login ');
+            ['Ip' => $ip, 'user' => $username])->log('login ');
 
         //  if ($user->isAdmin()) {
 

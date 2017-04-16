@@ -59,7 +59,9 @@
                                 <li>
                                   <a  href="{{ url('/dashboard') }}">Dashboard</a>
                                 </li>
-
+                                <li>
+                                  <a  href="{{ url('/logs') }}">Logs</a>
+                                </li>
                            <!--     <li>
                                   <a  href="{{ url('/dropzone2') }}">Dropzone</a>
                                 </li>    -->

@@ -35,7 +35,7 @@
         top:50px;
        }
        table,tr,td {
-          background-color: white !important;
+
           font-size:0.98em;
        }
 

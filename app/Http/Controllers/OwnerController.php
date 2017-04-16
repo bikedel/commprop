@@ -5,11 +5,16 @@ namespace App\Http\Controllers;
 use App\Area;
 use App\Contact;
 use App\ContactType;
+use App\Grade;
 use App\Http\Controllers\Controller;
 use App\Owner;
+use App\OwnershipType;
 use App\Property;
 use App\PropertyType;
 use App\SaleType;
+use App\Status;
+use App\Suburb;
+use App\User;
 use Auth;
 use Illuminate\Http\Request;
 
@@ -35,7 +40,7 @@ class OwnerController extends Controller
         $stypes = SaleType::all();
         $ptypes = PropertyType::all();
 
-        $owners = Contact::latest()->paginate(10);
+        $owners = Contact::latest()->paginate(25);
 
         //dd($property);
         return view('dashboard.contacts', compact('owners', 'areas', 'stypes', 'ptypes'));
@@ -124,16 +129,50 @@ class OwnerController extends Controller
 
         $types = ContactType::all();
 
-        $types = $types->keyBy('id');
-        $props = Contact::find($id);
+        $types   = $types->keyBy('id');
+        $contact = Contact::find($id);
 
-        $owners = Owner::where('contact_id', '=', $props->id)->get();
+        $owners = Owner::where('contact_id', '=', $contact->id)->get();
 
-        echo $owners->count() . 'properties...' . '<br>';
+        $p = [];
+        //   echo $owners->count() . 'properties...' . '<br>';
         foreach ($owners as $owner) {
-            echo 'o ' . $owner->property_id . ' ' . $owner->unit_id . ' ' . $types[$owner->contact_type_id]->name . '<br>';
+            //  echo 'o ' . $owner->property_id . ' ' . $owner->unit_id . ' ' . $types[$owner->contact_type_id]->name . '<br>';
+            array_push($p, $owner->property_id);
         }
 
-        dd($props, $props->properties);
+        $properties = Property::find($p); // returns a collection of models
+
+        //dd($props, $p, $properties);
+
+        $username = Auth::user()->name;
+        activity("Contacts")->withProperties(['contact' => $id])->log('Show Properties ');
+
+        $users        = User::all();
+        $areas        = Area::all();
+        $grades       = Grade::all();
+        $suburbs      = Suburb::all();
+        $stypes       = SaleType::all();
+        $ptypes       = PropertyType::all();
+        $statuses     = Status::all();
+        $contacts     = Contact::all();
+        $contacttypes = ContactType::all();
+        $ownerships   = OwnershipType::all();
+
+        $users        = $users->keyBy('id');
+        $statuses     = $statuses->keyBy('id');
+        $grades       = $grades->keyBy('id');
+        $stypes       = $stypes->keyBy('id');
+        $ptypes       = $ptypes->keyBy('id');
+        $suburbs      = $suburbs->keyBy('id');
+        $contacts     = $contacts->keyBy('id');
+        $contacttypes = $contacttypes->keyBy('id');
+        $ownerships   = $ownerships->keyBy('id');
+
+        // $properties = Property::latest()->paginate(25);
+        $properties->load('units', 'images', 'notes', 'owners');
+        //dd($areas, $properties);
+        return view('dashboard.contactproperty', compact('properties', 'areas', 'suburbs', 'stypes', 'ptypes', 'ownerships', 'contact'));
+
     }
 }

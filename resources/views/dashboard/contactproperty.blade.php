@@ -11,7 +11,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
 
 <style>
-table,tr,td {
+table,tr,td,p {
 
   font-size:.9em !important;
   table-layout:fixed;
@@ -23,99 +23,77 @@ table,tr,td {
 
    <!-- Header -->
   <header class="w3-container" style="padding-top:42px">
-    <h5><b><i class="fa fa-dashboard"></i> Properties</b></h5><br>
+    <h5><b><i class="fa fa-dashboard"></i>  Contact</b> </h5><br>
   </header>
 
-<!--
- <div class="container search col-md-12 ">
-
-<form id="search-form"  name="contact-form" action="{{route('/psearch')}}" method="get">
+ <div class="container maintable col-md-10 ">
 
 
-  <select name="areas[]" class="selectpicker" multiple data-width="100%" title="Please select suburb(s)">
+    <ul class="w3-ul w3-card-4 w3-white">
+    <li>
+    <div class="w3-row w3-text-blue">
+      <div class="w3-col s8">
+        <h3>{{$contact->company}}</h3>
+      </div>
+    </div>
+    <div class="w3-row w3-text-blue">
+      <div class="w3-col s12">
+        <hr>
+      </div>
+    </div>
 
-      @foreach ($areas as $area)
-            <optgroup label="{{$area->name}}">
+    <div class="w3-row">
+      <div class="w3-col s2">
+        <p>Contact:</p>
+      </div>
+      <div class="w3-col s8">
+        <p>{{$contact->firstname}} {{$contact->lastname}}</p>
+      </div>
+    </div>
 
-              @foreach ($area->suburbs as $suburb)
-                  <option data-content="<span class='label label-default'>{{$suburb->name}}</span>" value="{{$suburb->id}}">{{$suburb->name}}</option>
-              @endforeach
+    <div class="w3-row">
+      <div class="w3-col s2">
+        <p>Tel:</p>
+      </div>
+      <div class="w3-col s8">
+        <p>{{$contact->tel}}</p>
+      </div>
+    </div>
 
-            </optgroup>
-      @endforeach
+    <div class="w3-row">
+      <div class="w3-col s2">
+        <p>Mobile:</p>
+      </div>
+      <div class="w3-col s8">
+        <p>{{$contact->cell}}</p>
+      </div>
+    </div>
 
-  </select>
+    <div class="w3-row">
+      <div class="w3-col s2">
+        <p>Email:</p>
+      </div>
+      <div class="w3-col s8">
+        <p><a href="mailto:{{$contact->email}}">{{$contact->email}}</a></p>
+      </div>
+    </div>
 
-
-  <select name="ptypes[]" class="selectpicker" multiple data-width="100%" title="Please select property type(s)">
-
-
-            <optgroup label="Property Types">
-
-              @foreach ($ptypes as $ptype)
-                  <option data-content="<span class='label label-info'>{{$ptype->name}}</span>"  value="{{$ptype->id}}">{{$ptype->name}}</option>
-              @endforeach
-
-            </optgroup>
-
-
-  </select>
-
-
-
-  <select name="stypes[]" class="selectpicker" multiple data-width="100%" title="Please select sales type(s)">
-
-
-            <optgroup label="Sales Types">
-
-              @foreach ($stypes as $stype)
-                  <option data-content="<span class='label label-success'>{{$stype->name}}</span>"  value="{{$stype->id}}">{{$stype->name}}</option>
-              @endforeach
-
-            </optgroup>
-
-
-  </select>
-
-
-
-  <select name="status[]" class="selectpicker" multiple data-width="100%" title="Please select status(s)">
-
-
-            <optgroup label="Property Status">
-
-
-                  <option data-content="<span class='label label-primary'>Vacant</span>"  value="Vacant">Vacant</option>
-                  <option data-content="<span class='label label-primary'>Owner occupied</span>"  value="Vacant">Owner occupied</option>
-                  <option data-content="<span class='label label-primary'>Tenant occupied</span>"  value="Vacant">Tenent occupied</option>
-
-            </optgroup>
-
-
-  </select>
+    <div class="w3-row">
+      <div class="w3-col s2">
+        <p>Web:</p>
+      </div>
+      <div class="w3-col s8">
+        <p><a href="{{$contact->web}}">{{$contact->web}}</a></p>
+      </div>
+    </div>
 
 
-  <input type="text" class="form-control" name="min" style="width:100%" placeholder="Min size">
+    </li>
 
-  <input type="text" class="form-control" name="max" style="width:100%" placeholder="Min size">
+</div>
 
-
-
-                    <div class="form-group">
-                        <br>
-                    </div>
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-success">Search</button>
-                    </div>
-</form>
- <br><br>
-
-
- </div>
-
--->
  <div class="container maintable col-md-12 ">
-
+     <br>
      <div class="table-responsive  " style="overflow-x:auto;width:100%; ">
                 <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
                     <thead>
@@ -137,7 +115,7 @@ table,tr,td {
                                   {{ $property->id }}
                             </td>
                             <td>
-                                {{  $property->erf }}
+                                <a href="{{ url('/showproperty'.$property->id) }}" > {{  $property->erf }}</a>
                             </td>
                             <td>
                                 {{  $property->area_id }}
@@ -163,7 +141,7 @@ table,tr,td {
       </div>
 
      <div class="" style="z-index:-10 !important;float:right;">
-          {{$properties->links()}}
+
      </div>
 
   </div>

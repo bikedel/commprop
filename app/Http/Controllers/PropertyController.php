@@ -7,6 +7,7 @@ use App\Contact;
 use App\ContactType;
 use App\Grade;
 use App\Http\Controllers\Controller;
+use App\OwnershipType;
 use App\Property;
 use App\PropertyType;
 use App\SaleType;
@@ -34,15 +35,32 @@ class PropertyController extends Controller
 
         $username = Auth::user()->name;
         activity("Dashboard")->withProperties(['user' => $username])->log('Property ');
-        $areas   = Area::with('suburbs')->get();
-        $suburbs = Suburb::all();
-        $stypes  = SaleType::all();
-        $ptypes  = PropertyType::all();
 
-        $properties = Property::latest()->paginate(5);
+        $users        = User::all();
+        $areas        = Area::all();
+        $grades       = Grade::all();
+        $suburbs      = Suburb::all();
+        $stypes       = SaleType::all();
+        $ptypes       = PropertyType::all();
+        $statuses     = Status::all();
+        $contacts     = Contact::all();
+        $contacttypes = ContactType::all();
+        $ownerships   = OwnershipType::all();
+
+        $users        = $users->keyBy('id');
+        $statuses     = $statuses->keyBy('id');
+        $grades       = $grades->keyBy('id');
+        $stypes       = $stypes->keyBy('id');
+        $ptypes       = $ptypes->keyBy('id');
+        $suburbs      = $suburbs->keyBy('id');
+        $contacts     = $contacts->keyBy('id');
+        $contacttypes = $contacttypes->keyBy('id');
+        $ownerships   = $ownerships->keyBy('id');
+
+        $properties = Property::latest()->paginate(25);
         $properties->load('units', 'images', 'notes', 'owners');
         //dd($areas, $properties);
-        return view('dashboard.property', compact('properties', 'areas', 'suburbs', 'stypes', 'ptypes'));
+        return view('dashboard.property', compact('properties', 'areas', 'suburbs', 'stypes', 'ptypes', 'ownerships'));
     }
 
     /**

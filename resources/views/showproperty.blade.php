@@ -388,7 +388,7 @@ small {
 
 </div>
 
-    </div>
+
     <div id="contacts" class="tab-pane fade">
       <h3>Contacts</h3>
                  <div class="w3-col s12 w3-light-grey ">
@@ -441,19 +441,21 @@ small {
     </div>
 
   </div>
+ </div>
+  </div>
 
 
 
 
-</div>
-<div class="container-fluid">
+
+
 <div class="col-md-10 col-md-offset-1">
 
 <div class="w3-text-blue">
-
+ <hr>
 <p >This property has {{$property->units->count()}} units.</p>
  <hr>
-</div>
+
 
 			  <div class="w3-col s3">
 				     <p><button class="btn btn-primary" type="button"><span class="badge">{{$stat1}}</span>  </button><br> Vacant</p>
@@ -470,11 +472,13 @@ small {
 </div>
 </div>
 
+
+<div class="col-md-10 col-md-offset-1">
+<div class="container">
 @foreach ($property->units as $unit)
 
 
 
-<div class="col-md-10 col-md-offset-1">
 
 <hr>
 
@@ -584,9 +588,8 @@ small {
     </div>
 
   </div>
-</div>
 
-</div>
+
 
 
 

@@ -6,7 +6,7 @@
 html,body,table,h1,h2,h3,h4,h5 {
 
   font-family: "Raleway", sans-serif
-font-size:.5em !important;
+
   font-weight: 100;
 }
        p {
@@ -16,9 +16,8 @@ font-size:.5em !important;
 
 table,tr,td {
 
-  background-color: white !important;
   font-size:.9em !important;
-
+table-layout:fixed;
 
 }
 .map {
@@ -36,19 +35,19 @@ margin-left:-40;
 
  <div class="container maintable col-md-12">
 
-<div class="table-responsive " style="background-color:snow;height:600px;width:100%;border:1px solid #ccc;overflow:auto; padding:0px">
+<div  style="height:610px;width:100%;border:0px solid #ccc;overflow:auto; padding:0px">
 
 
-                <table class="table table-bordered table-hover ">
+                <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
                     <thead class="w3-blue">
                           <tr class=" w3-blue">
-                            <th width="100px" class="hidden-xs">#</th>
-                            <th width="250px" >Date</th>
-                           <th width="200px">Log Name</th>
-                            <th width="200px">Action</th>
-                            <th width="200px">Id</th>
-                            <th width="200px">Model</th>
-                            <th width="200px">User</th>
+                            <th width="80px" class="hidden-xs">#</th>
+                            <th width="120px" >Date</th>
+                           <th width="100px">Log Name</th>
+                            <th width="100px">Action</th>
+                            <th width="100px">Id</th>
+                            <th width="100px">Model</th>
+                            <th width="100px">User</th>
 
                             <th width="800px">Properties</th>
 
@@ -89,9 +88,10 @@ margin-left:-40;
                      </table>
       </div>
 
-        <button type="button" class="btn btn-default btn-sm pull-right">
-          <span class="glyphicon glyphicon-arrow-down"></span> <span class="glyphicon glyphicon-arrow-up"></span> Scroll
-        </button>
+
+      <div class="" style="z-index:-10 !important;float:right;">
+          {{$activities->links()}}
+     </div>
 </div>
 
 

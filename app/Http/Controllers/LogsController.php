@@ -29,7 +29,7 @@ class LogsController extends Controller
         $users = User::orderBy('id')->get();
         $users = $users->keyBy('id');
 
-        $activities = Activity::latest()->get();
+        $activities = Activity::latest()->paginate(100);
 
         //dd($activities);
         //dd($property);

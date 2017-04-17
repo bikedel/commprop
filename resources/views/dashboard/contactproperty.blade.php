@@ -13,7 +13,7 @@
 <style>
 table,tr,td,p {
 
-  font-size:.9em !important;
+  font-size:.98em !important;
   table-layout:fixed;
 }
 </style>
@@ -100,9 +100,10 @@ table,tr,td,p {
                          <tr class=" w3-blue">
                             <th width="80px" class="hidden-xs">Id</th>
                             <th width="100px">Erf</th>
+                            <th width="150px">Contact </th>
                             <th width="100px">Area</th>
                             <th width="280px">Address</th>
-                            <th width="280px">Title</th>
+                            <th width="380px">Title</th>
                             <th width="180px">Type</th>
                             <th width="180px">Status</th>
 
@@ -116,6 +117,43 @@ table,tr,td,p {
                             </td>
                             <td>
                                 <a href="{{ url('/showproperty'.$property->id) }}" > {{  $property->erf }}</a>
+                            </td>
+                            <td>
+                              @foreach ($property->owners as $type)
+
+                                 @if( $type->contact_id == $contact->id )
+
+                                     @if ($type->contact_type_id == 1 )
+                                     <p class="w3-text-orange">
+
+                                     [ {{$contacttypes[$type->contact_type_id]->name}} ]
+                                      @if ($type->unit_id > 0 ) <i class="w3-text-black">Unit {{$type->unit_id}} </i>@endif
+
+                                     </p>
+                                     @endif
+
+                                     @if ($type->contact_type_id == 2 )
+                                     <p class="w3-text-green">
+
+
+                                      [ {{$contacttypes[$type->contact_type_id]->name}} ]
+                                      @if ($type->unit_id > 0 ) <i class="w3-text-black">Unit {{$type->unit_id}} </i> @endif
+                                      </p>
+                                     @endif
+
+                                     @if ($type->contact_type_id == 3 )
+                                      <p class="w3-text-green">
+
+                                     [ {{$contacttypes[$type->contact_type_id]->name}} ]
+                                       @if ($type->unit_id > 0 ) <i class="w3-text-black">Unit {{$type->unit_id}}</i> @endif
+                                     </p>
+                                     @endif
+
+                                 @endif
+
+
+
+                              @endforeach
                             </td>
                             <td>
                                 {{  $property->area_id }}

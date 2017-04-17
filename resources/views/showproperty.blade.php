@@ -310,11 +310,11 @@ small {
   <ul class="nav nav-tabs">
     <li class="active"><a data-toggle="tab" href="#details">Erf: <b>{{$property->erf }}</b></a></li>
     <li><a data-toggle="tab" href="#notes">Notes</a></li>
-    <li><a data-toggle="tab" href="#contacts">Contacs</a></li>
+    <li><a data-toggle="tab" href="#contacts">Contacts</a></li>
   </ul>
 
   <div class="tab-content">
-    <div id="details" class="tab-pane fade in active ">
+    <div id="details" class="tab-pane fade in active " style="overflow-x:auto;width:100%;height:300px; ">
                   <h3>Details</h3>
 
 				  <div class="w3-col s10 ">
@@ -353,7 +353,7 @@ small {
 
 
   </div>
-    <div id="notes" class="tab-pane fade">
+    <div id="notes" class="tab-pane fade" style="overflow-x:auto;width:100%;height:300px; ">
       <h3>Notes</h3>
                  <div class="w3-col s12 w3-light-grey ">
 				  <div class="w3-col s2 ">
@@ -389,7 +389,7 @@ small {
 </div>
 
 
-    <div id="contacts" class="tab-pane fade">
+    <div id="contacts" class="tab-pane fade" style="overflow-x:auto;width:100%;height:300px; ">
       <h3>Contacts</h3>
                  <div class="w3-col s12 w3-light-grey ">
 				  <div class="w3-col s2 ">
@@ -491,7 +491,7 @@ small {
   </ul>
 
   <div class="tab-content">
-    <div id="home{{$unit->id}}" class="tab-pane fade in active">
+    <div id="home{{$unit->id}}" class="tab-pane fade in active" style="overflow-x:auto;width:100%;height:300px; ">
       <h3>Details</h3>
 		<p>Type: <b> {{$ptypes[$unit->property_type_id]->name}} {{$stypes[$unit->sale_type_id]->name}}</b></p>
 		<p>Status: <b> {{$statuses[$unit->status_id]->name}}</b></p>
@@ -504,7 +504,7 @@ small {
 		<p>Lease start: <b> {{$unit->lease_start}}</b></p>
 		<p>Lease end: <b> {{$unit->lease_end}}</b></p>
     </div>
-    <div id="menu1{{$unit->id}}" class="tab-pane fade">
+    <div id="menu1{{$unit->id}}" class="tab-pane fade" style="overflow-x:auto;width:100%;height:300px; ">
       <h3>Notes</h3>
                  <div class="w3-col s12 w3-light-grey ">
 				  <div class="w3-col s2 ">
@@ -536,7 +536,7 @@ small {
          @endif
       @endforeach
     </div>
-    <div id="menu2{{$unit->id}}" class="tab-pane fade">
+    <div id="menu2{{$unit->id}}" class="tab-pane fade" style="overflow-x:auto;width:100%;height:300px; ">
      <h3>Contacts</h3>
                  <div class="w3-col s12 w3-light-grey ">
 				  <div class="w3-col s2 ">

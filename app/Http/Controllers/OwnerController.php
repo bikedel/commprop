@@ -135,10 +135,12 @@ class OwnerController extends Controller
         $owners = Owner::where('contact_id', '=', $contact->id)->get();
 
         $p = [];
+        $t = [];
         //   echo $owners->count() . 'properties...' . '<br>';
         foreach ($owners as $owner) {
             //  echo 'o ' . $owner->property_id . ' ' . $owner->unit_id . ' ' . $types[$owner->contact_type_id]->name . '<br>';
             array_push($p, $owner->property_id);
+            array_push($t, $types[$owner->contact_type_id]->name);
         }
 
         $properties = Property::find($p); // returns a collection of models
@@ -172,7 +174,7 @@ class OwnerController extends Controller
         // $properties = Property::latest()->paginate(25);
         $properties->load('units', 'images', 'notes', 'owners');
         //dd($areas, $properties);
-        return view('dashboard.contactproperty', compact('properties', 'areas', 'suburbs', 'stypes', 'ptypes', 'ownerships', 'contact'));
+        return view('dashboard.contactproperty', compact('properties', 'areas', 'suburbs', 'stypes', 'ptypes', 'ownerships', 'contact', 'contacttypes'));
 
     }
 }

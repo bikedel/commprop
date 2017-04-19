@@ -172,7 +172,7 @@ font-size:.7em !important;
           <td>Erf: {{ $unit->property->erf}}</td>
             <td>Unit: {{ $unit->id}}</td>
             <td>Lease Start : {{ $unit->lease_start}}</td>
-            <td>Lease End : {{ $unit->lease_end}}</td>
+            <td>Lease End : <i class="w3-text-red"> {{ $unit->lease_end}}</i></td>
              <td> <a href="{{ url('/showproperty'.$unit->property_id) }}" class="w3-padding"><i class="fa fa-cog fa-fw"></i>  View</a></td>
 
           </tr>

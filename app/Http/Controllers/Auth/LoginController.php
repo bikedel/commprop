@@ -46,10 +46,11 @@ class LoginController extends Controller
 
         $username = Auth::user()->name;
 
-        $ip = request()->ip();
+        $useragent = request()->header('User-Agent');
+        $ip        = request()->ip();
         activity("Auth")->withProperties(
 
-            ['Ip' => $ip, 'user' => $username])->log('login ');
+            ['Ip' => $ip, 'user' => $username, 'UserAgent' => $useragent])->log('login ');
 
         //  if ($user->isAdmin()) {
 

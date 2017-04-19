@@ -654,6 +654,12 @@ line-height: 1.8;
                     </div>
 
                     <div class="form-group">
+                        <label for="Surname">Street:</label>
+                        <input type="text" name="street" class="form-control" v-model="newItem.street" />
+                        <span v-if="formErrors['street']" class="error text-danger">@{{ formErrors['street'][0] }}</span>
+                    </div>
+
+                    <div class="form-group">
                         <label for="Firstname">Suburb:</label>
                         <select  id ='area_id' name='area_id' class="form-control selectpicker" data-live-search="true" title='Select area...' data-width="100%" v-model="newItem.area_id"   >
                                     <optgroup v-for="area in areas" :label="area.name">
@@ -794,6 +800,12 @@ line-height: 1.8;
                         <label for="Surname">Address:</label>
                         <textarea type="text" name="address" rows="2" class="form-control" v-model="fillItem.address" ></textarea>
                         <span v-if="formErrorsUpdate['address']" class="error text-danger">@{{ formErrorsUpdate['address'][0] }}</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Surname">Street:</label>
+                        <input type="text" id="street" name="erf" class="form-control" v-model="fillItem.street" />
+                        <span v-if="formErrorsUpdate['street']" class="error text-danger">@{{ formErrorsUpdate['street'][0] }}</span>
                     </div>
 
                     <div class="form-group">
@@ -1563,7 +1575,7 @@ line-height: 1.8;
                         <label for="Firstname">Brochure:</label>
                        <select  id ='brochure_type' name ='brochure_type' class="form-control "   data-width="100%"   >
                                <option  v-bind:value='0'  > Format 1 </option>
-                                <option  v-bind:value='1'  > Format 2 </option>
+                              <!--  <option  v-bind:value='1'  > Format 2 </option>  -->
                         </select>
 
                     </div>

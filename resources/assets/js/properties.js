@@ -84,8 +84,8 @@ data:  {
 
     // set to '/laravel' for local and online set to ''
     // for local use /laravel - online ''
-    //offlinePath: '/laravel',
-    offlinePath: '',
+    offlinePath: '/laravel',
+    //offlinePath: '',
     seen: false,
 
     user: '',
@@ -124,6 +124,7 @@ data:  {
           'erf': '',
           'title':'',
           'address':'',
+          'street':'',
           'description':'',
           'area_id': '',
           'image': [],
@@ -135,6 +136,7 @@ data:  {
           'erf': '',
           'title':'',
            'address':'',
+           'street':'',
           'description':'',
           'area_id': '',
           'image': [],
@@ -739,6 +741,7 @@ data:  {
           this.fillItem.erf = item.erf;
           this.fillItem.title = item.title;
           this.fillItem.address = item.address;
+            this.fillItem.street = item.street;
           this.fillItem.description = item.description ;
           this.fillItem.area_id = item.area_id ;
           this.fillItem.image = item.images ;
@@ -1310,6 +1313,7 @@ data:  {
                           'erf': '',
                           'title':'',
                            'address':'',
+                           'street':'',
                           'description':'',
                           'area_id': '',
                           'image': [],

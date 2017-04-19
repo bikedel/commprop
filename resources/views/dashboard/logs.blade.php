@@ -43,6 +43,7 @@ margin-left:-40;
                           <tr class=" w3-blue">
                             <th width="80px" class="hidden-xs">#</th>
                             <th width="120px" >Date</th>
+                            <th width="120px" >Date</th>
                            <th width="100px">Log Name</th>
                             <th width="100px">Action</th>
                             <th width="100px">Id</th>
@@ -63,6 +64,9 @@ margin-left:-40;
                             </td>
                             <td>
                              {{ $activity->created_at->diffForHumans()}}
+                            </td>
+                            <td>
+                             {{ date('D m Y  H:i', strtotime($activity->created_at ))}}
                             </td>
                             <td>
                              {{$activity->log_name}}

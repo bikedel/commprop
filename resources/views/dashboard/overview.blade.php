@@ -9,8 +9,10 @@ font-size:.7em !important;
 }
        p {
         font-size:.8em !important;
-        font-weight: 100;
+        font-weight: 200;
        }
+
+
 
 </style>
 
@@ -133,7 +135,11 @@ font-size:.7em !important;
           <tr>
           <td>{{ $properties[$x]->created_at->diffForHumans()}}</td>
             <td>{{$properties[$x]->title}}</td>
-            <td>{{$properties[$x]->address}}</td>
+            @if (($properties[$x]->lat < 18 || $properties[$x]->lat > 1 && abs($properties[$x]->long) < 33 || abs($properties[$x]->long) > 34))
+            <td>{{$properties[$x]->address}} <i class="w3-text-red">- Invalid address</i></td>
+            @else
+            <td>{{$properties[$x]->address}} </td>
+            @endif
             <td> <a href="{{ url('/showproperty'.$properties[$x]->id) }}" class="w3-padding"><i class="fa fa-cog fa-fw"></i>  View</a></td>
 
           </tr>
@@ -216,7 +222,7 @@ font-size:.7em !important;
     <h5>Brokers</h5>
     <div class="w3-row">
       <div class="w3-col m2 text-center">
-        <img class="img-thumbnail" src="agents/Jack Bass.jpg" style="width:96px;height:96px">
+        <img class="img-thumbnail" src="agents/jack.png" style="width:96px;height:96px">
       </div>
       <div class="w3-col m10 w3-container">
         <h4>Jack Bass <span class="w3-opacity w3-medium"></span></h4>
@@ -226,7 +232,7 @@ font-size:.7em !important;
 
     <div class="w3-row">
       <div class="w3-col m2 text-center">
-        <img class="img-thumbnail" src="agents/Rob Odendaal.jpg" style="width:96px;height:96px">
+        <img class="img-thumbnail" src="agents/rob.png" style="width:96px;height:96px">
       </div>
       <div class="w3-col m10 w3-container">
         <h4>Rob Odendaal <span class="w3-opacity w3-medium"></span></h4>

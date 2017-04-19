@@ -92,6 +92,11 @@ table,tr,td,p {
 
 </div>
 
+ <header class="w3-container" style="padding-top:42px">
+ <br>
+    <h5><b><i class="fa fa-dashboard"></i>  Properties</b> </h5><br>
+  </header>
+
  <div class="container maintable col-md-12 ">
      <br>
      <div class="table-responsive  " style="overflow-x:auto;width:100%; ">

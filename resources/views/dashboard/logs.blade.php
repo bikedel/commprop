@@ -81,6 +81,7 @@ margin-left:-40;
                              {{$activity->subject_type}}
                             </td>
                             <td>
+
                               {{$users[$activity->causer_id]->name}}
                             </td>
                             <td>

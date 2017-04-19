@@ -16,7 +16,7 @@ class Property extends Model
     use LogsActivity;
 
     protected $guarded              = [];
-    protected static $logAttributes = ['erf', 'title', 'description', 'long', 'lat'];
+    protected static $logAttributes = ['erf', 'title', 'description', 'address', 'street', 'long', 'lat', 'area_id', 'grade_id', 'type', 'erf_size', 'buildinf_size', 'open_parking_bays', 'closed_parking_bays', 'image_id', 'sale_type_id'];
 
     public function units()
     {

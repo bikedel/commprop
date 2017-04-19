@@ -135,7 +135,7 @@ font-size:.7em !important;
           <tr>
           <td>{{ $properties[$x]->created_at->diffForHumans()}}</td>
             <td>{{$properties[$x]->title}}</td>
-            @if (($properties[$x]->lat < 18 || $properties[$x]->lat > 1 && abs($properties[$x]->long) < 33 || abs($properties[$x]->long) > 34))
+            @if (($properties[$x]->lat < 18 || $properties[$x]->lat > 1 && abs($properties[$x]->long) < 33 || abs($properties[$x]->long) > 35))
             <td>{{$properties[$x]->address}} <i class="w3-text-red">- Invalid address</i></td>
             @else
             <td>{{$properties[$x]->address}} </td>

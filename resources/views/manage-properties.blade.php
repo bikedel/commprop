@@ -390,7 +390,7 @@ line-height: 1.8;
     <h3>@{{ item.title }}</h3>
  <!--   <p><a v-bind:href="'gotoProperty'+item.id" class="map"> <span class="glyphicon glyphicon-map-marker"></span></a>@{{ suburbName(item.area_id) }}</p>  -->
 
-<div v-if="(item.lat < 18 || item.lat > 1 && Math.abs(item.long) < 33 || Math.abs(item.long) > 34)">
+<div v-if="(item.lat < 18 || item.lat > 1 && Math.abs(item.long) < 33 || Math.abs(item.long) > 35)">
    <p><a v-bind:href="'gotoProperty'+item.id" class="map"> <span class="glyphicon glyphicon-map-marker"></span></a>@{{ item.address }}<red>- Invalid address</red></p>
 </div>
 <div v-else>

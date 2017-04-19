@@ -67,7 +67,7 @@ class LoginController extends Controller
 
         activity("Auth")->withProperties(
 
-            ['Ip' => $ip, 'user' => $username])->log('logOut ');
+            ['user' => $username])->log('logOut ');
 
         //  if ($user->isAdmin()) {
 

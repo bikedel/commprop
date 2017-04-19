@@ -63,7 +63,11 @@ class LoginController extends Controller
     protected function logout(Request $request)
     {
 
-        activity("Auth")->log('logOut ');
+        $username = Auth::user()->name;
+
+        activity("Auth")->withProperties(
+
+            ['Ip' => $ip, 'user' => $username])->log('logOut ');
 
         //  if ($user->isAdmin()) {
 

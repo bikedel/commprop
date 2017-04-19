@@ -84,8 +84,8 @@ data:  {
 
     // set to '/laravel' for local and online set to ''
     // for local use /laravel - online ''
-    offlinePath: '/laravel',
-    //offlinePath: '',
+    //offlinePath: '/laravel',
+    offlinePath: '',
     seen: false,
 
     user: '',

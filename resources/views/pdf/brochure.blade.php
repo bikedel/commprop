@@ -43,6 +43,10 @@ p {
     font-size: 0.8em; /* 14px/16=0.875em */
 }
 
+.pmap {
+    font-family: 'Fira Sans';
+    font-size: 0.7em; /* 14px/16=0.875em */
+}
 
 .prop_img{
 
@@ -202,9 +206,9 @@ padding:0px;
 @foreach( $locations as $loc)
 
     @if (file_exists(public_path('/img/marker'.($loop->index+1).'.png')))
-       <p><img src="{{public_path()}}/img/marker{{$loop->index+1}}.png" width="20"  > {{$loc}}</p>
+     <p class="w3-text-blue pmap">  <img src="{{public_path()}}/img/marker{{$loop->index+1}}.png" width="20"  > {{$loc}}</p>
     @else
-       <p><img src="{{public_path()}}/img/marker.png" width="20"  > {{$loc}}</p>
+     <p class="w3-text-blue pmap"> <img src="{{public_path()}}/img/marker.png" width="20"  >  {{$loc}}</p>
     @endif
 
 
@@ -219,8 +223,9 @@ padding:0px;
 <div class="container-fluid page-break">
 
 
-   <header><h3 style="color:navy;"><img src="{{public_path()}}/img/marker{{$loop->index+1}}.png" width="30"  > Erf: {{$item->erf }} </h3><h4>{{$suburbs[$item->area_id]->name}}</h4></header>
-<img align="center" src = "http://maps.googleapis.com/maps/api/staticmap?size=600x200&markers=color:red%7Clabel:{{$loop->index+1}}%7C{{$item->long}},{{$item->lat}}&maptype=hybrid&scale=3&sensor=false&label=Hello&key=AIzaSyCNgTdT8SN3jIzbdvZu7CBPKw3zz8J4Pww"  width="740" height="200" class='prop_img 'alt='Google Map'/>
+   <header><h4 class="w3-text-blue"><img src="{{public_path()}}/img/marker{{$loop->index+1}}.png" width="20"  > {{$item->address }} </h4></header>
+   <!-- <h4>{{$suburbs[$item->area_id]->name}}</h4> -->
+<img align="center" src = "http://maps.googleapis.com/maps/api/staticmap?size=600x200&zoom=15&markers=color:red%7Clabel:{{$loop->index+1}}%7C{{$item->long}},{{$item->lat}}&maptype=hybrid&scale=20&sensor=false&label=Hello&key=AIzaSyCNgTdT8SN3jIzbdvZu7CBPKw3zz8J4Pww"  width="740" height="200" class='prop_img 'alt='Google Map'/>
 
              <div align="center" class="category page">
             <br>
@@ -242,7 +247,7 @@ padding:0px;
 
 
              </div>
-<h4 style="color:navy;"> {{$item->title}} </h4>
+<h4 class="w3-text-blue"> {{$item->title}} </h4>
 
 <p> {{$item->description}} </p>
 
@@ -330,11 +335,12 @@ padding:0px;
 
 
 <br>
-<br>
-<br>
+
 </div>
 
-
+<div>
+ <h5 class="w3-text-red">Notes:</h5> <p class="w3-text-blue">{{$note}} </p>
+</div>
 
 
 

@@ -780,7 +780,7 @@ line-height: 1.8;
 
                     <div class="form-group">
                         <label for="Surname">Erf Number:</label>
-                        <input type="text" id="erf" name="erf" class="form-control" v-model="fillItem.erf" />
+                        <input type="text"  name="erf" class="form-control" v-model="fillItem.erf" />
                         <span v-if="formErrorsUpdate['erf']" class="error text-danger">@{{ formErrorsUpdate['erf'][0] }}</span>
                     </div>
 
@@ -804,7 +804,7 @@ line-height: 1.8;
 
                     <div class="form-group">
                         <label for="Surname">Street:</label>
-                        <input type="text" id="street" name="erf" class="form-control" v-model="fillItem.street" />
+                        <input type="text" id="street" name="street" class="form-control" v-model="fillItem.street" />
                         <span v-if="formErrorsUpdate['street']" class="error text-danger">@{{ formErrorsUpdate['street'][0] }}</span>
                     </div>
 
@@ -1570,6 +1570,10 @@ line-height: 1.8;
                       <textarea type="text" id="brochure_text" name="brochure_text" class="form-control" placeholder="Add presentation text ..."  ></textarea>
                     </div>
 
+                    <div class="form-group" >
+                      <label for="Surname">Notes:</label>
+                      <textarea type="text" id="note" name="note" class="form-control" placeholder="Add notes ..."  ></textarea>
+                    </div>
 
                     <div class="form-group">
                         <label for="Firstname">Brochure:</label>

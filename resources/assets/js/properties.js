@@ -1359,12 +1359,13 @@ data:  {
           let brochure_text = document.getElementById('brochure_text').value;
           let client = document.getElementById('client').value;
           let brochure_type = document.getElementById('brochure_type').value;
+           let note = document.getElementById('note').value;
 
             //    axios.put(this.offlinePath+'/commprop/public/createpdf/'+this.agent+','+brochure_text+','+client).then(function (response) {
             //           toastr.success('Brochure complete.',  {timeOut: 5000});
             //    })
 
-          window.location.href = this.offlinePath+'/commprop/public/createpdf/'+this.agent+','+brochure_text+','+client+','+brochure_type;
+          window.location.href = this.offlinePath+'/commprop/public/createpdf/'+this.agent+','+brochure_text+','+client+','+brochure_type+','+note;
 
           $("#listBrochures_modal").modal('hide');
 

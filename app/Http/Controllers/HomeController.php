@@ -155,9 +155,9 @@ class HomeController extends Controller
         $ptypes    = PropertyType::all();
         //dd('test pdf');
 
-        // alerts for expirint leases
+        // alerts for expirint leases - 6 months
         $today  = Carbon::today();
-        $period = Carbon::today()->addMonths(2);
+        $period = Carbon::today()->addMonths(6);
 
         $alertunits = Unit::where('lease_end', '>', $today)->where('lease_end', '<', $period)->orderBy('lease_end', 'asc')->get();
         $alertunits->load('property');

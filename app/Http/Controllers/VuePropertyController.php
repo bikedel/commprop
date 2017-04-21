@@ -615,20 +615,20 @@ class VuePropertyController extends Controller
         //$property = new Property;
 
         $tosave['erf']         = $request->input('erf');
+        $tosave['street']      = $request->input('street');
         $tosave['title']       = $request->input('title');
         $tosave['address']     = $request->input('address');
         $tosave['description'] = $request->input('description');
 
         $rules = array(
-            'erf'   => 'required| numeric ',
-            'title' => 'required',
+
         );
 
         $messsages = array(
-            'erf.unique'     => 'This field must be unique',
-            'erf.required'   => 'This field is required',
-            'erf.numeric'    => 'This field must be a number',
-            'title.required' => 'This field is required',
+            //   'erf.unique'     => 'This field must be unique',
+            //   'erf.required'   => 'This field is required',
+            //   'erf.numeric'    => 'This field must be a number',
+            //   'title.required' => 'This field is required',
 
         );
 
@@ -662,11 +662,17 @@ class VuePropertyController extends Controller
 
             $output = json_decode($geocode);
 
-            $lat = $output->results[0]->geometry->location->lat;
-            $lng = $output->results[0]->geometry->location->lng;
+            if (sizeof($output->results) > 0) {
+                $lat            = $output->results[0]->geometry->location->lat;
+                $lng            = $output->results[0]->geometry->location->lng;
+                $tosave['lat']  = $lng;
+                $tosave['long'] = $lat;
+            } else {
+                $tosave['lat']  = 0;
+                $tosave['long'] = 0;
 
-            $tosave['lat']  = $lng;
-            $tosave['long'] = $lat;
+            }
+
         }
 
         $all = $request->all();
@@ -895,6 +901,7 @@ class VuePropertyController extends Controller
 
         $input = (explode(",", $myinput));
 
+        $note          = $input[4];
         $brochure_type = $input[3];
         $client        = $input[2];
         $brochure_text = $input[1];
@@ -940,7 +947,7 @@ class VuePropertyController extends Controller
             $loop    = $loop + 1;
             $marker  = '&markers=color:navy%7Clabel:' . $loop . '%7C' . $item->long . ',' . $item->lat;
             $markers = $markers . $marker;
-            array_push($locations, ' Erf: ' . $item->erf . ' ' . $item->address);
+            array_push($locations, $item->address);
             $log_units = $log_units . ',' . $item->erf;
             foreach ($item->units as $unit) {
                 $log_units = $log_units . '-' . $unit->id;
@@ -976,7 +983,7 @@ class VuePropertyController extends Controller
 
             // type 1 brochure
             if ($items->count() > 0) {
-                return PDF::loadView('pdf.brochure', compact('items', 'areas', 'suburbs', 'grades', 'ptypes', 'stypes', 'statuses', 'users', 'markers', 'locations', 'client', 'brochure_text'))->setOption('outline', true)->setOption('margin-top', 0)->setOption('margin-bottom', 45)->setOption('footer-line', false)->setOption('footer-html', url($footer))->download('Property_brochure_erf_' . $item->erf . '.pdf');
+                return PDF::loadView('pdf.brochure', compact('items', 'areas', 'suburbs', 'grades', 'ptypes', 'stypes', 'statuses', 'users', 'markers', 'locations', 'client', 'brochure_text', 'note'))->setOption('outline', true)->setOption('margin-top', 0)->setOption('margin-bottom', 45)->setOption('footer-line', false)->setOption('footer-html', url($footer))->download('Property_brochure_erf_' . $item->erf . '.pdf');
             } else {
 
                 return redirect()->back();
@@ -985,7 +992,7 @@ class VuePropertyController extends Controller
         } else {
             // type 2 brochure
             if ($items->count() > 0) {
-                return PDF::loadView('pdf.brochure_2', compact('items', 'areas', 'suburbs', 'grades', 'ptypes', 'stypes', 'statuses', 'users', 'markers', 'locations', 'client', 'brochure_text'))->setOption('outline', true)->setOption('margin-top', 0)->setOption('margin-bottom', 45)->setOption('footer-line', false)->setOption('footer-html', url($footer))->download('Property_brochure_erf_' . $item->erf . '.pdf');
+                return PDF::loadView('pdf.brochure_2', compact('items', 'areas', 'suburbs', 'grades', 'ptypes', 'stypes', 'statuses', 'users', 'markers', 'locations', 'client', 'brochure_text', 'note'))->setOption('outline', true)->setOption('margin-top', 0)->setOption('margin-bottom', 45)->setOption('footer-line', false)->setOption('footer-html', url($footer))->download('Property_brochure_erf_' . $item->erf . '.pdf');
             } else {
 
                 return redirect()->back();

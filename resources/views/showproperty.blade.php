@@ -493,6 +493,7 @@ small {
   <div class="tab-content">
     <div id="home{{$unit->id}}" class="tab-pane fade in active" style="overflow-x:auto;width:100%;height:300px; ">
       <h3>Details</h3>
+        <p>Section: <b> {{$unit->section}} </b></p>
 		<p>Type: <b> {{$ptypes[$unit->property_type_id]->name}} {{$stypes[$unit->sale_type_id]->name}}</b></p>
 		<p>Status: <b> {{$statuses[$unit->status_id]->name}}</b></p>
 		<p>Size: <b> {{$unit->size}} m<sup>2</sup></b></p>

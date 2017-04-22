@@ -111,6 +111,7 @@ color:white;
             <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
                 <tr>
                     <th width="160px">Action</th>
+                    <th width="130px">Unit Id</th>
                     <th width="130px">Property Id</th>
                     <th width="200px">Type</th>
                     <th width="130px">Status</th>
@@ -144,6 +145,7 @@ color:white;
                       <button class="btn btn-default btn-xs" @click.prevent="viewProperties(item.id)">Properties</button>
                       -->
                     </td>
+                    <td>@{{ item.id}}</td>
                     <td><a v-bind:href="'showproperty'+item.property_id" >@{{ item.property_id }}</a</td>
                     <td>@{{ propertyTypeName(item.property_type_id) }}  @{{ saleTypeName(item.sale_type_id) }}</td>
                     <td>@{{ statusName(item.status_id)}}</td>

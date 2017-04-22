@@ -25,14 +25,18 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
 
+                                <li>
+                                  <a  href="{{ url('/dashboard') }}">Dashboard</a>
+                                </li>
+
                             <li>
-                               <a href="{{ url('/manage-properties') }}"> Property </a>
+                               <a href="{{ url('/manage-properties') }}"> Search </a>
                             </li>
 
 
 
                             <li>
-                               <a  href="{{ url('/map') }}">Location</a>
+                               <a  href="{{ url('/map') }}">Map</a>
                             </li>
 
                     </ul>
@@ -56,9 +60,7 @@
                            <li>
                                   <a  href="{{ url('/readme') }}">Todo</a>
                                 </li>   -->
-                                <li>
-                                  <a  href="{{ url('/dashboard') }}">Dashboard</a>
-                                </li>
+
 
                            <!--     <li>
                                   <a  href="{{ url('/dropzone2') }}">Dropzone</a>

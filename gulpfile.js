@@ -20,5 +20,8 @@ elixir((mix) => {
     mix.sass('app.scss')
        .webpack('app.js')
        .webpack('properties.js')
+       .webpack('users.js')
+       .webpack('agents.js')
+       .webpack('contacts.js')
        ;
 });

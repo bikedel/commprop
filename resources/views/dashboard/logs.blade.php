@@ -27,21 +27,49 @@ margin-left:-40;
 </style>
 @section('content')
 
+<div class="w3-container" >
 
   <!-- Header -->
   <header class="w3-container" style="padding-top:42px">
     <h5><b><i class="fa fa-dashboard"></i> Logs</b></h5><br>
   </header>
 
- <div class="container maintable col-md-12">
 
-<div  style="height:610px;width:100%;border:0px solid #ccc;overflow:auto; padding:0px">
+
+
+        <div class="w3-container ">
+            <div class="col-lg-12 margin-tb">
+                <div class="pull-left">
+                    <h2></h2>
+                </div>
+<!--
+                 <div class="pull-right">
+                    <a href="{{ URL::route('exportUsers') }}" class="btn btn-warning"> Export no contacts</a>
+                    <button type="button" class="btn btn-primary btn-md" data-toggle="modal" data-target="#">
+                      @{{pagination.total}} Records
+                    </button>
+
+                </div>
+  -->
+                <div class="pull-left">
+                    <button type="button" class="btn btn-success btn-md" @click.prevent="createForms">
+                      Clear Log
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+
+ <div class="w3-container ">
+<br>
+<div  style="height:615px;width:100%;border:0px solid #ccc;overflow:auto; padding:0px">
 
 
                 <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
-                    <thead class="w3-blue">
-                          <tr class=" w3-blue">
-                            <th width="80px" class="hidden-xs">#</th>
+                    <thead>
+                          <tr >
+                            <th width="120px" class="hidden-xs">Action</th>
                             <th width="120px" >Date</th>
                             <th width="120px" >Date</th>
                            <th width="100px">Log Name</th>
@@ -60,7 +88,8 @@ margin-left:-40;
 
                         <tr>
                             <td class="hidden-xs">
-                              {{ $activity->id }}
+                              <button class="btn btn-primary btn-xs" @click.prevent="editItem(item)"> Edit</button>
+                              <button class="btn btn-danger btn-xs" @click.prevent="deleteItem(item)">Delete</button>
                             </td>
                             <td>
                              {{ $activity->created_at->diffForHumans()}}
@@ -81,8 +110,11 @@ margin-left:-40;
                              {{$activity->subject_type}}
                             </td>
                             <td>
-
+                              @if (array_key_exists($activity->causer_id,$users->toArray()))
                               {{$users[$activity->causer_id]->name}}
+                              @else
+                                {{$activity->causer_id}}
+                              @endif
                             </td>
                             <td>
                               {{$activity->properties}}
@@ -98,7 +130,7 @@ margin-left:-40;
           {{$activities->links()}}
      </div>
 </div>
-
+</div>
 
   <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.2.4.min.js"></script>
     <script type="text/javascript" src="{!! asset('js/app.js') !!}"></script>

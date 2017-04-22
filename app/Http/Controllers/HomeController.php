@@ -176,7 +176,19 @@ class HomeController extends Controller
         Mapper::location('cape town')->map(['zoom' => 10, 'center' => true, 'marker' => false, 'type' => 'HYBRID', 'overlay' => 'NONE']);
         // Mapper::informationWindow('cape town', 'Content');
         // get all properties
-        $areas      = Area::all();
+
+        $types = ['Freehold', 'Sectional Title'];
+
+        $stypes   = SaleType::all();
+        $ptypes   = PropertyType::all();
+        $statuses = Status::all();
+
+        $statuses = $statuses->keyBy('id');
+        $stypes   = $stypes->keyBy('id');
+        $ptypes   = $ptypes->keyBy('id');
+
+        $areas = Area::all();
+
         $properties = Property::all();
         $properties->load('images');
 
@@ -184,22 +196,24 @@ class HomeController extends Controller
             //echo $areas[$property->area_id]->name;
             if (sizeof($property->images) > 0) {
                 $image = 'property/' . $property->id . '/' . $property->images[0]['name'];
+            } else {
+                $image = 'img/sothebys_footer.png';
             }
             $link    = "<a href=" . url("/showproperty" . $property->id) . " >VIEW</a>";
-            $content = 'Erf : ' . $property->erf . '<br>';
-            $content = $content . $property->type . '<br>';
-            $content = $content . $property->status . '<br>';
+            $content = $property->address . '<br>';
+            $content = $content . $types[$property->type] . '<br>';
+            $content = $content . $stypes[$property->sale_type_id]->name . '<br>';
             $content = $content . $link . '<br>';
 
             // check for lat and long
             if ($property->long && $property->lat) {
 
-                if ($property->status == "To Let") {
-                    Mapper::marker($property->long, $property->lat, ['title' => $property->type . 'Erf: ' . $property->erf, 'eventRightClick' => 'console.log("right click");', 'content' => $content . '<br> <img src=' . $image . '  style="width:120px;" />', 'scale' => 13, 'animation' => 'DROP', 'icon' => "http://maps.google.com/mapfiles/ms/icons/green-dot.png"]);
-                } elseif ($property->status == "For Sale") {
-                    Mapper::marker($property->long, $property->lat, ['title' => $property->type . 'Erf: ' . $property->erf, 'eventRightClick' => 'console.log("right click");', 'content' => $content . '<br> <img src=' . $image . '  style="width:120px;" />', 'scale' => 13, 'animation' => 'DROP', 'icon' => "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png"]);
+                if ($property->sale_type_id == 2) {
+                    Mapper::marker($property->long, $property->lat, ['title' => 'Type: ' . $types[$property->type] . ' Erf: ' . $property->erf, 'eventRightClick' => 'console.log("right click");', 'content' => $content . '<br> <img src=' . $image . '  style="width:120px;" />', 'scale' => 13, 'animation' => 'DROP', 'icon' => "http://maps.google.com/mapfiles/ms/icons/green-dot.png"]);
+                } elseif ($property->sale_type_id == 1) {
+                    Mapper::marker($property->long, $property->lat, ['title' => 'Type: ' . $types[$property->type] . ' Erf: ' . $property->erf, 'eventRightClick' => 'console.log("right click");', 'content' => $content . '<br> <img src=' . $image . '  style="width:120px;" />', 'scale' => 13, 'animation' => 'DROP', 'icon' => "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png"]);
                 } else {
-                    Mapper::marker($property->long, $property->lat, ['title' => $property->type . 'Erf: ' . $property->erf, 'eventRightClick' => 'console.log("right click");', 'content' => $content . '<br> <img src=' . $image . '  style="width:120px;" />', 'scale' => 13, 'animation' => 'DROP', 'icon' => "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"]);
+                    Mapper::marker($property->long, $property->lat, ['title' => 'Type: ' . $types[$property->type] . ' Erf: ' . $property->erf, 'eventRightClick' => 'console.log("right click");', 'content' => $content . '<br> <img src=' . $image . '  style="width:120px;" />', 'scale' => 13, 'animation' => 'DROP', 'icon' => "http://maps.google.com/mapfiles/ms/icons/red-dot.png"]);
                 }
             }
 

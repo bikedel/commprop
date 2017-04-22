@@ -273,7 +273,7 @@ class VuePropertyController extends Controller
     {
 
         $rules = array(
-            'erf'       => 'required| numeric |unique:properties',
+            //'erf'       => 'required| numeric |unique:properties',
             'title'     => 'required',
             //  'image'   => 'mimes:jpeg,png,jpg,gif,svg|max:2048',
             'area_id'   => 'required',
@@ -791,12 +791,37 @@ class VuePropertyController extends Controller
         return response()->json(['data' => $update]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    public function clearbrochures()
+    {
+
+        $user = Auth::user()->id;
+
+        // get all set units
+        $units = Unit::where('brochure_users', '!=', '[]')->orderBy('property_id')->get();
+
+        foreach ($units as $unit) {
+
+            // check if the user_id is already in the array
+            // remove it if it is
+
+            $field = $unit->brochure_users;
+            //    echo implode(" ", $field) . '<br>';
+
+            if (($key = array_search($user, $field)) !== false) {
+                unset($field[$key]);
+                $field = array_values($field);
+
+                //  echo '  saveing ' . implode(" ", $field) . '<br>';
+
+                $unit->brochure_users = $field;
+                $unit->save();
+            }
+
+        }
+
+        return response()->json(['data' => true]);
+    }
+
     public function setbrochure(Request $request)
     {
 

@@ -31,63 +31,8 @@ class MapController extends Controller
     {
 
         activity("Google")->log('Map');
-/*
-// add lat long
-//$add = urlencode("11 belair, constantia");
-$add     = urlencode("25 jutland place, gauteng");
-$geocode = file_get_contents("https://maps.googleapis.com/maps/api/geocode/json?address=" . $add . "&key=AIzaSyCNXNSQD49r8fdL-d4RNs4MmWhZue_iAyM");
-
-$output    = json_decode($geocode);
-$town      = '';
-$city      = '';
-$city_area = '';
-
-foreach ($output->results[0]->address_components as $component) {
-if (in_array('street_number', $component->types)) {
-//$this->streetNumber = $component->long_name;
-} elseif (in_array('locality', $component->types)) {
-$city = $component->long_name;
-//$this->locality = $component->long_name;
-} elseif (in_array('postal_town', $component->types)) {
-//$this->town = $component->long_name;
-} elseif (in_array('sublocality', $component->types)) {
-//$this->town = $component->long_name;
-$city_area = $component->long_name;
-} elseif (in_array('administrative_area_level_2', $component->types)) {
-//$this->country = $component->long_name;
-} elseif (in_array('country', $component->types)) {
-//$this->country = $component->long_name;
-} elseif (in_array('administrative_area_level_1', $component->types)) {
-//$this->district = $component->long_name;
-$province = $component->long_name;
-} elseif (in_array('postal_code', $component->types)) {
-//$this->postcode = $component->long_name;
-} elseif (in_array('route', $component->types)) {
-//$this->streetAddress = $component->long_name;
-}
-}
-
-$lat = $output->results[0]->geometry->location->lat;
-$lng = $output->results[0]->geometry->location->lng;
-
-$tosave['lat']  = $lng;
-$tosave['long'] = $lat;
-
-$status            = $output->status;
-$formatted_address = $output->results[0]->formatted_address;
-
-dd($status, $lat, $lng, $formatted_address, $province, $city, $city_area, $output);
- */
-//marker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png')
 
         Mapper::map(-34.0249, 18.9241, ['zoom' => 10, 'center' => true, 'marker' => false, 'type' => 'HYBRID', 'overlay' => 'NONE']);
-
-        //  Mapper::map(-34.381128999999990000, 18.470085000000040000)->rectangle([['latitude' => -34.381128999999990000, 'longitude' => 18.470085000000040000], ['latitude' => -34.381128999999990000, 'longitude' => 18.470085000000040000]], ['strokeColor' => '#000000', 'strokeOpacity' => 0.1, 'strokeWeight' => 2, 'fillColor' => '#FFFFFF']);
-        // Mapper::circle([['latitude' => -34.0249, 'longitude' => 18.9241, 'strokeColor' => '#000000', 'strokeOpacity' => 0.1, 'strokeWeight' => 2, 'fillColor' => '#Fccc', 'radius' => 100]]);
-        //    Mapper::marker(-34.0249, 18.9241, ['symbol' => 'circle', 'scale' => 1000]);
-
-        // Mapper::informationWindow('cape town', 'Content');
-        // get all properties
 
         $types = ['Freehold', 'Sectional Title'];
 
@@ -112,7 +57,7 @@ dd($status, $lat, $lng, $formatted_address, $province, $city, $city_area, $outpu
                 $image = 'img/sothebys_footer.png';
             }
             $link    = "<a href=" . url("/showproperty" . $property->id) . " >VIEW</a>";
-            $content = 'Erf : ' . $property->erf . '<br>';
+            $content = $property->address . '<br>';
             $content = $content . $types[$property->type] . '<br>';
             $content = $content . $stypes[$property->sale_type_id]->name . '<br>';
             $content = $content . $link . '<br>';
@@ -200,7 +145,7 @@ dd($status, $lat, $lng, $formatted_address, $province, $city, $city_area, $outpu
                 $image = 'img/sothebys_footer.png';
             }
             $link    = "<a href=" . url("/showproperty" . $property->id) . " >VIEW</a>";
-            $content = 'Erf : ' . $property->erf . '<br>';
+            $content = $property->address . '<br>';
             $content = $content . $types[$property->type] . '<br>';
             $content = $content . $stypes[$property->sale_type_id]->name . '<br>';
             $content = $content . $link . '<br>';

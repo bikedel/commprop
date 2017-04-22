@@ -161,20 +161,29 @@ class OwnerController extends Controller
         $contacttypes = ContactType::all();
         $ownerships   = OwnershipType::all();
 
-        $users        = $users->keyBy('id');
-        $statuses     = $statuses->keyBy('id');
-        $grades       = $grades->keyBy('id');
-        $stypes       = $stypes->keyBy('id');
-        $ptypes       = $ptypes->keyBy('id');
-        $suburbs      = $suburbs->keyBy('id');
-        $contacts     = $contacts->keyBy('id');
-        $contacttypes = $contacttypes->keyBy('id');
-        $ownerships   = $ownerships->keyBy('id');
+        $users    = $users->keyBy('id');
+        $statuses = $statuses->keyBy('id');
+        $grades   = $grades->keyBy('id');
+        $stypes   = $stypes->keyBy('id');
+        $ptypes   = $ptypes->keyBy('id');
+        $suburbs  = $suburbs->keyBy('id');
+        //  $contacts     = $contacts->keyBy('id');
+        //  $contacttypes = $contacttypes->keyBy('id');
+        $ownerships = $ownerships->keyBy('id');
 
         // $properties = Property::latest()->paginate(25);
         $properties->load('units', 'images', 'notes', 'owners');
         //dd($areas, $properties);
-        return view('dashboard.contactproperty', compact('properties', 'areas', 'suburbs', 'stypes', 'ptypes', 'ownerships', 'contact', 'contacttypes'));
+
+        $response = [
+
+            'data'         => $properties,
+            'contacttypes' => $contacttypes,
+
+        ];
+
+        return response()->json($response);
+        // return view('dashboard.contactproperty', compact('properties', 'areas', 'suburbs', 'stypes', 'ptypes', 'ownerships', 'contact', 'contacttypes'));
 
     }
 }

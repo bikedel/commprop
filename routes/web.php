@@ -32,6 +32,8 @@ Route::post('register', 'Auth\RegisterController@register');
 //Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm');
 //Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
+Route::get('/users', 'UserController@index');
+Route::get('/adminagents', 'AgentController@index');
 //dropzone
 Route::get('dropzone2', 'HomeController@dropzone');
 Route::post('dropzone/store', ['as' => 'dropzone.store', 'uses' => 'HomeController@dropzoneStore']);
@@ -94,6 +96,9 @@ Route::post('/vuepropertiesAddOwner', 'VuePropertyController@addowner');
 // set brochure
 Route::post('/setbrochure', 'VuePropertyController@setbrochure');
 
+// clear set brochures for user
+Route::get('/clearbrochures', 'VuePropertyController@clearbrochures');
+
 //update property
 Route::post('/updateproperty/{id}', 'VuePropertyController@updateproperty');
 
@@ -115,3 +120,24 @@ Route::get('/createpdf/{myinput}', 'VuePropertyController@createPdf');
 Route::get('/showproperty{id}', 'PropertyController@show');
 
 Route::get('/showunit{id}', 'UnitController@show');
+
+// User maintenance in dashboard
+Route::get('manage-users', 'VueUserController@manageVue');
+Route::resource('vueusers', 'VueUserController');
+Route::post('/updateuser/{id}', 'VueUserController@updateuser');
+Route::post('searchvueusers/{search}', 'VueUserController@search');
+Route::get('/exportUsers', 'VueUserController@export')->name('exportUsers');
+
+// Agent maintenance in dashboard
+Route::get('manage-agents', 'VueAgentController@manageVue');
+Route::resource('vueagents', 'VueAgentController');
+Route::post('/updateagent/{id}', 'VueAgentController@updateagent');
+Route::post('searchvueagents/{search}', 'VueAgentController@search');
+Route::get('/exportAgents', 'VueAgentController@export')->name('exportAgents');
+
+// Contacts maintenance in dashboard
+Route::get('manage-contacts', 'VueContactController@manageVue');
+Route::resource('vuecontacts', 'VueContactController');
+Route::post('/updatecontact/{id}', 'VueContactController@updatecontact');
+Route::post('searchvuecontacts/{search}', 'VueContactController@search');
+Route::get('/exportContacts', 'VueContactController@export')->name('exportContacts');

@@ -1,9 +1,24 @@
 
-@extends('layouts.app')
+@extends('dashboard.dashboard')
 
+  <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.2.4.min.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
+
+<style>
+table,tr,td {
+
+  font-size:.9em !important;
+  table-layout:fixed;
+}
+</style>
 
 @section('content')
-
 
 
 
@@ -355,7 +370,7 @@ line-height: 1.8;
         <!-- Pagination -->
         <nav style="z-index:-100;">
             <ul class="pagination .pagination-sm">
-            <li> <button id="print_brochure_button" class="btn btn-default newprop" @click.prevent="showBrochures">Print Brochure</button> </li>
+            <li> <button class="btn btn-default newprop" @click.prevent="showBrochures">Print Brochure</button> </li>
             <li> <button class="btn btn-success newprop" @click.prevent="createForms">New Property</button> </li>
 
             <li><button type="button" class="btn btn-default total" disabled >@{{pagination.total}} records</button></li>
@@ -452,13 +467,11 @@ line-height: 1.8;
             <button class="btn btn-default btn-xs" v-if="seen" v-on:click="seen = !seen">Hide Details</button>
             <button class="btn btn-default btn-xs" v-else="!seen" v-on:click="seen = !seen">Show Details</button>
 
-           @if ( Auth::user()->getRoleName()  == "Admin" ||  Auth::user()->getRoleName()  == "System")
+           @if ( Auth::user()->getRoleName()  == "Admin")
 
                <button class="btn btn-primary btn-xs" @click.prevent="editItem(item)">Edit</button>
                <button class="btn btn-success btn-xs " @click.prevent="addUnit(item)">Add Unit</button>
-                @if ( Auth::user()->getRoleName()  == "System")
-                   <button class="btn btn-danger btn-xs" @click.prevent="deleteItem(item)">Delete</button>
-               @endif
+               <button class="btn btn-danger btn-xs" @click.prevent="deleteItem(item)">Delete</button>
 
            @endif
            <!-- editnote and contacts - second param is 0 for main property -->
@@ -560,11 +573,9 @@ line-height: 1.8;
 
                                <button title="Notes" class="btn btn-warning btn-xs pull right" @click.prevent="editNote(item,unit)"><span class="glyphicon glyphicon-list-alt"></span> </button>
                                <button title="Contacts" class="btn btn-info btn-xs pull right" @click.prevent="editOwner(item,unit)"> <span class="glyphicon glyphicon-user"></span> </button>
-                               @if ( Auth::user()->getRoleName()  == "Admin"  ||  Auth::user()->getRoleName()  == "System")
+                               @if ( Auth::user()->getRoleName()  == "Admin")
                                    <button title="Edit" class="btn btn-primary btn-xs" @click.prevent="editUnit(item,unit)"><span class="glyphicon glyphicon-pencil"></span> </button>
-                               @if ( Auth::user()->getRoleName()  == "System")
                                    <button title="Delete" class="btn btn-danger btn-xs pull right" @click.prevent="deleteUnit(unit)"><span class="glyphicon glyphicon-trash"></span> </button>
-                               @endif
                                @endif
 
                                <!--  <a v-bind:href="'showunit'+unit.id" class="btn btn-default btn-xs pull right" role="button">Details</a>  -->
@@ -1414,7 +1425,7 @@ line-height: 1.8;
                      <br>
                      </div>
 
-                     @if ( Auth::user()->getRoleName()  == "Admin" ||  Auth::user()->getRoleName()  == "System")
+                    @if ( Auth::user()->getRoleName()  == "Admin")
 
                         <div class="form-group">
 
@@ -1613,6 +1624,4 @@ line-height: 1.8;
     <script type="text/javascript" src="js/properties.js" ></script>
 
 
-
-
-    @endsection
+@endsection

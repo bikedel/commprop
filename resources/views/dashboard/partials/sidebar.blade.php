@@ -22,20 +22,39 @@
   </div>
   <hr>
   <div class="w3-container">
-    <h5>Dashboard</h5>
+  <!--  <h5>Dashboard</h5><br>  -->
   </div>
   <a href="#" class="w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Close Menu</a>
   <a href="{{ url('/dashboard') }}" class="w3-padding "><i class="fa fa-users fa-fw"></i>  Overview</a>
-  <a href="{{ url('/owners') }}" class="w3-padding"><i class="fa fa-eye fa-fw"></i>  Contacts</a>
-  <a href="{{ url('/properties') }}" class="w3-padding"><i class="fa fa-users fa-fw"></i>  Properties</a>
-    <a href="{{ url('/dashboardmap') }}" class="w3-padding"><i class="fa fa-bank fa-fw"></i>  Map</a>
+  <a href="{{ url('/manage-contacts') }}" class="w3-padding"><i class="fa fa-eye fa-fw"></i>  Contacts</a>
+  <!--
+  <a href="{{ url('/properties') }}" class="w3-padding"><i class="fa fa-home fa-fw"></i>  Properties</a>
+-->
+
 <!--
   <a href="#" class="w3-padding"><i class="fa fa-bullseye fa-fw"></i>  Legal Docs</a>
   <a href="#" class="w3-padding"><i class="fa fa-diamond fa-fw"></i>  Broker Reports</a>
   <a href="#" class="w3-padding"><i class="fa fa-bell fa-fw"></i>  CRM Reports</a>
 -->
+  <a href="{{ url('/home') }}" class="w3-padding"><i class="fa fa-search fa-fw"></i>  Properties</a>
+  <a href="{{ url('/dashboardmap') }}" class="w3-padding"><i class="fa fa-map-marker fa-fw"></i>  Map</a>
+   <hr>
+ @if ( Auth::user()->getRoleName()  == "System")
+
+   <a href="{{ url('/manage-agents') }}" class="w3-padding"><i class="fa fa-address-card fa-fw"></i>  Agents</a>
+  <a href="{{ url('/manage-users') }}" class="w3-padding"><i class="fa fa-user-circle-o fa-fw"></i>  Users</a>
   <a href="{{ url('/logs') }}" class="w3-padding"><i class="fa fa-cog fa-fw"></i>  Logs</a>
-   <a href="{{ url('/home') }}" class="w3-padding"><i class="fa fa-cog fa-fw"></i>  Home</a><br><br>
+  <hr>
+  @endif
+
+  <a href="{{ url('/logout') }}" class="w3-padding"
+     onclick="event.preventDefault();
+     document.getElementById('logout-form').submit();" >
+    <i class="fa fa-sign-out fa-fw" ></i>  Logout </a>
+
+  <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+     {{ csrf_field() }}
+  </form>
 </nav>
 
 

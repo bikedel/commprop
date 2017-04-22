@@ -5,18 +5,21 @@ namespace App;
 use App\Role;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class User extends Authenticatable
 {
     use Notifiable;
+    use LogsActivity;
 
+    protected static $logAttributes = ['name', 'email', 'agent_id', 'role_id', 'avatar'];
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'role_id', 'password',
+        'name', 'email', 'role_id', 'agent_id', 'avatar', 'password',
     ];
 
     /**

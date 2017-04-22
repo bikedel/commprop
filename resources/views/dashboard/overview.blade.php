@@ -69,6 +69,7 @@ font-size:.7em !important;
     </div>
   </div>
 
+<!--
 <br>
   <div class="w3-row-padding w3-margin-bottom">
     <div class="w3-quarter">
@@ -119,7 +120,7 @@ font-size:.7em !important;
     </div>
 
   </div>
-
+-->
 
 
   <div class="w3-container">
@@ -163,7 +164,7 @@ font-size:.7em !important;
   <br>
    <button class="w3-button w3-red" role="button">Alerts  <i class="fa fa-exclamation-triangle"></i></button>
    <br><br>
-    <h5>Lease expiring</h5>
+    <h5>Lease expiring in next 6 months</h5>
     <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
 
 

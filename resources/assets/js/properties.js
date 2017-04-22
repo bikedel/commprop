@@ -887,6 +887,45 @@ data:  {
         },
 
 
+       clearBrochures: function(){
+
+               // console.log("Brochure toggle item: "+item.id+" unit: "+unit.id);
+
+
+
+                var vm = this; 
+
+                axios.get(vm.offlinePath+'/commprop/public/clearbrochures').then(function (response) {
+
+  
+                      vm.changePage(vm.pagination.current_page);
+
+
+                      if (response.data.data == true) {
+                         toastr.success('Brochures cleared ',  {timeOut: 5000});
+                      } else
+                      {
+                        toastr.warning('Brochures not cleared',  {timeOut: 5000});
+                      }
+                })
+                .catch(function (error) {
+                     status = error.response.status;
+                   //  console.log(error.response.status);
+                    
+                    if (status == 422)
+                    {
+                          vm.formErrors = error.response.data;
+                          toastr.warning("Error clearing brochures", 'Warning', {timeOut: 5000});
+                    }else{
+                          toastr.error("Please refresh the browser.", 'Session expired', {timeOut: 5000});
+                    }
+
+  
+                });
+
+        },
+
+
        setBrochure: function(item,unit){
 
                 console.log("Brochure toggle item: "+item.id+" unit: "+unit.id);
@@ -1355,11 +1394,12 @@ data:  {
 
       createPDF: function(){
 
-          console.log("print broc");
+          var vm =this;
+         
           let brochure_text = document.getElementById('brochure_text').value;
           let client = document.getElementById('client').value;
           let brochure_type = document.getElementById('brochure_type').value;
-           let note = document.getElementById('note').value;
+          let note = document.getElementById('note').value;
 
             //    axios.put(this.offlinePath+'/commprop/public/createpdf/'+this.agent+','+brochure_text+','+client).then(function (response) {
             //           toastr.success('Brochure complete.',  {timeOut: 5000});
@@ -1369,6 +1409,14 @@ data:  {
 
           $("#listBrochures_modal").modal('hide');
 
+          document.getElementById("print_brochure_button").disabled = true;
+          // clear set brochures
+          setTimeout(function() {
+            
+                vm.clearBrochures();
+                vm.listBrochures();
+                document.getElementById("print_brochure_button").disabled = false;
+          }, 3000);
 
       },
 

@@ -31,7 +31,7 @@ class LoginController extends Controller
     {
         if (Auth::attempt(['email' => $email, 'password' => $password])) {
             // Authentication passed...
-            return redirect('/home');
+            return redirect('/dashboard');
         }
     }
     /**

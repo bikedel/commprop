@@ -87,7 +87,7 @@ color:white;
                 </div>
 
                  <div class="pull-right">
-                    <a href="{{ URL::route('exportContacts') }}" class="btn btn-warning"> Export Units</a>
+                    <a href="{{ URL::route('exportUnits') }}" class="btn btn-warning"> Export Units</a>
                     <button type="button" class="btn btn-primary btn-md" data-toggle="modal" data-target="#">
                       @{{pagination.total}} Records
                     </button>
@@ -110,7 +110,7 @@ color:white;
             <br>
             <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
                 <tr>
-                    <th width="200px">Action</th>
+                    <th width="160px">Action</th>
                     <th width="130px">Property Id</th>
                     <th width="200px">Type</th>
                     <th width="130px">Status</th>
@@ -140,7 +140,9 @@ color:white;
                     @endif
 
                     @endif
+                    <!--
                       <button class="btn btn-default btn-xs" @click.prevent="viewProperties(item.id)">Properties</button>
+                      -->
                     </td>
                     <td>@{{ item.property_id }}</td>
                     <td>@{{ propertyTypeName(item.property_type_id) }}  @{{ saleTypeName(item.sale_type_id) }}</td>
@@ -203,7 +205,7 @@ color:white;
              <form method="POST" enctype="multipart/form-data" v-on:submit.prevent="createItem">
               <div class="modal-header">
                 <button type="button" id="create-item-modal-header-button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                <h4 class="modal-title" id="myModalLabel">New Contact</h4>
+                <h4 class="modal-title" id="myModalLabel">New Unit</h4>
               </div>
 
               <div class="modal-body">
@@ -216,53 +218,148 @@ color:white;
                       </div>
                     @endif
 
-                    <div class="form-group">
+
+                     <div class="form-group">
                        <span v-if="formErrors['test']" class="error text-danger">@{{ formErrors['test'][0] }}</span>
                     </div>
 
-                    <div class="form-group">
-                        <label for="strIDNumber">Company:</label>
-                        <input type="text" name="company" class="form-control" v-model="newItem.company" />
-                        <span v-if="formErrors['company']" class="error text-danger">@{{ formErrors['company'][0] }}</span>
+                    <div class="form-group" >
+                        <label for="Surname">Property Id:</label>
+                        <input type="text" name="id" class="form-control" v-model="newItem.id" />
+                        <span v-if="formErrors['id']" class="error text-danger">@{{ formErrors['id'][0] }}</span>
+                    </div>
+
+                    <div class="form-group" >
+                        <label for="Surname">Unit/Section:</label>
+                        <input type="text" name="section" class="form-control" v-model="newItem.section" />
+                        <span v-if="formErrors['section']" class="error text-danger">@{{ formErrors['section'][0] }}</span>
                     </div>
 
                     <div class="form-group">
-                        <label for="strIDNumber">FirstName:</label>
-                        <input type="text" name="firstname" class="form-control" v-model="newItem.firstname" />
-                        <span v-if="formErrors['firstname']" class="error text-danger">@{{ formErrors['firstname'][0] }}</span>
+                        <label for="Firstname">Property Type:</label>
+
+                        <select  id='property_type_id' name='property_type_id' class="form-control "  v-model="newItem.property_type_id"  style="width: 100%;"  >
+                           <option value="0" disabled  hidden>Please select property type...</option>
+                               <option v-for="ptype in ptypes" :value="ptype.id"  >
+                                    @{{ ptype.name }}
+                               </option>
+                        </select>
+                        <span v-if="formErrors['property_type_id']" class="error text-danger">@{{ formErrors['property_type_id'][0] }}</span>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="Firstname">Sale Type:</label>
+
+                        <select  id='sale_type_id' name='sale_type_id' class="form-control "  v-model="newItem.sale_type_id"  style="width: 100%;"  >
+                           <option value="0" disabled  hidden>Please select sale type...</option>
+                               <option v-for="stype in stypes" :value="stype.id"  >
+                                    @{{ stype.name }}
+                               </option>
+                        </select>
+                        <span v-if="formErrors['sale_type_id']" class="error text-danger">@{{ formErrors['sale_type_id'][0] }}</span>
                     </div>
 
                     <div class="form-group">
-                        <label for="strIDNumber">LastName:</label>
-                        <input type="text" name="lastname" class="form-control" v-model="newItem.lastname" />
-                        <span v-if="formErrors['lastname']" class="error text-danger">@{{ formErrors['lastname'][0] }}</span>
+                        <label for="Firstname">Status:</label>
+
+                        <select  id='status_id' name='status_id' class="form-control "  v-model="newItem.status_id"  style="width: 100%;"  >
+                           <option value="0" disabled  hidden>Please select status...</option>
+                               <option v-for="status in statuses" :value="status.id"  >
+                                    @{{ status.name }}
+                               </option>
+                        </select>
+                        <span v-if="formErrors['status_id']" class="error text-danger">@{{ formErrors['status_id'][0] }}</span>
+                    </div>
+
+
+                    <div class="form-group" >
+                        <label for="Surname">Size:</label>
+                        <input type="text" name="size" class="form-control" v-model="newItem.size" />
+                        <span v-if="formErrors['size']" class="error text-danger">@{{ formErrors['size'][0] }}</span>
+                    </div>
+
+
+                    <div class="form-group" >
+                        <label for="Surname">Price:</label>
+                        <input type="text" name="price" class="form-control" v-model="newItem.price" />
+                        <span v-if="formErrors['price']" class="error text-danger">@{{ formErrors['price'][0] }}</span>
+                    </div>
+
+                    <div class="form-group" >
+                        <label for="Surname">Deposit:</label>
+                        <input type="text" name="deposit" class="form-control" v-model="newItem.deposit" />
+                        <span v-if="formErrors['deposit']" class="error text-danger">@{{ formErrors['deposit'][0] }}</span>
+                    </div>
+
+                    <div class="form-group" >
+                        <label for="Surname">Gross Rental:</label>
+                        <input type="text" name="gross_rental" class="form-control" v-model="newItem.gross_rental" />
+                        <span v-if="formErrors['gross_rental']" class="error text-danger">@{{ formErrors['gross_rental'][0] }}</span>
+                    </div>
+
+                    <div class="form-group" >
+                        <label for="Surname">Net Rental:</label>
+                        <input type="text" name="net_rental" class="form-control" v-model="newItem.net_rental" />
+                        <span v-if="formErrors['net_rental']" class="error text-danger">@{{ formErrors['net_rental'][0] }}</span>
+                    </div>
+
+                   <div class="form-group" >
+                        <label for="Surname">Ops Costs:</label>
+                        <input type="text" name="ops_costs" class="form-control" v-model="newItem.ops_costs" />
+                        <span v-if="formErrors['ops_costs']" class="error text-danger">@{{ formErrors['ops_costs'][0] }}</span>
+                    </div>
+
+                   <div class="form-group" >
+                        <label for="Surname">Rates:</label>
+                        <input type="text" name="rates" class="form-control" v-model="newItem.rates" />
+                        <span v-if="formErrors['rates']" class="error text-danger">@{{ formErrors['rates'][0] }}</span>
+                    </div>
+
+                   <div class="form-group" >
+                        <label for="Surname">Investment Yield:</label>
+                        <input type="text" name="investment_yield" class="form-control" v-model="newItem.investment_yield" />
+                        <span v-if="formErrors['investment_yield']" class="error text-danger">@{{ formErrors['investment_yield'][0] }}</span>
+                    </div>
+
+
+                    <div class="form-group" >
+                        <label for="Surname">Lease Start:</label>
+                        <input type="date" name="lease_start" class="form-control" v-model="newItem.lease_start" />
+                        <span v-if="formErrors['lease_start']" class="error text-danger">@{{ formErrors['lease_start'][0] }}</span>
+                    </div>
+
+                    <div class="form-group" >
+                        <label for="Surname">Lease End:</label>
+                        <input type="date" name="lease_end" class="form-control" v-model="newItem.lease_end" />
+                        <span v-if="formErrors['lease_end']" class="error text-danger">@{{ formErrors['lease_end'][0] }}</span>
                     </div>
 
                     <div class="form-group">
-                        <label for="strSurname">Email:</label>
-                        <input type="text" name="email" class="form-control" v-model="newItem.email" />
-                        <span v-if="formErrors['email']" class="error text-danger">@{{ formErrors['email'][0] }}</span>
+                        <label for="Firstname">Active Agent:</label>
+
+                        <select  id='agent_id' name='active_broker_id' class="form-control "  v-model="newItem.active_broker_id" style="width: 100%;"  >
+                           <option value="0" disabled  hidden>Please select agent...</option>
+                               <option v-for="agent in agents" :value="agent.id"  >
+                                    @{{ agent.name }}
+                               </option>
+                        </select>
+                        <span v-if="formErrors['active_broker_id']" class="error text-danger">@{{ formErrors['abroker'][0] }}</span>
                     </div>
 
                     <div class="form-group">
-                        <label for="strSurname">Tel:</label>
-                        <input type="text" name="tel" class="form-control" v-model="newItem.tel" />
-                        <span v-if="formErrors['tel']" class="error text-danger">@{{ formErrors['tel'][0] }}</span>
+                        <label for="Firstname">Listing Agent:</label>
+
+                        <select  id='agent_id' name='listing_broker_id' class="form-control "  v-model="newItem.listing_broker_id" style="width: 100%;"  >
+                           <option value="0" disabled  hidden>Please select agent...</option>
+                               <option v-for="agent in agents" :value="agent.id"  >
+                                    @{{ agent.name }}
+                               </option>
+                        </select>
+                        <span v-if="formErrors['listing_broker_id']" class="error text-danger">@{{ formErrors['lbroker'][0] }}</span>
                     </div>
 
-                    <div class="form-group">
-                        <label for="strSurname">Cell:</label>
-                        <input type="text" name="cell" class="form-control" v-model="newItem.cell" />
-                        <span v-if="formErrors['cell']" class="error text-danger">@{{ formErrors['cell'][0] }}</span>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="strSurname">Website:</label>
-                        <input type="text" name="website"  class="form-control" v-model="newItem.website" />
-                        <span v-if="formErrors['website']" class="error text-danger">@{{ formErrors['website'][0] }}</span>
-                    </div>
-
-                 </div>
+              </div>
 
 
                 <div class="form-group modal-footer">
@@ -294,47 +391,143 @@ color:white;
                        <span v-if="formErrorsUpdate['test']" class="error text-danger">@{{ formErrorsUpdate['test'][0] }}</span>
                     </div>
 
-                    <div class="form-group">
-                        <label for="strIDNumber">Company:</label>
-                        <input type="text" name="company" class="form-control" v-model="fillItem.company" />
-                        <span v-if="formErrorsUpdate['company']" class="error text-danger">@{{ formErrorsUpdate['company'][0] }}</span>
+                    <div class="form-group" hidden>
+                        <label for="Surname">Id:</label>
+                        <input type="text" name="id" class="form-control" v-model="fillItem.id" readonly/>
+                        <span v-if="formErrors['id']" class="error text-danger">@{{ formErrors['id'][0] }}</span>
+                    </div>
+
+                    <div class="form-group" >
+                        <label for="Surname">Unit/Section:</label>
+                        <input type="text" name="section" class="form-control" v-model="fillItem.section" />
+                        <span v-if="formErrors['section']" class="error text-danger">@{{ formErrors['section'][0] }}</span>
                     </div>
 
                     <div class="form-group">
-                        <label for="strIDNumber">FirstName:</label>
-                        <input type="text" name="firstname" class="form-control" v-model="fillItem.firstname" />
-                        <span v-if="formErrorsUpdate['firstname']" class="error text-danger">@{{ formErrorsUpdate['firstname'][0] }}</span>
+                        <label for="Firstname">Property Type:</label>
+
+                        <select  id='property_type_id' name='property_type_id' class="form-control "  v-model="fillItem.property_type_id"  style="width: 100%;"  >
+                           <option value="0" disabled  hidden>Please select property type...</option>
+                               <option v-for="ptype in ptypes" :value="ptype.id"  >
+                                    @{{ ptype.name }}
+                               </option>
+                        </select>
+                        <span v-if="formErrors['property_type_id']" class="error text-danger">@{{ formErrors['property_type_id'][0] }}</span>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="Firstname">Sale Type:</label>
+
+                        <select  id='sale_type_id' name='sale_type_id' class="form-control "  v-model="fillItem.sale_type_id"  style="width: 100%;"  >
+                           <option value="0" disabled  hidden>Please select sale type...</option>
+                               <option v-for="stype in stypes" :value="stype.id"  >
+                                    @{{ stype.name }}
+                               </option>
+                        </select>
+                        <span v-if="formErrors['sale_type_id']" class="error text-danger">@{{ formErrors['sale_type_id'][0] }}</span>
                     </div>
 
                     <div class="form-group">
-                        <label for="strIDNumber">LastName:</label>
-                        <input type="text" name="lastname" class="form-control" v-model="fillItem.lastname" />
-                        <span v-if="formErrorsUpdate['lastname']" class="error text-danger">@{{ formErrorsUpdate['lastname'][0] }}</span>
+                        <label for="Firstname">Status:</label>
+
+                        <select  id='status_id' name='status_id' class="form-control "  v-model="fillItem.status_id"  style="width: 100%;"  >
+                           <option value="0" disabled  hidden>Please select status...</option>
+                               <option v-for="status in statuses" :value="status.id"  >
+                                    @{{ status.name }}
+                               </option>
+                        </select>
+                        <span v-if="formErrors['status_id']" class="error text-danger">@{{ formErrors['status_id'][0] }}</span>
+                    </div>
+
+
+                    <div class="form-group" >
+                        <label for="Surname">Size:</label>
+                        <input type="text" name="size" class="form-control" v-model="fillItem.size" />
+                        <span v-if="formErrors['size']" class="error text-danger">@{{ formErrors['size'][0] }}</span>
+                    </div>
+
+
+                    <div class="form-group" >
+                        <label for="Surname">Price:</label>
+                        <input type="text" name="price" class="form-control" v-model="fillItem.price" />
+                        <span v-if="formErrors['price']" class="error text-danger">@{{ formErrors['price'][0] }}</span>
+                    </div>
+
+                    <div class="form-group" >
+                        <label for="Surname">Deposit:</label>
+                        <input type="text" name="deposit" class="form-control" v-model="fillItem.deposit" />
+                        <span v-if="formErrors['deposit']" class="error text-danger">@{{ formErrors['deposit'][0] }}</span>
+                    </div>
+
+                    <div class="form-group" >
+                        <label for="Surname">Gross Rental:</label>
+                        <input type="text" name="gross_rental" class="form-control" v-model="fillItem.gross_rental" />
+                        <span v-if="formErrors['gross_rental']" class="error text-danger">@{{ formErrors['gross_rental'][0] }}</span>
+                    </div>
+
+                    <div class="form-group" >
+                        <label for="Surname">Net Rental:</label>
+                        <input type="text" name="net_rental" class="form-control" v-model="fillItem.net_rental" />
+                        <span v-if="formErrors['net_rental']" class="error text-danger">@{{ formErrors['net_rental'][0] }}</span>
+                    </div>
+
+                   <div class="form-group" >
+                        <label for="Surname">Ops Costs:</label>
+                        <input type="text" name="ops_costs" class="form-control" v-model="fillItem.ops_costs" />
+                        <span v-if="formErrors['ops_costs']" class="error text-danger">@{{ formErrors['ops_costs'][0] }}</span>
+                    </div>
+
+                   <div class="form-group" >
+                        <label for="Surname">Rates:</label>
+                        <input type="text" name="rates" class="form-control" v-model="fillItem.rates" />
+                        <span v-if="formErrors['rates']" class="error text-danger">@{{ formErrors['rates'][0] }}</span>
+                    </div>
+
+                   <div class="form-group" >
+                        <label for="Surname">Investment Yield:</label>
+                        <input type="text" name="investment_yield" class="form-control" v-model="fillItem.investment_yield" />
+                        <span v-if="formErrors['investment_yield']" class="error text-danger">@{{ formErrors['investment_yield'][0] }}</span>
+                    </div>
+
+
+                    <div class="form-group" >
+                        <label for="Surname">Lease Start:</label>
+                        <input type="date" name="lease_start" class="form-control" v-model="fillItem.lease_start" />
+                        <span v-if="formErrors['lease_start']" class="error text-danger">@{{ formErrors['lease_start'][0] }}</span>
+                    </div>
+
+                    <div class="form-group" >
+                        <label for="Surname">Lease End:</label>
+                        <input type="date" name="lease_end" class="form-control" v-model="fillItem.lease_end" />
+                        <span v-if="formErrors['lease_end']" class="error text-danger">@{{ formErrors['lease_end'][0] }}</span>
                     </div>
 
                     <div class="form-group">
-                        <label for="strSurname">Email:</label>
-                        <input type="text" name="email" class="form-control" v-model="fillItem.email" />
-                        <span v-if="formErrorsUpdate['email']" class="error text-danger">@{{ formErrorsUpdate['email'][0] }}</span>
+                        <label for="Firstname">Active Agent:</label>
+
+                        <select  id='agent_id' name='active_broker_id' class="form-control "  v-model="fillItem.active_broker_id" style="width: 100%;"  >
+                           <option value="0" disabled  hidden>Please select agent...</option>
+                               <option v-for="agent in agents" :value="agent.id"  >
+                                    @{{ agent.name }}
+                               </option>
+                        </select>
+                        <span v-if="formErrors['active_broker_id']" class="error text-danger">@{{ formErrors['abroker'][0] }}</span>
                     </div>
 
                     <div class="form-group">
-                        <label for="strSurname">Cell:</label>
-                        <input type="text" name="cell" class="form-control" v-model="fillItem.cell" />
-                        <span v-if="formErrorsUpdate['cell']" class="error text-danger">@{{ formErrorsUpdate['cell'][0] }}</span>
+                        <label for="Firstname">Listing Agent:</label>
+
+                        <select  id='agent_id' name='listing_broker_id' class="form-control "  v-model="fillItem.listing_broker_id" style="width: 100%;"  >
+                           <option value="0" disabled  hidden>Please select agent...</option>
+                               <option v-for="agent in agents" :value="agent.id"  >
+                                    @{{ agent.name }}
+                               </option>
+                        </select>
+                        <span v-if="formErrors['listing_broker_id']" class="error text-danger">@{{ formErrors['lbroker'][0] }}</span>
                     </div>
 
-                    <div class="form-group">
-                        <label for="strSurname">Tel:</label>
-                        <input type="text" name="tel" class="form-control" v-model="fillItem.tel" />
-                        <span v-if="formErrorsUpdate['tel']" class="error text-danger">@{{ formErrorsUpdate['tel'][0] }}</span>
-                    </div>
 
-                    <div class="form-group">
-                        <label for="strSurname">Website:</label>
-                        <input type="text" name="website"  class="form-control" v-model="fillItem.website" />
-                        <span v-if="formErrorsUpdate['website']" class="error text-danger">@{{ formErrorsUpdate['website'][0] }}</span>
-                    </div>
 
 
                 </div>

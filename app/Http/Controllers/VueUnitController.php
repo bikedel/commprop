@@ -242,30 +242,34 @@ class VueUnitController extends Controller
 
         $now = \Carbon\Carbon::now();
 
-        $contacts = Contact::all();
+        $units = Unit::all();
 
-        // $owners = collect($ownersRaw);
-        //foreach ($owners as &$owner) {
+        $units->forget('brochure_users');
+
+        $units = $units->makeHidden('brochure_users')->toArray();
+
+        // $units = collect($unitsRaw);
+        //foreach ($units as &$unit) {
         //    $owner = (array) $owner;
         //}
 
         //dd($owners);
 
-        Excel::create('Contacts_' . $now, function ($excel) use ($contacts) {
+        Excel::create('Units' . $now, function ($excel) use ($units) {
 
-            $excel->setTitle('Contacts ');
-            $excel->setCreator('Contacts')->setCompany('Sothebys');
-            $excel->setDescription('Contacts');
+            $excel->setTitle('Units ');
+            $excel->setCreator('Units')->setCompany('Sothebys');
+            $excel->setDescription('Units');
 
-            $excel->sheet('Sheet 1', function ($sheet) use ($contacts) {
-                $sheet->fromArray($contacts, null, 'A1', true, true);
+            $excel->sheet('Sheet 1', function ($sheet) use ($units) {
+                $sheet->fromArray($units, null, 'A1', true, true);
 
                 $sheet->freezeFirstRow();
 
                 // Set height for a single row
                 $sheet->setHeight(1, 20);
 
-                $sheet->cells('A1:J1', function ($cells) {
+                $sheet->cells('A1:U1', function ($cells) {
 
                     // manipulate the range of cells
                     // Set black background

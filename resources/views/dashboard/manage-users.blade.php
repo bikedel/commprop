@@ -33,6 +33,8 @@ margin-left:-40;
    background-color: WhiteSmoke ;
 }
 
+[v-cloak] { display: none; }
+
 .modal-title {
 
 color:white;

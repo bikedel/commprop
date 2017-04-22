@@ -49,8 +49,6 @@ Route::get('/dashboard2', 'HomeController@dashboard2');
 Route::get('/dashboardmap', 'HomeController@dashboardmap');
 
 Route::get('/owners', 'OwnerController@index');
-// list contacts with properties
-Route::get('/contactProp{id}', 'OwnerController@contactProp')->name('contactProp');
 
 Route::get('/properties', 'PropertyController@index');
 Route::get('/psearch', 'PropertyController@search')->name('/psearch');
@@ -141,3 +139,12 @@ Route::resource('vuecontacts', 'VueContactController');
 Route::post('/updatecontact/{id}', 'VueContactController@updatecontact');
 Route::post('searchvuecontacts/{search}', 'VueContactController@search');
 Route::get('/exportContacts', 'VueContactController@export')->name('exportContacts');
+// list contacts with properties
+Route::get('/contactProp{id}', 'OwnerController@contactProp')->name('contactProp');
+
+// Contacts maintenance in dashboard
+Route::get('manage-units', 'VueUnitController@manageVue');
+Route::resource('vueunits', 'VueUnitController');
+Route::post('/updatecunit/{id}', 'VueUnitController@updateunit');
+Route::post('searchvueunits/{search}', 'VueUnitController@search');
+Route::get('/exportUnits', 'VueUnitController@export')->name('exportUnits');

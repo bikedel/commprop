@@ -41,6 +41,7 @@
    <hr>
  @if ( Auth::user()->getRoleName()  == "System")
 
+<a href="{{ url('/manage-units') }}" class="w3-padding"><i class="fa fa-address-card fa-fw"></i>  Units</a>
    <a href="{{ url('/manage-agents') }}" class="w3-padding"><i class="fa fa-address-card fa-fw"></i>  Agents</a>
   <a href="{{ url('/manage-users') }}" class="w3-padding"><i class="fa fa-user-circle-o fa-fw"></i>  Users</a>
   <a href="{{ url('/logs') }}" class="w3-padding"><i class="fa fa-cog fa-fw"></i>  Logs</a>

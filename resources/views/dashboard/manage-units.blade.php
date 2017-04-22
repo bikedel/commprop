@@ -144,7 +144,7 @@ color:white;
                       <button class="btn btn-default btn-xs" @click.prevent="viewProperties(item.id)">Properties</button>
                       -->
                     </td>
-                    <td>@{{ item.property_id }}</td>
+                    <td><a v-bind:href="'showproperty'+item.property_id" >@{{ item.property_id }}</a</td>
                     <td>@{{ propertyTypeName(item.property_type_id) }}  @{{ saleTypeName(item.sale_type_id) }}</td>
                     <td>@{{ statusName(item.status_id)}}</td>
                     <td>@{{ item.section}}</td>

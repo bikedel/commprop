@@ -147,7 +147,7 @@ class VueDocumentController extends Controller
 
         }
 
-        $path = $request->file('file')->store('documents');
+        // $path = $request->file('file')->store('documents');
 
         $document = $request->file->getClientOriginalName();
 

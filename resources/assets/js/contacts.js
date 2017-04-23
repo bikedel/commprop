@@ -32,8 +32,8 @@ const vm = new Vue({
   el: '#manage-contacts',
 
   data: {
-   offlinePath: '/laravel',
-    //offlinePath: '',
+   //offlinePath: '/laravel',
+    offlinePath: '',
     items: [],
     contacttypes: [],
     pagination: {
@@ -168,14 +168,14 @@ const vm = new Vue({
 
            // clear search
            if (!input) {
-            this.$http.get('/commprop/public/vueagents?page='+page).then((response) => {
+            this.$http.get('/commprop/public/vuecontacts?page='+page).then((response) => {
               this.$set('items', response.data.data.data);
               this.$set('pagination', response.data.pagination);
             //  this.$set('agents', response.data.agents);
             });
           // do search
            } else {
-            this.$http.post('/commprop/public/searchvueagents/'+input).then((response) => {
+            this.$http.post('/commprop/public/searchvuecontacts/'+input).then((response) => {
               this.$set('items', response.data.data.data);
               this.$set('pagination', response.data.pagination);
            //   this.$set('agents', response.data.agents);

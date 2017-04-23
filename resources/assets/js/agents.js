@@ -32,8 +32,8 @@ const vm = new Vue({
   el: '#manage-agents',
 
   data: {
-   offlinePath: '/laravel',
-    //offlinePath: '',
+   //offlinePath: '/laravel',
+    offlinePath: '',
     items: [],
     pagination: {
         total: 0, 

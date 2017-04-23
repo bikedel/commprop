@@ -32,8 +32,8 @@ const vm = new Vue({
   el: '#manage-users',
 
   data: {
-   offlinePath: '/laravel',
-    //offlinePath: '',
+   //offlinePath: '/laravel',
+    offlinePath: '',
     items: [],
     roles: [],
     agents: [],

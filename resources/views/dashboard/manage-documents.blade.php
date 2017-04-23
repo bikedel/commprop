@@ -117,7 +117,7 @@ color:white;
                     <th width="200px">Action</th>
                     <th width="200px">Name</th>
                     <th width="200px">Description</th>
-                     <th width="200px">Path</th>
+                     <th width="200px">File</th>
 
 
 
@@ -213,7 +213,7 @@ color:white;
 
                     <div class="form-group">
                     <label for="Firstname">Document:</label>
-                        <input type="file" id="file" class="btn btn-default " name="file"  v-model="newItem.file" style="width: 100%;" />
+                        <input type="file" id="file" class="btn btn-default " name="file"  style="width: 100%;" />
                         <span v-if="formErrors['file']" class="error text-danger">@{{ formErrors['file'][0] }}</span>
                     </div>
 

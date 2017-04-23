@@ -42,6 +42,8 @@ Route::get('/test', 'HomeController@test');
 
 Route::get('/logs', 'LogsController@index');
 
+Route::get('/clearlogs', 'LogsController@clearlog')->name('clearlogs');
+
 Route::get('/dashboard', 'HomeController@dashboard');
 
 Route::get('/dashboard2', 'HomeController@dashboard2');

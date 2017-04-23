@@ -52,9 +52,9 @@ margin-left:-40;
                 </div>
   -->
                 <div class="pull-left">
-                    <button type="button" class="btn btn-success btn-md" @click.prevent="createForms">
-                      Clear Log
-                    </button>
+                 @if (  Auth::user()->getRoleName()  == "System")
+                    <a href="clearlogs" class="btn btn-success btn-md"> Clear Log</a>
+                 @endif
                 </div>
 
             </div>

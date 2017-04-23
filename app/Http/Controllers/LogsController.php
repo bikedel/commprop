@@ -24,13 +24,28 @@ class LogsController extends Controller
     public function index()
     {
         $username = Auth::user()->name;
-        activity("Dashboard")->withProperties(['user' => $username])->log('Logs ');
 
         $users = User::orderBy('id')->get();
         $users = $users->keyBy('id');
 
         $activities = Activity::latest()->paginate(100);
+        activity("Dashboard")->withProperties(['user' => $username])->log('Logs ');
 
+        //dd($activities);
+        //dd($property);
+        return view('dashboard.logs', compact('activities', 'users'));
+    }
+
+    public function clearlog()
+    {
+        $username = Auth::user()->name;
+
+        $users = User::orderBy('id')->get();
+        $users = $users->keyBy('id');
+
+        $activities = Activity::whereNotNull('id')->delete();
+        $activities = Activity::latest()->paginate(100);
+        activity("Log")->withProperties(['user' => $username])->log('Clear Log ');
         //dd($activities);
         //dd($property);
         return view('dashboard.logs', compact('activities', 'users'));

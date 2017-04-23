@@ -85,9 +85,10 @@ color:white;
                 <div class="pull-left">
                     <h2></h2>
                 </div>
-
                  <div class="pull-right">
+                  @if ( Auth::user()->getRoleName()  == "Admin"  ||  Auth::user()->getRoleName()  == "System")
                     <a href="{{ URL::route('exportUnits') }}" class="btn btn-warning"> Export Units</a>
+                  @endif
                     <button type="button" class="btn btn-primary btn-md" data-toggle="modal" data-target="#">
                       @{{pagination.total}} Records
                     </button>
@@ -95,9 +96,11 @@ color:white;
                 </div>
 
                 <div class="pull-left">
+                 @if ( Auth::user()->getRoleName()  == "Admin"  ||  Auth::user()->getRoleName()  == "System")
                     <button type="button" class="btn btn-success btn-md" @click.prevent="createForms">
                       New Unit
                     </button>
+                 @endif
                 </div>
 
             </div>
@@ -146,7 +149,7 @@ color:white;
                       -->
                     </td>
                     <td>@{{ item.id}}</td>
-                    <td><a v-bind:href="'showproperty'+item.property_id" >@{{ item.property_id }}</a</td>
+                    <td><a v-bind:href="'showproperty'+item.property_id" >@{{ item.property_id }}</a></td>
                     <td>@{{ propertyTypeName(item.property_type_id) }}  @{{ saleTypeName(item.sale_type_id) }}</td>
                     <td>@{{ statusName(item.status_id)}}</td>
                     <td>@{{ item.section}}</td>

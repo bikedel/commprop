@@ -32,8 +32,8 @@ const vm = new Vue({
   el: '#manage-contacts',
 
   data: {
-   //offlinePath: '/laravel',
-    offlinePath: '',
+   offlinePath: '/laravel',
+    //offlinePath: '',
     items: [],
     contacttypes: [],
     pagination: {

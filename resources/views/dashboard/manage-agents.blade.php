@@ -87,7 +87,9 @@ color:white;
                 </div>
 
                  <div class="pull-right">
+                  @if ( Auth::user()->getRoleName()  == "Admin"  ||  Auth::user()->getRoleName()  == "System")
                     <a href="{{ URL::route('exportAgents') }}" class="btn btn-warning"> Export Agents</a>
+                  @endif
                     <button type="button" class="btn btn-primary btn-md" data-toggle="modal" data-target="#">
                       @{{pagination.total}} Records
                     </button>
@@ -95,9 +97,11 @@ color:white;
                 </div>
 
                 <div class="pull-left">
+                 @if ( Auth::user()->getRoleName()  == "Admin"  ||  Auth::user()->getRoleName()  == "System")
                     <button type="button" class="btn btn-success btn-md" @click.prevent="createForms">
                       New Agent
                     </button>
+                 @endif
                 </div>
 
             </div>

@@ -29,14 +29,12 @@ require('bootstrap-sass');
 
 const vm = new Vue({
 
-  el: '#manage-users',
+  el: '#manage-documents',
 
   data: {
    offlinePath: '/laravel',
     //offlinePath: '',
     items: [],
-    roles: [],
-    agents: [],
     pagination: {
         total: 0, 
         per_page: 2,
@@ -49,13 +47,8 @@ const vm = new Vue({
     formErrorsUpdate:{},
     newItem : { 
           'name':'',
-          'email':'',
-          'password':'',
-          'agent_id':'',
-          'role_id':'',
-          'avatar':'',
-          'password':'',
-          'password_confirmation':'',
+          'description':'',
+          'path':'',
 
     },
 
@@ -63,13 +56,8 @@ const vm = new Vue({
     fillItem : { 
           'id':'',
           'name':'',
-          'email':'',
-          'password':'',
-          'agent_id':'',
-          'role_id':'',
-          'avatar':'',
-          'password':'',
-          'password_confirmation':'',
+          'description':'',
+          'path':'',
 
     },
 
@@ -107,35 +95,32 @@ const vm = new Vue({
 
   mounted : function(){
 
-
          this.$nextTick(function () {
 
-
-              // get all items
-          		this.getVueItems(this.pagination.current_page);
-              
-
+                // get all items
+            		this.getVueItems(this.pagination.current_page);
+                
 
 
 
-                toastr.options = {
-                    "closeButton": true,
-                    "debug": false,
-                    "newestOnTop": false,
-                    "progressBar": true,
-                    "positionClass": "toast-top-center",
-                    "preventDuplicates": false,
-                    "onclick": null,
-                    "showDuration": "300",
-                    "hideDuration": "1000",
-                    "timeOut": "5000",
-                    "extendedTimeOut": "1000",
-                    "showEasing": "swing",
-                    "hideEasing": "linear",
-                    "showMethod": "fadeIn",
-                    "hideMethod": "fadeOut"
-                };
 
+                  toastr.options = {
+                      "closeButton": true,
+                      "debug": false,
+                      "newestOnTop": false,
+                      "progressBar": true,
+                      "positionClass": "toast-top-center",
+                      "preventDuplicates": false,
+                      "onclick": null,
+                      "showDuration": "300",
+                      "hideDuration": "1000",
+                      "timeOut": "5000",
+                      "extendedTimeOut": "1000",
+                      "showEasing": "swing",
+                      "hideEasing": "linear",
+                      "showMethod": "fadeIn",
+                      "hideMethod": "fadeOut"
+                  };
           });
 
 
@@ -149,12 +134,9 @@ const vm = new Vue({
         getVueItems: function(page){
            var vm = this; 
            // this.$http.get(this.offlinePath+'/commprop/public/vueusers?page='+page).then((response) => {
-                axios.get(vm.offlinePath+'/commprop/public/vueusers?page='+page).then(function (response) {
+                axios.get(vm.offlinePath+'/commprop/public/vuedocuments?page='+page).then(function (response) {
                   vm.items = response.data.data.data;
                   vm.pagination =  response.data.pagination;
-                  vm.roles = response.data.roles;
-                  vm.agents = response.data.agents;
-
 
                 })
                 .catch(function (error) {
@@ -180,14 +162,14 @@ const vm = new Vue({
 
            // clear search
            if (!input) {
-            this.$http.get('/commprop/public/vueusers?page='+page).then((response) => {
+            this.$http.get('/commprop/public/vuedocuments?page='+page).then((response) => {
               this.$set('items', response.data.data.data);
               this.$set('pagination', response.data.pagination);
             //  this.$set('agents', response.data.agents);
             });
           // do search
            } else {
-            this.$http.post('/commprop/public/searchvueusers/'+input).then((response) => {
+            this.$http.post('/commprop/public/searchvuedocuments/'+input).then((response) => {
               this.$set('items', response.data.data.data);
               this.$set('pagination', response.data.pagination);
            //   this.$set('agents', response.data.agents);
@@ -198,27 +180,29 @@ const vm = new Vue({
 
         createItem: function(){
 
+        let data = new FormData(document.getElementById('createDocument'));
+       
+          //data.append('image[]', this.image);
+
+
+
+          var input = data;
             var vm = this; 
 
-            var input = vm.newItem;
+          //  var input = vm.newItem;
 
-            axios.post(vm.offlinePath+'/commprop/public/vueusers',input).then(function (response) {
+            axios.post(vm.offlinePath+'/commprop/public/vuedocuments',input).then(function (response) {
           		  vm.changePage(vm.pagination.current_page);
           			vm.newItem = {
-                      'name':'',
-                      'email':'',
-                      'password':'',
-                      'agent_id':'',
-                      'role_id':'',
-                      'avatar':'',
-                      'password':'',
-                      'password_confirmation':'',
+                  'name':'',
+                  'description':'',
+                  'path':'',
                 };
 
           			$("#create-item").modal('hide');
                 $(".modal-header button").click();
 
-          			toastr.success('User Created Successfully.', 'Success Alert', {timeOut: 5000});
+          			toastr.success('Document Created Successfully.', 'Success Alert', {timeOut: 5000});
 
                 })
                 .catch(function (error) {
@@ -244,14 +228,9 @@ const vm = new Vue({
 
                 this.resetErrors();
                 this.newItem = {
-                      'name':'',
-                      'email':'',
-                      'password':'',
-                      'agent_id':'',
-                      'role_id':'',
-                      'avatar':'',
-                      'password':'',
-                      'password_confirmation':'',
+                  'name':'',
+                  'description':'',
+                  'path':'',
                 };
 
                 $("#create-item").modal('show');
@@ -265,15 +244,15 @@ const vm = new Vue({
 
          // Vue.http.options.emulateJSON = true;
 
-          var result = confirm("Are you sure you would like to delete this User?");
+          var result = confirm("Are you sure you would like to delete this Document?");
           if (result) {
 
 
               var vm = this; 
 
-              axios.delete(vm.offlinePath+'/commprop/public/vueusers/'+item.id).then(function (response) {
+              axios.delete(vm.offlinePath+'/commprop/public/vuedocuments/'+item.id).then(function (response) {
                 vm.changePage(vm.pagination.current_page);
-                 toastr.success('User Deleted Successfully.', 'Success Alert', {timeOut: 5000});
+                 toastr.success('Document Deleted Successfully.', 'Success Alert', {timeOut: 5000});
 
               })
               .catch(function (error) {
@@ -284,7 +263,7 @@ const vm = new Vue({
                     if (status < 500)
                     {
                           vm.formErrors = error.response.data;
-                          toastr.warning("User not deleted.", 'Warning', {timeOut: 5000});
+                          toastr.warning("Document not deleted.", 'Warning', {timeOut: 5000});
                     }else{
                           toastr.error("Please refresh the browser.", 'Session expired', {timeOut: 5000});
                     }
@@ -303,15 +282,11 @@ const vm = new Vue({
 
       editItem: function(item){
 
-          this.fillItem.id= item.id;
-          this.fillItem.name= item.name;
-          this.fillItem.email= item.email;
-          this.fillItem.password= '';
-          this.fillItem.password_confirmation= '';
-          this.fillItem.agent_id= item.agent_id;
-          this.fillItem.role_id= item.role_id;
-          this.fillItem.avatar= item.avatar;
 
+           this.fillItem.id= item.id;
+           this.fillItem.name= item.name;
+           this.fillItem.description= item.description;
+           this.fillItem.path= item.path;
 
           $("#edit-item").modal('show');
 
@@ -327,26 +302,21 @@ const vm = new Vue({
                 var input = vm.fillItem;
 
             
-                axios.post(this.offlinePath+'/commprop/public/updateuser/'+id,input).then(function (response) {
+                axios.post(this.offlinePath+'/commprop/public/updatedocument/'+id,input).then(function (response) {
 
                       vm.changePage(vm.pagination.current_page);
 
                       this.fillItem = {
                         'id':'',
                         'name':'',
-                        'email':'',
-                        'password':'',
-                        'agent_id':'',
-                        'role_id':'',
-                        'avatar':'',
-                        'password':'',
-                        'password_confirmation':'',  
+                        'description':'',
+                        'path':'',
                      };
 
                       $("#edit-item").modal('hide');
                       $(".modal-header button").click();
 
-                       toastr.success('User Updated Successfully.', 'Success Alert', {timeOut: 5000});
+                       toastr.success('Document Updated Successfully.', 'Success Alert', {timeOut: 5000});
 
                 })
                 .catch(function (error) {
@@ -365,32 +335,13 @@ const vm = new Vue({
 
       },
 
+        downloadItem: function(id){
+           var vm = this; 
+           // this.$http.get(this.offlinePath+'/commprop/public/vueusers?page='+page).then((response) => {
+             window.location.href = vm.offlinePath+'/commprop/public/downloaddocument/'+id;
 
-    // get role name
-    roleName: function (role_id) {
-      //console.log("get saleTypeName");
-          for(var i = 0; i < this.roles.length; i++){
-              if (this.roles[i].id == role_id ){
-                     //console.log("get saleTypeName "+ this.stypes[i].name );
-                     return this.roles[i].name ;
-              }  
-          }
-          return "error" ;  
-   
-     },
 
-    // get agent name
-    agentName: function (agent_id) {
-      //console.log("get saleTypeName");
-          for(var i = 0; i < this.agents.length; i++){
-              if (this.agents[i].id == agent_id ){
-                     //console.log("get saleTypeName "+ this.stypes[i].name );
-                     return this.agents[i].name ;
-              }  
-          }
-          return "" ;  
-   
-     },
+        },
 
 
       resetErrors: function() {

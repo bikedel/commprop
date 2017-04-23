@@ -145,6 +145,14 @@ Route::get('/contactProp{id}', 'OwnerController@contactProp')->name('contactProp
 // Contacts maintenance in dashboard
 Route::get('manage-units', 'VueUnitController@manageVue');
 Route::resource('vueunits', 'VueUnitController');
-Route::post('/updatecunit/{id}', 'VueUnitController@updateunit');
+Route::post('/updateunit/{id}', 'VueUnitController@updateunit');
 Route::post('searchvueunits/{search}', 'VueUnitController@search');
 Route::get('/exportUnits', 'VueUnitController@export')->name('exportUnits');
+
+// Documents maintenance in dashboard
+Route::get('manage-documents', 'VueDocumentController@manageVue');
+Route::resource('vuedocuments', 'VueDocumentController');
+Route::post('/updatedocument/{id}', 'VueDocumentController@updatedocument');
+Route::post('searchvuedocuments/{search}', 'VueDocumentController@search');
+Route::get('/exportDocuments', 'VueDocumentController@export')->name('exportDocuments');
+Route::get('/downloaddocument/{id}', 'VueDocumentController@download');

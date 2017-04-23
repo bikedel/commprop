@@ -24,5 +24,6 @@ elixir((mix) => {
        .webpack('agents.js')
        .webpack('contacts.js')
        .webpack('units.js')
+       .webpack('documents.js')
        ;
 });

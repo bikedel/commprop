@@ -69,8 +69,10 @@ margin-left:-40;
                 <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
                     <thead>
                           <tr >
+                          <!--
                             <th width="120px" class="hidden-xs">Action</th>
-                            <th width="120px" >Date</th>
+                            -->
+                            <th width="120px" >When</th>
                             <th width="120px" >Date</th>
                            <th width="100px">Log Name</th>
                             <th width="100px">Action</th>
@@ -87,10 +89,14 @@ margin-left:-40;
                       @foreach ( $activities as $key => $activity )
 
                         <tr>
+                        <!--
                             <td class="hidden-xs">
+
                               <button class="btn btn-primary btn-xs" @click.prevent="editItem(item)"> Edit</button>
                               <button class="btn btn-danger btn-xs" @click.prevent="deleteItem(item)">Delete</button>
+
                             </td>
+                          -->
                             <td>
                              {{ $activity->created_at->diffForHumans()}}
                             </td>

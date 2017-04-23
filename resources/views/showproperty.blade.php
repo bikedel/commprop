@@ -244,13 +244,53 @@ small {
     border-bottom: none !important;
 
 }
+
+/*  SECTIONS  */
+.section {
+	clear: both;
+	padding: 0px;
+	margin: 0px;
+}
+
+/*  COLUMN SETUP  */
+.col {
+	display: block;
+	float:left;
+	margin: 1% 0 1% 1.6%;
+}
+.col:first-child { margin-left: 0; }
+
+/*  GROUPING  */
+.group:before,
+.group:after { content:""; display:table; }
+.group:after { clear:both;}
+.group { zoom:1; /* For IE 6/7 */ }
+/*  GRID OF TWO  */
+.span_2_of_2 {
+	width: 100%;
+}
+.span_1_of_2 {
+	width: 49.2%;
+}
+
+/*  GO FULL WIDTH AT LESS THAN 480 PIXELS */
+
+@media only screen and (max-width: 480px) {
+	.col {
+		margin: 1% 0 1% 0%;
+	}
+}
+
+@media only screen and (max-width: 480px) {
+	.span_2_of_2, .span_1_of_2 { width: 100%; }
+}
 </style>
 
 
 
 
 
-	  <div class="col-md-8 col-md-offset-1">
+	  <div class="col-md-10 col-md-offset-1">
 
 
 
@@ -314,42 +354,23 @@ small {
   </ul>
 
   <div class="tab-content">
-    <div id="details" class="tab-pane fade in active " style="overflow-x:auto;width:100%;height:300px; ">
+    <div id="details" class="tab-pane fade in active " style="overflow-x:auto;width:100%;height:220px; ">
                   <h3>Details</h3>
 
-				  <div class="w3-col s10 ">
-
-				  <div class="w3-col s5 ">
-				      <p>Erf: <b> {{ $property->erf }}</b></p>
-				  </div>
-				  <div class="w3-col s5 ">
-				      <p>Type: <b> @if($property->type == 0) Freehold @else  Sectional Title  @endif</b></p>
-				  </div>
-				 </div>
-				 <div class="w3-col s10 ">
-				  <div class="w3-col s5 ">
-				      <p>Status: <b>     @if ($property->sale_type_id>0) {{ $stypes[$property->sale_type_id]->name }}    @endif </b></p>
-				  </div>
-				  <div class="w3-col s5">
-				      <p>Grade: <b>  @if ($property->grade_id>0) {{ $grades[$property->grade_id]->name }}   @endif </b></p>
-				  </div>
-				</div>
-				 <div class="w3-col s10 ">
-				  <div class="w3-col s5 ">
-				      <p>Erf Size: <b> {{ $property->erf_size }} m<sup>2</sup></b></p>
-				  </div>
-				  <div class="w3-col s5">
-				             <p>Building Size: <b> {{   $property->building_size }} m<sup>2</sup></b></p>
-				</div>
-				</div>
-				 <div class="w3-col s10 ">
-				  <div class="w3-col s5 ">
-				    <p>Open Parking: <b> {{ $property->open_parking_bays }} </b></p>
-				  </div>
-				  <div class="w3-col s5">
-				     <p>Covered Parking: <b> {{ $property->covered_parking_bays }} </b></p>
-				  </div>
-				</div>
+					<div class="section group">
+						<div class="col span_1_of_2">
+						    <p>Erf: <b> {{ $property->erf }}</b></p>
+						    <p>Type: <b> @if($property->type == 0) Freehold @else  Sectional Title  @endif</b></p>
+						    <p>Status: <b>     @if ($property->sale_type_id>0) {{ $stypes[$property->sale_type_id]->name }}    @endif </b></p>
+						    <p>Grade: <b>  @if ($property->grade_id>0) {{ $grades[$property->grade_id]->name }}   @endif </b></p>
+						</div>
+						<div class="col span_1_of_2">
+						    <p>Erf Size: <b> {{ $property->erf_size }} m<sup>2</sup></b></p>
+						    <p>Building Size: <b> {{   $property->building_size }} m<sup>2</sup></b></p>
+						    <p>Open Parking: <b> {{ $property->open_parking_bays }} </b></p>
+						    <p>Covered Parking: <b> {{ $property->covered_parking_bays }} </b></p>
+						</div>
+					</div>
 
 
   </div>
@@ -451,6 +472,7 @@ small {
 
 <div class="col-md-10 col-md-offset-1">
 
+<div class="w3-container">
 <div class="w3-text-blue">
  <hr>
 <p >This property has {{$property->units->count()}} units.</p>
@@ -469,6 +491,7 @@ small {
 				  <div class="w3-col s3">
 				     <p><button class="btn btn-danger" type="button"><span class="badge">{{$stat4}}</span>  </button><br> Govt/Provincial</p>
 				  </div>
+</div>
 </div>
 </div>
 
@@ -493,17 +516,30 @@ small {
   <div class="tab-content">
     <div id="home{{$unit->id}}" class="tab-pane fade in active" style="overflow-x:auto;width:100%;height:300px; ">
       <h3>Details</h3>
-        <p>Section: <b> {{$unit->section}} </b></p>
-		<p>Type: <b> {{$ptypes[$unit->property_type_id]->name}} {{$stypes[$unit->sale_type_id]->name}}</b></p>
-		<p>Status: <b> {{$statuses[$unit->status_id]->name}}</b></p>
-		<p>Size: <b> {{$unit->size}} m<sup>2</sup></b></p>
-		@if($unit->sale_type_id == 1)
-		<p>Price: <b> R {{ number_format($unit->price,2)}}</b></p>
-		@else
-		<p>Gross Rental: <b> R {{ number_format($unit->gross_rental,2) }} /m<sup>2</sup></b></p>
-		@endif
-		<p>Lease start: <b> {{$unit->lease_start}}</b></p>
-		<p>Lease end: <b> {{$unit->lease_end}}</b></p>
+
+		<div class="section group">
+			<div class="col span_1_of_2">
+				<p>Section: <b> {{$unit->section}} </b></p>
+				<p>Type: <b> {{$ptypes[$unit->property_type_id]->name}} {{$stypes[$unit->sale_type_id]->name}}</b></p>
+				<p>Status: <b> {{$statuses[$unit->status_id]->name}}</b></p>
+				<p>Size: <b> {{$unit->size}} m<sup>2</sup></b></p>
+		        <p>Deposit: <b> {{$unit->deposit}} </b></p>
+				<p>Price: <b> R {{ number_format($unit->price,2)}}</b></p>
+				<p>Gross Rental: <b> R {{ number_format($unit->gross_rental,2) }} /m<sup>2</sup></b></p>
+			</div>
+			<div class="col span_1_of_2">
+				<p>Net Rental: <b> {{$unit->net_rental}} </b></p>
+				<p>Ops Costs: <b> {{$unit->ops_costs}} </b></p>
+				<p>Lease start: <b> {{$unit->lease_start}}</b></p>
+				<p>Lease end: <b> {{$unit->lease_end}}</b></p>
+			    <p>Active Broker: <b> {{$unit->active_broker}}</b></p>
+				<p>Listing Broker: <b> {{$unit->listing_broker}}</b></p>
+			</div>
+		</div>
+
+
+
+
     </div>
     <div id="menu1{{$unit->id}}" class="tab-pane fade" style="overflow-x:auto;width:100%;height:300px; ">
       <h3>Notes</h3>

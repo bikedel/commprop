@@ -52,12 +52,12 @@ color:white;
 
 
 
-    <div v-cloak class="w3-container" id="manage-users">
+    <div  v-cloak class="w3-container" id="manage-documents">
 
 
   <!-- Header -->
   <header class="w3-container" style="padding-top:42px">
-    <h5><b><i class="fa fa-dashboard"></i> Users</b></h5><br>
+    <h5><b><i class="fa fa-dashboard"></i> Legal Docs</b></h5><br>
   </header>
 
 
@@ -88,7 +88,7 @@ color:white;
 
                  <div class="pull-right">
                   @if ( Auth::user()->getRoleName()  == "Admin"  ||  Auth::user()->getRoleName()  == "System")
-                    <a href="{{ URL::route('exportUsers') }}" class="btn btn-warning"> Export Users</a>
+                    <a href="{{ URL::route('exportDocuments') }}" class="btn btn-warning"> Export Documents</a>
                   @endif
                     <button type="button" class="btn btn-primary btn-md" data-toggle="modal" data-target="#">
                       @{{pagination.total}} Records
@@ -99,7 +99,7 @@ color:white;
                 <div class="pull-left">
                  @if ( Auth::user()->getRoleName()  == "Admin"  ||  Auth::user()->getRoleName()  == "System")
                     <button type="button" class="btn btn-success btn-md" @click.prevent="createForms">
-                      New User
+                      New Document
                     </button>
                  @endif
                 </div>
@@ -114,22 +114,27 @@ color:white;
             <br>
             <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
                 <tr>
-                    <th width="120px">Action</th>
-                    <th width="130px">Name</th>
-                    <th width="120px">Email</th>
-                    <th width="120px">Agent</th>
-                    <th width="300px">Role</th>
+                    <th width="200px">Action</th>
+                    <th width="200px">Name</th>
+                    <th width="200px">Description</th>
+
+
 
                 </tr>
                 <tr v-for="item in items">
                     <td >
+                      @if ( Auth::user()->getRoleName()  == "Admin"  ||  Auth::user()->getRoleName()  == "System")
                       <button class="btn btn-primary btn-xs" @click.prevent="editItem(item)">Edit</button>
+                        @if (  Auth::user()->getRoleName()  == "System")
                       <button class="btn btn-danger btn-xs" @click.prevent="deleteItem(item)">Delete</button>
+                      @endif
+                      @endif
+
+                      <button class="btn btn-default btn-xs" @click.prevent="downloadItem(item.id)">Download</button>
                     </td>
                     <td>@{{ item.name }}</td>
-                    <td>@{{ item.email}}</td>
-                    <td>@{{ agentName(item.agent_id) }}</td>
-                    <td>@{{ roleName(item.role_id) }}</td>
+                    <td>@{{ item.description}}</td>
+
 
                 </tr>
             </table>
@@ -171,10 +176,10 @@ color:white;
         <div class="modal " id="create-item" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
-             <form method="POST" enctype="multipart/form-data" v-on:submit.prevent="createItem">
+             <form id="createDocument" method="POST" enctype="multipart/form-data" v-on:submit.prevent="createItem">
               <div class="modal-header">
                 <button type="button" id="create-item-modal-header-button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                <h4 class="modal-title" id="myModalLabel">New User</h4>
+                <h4 class="modal-title" id="myModalLabel">New Document</h4>
               </div>
 
               <div class="modal-body">
@@ -199,42 +204,18 @@ color:white;
                     </div>
 
                     <div class="form-group">
-                        <label for="strSurname">Email:</label>
-                        <input type="text" name="email" class="form-control" v-model="newItem.email" />
-                        <span v-if="formErrors['email']" class="error text-danger">@{{ formErrors['email'][0] }}</span>
+                        <label for="strSurname">Description:</label>
+                        <input type="text" name="description" class="form-control" v-model="newItem.description" />
+                        <span v-if="formErrors['description']" class="error text-danger">@{{ formErrors['description'][0] }}</span>
                     </div>
 
                     <div class="form-group">
-                        <label for="strSurname">Agent:</label>
-                        <select  id='agent_id' name='agent_id' class="form-control "   v-model="newItem.agent_id"  style="width: 100%;"  >
-                               <option v-for="agent in agents" :value="agent.id"  >
-                                    @{{ agent.name }}
-                               </option>
-                        </select>
-                        <span v-if="formErrors['agent_id']" class="error text-danger">@{{ formErrors['agent_id'][0] }}</span>
+                    <label for="Firstname">Document:</label>
+                        <input type="file" id="file" class="btn btn-default " name="file"   style="width: 100%;" />
+                        <span v-if="formErrors['file']" class="error text-danger">@{{ formErrors['file'][0] }}</span>
                     </div>
 
-                    <div class="form-group">
-                        <label for="strSurname">Role:</label>
-                        <select  id='role_id' name='role_id' class="form-control "   v-model="newItem.role_id"  style="width: 100%;"  >
-                               <option v-for="role in roles" :value="role.id"  >
-                                    @{{ role.name }}
-                               </option>
-                        </select>
-                        <span v-if="formErrors['role_id']" class="error text-danger">@{{ formErrors['role_id'][0] }}</span>
-                    </div>
 
-                    <div class="form-group">
-                        <label for="strSurname">Password:</label>
-                        <input type="password" name="password" class="form-control" v-model="newItem.password" />
-                        <span v-if="formErrors['password']" class="error text-danger">@{{ formErrors['password'][0] }}</span>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="strSurname">Confirm Password:</label>
-                        <input type="password" name="password_confirmation" class="form-control" v-model="newItem.password_confirmation" />
-                        <span v-if="formErrors['password_confirmation']" class="error text-danger">@{{ formErrors['password_confirmation'][0] }}</span>
-                    </div>
 
                  </div>
 
@@ -259,7 +240,7 @@ color:white;
 
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                <h4 class="modal-title" id="myModalLabel">Edit User</h4>
+                <h4 class="modal-title" id="myModalLabel">Edit Document</h4>
               </div>
               <div class="modal-body">
 
@@ -275,42 +256,18 @@ color:white;
                     </div>
 
                     <div class="form-group">
-                        <label for="strSurname">Email:</label>
-                        <input type="text" name="email" class="form-control" v-model="fillItem.email" />
-                        <span v-if="formErrorsUpdate['email']" class="error text-danger">@{{ formErrorsUpdate['email'][0] }}</span>
+                        <label for="strSurname">Description:</label>
+                        <input type="text" name="description" class="form-control" v-model="fillItem.description" />
+                        <span v-if="formErrorsUpdate['description']" class="error text-danger">@{{ formErrorsUpdate['description'][0] }}</span>
                     </div>
-
+<!--
                     <div class="form-group">
-                        <label for="strSurname">Agent:</label>
-                        <select  id='agent_id' name='agent_id' class="form-control "   v-model="fillItem.agent_id"  style="width: 100%;"  >
-                               <option v-for="agent in agents" :value="agent.id"  >
-                                    @{{ agent.name }}
-                               </option>
-                        </select>
-                        <span v-if="formErrorsUpdate['agent_id']" class="error text-danger">@{{ formErrorsUpdate['agent_id'][0] }}</span>
+                    <label for="Firstname">Document:</label>
+                        <input type="file" id="document" class="btn btn-default " name="document"   style="width: 100%;"  />
+                        <span v-if="formErrorsUpdate['document']" class="error text-danger">@{{ formErrorsUpdate['document'][0] }}</span>
                     </div>
+-->
 
-                    <div class="form-group">
-                        <label for="strSurname">Role:</label>
-                        <select  id='role_id' name='role_id' class="form-control "   v-model="fillItem.role_id"  style="width: 100%;"  >
-                               <option v-for="role in roles" :value="role.id"  >
-                                    @{{ role.name }}
-                               </option>
-                        </select>
-                        <span v-if="formErrorsUpdate['role_id']" class="error text-danger">@{{ formErrorsUpdate['role_id'][0] }}</span>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="strSurname">Password:</label>
-                        <input type="password" name="password" class="form-control" v-model="fillItem.password" />
-                        <span v-if="formErrorsUpdate['password']" class="error text-danger">@{{ formErrorsUpdate['password'][0] }}</span>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="strFirstName">Confirm Password:</label>
-                        <input type="password" name="password_confirmation" class="form-control" v-model="fillItem.password_confirmation" />
-                        <span v-if="formErrorsUpdate['password_confirmation']" class="error text-danger">@{{ formErrorsUpdate['password_confirmation'][0] }}</span>
-                    </div>
                 </div>
                 <div class="form-group modal-footer">
                     <!--  <button id="print" type="submit" class="btn btn-success">Print</button> -->
@@ -328,6 +285,6 @@ color:white;
 
 
 
-    <script type="text/javascript" src="{!! asset('js/users.js') !!}"></script>
+    <script type="text/javascript" src="{!! asset('js/documents.js') !!}"></script>
 
     @endsection

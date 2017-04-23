@@ -32,8 +32,8 @@ const vm = new Vue({
   el: '#manage-units',
 
   data: {
-    //offlinePath: '/laravel',
-    offlinePath: '',
+    offlinePath: '/laravel',
+    //offlinePath: '',
 
     user: '',
     agent: 0,

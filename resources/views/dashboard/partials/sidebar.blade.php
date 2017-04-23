@@ -38,6 +38,9 @@
 -->
   <a href="{{ url('/home') }}" class="w3-padding"><i class="fa fa-search fa-fw"></i>  Properties</a>
   <a href="{{ url('/dashboardmap') }}" class="w3-padding"><i class="fa fa-map-marker fa-fw"></i>  Map</a>
+  <a href="{{ url('/manage-documents') }}" class="w3-padding"><i class="fa fa-gavel" aria-hidden="true"></i>  Legal Docs</a>
+
+
    <hr>
  @if ( Auth::user()->getRoleName()  == "System")
 
@@ -52,7 +55,7 @@
      onclick="event.preventDefault();
      document.getElementById('logout-form').submit();" >
     <i class="fa fa-sign-out fa-fw" ></i>  Logout </a>
-
+<br><br><br>
   <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
      {{ csrf_field() }}
   </form>

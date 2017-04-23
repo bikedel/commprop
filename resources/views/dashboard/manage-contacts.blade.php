@@ -39,6 +39,11 @@ margin-left:-40;
 
 color:white;
 }
+
+.myButton {
+    height:36px !important;
+    width: 50px;
+}
 </style>
 @section('content')
 
@@ -61,25 +66,6 @@ color:white;
   </header>
 
 
-<!--
-         <div class="w3-container ">
-                <div class="col-lg-6 margin-tb pull-left" >
-                    <form method="POST" enctype="multipart/form-data" v-on:submit.prevent="searchVueItems">
-                             <div id="custom-search-input" >
-                               <div class="input-group ">
-                                <input type="text" name="Search" class="form-control" v-model="search.string" placeholder="Search ID Number"/>
-                                <span class="input-group-btn">
-                                    <button type="submit" class="btn btn-info">
-                                         <span class=" glyphicon glyphicon-search"></span>
-                                    </button>
-                                </span>
-                                </div>
-                             </div>
-                    </form>
-                </div>
-        </div>
--->
-
         <div class="w3-container ">
             <div class="col-lg-12 margin-tb">
                 <div class="pull-left">
@@ -87,7 +73,9 @@ color:white;
                 </div>
 
                  <div class="pull-right">
+                  @if ( Auth::user()->getRoleName()  == "Admin"  ||  Auth::user()->getRoleName()  == "System")
                     <a href="{{ URL::route('exportContacts') }}" class="btn btn-warning"> Export Contacts</a>
+                  @endif
                     <button type="button" class="btn btn-primary btn-md" data-toggle="modal" data-target="#">
                       @{{pagination.total}} Records
                     </button>
@@ -95,9 +83,11 @@ color:white;
                 </div>
 
                 <div class="pull-left">
+                 @if ( Auth::user()->getRoleName()  == "Admin"  ||  Auth::user()->getRoleName()  == "System")
                     <button type="button" class="btn btn-success btn-md" @click.prevent="createForms">
                       New Contact
                     </button>
+                 @endif
                 </div>
 
             </div>
@@ -173,6 +163,19 @@ color:white;
         </nav>
         </div>
 
+<!--
+  <div class="w3-container ">
+  <form method="POST" enctype="multipart/form-data" v-on:submit.prevent="searchVueItems">
+    <div class="input-group">
+      <input type="text" class="form-control" placeholder="Search" v-model="search.string">
+      <div class="input-group-btn">
+        <button class="btn btn-default myButton" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+      </div>
+    </div>
+  </form>
+  </div>
+
+  -->
  <!-- <pre>@{{ $data | json }}</pre>   -->
 
         <!-- Create Item Modal -->
@@ -343,24 +346,29 @@ color:white;
               <div class="modal-body">
 
 
-                    <div id="ownertable" style="height:160px;width:100%;border:1px solid #ccc;overflow:auto; padding:0px">
+                    <div id="ownertable" style="height:300px;width:100%;border:1px solid #ccc;overflow:auto; padding:0px">
 
 
 
                             <div v-for="property  in properties" >
 
 
-                                    <h4 class="w3-text-blue w3-padding">@{{ property.address }}</h4>
+                                    <h5 class="w3-text-blue w3-padding"><a v-bind:href="'showproperty'+property.id" > @{{ property.address }}</a></h5>
 
                                      <div v-for="owners  in property.owners" >
+
                                          <div v-if="owners.contact_id == fillItem.id">
+                                            <tr>
                                             <div v-if="owners.unit_id == 0 ">
-                                             <h5 class="w3-text-black w3-padding">  @{{ contactTypeName(owners.contact_type_id) }} - Main property</h5>
+                                               <h5 class="w3-text-black w3-padding">  @{{ contactTypeName(owners.contact_type_id) }} - Main property</h5>
                                              </div>
                                              <div v-if="owners.unit_id > 0 ">
-                                             <h5 class="w3-text-black w3-padding">  @{{ contactTypeName(owners.contact_type_id) }} - Unit : @{{ owners.unit_id }}</h5>
+                                               <h5 class="w3-text-black w3-padding">  @{{ contactTypeName(owners.contact_type_id) }} - Unit : @{{ owners.unit_id }}</h5>
                                              </div>
+                                            </tr>
                                         </div>
+
+
                                      </div>
 
                             </div>

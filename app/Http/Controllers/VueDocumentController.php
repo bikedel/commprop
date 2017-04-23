@@ -233,7 +233,7 @@ class VueDocumentController extends Controller
     {
 
         $document   = Document::find($id);
-        $pathToFile = public_path('/documents') . '/' . $document->path;
+        $pathToFile = public_path('documents') . '/' . $document->path;
 
         return response()->download($pathToFile);
     }

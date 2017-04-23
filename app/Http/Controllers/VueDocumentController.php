@@ -151,7 +151,7 @@ class VueDocumentController extends Controller
 
         $document = $request->file->getClientOriginalName();
 
-        $request->file->move(public_path('documents'), $document);
+        $request->file->move(public_path('/documents'), $document);
 
         //    $file = Request::file('file');
         //   $extension = $file->getClientOriginalExtension();
@@ -233,7 +233,7 @@ class VueDocumentController extends Controller
     {
 
         $document   = Document::find($id);
-        $pathToFile = public_path('documents') . '/' . $document->path;
+        $pathToFile = public_path('/documents') . '/' . $document->path;
 
         return response()->download($pathToFile);
     }

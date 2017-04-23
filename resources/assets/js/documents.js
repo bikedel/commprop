@@ -49,6 +49,7 @@ const vm = new Vue({
           'name':'',
           'description':'',
           'path':'',
+          'file':'',
 
     },
 
@@ -58,6 +59,7 @@ const vm = new Vue({
           'name':'',
           'description':'',
           'path':'',
+           'file':'',
 
     },
 
@@ -190,19 +192,21 @@ const vm = new Vue({
             var vm = this; 
 
           //  var input = vm.newItem;
-
+            $("#create-item-submit").attr('disabled', true);
             axios.post(vm.offlinePath+'/commprop/public/vuedocuments',input).then(function (response) {
           		  vm.changePage(vm.pagination.current_page);
           			vm.newItem = {
                   'name':'',
                   'description':'',
                   'path':'',
+                   'file':'',
                 };
 
           			$("#create-item").modal('hide');
                 $(".modal-header button").click();
 
           			toastr.success('Document Created Successfully.', 'Success Alert', {timeOut: 5000});
+                $("#create-item-submit").attr('disabled', false);
 
                 })
                 .catch(function (error) {
@@ -231,6 +235,7 @@ const vm = new Vue({
                   'name':'',
                   'description':'',
                   'path':'',
+                   'file':'',
                 };
 
                 $("#create-item").modal('show');
@@ -311,6 +316,7 @@ const vm = new Vue({
                         'name':'',
                         'description':'',
                         'path':'',
+                         'file':'',
                      };
 
                       $("#edit-item").modal('hide');

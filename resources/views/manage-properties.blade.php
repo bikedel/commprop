@@ -1510,7 +1510,9 @@ line-height: 1.8;
               </div>
               <div class="modal-footer">
                 <!--  <button id="print" type="submit" class="btn btn-success">Print</button> -->
+                 @if ( Auth::user()->getRoleName()  == "Admin" ||  Auth::user()->getRoleName()  == "System")
                  <button id="edit-owner-submit" type="submit" class="btn btn-success">Submit</button>
+                 @endif
                   <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
             </form>

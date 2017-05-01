@@ -547,7 +547,7 @@ class VuePropertyController extends Controller
         $tosave['contact_type_id'] = $request->input('contact_type_id');
 
         // if contact type not set default to 1
-        if (!isset($tosave['contact_type_id'])) {
+        if (empty($tosave['contact_type_id'])) {
             $tosave['contact_type_id'] = 1;
         }
 

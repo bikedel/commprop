@@ -42,7 +42,7 @@
 
 
    <hr>
-    @if ( Auth::user()->getRoleName()  == "Admin")
+    @if ( Auth::user()->getRoleName()  == "Admin" || Auth::user()->getRoleName()  == "System")
       <a href="{{ url('/manage-agents') }}" class="w3-padding"><i class="fa fa-address-card fa-fw"></i>  Agents</a>
     @endif
 

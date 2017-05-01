@@ -574,7 +574,7 @@ class VuePropertyController extends Controller
 
             // if contact type not set default to 1
             if (empty($request->input('contact_type_id')) || is_null($request->input('contact_type_id')) || strlen($request->input('contact_type_id') < 1)) {
-                $tosave['contact_type_id'] = 1;
+                $saveowner['contact_type_id'] = 1;
             }
 
             $owner = Owner::create($saveowner);

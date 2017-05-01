@@ -339,7 +339,9 @@ padding:0px;
 </div>
 
 <div>
+@if(strlen($note)>0 )
  <h5 class="w3-text-red">Notes:</h5> <p class="w3-text-blue">{{$note}} </p>
+@endif
 </div>
 
 

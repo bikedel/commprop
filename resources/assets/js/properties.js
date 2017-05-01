@@ -104,6 +104,8 @@ data:  {
     statuses: [],
     brochures: [],
 
+    clearbrochures: true,
+
 
     pagination: {
         total: 0, 
@@ -158,6 +160,7 @@ data:  {
          'status_id':'0',
          'size':'',
          'price':'',
+         'deposit':'',
          'section':'',
          'investment_yield':'',
          'gross_rental':'',
@@ -179,6 +182,7 @@ data:  {
          'status_id':'',
          'size':'',
          'price':'',
+         'deposit':'',
          'section':'',
          'investment_yield':'',
          'gross_rental':'',
@@ -769,6 +773,7 @@ data:  {
          this.fillUnit.status_id = unit.status_id;
          this.fillUnit.size = unit.size;
          this.fillUnit.price = unit.price;
+         this.fillUnit.deposit = unit.deposit;
          this.fillUnit.section = unit.section;
          this.fillUnit.investment_yield = unit.investment_yield;
          this.fillUnit.gross_rental = unit.gross_rental;
@@ -811,6 +816,7 @@ data:  {
                            'status_id':'',
                            'size':'',
                            'price':'',
+                           'deposit':'',
                            'section':'',
                            'investment_yield':'',
                            'gross_rental':'',
@@ -891,9 +897,12 @@ data:  {
 
                // console.log("Brochure toggle item: "+item.id+" unit: "+unit.id);
 
+               var vm = this;
 
+              if (vm.clearbrochures) 
+              {
 
-                var vm = this; 
+                 
 
                 axios.get(vm.offlinePath+'/commprop/public/clearbrochures').then(function (response) {
 
@@ -902,7 +911,7 @@ data:  {
 
 
                       if (response.data.data == true) {
-                         toastr.success('Brochures cleared ',  {timeOut: 5000});
+                         //toastr.success('Brochures cleared ',  {timeOut: 5000});
                       } else
                       {
                         toastr.warning('Brochures not cleared',  {timeOut: 5000});
@@ -922,6 +931,7 @@ data:  {
 
   
                 });
+              }
 
         },
 
@@ -1234,6 +1244,7 @@ data:  {
                          'status_id':'0',
                          'size':'',
                          'price':'',
+                         'deposit':'',
                          'section':'',
                          'investment_yield':'',
                          'gross_rental':'',
@@ -1337,13 +1348,24 @@ data:  {
        console.log( document.getElementById('imageOrder').firstChild.innerHTML);
 
 
-        var input = data;
+               var input = data;
 
                 var vm = this; 
 
                 $("#edit-item-submit").attr('disabled', true);
+
+  console.log("updating item");
+let config = {
+  onUploadProgress: progressEvent => {
+    let percentCompleted = Math.floor((progressEvent.loaded * 100) / progressEvent.total);
+    console.log(percentCompleted);
+    // do whatever you like with the percentage complete
+    // maybe dispatch an action that will update a progress bar or something
+  }
+}
+
             
-                axios.post(this.offlinePath+'/commprop/public/updateproperty/'+id,input).then(function (response) {
+                axios.post(this.offlinePath+'/commprop/public/updateproperty/'+id,input, config).then(function (response) {
 
                       vm.changePage(vm.pagination.current_page);
 
@@ -1400,12 +1422,13 @@ data:  {
           let client = document.getElementById('client').value;
           let brochure_type = document.getElementById('brochure_type').value;
           let note = document.getElementById('note').value;
+          let zoom = document.getElementById('zoom').value;
 
             //    axios.put(this.offlinePath+'/commprop/public/createpdf/'+this.agent+','+brochure_text+','+client).then(function (response) {
             //           toastr.success('Brochure complete.',  {timeOut: 5000});
             //    })
 
-          window.location.href = this.offlinePath+'/commprop/public/createpdf/'+this.agent+','+brochure_text+','+client+','+brochure_type+','+note;
+          window.location.href = this.offlinePath+'/commprop/public/createpdf/'+this.agent+','+brochure_text+','+client+','+brochure_type+','+note+','+zoom;
 
           $("#listBrochures_modal").modal('hide');
 

@@ -143,7 +143,7 @@ class HomeController extends Controller
     {
 
         $username = Auth::user()->name;
-        activity("Dashboard")->withProperties(['user' => $username])->log('Overview ');
+        // activity("Dashboard")->withProperties(['user' => $username])->log('Overview ');
 
         $useragent = request()->header('User-Agent');
         $ip        = request()->ip();

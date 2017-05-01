@@ -926,6 +926,7 @@ class VuePropertyController extends Controller
 
         $input = (explode(",", $myinput));
 
+        $zoom          = $input[5];
         $note          = $input[4];
         $brochure_type = $input[3];
         $client        = $input[2];
@@ -934,13 +935,31 @@ class VuePropertyController extends Controller
 
         $agent = $input[0];
 
-        //dd($request, $footer, $client, $myinput);
+        if (!$agent) {
+            $agent = 1;
+        }
+
+        //dd($agent, $zoom);
+
         if ($footer == 1) {
             $footer = 'footer_1.html';
         } else {
             $footer = 'footer_2.html';
         }
+        //   $agentid = Agent::find($agent);
+        $footer = 'footer_' . $agent . '.html';
 
+        //dd($footer);
+
+        //   $footer = route('brochurefooter', ['id' => $agent]);
+
+        //  $footer = \View::make('agent_footer', compact('agent'))->render();
+
+        // $temp = Storage::disk('footer')->put('footer__' . $agent->id . '.html', $footer, 'public');
+
+        //dd($footer);
+
+        //  dd($request, $footer, $client, $myinput);
         $users    = User::all();
         $areas    = Area::all();
         $grades   = Grade::all();
@@ -1008,7 +1027,7 @@ class VuePropertyController extends Controller
 
             // type 1 brochure
             if ($items->count() > 0) {
-                return PDF::loadView('pdf.brochure', compact('items', 'areas', 'suburbs', 'grades', 'ptypes', 'stypes', 'statuses', 'users', 'markers', 'locations', 'client', 'brochure_text', 'note'))->setOption('outline', true)->setOption('margin-top', 0)->setOption('margin-bottom', 45)->setOption('footer-line', false)->setOption('footer-html', url($footer))->download('Property_brochure_erf_' . $item->erf . '.pdf');
+                return PDF::loadView('pdf.brochure', compact('items', 'areas', 'suburbs', 'grades', 'ptypes', 'stypes', 'statuses', 'users', 'markers', 'locations', 'client', 'brochure_text', 'note', 'zoom'))->setOption('outline', true)->setOption('margin-top', 0)->setOption('margin-bottom', 45)->setOption('footer-line', false)->setOption('footer-html', url($footer))->download('Property_brochure_erf_' . $item->erf . '.pdf');
             } else {
 
                 return redirect()->back();
@@ -1017,7 +1036,7 @@ class VuePropertyController extends Controller
         } else {
             // type 2 brochure
             if ($items->count() > 0) {
-                return PDF::loadView('pdf.brochure_2', compact('items', 'areas', 'suburbs', 'grades', 'ptypes', 'stypes', 'statuses', 'users', 'markers', 'locations', 'client', 'brochure_text', 'note'))->setOption('outline', true)->setOption('margin-top', 0)->setOption('margin-bottom', 45)->setOption('footer-line', false)->setOption('footer-html', url($footer))->download('Property_brochure_erf_' . $item->erf . '.pdf');
+                return PDF::loadView('pdf.brochure_2', compact('items', 'areas', 'suburbs', 'grades', 'ptypes', 'stypes', 'statuses', 'users', 'markers', 'locations', 'client', 'brochure_text', 'note', 'zoom'))->setOption('outline', true)->setOption('margin-top', 0)->setOption('margin-bottom', 45)->setOption('footer-line', false)->setOption('footer-html', url($footer))->download('Property_brochure_erf_' . $item->erf . '.pdf');
             } else {
 
                 return redirect()->back();
@@ -1033,6 +1052,14 @@ class VuePropertyController extends Controller
         //->setOption('footer-html', "<img src = '{{public_path()}}/img/sothebys_logo_flat.jpeg' />")
         //return PDF::loadView('pdf.brochure', compact('item', 'areas', 'ptypes', 'stypes', 'users'))->setOption('margin-bottom', 0)->setOption('footer-center', 'Page [page]')->setOption('cover', $cover)->download('Property_brochure_erf' . $item->erf . '.pdf');
 
+    }
+
+    public function brochurefooter($id)
+    {
+        //dd("brochure footer " . $id);
+        $agent = Agent::find($id);
+
+        return view('agent_footer', compact('agent'));
     }
 
     public function export()

@@ -118,7 +118,8 @@ color:white;
                     <th width="130px">Name</th>
                     <th width="120px">Email</th>
                     <th width="120px">Tel</th>
-                    <th width="300px">Cell</th>
+                    <th width="120px">Cell</th>
+                    <th width="120px">Photo</th>
 
                 </tr>
                 <tr v-for="item in items">
@@ -134,6 +135,7 @@ color:white;
                     <td>@{{ item.email}}</td>
                     <td>@{{ item.tel}}</td>
                     <td>@{{ item.cell }}</td>
+                     <td>@{{ item.photo }}</td>
 
                 </tr>
             </table>
@@ -175,7 +177,7 @@ color:white;
         <div class="modal " id="create-item" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
-             <form method="POST" enctype="multipart/form-data" v-on:submit.prevent="createItem">
+             <form id="createAgent" method="POST" enctype="multipart/form-data" v-on:submit.prevent="createItem">
               <div class="modal-header">
                 <button type="button" id="create-item-modal-header-button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                 <h4 class="modal-title" id="myModalLabel">New Agent</h4>
@@ -228,7 +230,7 @@ color:white;
 
                     <div class="form-group">
                         <label for="strSurname">Photo:</label>
-                        <input type="password" name="photo" class="form-control" v-model="newItem.photo" />
+                        <input type="file"  name="photo"   />
                         <span v-if="formErrors['photo']" class="error text-danger">@{{ formErrors['photo'][0] }}</span>
                     </div>
 
@@ -251,7 +253,7 @@ color:white;
         <div class="modal fade" id="edit-item" tabindex="-1050" role="dialog" aria-labelledby="myModalLabel">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
-            <form method="POST" enctype="multipart/form-data" v-on:submit.prevent="updateItem(fillItem.id)">
+            <form id="editAgent" method="POST" enctype="multipart/form-data" v-on:submit.prevent="updateItem(fillItem.id)">
 
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
@@ -296,10 +298,12 @@ color:white;
 
                     <div class="form-group">
                         <label for="strFirstName">Photo:</label>
-                        <input type="text" name="photo" class="form-control" v-model="fillItem.photo" />
+                        <input type="file" name="photo" class="form-control"  />
                         <span v-if="formErrorsUpdate['photo']" class="error text-danger">@{{ formErrorsUpdate['photo'][0] }}</span>
                     </div>
                 </div>
+
+
                 <div class="form-group modal-footer">
                     <!--  <button id="print" type="submit" class="btn btn-success">Print</button> -->
                     <button id="create-item-submit" type="submit" class="btn btn-success">Submit</button>
@@ -317,5 +321,8 @@ color:white;
 
 
     <script type="text/javascript" src="{!! asset('js/agents.js') !!}"></script>
+
+
+
 
     @endsection

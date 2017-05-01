@@ -12,6 +12,7 @@ use App\User;
 use Auth;
 use Carbon;
 use Excel;
+use IImage;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Storage;
@@ -135,6 +136,7 @@ class VueAgentController extends Controller
             'email' => 'required|email|unique:agents,email',
             'tel'   => 'Numeric',
             'cell'  => 'Numeric',
+            'photo' => 'mimes:png,jpg,jpeg',
         );
 
         $messsages = array(
@@ -149,6 +151,26 @@ class VueAgentController extends Controller
 
         }
 
+        if (isset($request['photo'])) {
+
+            $img = $request->file('photo');
+
+            $file_name = preg_replace("/[^a-zA-Z0-9.-]/", "", $img->getClientOriginalName());
+
+            $name = $file_name;
+
+            $img = IImage::make($img->getRealPath())->resize(400, 300);
+
+            $img->backup();
+
+            $img->save(public_path('/agents/' . $name, 100));
+
+            $img->reset();
+
+            $tosave['photo'] = 'agents/' . $name;
+
+        }
+
         // remove id from the form request
         //$tosave = $request->except(['confirmpassword']);
         $tosave['name']  = $request->input('name');
@@ -156,10 +178,14 @@ class VueAgentController extends Controller
         $tosave['tel']   = $request->input('tel');
         $tosave['cell']  = $request->input('cell');
         $tosave['about'] = $request->input('about');
-        $tosave['photo'] = $request->input('photo');
+        //$tosave['photo'] = $request->input('photo');
 
         // save new owner
         $agent = Agent::create($tosave);
+
+        $footer = \View::make('agent_footer', compact('agent'))->render();
+
+        $temp = Storage::disk('footer')->put('footer_' . $agent->id . '.html', $footer, 'public');
 
         return response()->json($agent);
 
@@ -180,7 +206,7 @@ class VueAgentController extends Controller
             'email' => 'required|email', Rule::unique('agents')->ignore($id),
             'tel'   => 'Numeric',
             'cell'  => 'Numeric',
-
+            'photo' => 'mimes:png,jpg,jpeg',
         );
 
         $messsages = array(
@@ -195,6 +221,29 @@ class VueAgentController extends Controller
 
         }
 
+        if ($request->hasFile('photo')) {
+
+            $img = $request->file('photo');
+
+            $file_name = preg_replace("/[^a-zA-Z0-9.-]/", "", $img->getClientOriginalName());
+
+            $name = $file_name;
+
+            $img = IImage::make($img->getRealPath());
+
+            $img->resize(400, 300, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+
+            $img->backup();
+
+            $img->save(public_path('/agents/' . $name, 100));
+
+            $img->reset();
+
+            $tosave['photo'] = 'agents/' . $name;
+
+        }
         // remove id from the form request
         //$tosave = $request->except(['confirmpassword']);
 
@@ -203,11 +252,14 @@ class VueAgentController extends Controller
         $tosave['tel']   = $request->input('tel');
         $tosave['cell']  = $request->input('cell');
         $tosave['about'] = $request->input('about');
-        $tosave['photo'] = $request->input('photo');
 
         // save new owner
         $agent = Agent::find($id);
         $agent->update($tosave);
+
+        $footer = \View::make('agent_footer', compact('agent'))->render();
+
+        $temp = Storage::disk('footer')->put('footer_' . $agent->id . '.html', $footer, 'public');
 
         return response()->json($agent);
         //  return response()->json(['test' => 'all data ok so far.'], 422);

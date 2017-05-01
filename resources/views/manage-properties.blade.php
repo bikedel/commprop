@@ -1008,6 +1008,12 @@ line-height: 1.8;
                     </div>
 
                     <div class="form-group" >
+                        <label for="Surname">Deposit:</label>
+                        <input type="text" name="deposit" class="form-control" v-model="newUnit.deposit" />
+                        <span v-if="formErrors['deposit']" class="error text-danger">@{{ formErrors['deposit'][0] }}</span>
+                    </div>
+
+                    <div class="form-group" >
                         <label for="Surname">Gross Rental:</label>
                         <input type="text" name="gross_rental" class="form-control" v-model="newUnit.gross_rental" />
                         <span v-if="formErrors['gross_rental']" class="error text-danger">@{{ formErrors['gross_rental'][0] }}</span>
@@ -1175,6 +1181,12 @@ line-height: 1.8;
                         <label for="Surname">Price:</label>
                         <input type="text" name="price" class="form-control" v-model="fillUnit.price" />
                         <span v-if="formErrors['price']" class="error text-danger">@{{ formErrors['price'][0] }}</span>
+                    </div>
+
+                    <div class="form-group" >
+                        <label for="Surname">Deposit:</label>
+                        <input type="text" name="deposit" class="form-control" v-model="fillUnit.deposit" />
+                        <span v-if="formErrors['deposit']" class="error text-danger">@{{ formErrors['deposit'][0] }}</span>
                     </div>
 
                     <div class="form-group" >
@@ -1579,6 +1591,12 @@ line-height: 1.8;
                       <textarea type="text" id="note" name="note" class="form-control" placeholder="Add notes ..."  ></textarea>
                     </div>
 
+                    <div class="form-group" >
+                      <label for="Surname"> Property map zoom:</label><br>
+                       <input type="number" id="zoom" name="zoom" min="1" max="20" style="width:100%;" value="14">
+                    </div>
+
+
                     <div class="form-group">
                         <label for="Firstname">Brochure:</label>
                        <select  id ='brochure_type' name ='brochure_type' class="form-control "   data-width="100%"   >
@@ -1591,7 +1609,10 @@ line-height: 1.8;
         </div>
 
         <div class="modal-footer">
-
+            <div class="form-group pull-left">
+            <input class="w3-check " type="checkbox" checked="checked" v-model="clearbrochures">
+            <label>Clear brochures after print</label>
+        </div>
         <!--  <button id="print" type="submit" class="btn btn-success">Print</button> -->
           <button class="btn btn-success " @click.prevent="createPDF">Print</button>
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

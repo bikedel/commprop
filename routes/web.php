@@ -99,6 +99,9 @@ Route::post('/setbrochure', 'VuePropertyController@setbrochure');
 // clear set brochures for user
 Route::get('/clearbrochures', 'VuePropertyController@clearbrochures');
 
+// brochure agent footer
+Route::get('/brochurefooter{id}', 'VuePropertyController@brochurefooter')->name('brochurefooter');
+
 //update property
 Route::post('/updateproperty/{id}', 'VuePropertyController@updateproperty');
 
@@ -147,7 +150,8 @@ Route::get('/contactProp{id}', 'OwnerController@contactProp')->name('contactProp
 // Contacts maintenance in dashboard
 Route::get('manage-units', 'VueUnitController@manageVue');
 Route::resource('vueunits', 'VueUnitController');
-Route::post('/updateunit/{id}', 'VueUnitController@updateunit');
+// conflicting with properties updateunit
+//Route::post('/vueupdateunit/{id}', 'VueUnitController@updateunit');
 Route::post('searchvueunits/{search}', 'VueUnitController@search');
 Route::get('/exportUnits', 'VueUnitController@export')->name('exportUnits');
 

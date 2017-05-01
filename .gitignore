@@ -8,3 +8,4 @@ Homestead.yaml
 .env
 /public/property
 /public/documents
+/public/agents

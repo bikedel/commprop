@@ -25,6 +25,7 @@
     "moment": "^2.17.1",
     "moment-timezone": "^0.5.11",
     "toastr": "^2.1.2",
+    "vue-crop": "^1.0.1",
     "vue-multiselect": "^2.0.0-beta.13",
     "vue-sortable": "^0.1.3"
   }

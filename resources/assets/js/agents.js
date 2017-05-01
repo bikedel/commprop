@@ -185,9 +185,18 @@ const vm = new Vue({
 
         createItem: function(){
 
-            var vm = this; 
+           
 
-            var input = vm.newItem;
+            let data = new FormData(document.getElementById('createAgent'));
+
+            var input = data;
+
+ var vm = this; 
+       //   data.append('s_minsize',this.s_minsize);
+        //  data.append('s_maxsize',this.s_maxsize);
+
+
+
 
             axios.post(vm.offlinePath+'/commprop/public/vueagents',input).then(function (response) {
           		  vm.changePage(vm.pagination.current_page);
@@ -303,10 +312,13 @@ const vm = new Vue({
 
       updateItem: function(id){
      
-       
-                var vm = this; 
+              let data = new FormData(document.getElementById('editAgent'));
 
-                var input = vm.fillItem;
+              var input = data;
+
+              var vm = this; 
+
+
 
             
                 axios.post(this.offlinePath+'/commprop/public/updateagent/'+id,input).then(function (response) {

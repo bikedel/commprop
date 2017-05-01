@@ -300,7 +300,7 @@ small {
             <div class="w3-text-blue">
             <p> {{$property->address }}</p>
             </div>
-            <img align="center" src = "http://maps.googleapis.com/maps/api/staticmap?size=600x200&zoom=15&markers=color:red%7Clabel:%7C{{$property->long}},{{$property->lat}}&maptype=hybrid&scale=3&sensor=false&label=Hello&key=AIzaSyCNgTdT8SN3jIzbdvZu7CBPKw3zz8J4Pww"  width="100%" height="200" class='prop_img 'alt='Google Map'/>
+            <img align="center" src = "http://maps.googleapis.com/maps/api/staticmap?size=600x200&zoom=14&markers=color:red%7Clabel:%7C{{$property->long}},{{$property->lat}}&maptype=hybrid&scale=3&sensor=false&label=Hello&key=AIzaSyCNgTdT8SN3jIzbdvZu7CBPKw3zz8J4Pww"  width="100%" height="200" class='prop_img 'alt='Google Map'/>
 	         <h3>Property Description</h3>
 			<div style="height:100px;width:100%;border:0px solid #ccc;overflow:auto; padding:0px">
 			<p>{{$property->description}}</p>

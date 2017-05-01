@@ -546,11 +546,6 @@ class VuePropertyController extends Controller
         $tosave['website']         = $request->input('website');
         $tosave['contact_type_id'] = $request->input('contact_type_id');
 
-        // if contact type not set default to 1
-        if (empty($tosave['contact_type_id'])) {
-            $tosave['contact_type_id'] = 1;
-        }
-
         // no company name and it is not an existing contact
         $savecontact['company'] = $request->input('company');
         if ($request->input('company') == "" && $request->input('checked') == 'false') {
@@ -576,7 +571,13 @@ class VuePropertyController extends Controller
             $saveowner['unit_id']         = $request->input('unit_id');
             $saveowner['contact_id']      = $request->input('selectedContact');
             $saveowner['contact_type_id'] = $request->input('contact_type_id');
-            $owner                        = Owner::create($saveowner);
+
+            // if contact type not set default to 1
+            if (empty($tosave['contact_type_id'])) {
+                $tosave['contact_type_id'] = 1;
+            }
+
+            $owner = Owner::create($saveowner);
 
         } else {
 

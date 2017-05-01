@@ -576,6 +576,9 @@ class VuePropertyController extends Controller
             if (empty($request->input('contact_type_id'))) {
                 $tosave['contact_type_id'] = 1;
             }
+            if (is_null($request->input('contact_type_id'))) {
+                $tosave['contact_type_id'] = 1;
+            }
 
             $owner = Owner::create($saveowner);
 

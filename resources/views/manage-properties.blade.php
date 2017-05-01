@@ -1408,7 +1408,7 @@ line-height: 1.8;
                             <tr v-for="item  in orderBy(fillOwner.owners, 'created_at', -1) " v-if=" item.unit_id == fillOwner.unit_id ">
 
 
-                                 <td>@{{ contacttypes[item.contact_type_id].name }}</td>
+                                 <td>@{{ contacttypes[item.contact_type_id-1].name }}</td>
                                  <td>@{{ contacts[getContactId(item.contact_id)].company }}</td>
                                  <td>@{{ contacts[getContactId(item.contact_id)].firstname }}</td>
                                  <td>@{{ contacts[getContactId(item.contact_id)].lastname }}</td>

@@ -146,7 +146,7 @@ class PropertyController extends Controller
         $property->load('units', 'images', 'notes', 'owners');
 
         $username = Auth::user()->name;
-        activity("Property")->withProperties(['user' => $username, 'erf' => $property->erf])->log('Show ');
+        activity("Property")->withProperties(['user' => $username, 'erf' => $property->erf, 'id' => $property->id])->log('Show ');
         //dd($property);
         $stat1 = 0;
         $stat2 = 0;

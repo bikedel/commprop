@@ -989,6 +989,7 @@ class VuePropertyController extends Controller
         $items = Property::whereHas('units', function ($query) use ($user) {$query->where('brochure_users', '!=', '[]')->where('brochure_users', 'like', "%[$user%")->orWhere('brochure_users', 'like', "%$user]%")->orWhere('brochure_users', 'like', "%,$user,%");})->with(['units' => function ($query) use ($user) {$query->where('brochure_users', '!=', '[]')->where('brochure_users', 'like', "%[$user%")->orWhere('brochure_users', 'like', "%$user]%")->orWhere('brochure_users', 'like', "%,$user,%");}])->with('images', 'notes', 'owners')->get();
 
         $log_units = '';
+        $log_ids   = '';
         $markers   = '';
         $locations = array();
         $loop      = 0;
@@ -999,15 +1000,17 @@ class VuePropertyController extends Controller
             $markers = $markers . $marker;
             array_push($locations, $item->address);
             $log_units = $log_units . ',' . $item->erf;
+            $log_ids   = $log_ids . ',' . $item->id;
             foreach ($item->units as $unit) {
                 $log_units = $log_units . '-' . $unit->id;
+                $log_ids   = $log_ids . '-' . $unit->id;
             }
 
         }
 
         //   dd("pdf", $units, $items);
 
-        activity("Brochure")->withProperties(['user' => $username, 'client' => $client, 'brief' => $brochure_text, 'agent' => $agent, 'erfs' => $log_units])->log('PDF ');
+        activity("Brochure")->withProperties(['user' => $username, 'client' => $client, 'brief' => $brochure_text, 'agent' => $agent, 'erfs' => $log_units, 'ids' => $log_ids])->log('PDF ');
 
         // $img = Barryvdh\Snappy\Facades\SnappyImage::loadView('readme');
         // return $img->download('test.pdf');

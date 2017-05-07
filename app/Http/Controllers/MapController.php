@@ -118,7 +118,7 @@ class MapController extends Controller
         $properties = Property::find($id);
 
         $username = Auth::user()->name;
-        activity("Property")->withProperties(['user' => $username, 'erf' => $properties->erf])->log('Show on map');
+        activity("Property")->withProperties(['user' => $username, 'erf' => $properties->erf, 'id' => $properties->id])->log('Show on map');
 
         Mapper::map($properties->long, $properties->lat, ['zoom' => 18, 'center' => true, 'marker' => false, 'type' => 'HYBRID', 'overlay' => 'NONE']);
 

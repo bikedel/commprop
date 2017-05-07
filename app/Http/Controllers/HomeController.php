@@ -8,14 +8,14 @@ use App\Property;
 use App\PropertyType;
 use App\SaleType;
 use App\Status;
-use App\Temp;
 use App\Unit;
 use App\User;
 use Auth;
 use Carbon\Carbon;
 use Cornford\Googlmapper\Facades\MapperFacade as Mapper;
-use Faker\Factory as Faker;
 use Illuminate\Http\Request;
+use SoapClient;
+use SoapHeader;
 
 class HomeController extends Controller
 {
@@ -224,8 +224,85 @@ class HomeController extends Controller
 
     public function test()
     {
+        try {
+            $apiauth = array('EMail' => 'test@SothebysCommercial.com', 'Password' => 'Ache!ou5');
+            $wsdl    = 'http://www.exdev.property24.com/Services/P24ListingService31.asmx?wsdl';
 
-        // dd('test');
+            $soap     = new SoapClient($wsdl, array('trace' => 1));
+            $header[] = new SoapHeader('http://www.property24.com/Services/P24ListingService31', 'AuthHeader', $apiauth);
+            $header[] = new SoapHeader('http://www.property24.com/Services/P24ListingService31', 'CredentialsHeader', $apiauth);
+            $soap->__setSoapHeaders($header);
+
+            // -- works
+            // echoAuthenticated
+            //$params['stringToEcho'] = "ok this is working";
+            //$data                   = $soap->EchoAuthenticated($params);
+
+            // -- works
+            // fetch country 1=South Africa
+            //$data = $soap->FetchCountries();
+
+            // fetch agency
+            //$fetch_agency_parameter = array('agencyId' => '31171');
+            //$params['agencyId'] = 31171;
+            //$data               = $soap->FetchAgency($params);
+
+            // fetch franchise
+            //$params['agencyId'] = 31171;
+            //$data               = $soap->FetchFranchises($params);
+
+            // fetch Suburblist
+            //$params['agencyId'] = 31171;
+            //$data               = $soap->FetchSuburbList($params);
+
+            // fetch provinces
+            //$data = $soap->FetchProvinces(array('countryName' => 'South Africa'));
+
+            // fetch suburbs
+            //$data = $soap->FetchSuburbs(array('cityName' => 'Cape Town'));
+
+            // fetch agents
+            $data = $soap->FetchAgents(array('agencyId' => '31171'));
+
+            // fetch agent
+            //$data = $soap->FetchAgent(array('agentId' => '31171'));
+
+            // fetch TryFindSuburbId
+            //$params['countryName']  = 'South Africa';
+            //$params['provinceName'] = 'Western Cape';
+            //$params['cityName']     = 'Cape Town';
+            //$params['suburbName']   = 'Paarden Eiland';
+            //$data                   = $soap->TryFindSuburbId($params);
+
+            // add agent
+            //$data = $soap->AddAgent(array('Id' => 1));
+        } catch (\SoapFault $e) {
+            echo 'Soap Error: ' . $e->getMessage() . '<br>' . ' class: ' . get_class($e);
+
+            restore_error_handler();
+            restore_exception_handler();
+            set_error_handler('var_dump', 0); // Never called because of empty mask.
+            @trigger_error("");
+            restore_error_handler();
+            dd();
+
+        } catch (\Exception $e) {
+            echo 'Error: ' . $e->getMessage();
+            restore_error_handler();
+            restore_exception_handler();
+
+            dd();
+        } catch (\FatalErrorException $e) {
+            echo "Caught exception of class: " . get_class($e) . PHP_EOL;
+        }
+
+        dd($data);
+
+        // print_r($data);
+
+        //$properties = get_object_vars($data);
+        //print_r($properties);
+        /*
 
         $temps = Temp::all();
 
@@ -234,67 +311,66 @@ class HomeController extends Controller
         $faker = Faker::create();
         foreach ($temps as $temp) {
 
-            // check address is not empty
+        // check address is not empty
 
-            $erf = $erf + 1;
+        $erf = $erf + 1;
 
-            $tosave['erf']         = $erf;
-            $tosave['title']       = $faker->lastName . ' ' . $faker->word . ' ' . $faker->word;
-            $tosave['address']     = $temp->no . ' ' . $temp->name . ' ' . $temp->street . ' ' . $temp->area . ' ' . ', cape town , south africa';
-            $tosave['description'] = $faker->paragraph . ' <br> ' . $faker->imageUrl($width = 200, $height = 200);
-            $tosave['area_id']     = $faker->numberBetween(1, 100);
+        $tosave['erf']         = $erf;
+        $tosave['title']       = $faker->lastName . ' ' . $faker->word . ' ' . $faker->word;
+        $tosave['address']     = $temp->no . ' ' . $temp->name . ' ' . $temp->street . ' ' . $temp->area . ' ' . ', cape town , south africa';
+        $tosave['description'] = $faker->paragraph . ' <br> ' . $faker->imageUrl($width = 200, $height = 200);
+        $tosave['area_id']     = $faker->numberBetween(1, 100);
 
-            // add lat long
-            /*      $add     = urlencode($tosave['address']);
-            $geocode = file_get_contents("https://maps.googleapis.com/maps/api/geocode/json?address=" . $add . "&key=AIzaSyCNXNSQD49r8fdL-d4RNs4MmWhZue_iAyM");
+        // add lat long
+        /*      $add     = urlencode($tosave['address']);
+        $geocode = file_get_contents("https://maps.googleapis.com/maps/api/geocode/json?address=" . $add . "&key=AIzaSyCNXNSQD49r8fdL-d4RNs4MmWhZue_iAyM");
 
-            $output = json_decode($geocode);
+        $output = json_decode($geocode);
 
-            if ($output->results) {
-            $lat = $output->results[0]->geometry->location->lat;
-            $lng = $output->results[0]->geometry->location->lng;
+        if ($output->results) {
+        $lat = $output->results[0]->geometry->location->lat;
+        $lng = $output->results[0]->geometry->location->lng;
 
-            $tosave['lat']  = $lng;
-            $tosave['long'] = $lat;
-            }
-            //dd($lat, $lng, $output);
-             */
+        $tosave['lat']  = $lng;
+        $tosave['long'] = $lat;
+        }
+        //dd($lat, $lng, $output);
 
-            $lng = $faker->randomFloat($nbMaxDecimals = null, $min = 18.4, $max = 18.76);
-            $lat = $faker->randomFloat($nbMaxDecimals = null, $min = -33.825, $max = -34.05);
+        $lng = $faker->randomFloat($nbMaxDecimals = null, $min = 18.4, $max = 18.76);
+        $lat = $faker->randomFloat($nbMaxDecimals = null, $min = -33.825, $max = -34.05);
 
-            if ($lng <= 18.4) {
-                $lng = $faker->randomFloat($nbMaxDecimals = null, $min = 18.4, $max = 18.56);
-            }
-
-            $tog = $faker->numberBetween(1, 5);
-
-            if ($tog > 3) {
-                $r1 = rand(0, 1000) / 1000;
-                $r2 = -rand(0, 1000) / 1000;
-            } else {
-                $r1 = -rand(0, 1000) / 1000;
-                $r2 = rand(0, 1000) / 1000;
-            }
-
-            $tosave['lat']  = $lng + ($r1 / 10000);
-            $tosave['long'] = $lat + ($r2 / 10000);
-
-            $property = Property::create($tosave);
-
-            for ($i = 1; $i < $tog; $i++) {
-
-                $utosave['property_id']      = $property->id;
-                $utosave['property_type_id'] = $faker->numberBetween(1, 5);
-                $utosave['sale_type_id']     = $faker->numberBetween(1, 2);
-                $utosave['status_id']        = $faker->numberBetween(1, 4);
-                $utosave['size']             = $faker->numberBetween(1, 1000);
-                $utosave['price']            = $faker->numberBetween(1, 1000);
-
-                $unit = Unit::create($utosave);
-            }
+        if ($lng <= 18.4) {
+        $lng = $faker->randomFloat($nbMaxDecimals = null, $min = 18.4, $max = 18.56);
         }
 
+        $tog = $faker->numberBetween(1, 5);
+
+        if ($tog > 3) {
+        $r1 = rand(0, 1000) / 1000;
+        $r2 = -rand(0, 1000) / 1000;
+        } else {
+        $r1 = -rand(0, 1000) / 1000;
+        $r2 = rand(0, 1000) / 1000;
+        }
+
+        $tosave['lat']  = $lng + ($r1 / 10000);
+        $tosave['long'] = $lat + ($r2 / 10000);
+
+        $property = Property::create($tosave);
+
+        for ($i = 1; $i < $tog; $i++) {
+
+        $utosave['property_id']      = $property->id;
+        $utosave['property_type_id'] = $faker->numberBetween(1, 5);
+        $utosave['sale_type_id']     = $faker->numberBetween(1, 2);
+        $utosave['status_id']        = $faker->numberBetween(1, 4);
+        $utosave['size']             = $faker->numberBetween(1, 1000);
+        $utosave['price']            = $faker->numberBetween(1, 1000);
+
+        $unit = Unit::create($utosave);
+        }
+        }
+         */
         dd("test", $temp);
     }
 

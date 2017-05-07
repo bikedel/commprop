@@ -814,7 +814,7 @@ line-height: 1.8;
 
                     <div class="form-group">
                         <label for="Firstname">Suburb:</label>
-                       <select  id ='area_id' name='area_id' class="form-control selectpicker"  data-live-search="true"  v-model="fillItem.area_id"  style="width: 100%;"  >
+                       <select  id ='area_id' name='area_id' class="form-control "  data-live-search="true"  v-model="fillItem.area_id"  style="width: 100%;"  >
                                        <optgroup v-for="area in areas" :label="area.name">
                                           <option   v-for="suburb in area.suburbs"     v-bind:value="suburb.id" > @{{ suburb.name }}</option>
                                         </optgroup>

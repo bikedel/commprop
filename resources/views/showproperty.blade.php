@@ -348,7 +348,7 @@ small {
 <div class="col-md-10 col-md-offset-1">
 <div class="container">
   <ul class="nav nav-tabs">
-    <li class="active"><a data-toggle="tab" href="#details">Erf: <b>{{$property->erf }}</b></a></li>
+    <li class="active"><a data-toggle="tab" href="#details">ID: <b>{{$property->id }}</b></a></li>
     <li><a data-toggle="tab" href="#notes">Notes</a></li>
     <li><a data-toggle="tab" href="#contacts">Contacts</a></li>
   </ul>

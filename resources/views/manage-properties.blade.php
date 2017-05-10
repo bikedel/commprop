@@ -437,7 +437,7 @@ line-height: 1.8;
             <div class='descrip col-sm-8'>
             <div style="height:120px;width:100%;border:0px solid #ccc;overflow:auto; padding:0px">
 
-            <p>Erf: <b>@{{ item.erf }}  </b>   <i >  <a class="spacer" v-bind:href="'showproperty'+item.id"><span class="glyphicon glyphicon-info-sign"></span></a></i></p>
+            <p>ID: <b>@{{ item.id }}  </b>   <i >  <a class="spacer" v-bind:href="'showproperty'+item.id"><span class="glyphicon glyphicon-info-sign"></span></a></i></p>
                 @{{ item.description }}
             </div>
             <div><hr><p>This property has @{{ item.units.length }} unit(s).</p>

@@ -261,7 +261,7 @@ padding:0px;
 
 <div class="w3-row ">
   <div class="w3-col s3 w3-blue-grey w3-center">
-      <p><b>Erf:</b>
+      <p><b>Id:</b>
   </div>
   <div class="w3-col s3 w3-blue-grey w3-center">
       <p><b>Type:</b></p>
@@ -278,7 +278,7 @@ padding:0px;
 
 <div class="w3-row ">
   <div class="w3-col s3 w3-lightgray w3-center">
-           <p> {{ $item->erf }}</p>
+           <p> {{ $item->id }}</p>
   </div>
   <div class="w3-col s3 w3-lightgray w3-center">
                         @if($item->type == 0)

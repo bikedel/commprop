@@ -179,6 +179,11 @@ padding:0px;
     border: none;
 }
 
+.avoidPageBreak {
+   page-break-inside: avoid !important;
+}
+
+
 </style>
 
 </head>
@@ -260,6 +265,7 @@ padding:0px;
 
 
 <div class="w3-row ">
+
   <div class="w3-col s3 w3-blue-grey w3-center">
       <p><b>Id:</b>
   </div>
@@ -277,6 +283,7 @@ padding:0px;
 
 
 <div class="w3-row ">
+
   <div class="w3-col s3 w3-lightgray w3-center">
            <p> {{ $item->id }}</p>
   </div>
@@ -303,13 +310,13 @@ padding:0px;
                          @endif
   </div>
 
-
 </div>
 
 
 
 
 <div class="w3-row ">
+
   <div class="w3-col s3 w3-blue-grey w3-center">
         <p><b>Erf Size:</b>
   </div>
@@ -352,12 +359,15 @@ padding:0px;
 
 
 
-<div>
+
 
 
 @foreach ($item->units as $unit)
 
+<div class="avoidPageBreak">
+
   <div class="w3-row ">
+
     <div class="w3-col s1 w3-dark-grey w3-center">
           <p><b>Unit: </b> </p>
     </div>
@@ -367,9 +377,11 @@ padding:0px;
     <div class="w3-col s7 w3-grey w3-center">
           <p><b>Description: </b> </p>
     </div>
+
   </div>
 
   <div class="w3-row ">
+
     <div class="w3-col s1 w3-lightgray w3-center">
           <p>{{ $loop->iteration }}</p>
     </div>
@@ -379,41 +391,43 @@ padding:0px;
     <div class="w3-col s7 w3-lightgray w3-center">
           <p>{{ $unit->description }}</p>
     </div>
+
   </div>
 
 
   <div class="w3-row ">
+
       <div class="w3-col s6 headergrey w3-center">
           <p><b>Type:</b> </p>
     </div>
       <div class="w3-col s3 headergrey w3-center">
           <p><b>Size:</b>  </p>
     </div>
-  @if ($unit->sale_type_id == 2)
-      <div class="w3-col s3 headergrey w3-center">
-          <p><b>Gross Rental:</b>  </p>
-    </div>
-  @else
-      <div class="w3-col s3 headergrey w3-center">
-          <p><b>Price:</b>  </p>
-    </div>
-  @endif
+    @if ($unit->sale_type_id == 2)
+        <div class="w3-col s3 headergrey w3-center">
+            <p><b>Gross Rental:</b>  </p>
+        </div>
+    @else
+        <div class="w3-col s3 headergrey w3-center">
+            <p><b>Price:</b>  </p>
+        </div>
+    @endif
 
   </div>
 
 
 
-    <div class="w3-col s6 w3-lightgray w3-center">
-    <p>
+  <div class="w3-col s6 w3-lightgray w3-center">
+      <p>
       @if ($unit->property_type_id>0)
            {{ $ptypes[$unit->property_type_id]->name  }}
       @endif
       @if ($unit->sale_type_id>0)
           {{ $stypes[$unit->sale_type_id]->name  }}
       @endif
-    </p>
+      </p>
     </div>
-      <div class="w3-col s3 w3-lightgray w3-center">
+    <div class="w3-col s3 w3-lightgray w3-center">
        <p>{{ $unit->size}} m<sup>2</sup></p>
     </div>
     <div class="w3-col s3 w3-lightgray w3-center">
@@ -423,7 +437,9 @@ padding:0px;
           <p>  R {{ number_format($unit->price,2)}}</p>
       @endif
     </div>
+
   </div>
+
 
 
 

@@ -957,6 +957,12 @@ line-height: 1.8;
                     </div>
 
                     <div class="form-group">
+                        <label for="Surname">Description:</label>
+                        <textarea type="text" name="description" rows="5" class="form-control" v-model="newUnit.description" ></textarea>
+                        <span v-if="formErrors['description']" class="error text-danger">@{{ formErrors['description'][0] }}</span>
+                    </div>
+
+                    <div class="form-group">
                         <label for="Firstname">Property Type:</label>
 
                         <select  id='property_type_id' name='property_type_id' class="form-control "  v-model="newUnit.property_type_id"  style="width: 100%;"  >
@@ -1130,6 +1136,12 @@ line-height: 1.8;
                         <label for="Surname">Unit/Section:</label>
                         <input type="text" name="section" class="form-control" v-model="fillUnit.section" />
                         <span v-if="formErrors['section']" class="error text-danger">@{{ formErrors['section'][0] }}</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Firstname">Description:</label>
+                        <textarea type="text" name="description" rows="5" class="form-control" v-model="fillUnit.description"  ></textarea>
+                        <span v-if="formErrorsUpdate['description']" class="error text-danger">@{{ formErrorsUpdate['description'][0] }}</span>
                     </div>
 
                     <div class="form-group">

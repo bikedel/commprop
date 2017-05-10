@@ -95,6 +95,12 @@ th {
      background-color: #9EB9D4;
 }
 
+
+.headergrey{
+
+  background-color: Gainsboro;
+}
+
  .flexme{
       display: -webkit-box;
       display: -moz-box;
@@ -351,69 +357,79 @@ padding:0px;
 
 @foreach ($item->units as $unit)
 
-
-
-
-
-<div class="w3-row ">
-  <div class="w3-col s1 w3-dark-grey w3-center">
-        <p><b>Unit: </b> </p>
-  </div>
-
-  <div class="w3-col s2 w3-grey w3-center">
-        <p><b>Section:</b> </p>
-  </div>
+  <div class="w3-row ">
+    <div class="w3-col s1 w3-dark-grey w3-center">
+          <p><b>Unit: </b> </p>
+    </div>
     <div class="w3-col s4 w3-grey w3-center">
-        <p><b>Type:</b> </p>
-  </div>
-    <div class="w3-col s2 w3-grey w3-center">
-        <p><b>Size:</b>  </p>
-  </div>
-@if ($unit->sale_type_id == 2)
-    <div class="w3-col s3 w3-grey w3-center">
-        <p><b>Gross Rental:</b>  </p>
-  </div>
-@else
-    <div class="w3-col s3 w3-grey w3-center">
-        <p><b>Price:</b>  </p>
-  </div>
-@endif
-
-</div>
-
-<div class="w3-row ">
-  <div class="w3-col s1 w3-lightgray w3-center">
-        <p>{{ $loop->iteration }}</p>
+          <p><b>Section:</b> </p>
+    </div>
+    <div class="w3-col s7 w3-grey w3-center">
+          <p><b>Description: </b> </p>
+    </div>
   </div>
 
-  <div class="w3-col s2 w3-lightgray w3-center">
-      <p> {{ $unit->section }}</p>
-  </div>
+  <div class="w3-row ">
+    <div class="w3-col s1 w3-lightgray w3-center">
+          <p>{{ $loop->iteration }}</p>
+    </div>
     <div class="w3-col s4 w3-lightgray w3-center">
-                                                           @if ($unit->property_type_id>0)
-                                                      <p> {{ $ptypes[$unit->property_type_id]->name  }}
-                                                    @endif
-                                                    @if ($unit->sale_type_id>0)
-                                                      {{ $stypes[$unit->sale_type_id]->name  }}</p>
-                                                    @endif
+        <p> {{ $unit->section }}</p>
+    </div>
+    <div class="w3-col s7 w3-lightgray w3-center">
+          <p>{{ $unit->description }}</p>
+    </div>
   </div>
-    <div class="w3-col s2 w3-lightgray w3-center">
-     <p>{{ $unit->size}} m<sup>2</sup></p>
+
+
+  <div class="w3-row ">
+      <div class="w3-col s6 headergrey w3-center">
+          <p><b>Type:</b> </p>
+    </div>
+      <div class="w3-col s3 headergrey w3-center">
+          <p><b>Size:</b>  </p>
+    </div>
+  @if ($unit->sale_type_id == 2)
+      <div class="w3-col s3 headergrey w3-center">
+          <p><b>Gross Rental:</b>  </p>
+    </div>
+  @else
+      <div class="w3-col s3 headergrey w3-center">
+          <p><b>Price:</b>  </p>
+    </div>
+  @endif
+
   </div>
+
+
+
+    <div class="w3-col s6 w3-lightgray w3-center">
+    <p>
+      @if ($unit->property_type_id>0)
+           {{ $ptypes[$unit->property_type_id]->name  }}
+      @endif
+      @if ($unit->sale_type_id>0)
+          {{ $stypes[$unit->sale_type_id]->name  }}
+      @endif
+    </p>
+    </div>
+      <div class="w3-col s3 w3-lightgray w3-center">
+       <p>{{ $unit->size}} m<sup>2</sup></p>
+    </div>
     <div class="w3-col s3 w3-lightgray w3-center">
-                                                         @if ($unit->sale_type_id == 2)
-                                              <p>   R {{ $unit->gross_rental}}  / m<sup>2</sup></p>
-                                                  @else
-                                           <p>  R {{ number_format($unit->price,2)}}</p>
-
-                                                @endif
+      @if ($unit->sale_type_id == 2)
+          <p>   R {{ $unit->gross_rental}}  / m<sup>2</sup></p>
+      @else
+          <p>  R {{ number_format($unit->price,2)}}</p>
+      @endif
+    </div>
   </div>
+
+
+
+
+@endforeach
 </div>
-
-
-
-     @endforeach
-            </div>
 </div>
 @endforeach
 </div>

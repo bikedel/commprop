@@ -155,6 +155,7 @@ data:  {
 
  
     newUnit : {
+         'description':'',
          'property_type_id':'0',
          'sale_type_id':'0',
          'status_id':'0',
@@ -177,6 +178,7 @@ data:  {
     fillUnit : {
          'id':'',
          'erf':'',
+         'description':'',
          'property_type_id':'',
          'sale_type_id':'',
          'status_id':'',
@@ -745,14 +747,14 @@ data:  {
           this.fillItem.erf = item.erf;
           this.fillItem.title = item.title;
           this.fillItem.address = item.address;
-            this.fillItem.street = item.street;
+          this.fillItem.street = item.street;
           this.fillItem.description = item.description ;
           this.fillItem.area_id = item.area_id ;
           this.fillItem.image = item.images ;
           this.fillItem.grade_id = item.grade_id ;
           this.fillItem.ownership = item.type ;
           this.fillItem.status = item.status ;
-           this.fillItem.sale_type_id = item.sale_type_id ;
+          this.fillItem.sale_type_id = item.sale_type_id ;
           this.fillItem.erf_size = item.erf_size ;
           this.fillItem.building_size = item.building_size ;
           this.fillItem.open_parking_bays = item.open_parking_bays ;
@@ -768,6 +770,7 @@ data:  {
 
          this.fillUnit.id = unit.id;
          this.fillUnit.erf = item.erf;
+         this.fillUnit.description = unit.description;
          this.fillUnit.property_type_id = unit.property_type_id;
          this.fillUnit.sale_type_id = unit.sale_type_id;
          this.fillUnit.status_id = unit.status_id;
@@ -811,6 +814,7 @@ data:  {
                       this.fillUnit = {
                            'id':'',
                            'erf':'',
+                           'description':'',
                            'property_type_id':'',
                            'sale_type_id':'',
                            'status_id':'',
@@ -1208,6 +1212,7 @@ data:  {
 
           this.newItem.id = item.id;
           this.newUnit.erf = item.erf;
+          this.newUnit.description = '';
           this.newUnit.property_type_id = "0";
           this.newUnit.sale_type_id = "0";
 
@@ -1239,6 +1244,7 @@ data:  {
                       vm.changePage(vm.pagination.current_page);
 
                        vm.newUnit = { 
+                         'description':'',
                          'property_type_id':'0',
                          'sale_type_id':'0',
                          'status_id':'0',

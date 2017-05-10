@@ -450,6 +450,7 @@ class VuePropertyController extends Controller
         $tosave['property_type_id'] = $request->input('property_type_id');
         $tosave['sale_type_id']     = $request->input('sale_type_id');
         $tosave['status_id']        = $request->input('status_id');
+        $tosave['description']      = $request->input('description');
         $tosave['size']             = $request->input('size');
         $tosave['price']            = $request->input('price');
         $tosave['brochure_users']   = array('');

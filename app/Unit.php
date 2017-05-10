@@ -10,7 +10,7 @@ class Unit extends Model
 {
     use LogsActivity;
 
-    protected static $logAttributes = ['property_id', 'property_type_id', 'sale_type_id', 'size', 'price', 'brochure_users'];
+    protected static $logAttributes = ['property_id', 'property_type_id', 'sale_type_id', 'section', 'description', 'size', 'price', 'brochure_users'];
     protected $guarded              = [];
 
     public function getBrochureUsersAttribute()

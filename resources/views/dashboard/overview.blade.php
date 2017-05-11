@@ -50,7 +50,7 @@ font-size:.7em !important;
       <div class="w3-container w3-blue w3-padding-16">
         <div class="w3-left"><i class="fa fa-eye w3-xxxlarge"></i></div>
         <div class="w3-right">
-          <h3>{{$units->where('sale_type_id','=','1')->count()}}</h3>
+          <h3>{{$units->where('sale_type_id','=','2')->count()}}</h3>
         </div>
         <div class="w3-clear"></div>
         <h4>To Let</h4>
@@ -61,7 +61,7 @@ font-size:.7em !important;
       <div class="w3-container w3-orange w3-text-white w3-padding-16">
         <div class="w3-left"><i class="fa fa-credit-card w3-xxxlarge"></i></div>
         <div class="w3-right">
-          <h3>{{$units->where('sale_type_id','=','2')->count()}}</h3>
+          <h3>{{$units->where('sale_type_id','=','1')->count()}}</h3>
         </div>
         <div class="w3-clear"></div>
         <h4>For Sale</h4>

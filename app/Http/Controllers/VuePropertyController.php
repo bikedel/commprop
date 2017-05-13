@@ -1038,7 +1038,7 @@ class VuePropertyController extends Controller
 
             // type 1 brochure
             if ($items->count() > 0) {
-                return PDF::loadView('pdf.brochure', compact('items', 'areas', 'suburbs', 'grades', 'ptypes', 'stypes', 'statuses', 'users', 'markers', 'locations', 'client', 'brochure_text', 'note', 'zoom'))->setOption('outline', true)->setOption('margin-top', 0)->setOption('margin-bottom', 45)->setOption('footer-line', false)->setOption('footer-html', url($footer))->download('Property_brochure_erf_' . $item->erf . '.pdf');
+                return PDF::loadView('pdf.brochure', compact('items', 'areas', 'suburbs', 'grades', 'ptypes', 'stypes', 'statuses', 'users', 'markers', 'locations', 'client', 'brochure_text', 'note', 'zoom'))->setOption('outline', true)->setOption('margin-top', 0)->setOption('margin-bottom', 45)->setOption('footer-line', false)->setOption('footer-html', url($footer))->download('Property_brochure_erf_' . $item->id . '.pdf');
             } else {
 
                 return redirect()->back();
@@ -1047,7 +1047,7 @@ class VuePropertyController extends Controller
         } else {
             // type 2 brochure
             if ($items->count() > 0) {
-                return PDF::loadView('pdf.brochure_2', compact('items', 'areas', 'suburbs', 'grades', 'ptypes', 'stypes', 'statuses', 'users', 'markers', 'locations', 'client', 'brochure_text', 'note', 'zoom'))->setOption('outline', true)->setOption('margin-top', 0)->setOption('margin-bottom', 45)->setOption('footer-line', false)->setOption('footer-html', url($footer))->download('Property_brochure_erf_' . $item->erf . '.pdf');
+                return PDF::loadView('pdf.brochure_2', compact('items', 'areas', 'suburbs', 'grades', 'ptypes', 'stypes', 'statuses', 'users', 'markers', 'locations', 'client', 'brochure_text', 'note', 'zoom'))->setOption('outline', true)->setOption('margin-top', 0)->setOption('margin-bottom', 45)->setOption('footer-line', false)->setOption('footer-html', url($footer))->download('Property_brochure_erf_' . $item->id . '.pdf');
             } else {
 
                 return redirect()->back();

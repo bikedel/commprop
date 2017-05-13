@@ -69,7 +69,7 @@ font-size:.7em !important;
     </div>
   </div>
 
-<!--
+
 <br>
   <div class="w3-row-padding w3-margin-bottom">
     <div class="w3-quarter">
@@ -120,7 +120,7 @@ font-size:.7em !important;
     </div>
 
   </div>
--->
+
 
 
   <div class="w3-container">

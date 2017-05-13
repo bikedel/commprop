@@ -224,6 +224,7 @@ data:  {
 
     },
 
+        s_id: '',
         s_erf: '',
         s_area: [],
         s_stype: [],
@@ -435,6 +436,7 @@ data:  {
   //        console.log("getting formdata for searchVueItems");
 
          // data.append('_token', this.token); // just the csrf token
+          data.append('s_id',this.s_id);
           data.append('s_erf',this.s_erf);
           data.append('s_area',this.s_area);
           data.append('s_stype',this.s_stype);
@@ -1463,7 +1465,7 @@ let config = {
 
 
 
-
+        this.s_id= '';
         this.s_erf= '';
         this.s_area= [];
         this.s_stype= [];

@@ -132,6 +132,7 @@ class VuePropertyController extends Controller
         $statuses = Status::select('id')->get();
         $ptypes   = PropertyType::select('id')->get();
 
+        $id      = $request->input('s_id');
         $erf     = $request->input('s_erf');
         $area    = $request->input('s_area');
         $ptype   = $request->input('s_ptype');
@@ -143,7 +144,7 @@ class VuePropertyController extends Controller
         $model = Property::first();
 
         // dont log reset or reload pages
-        if ($erf == null && $area == null && sizeof($ptype) <= 0 && sizeof($stype) <= 0 && sizeof($status) <= 0 && $minsize == null && $maxsize == null) {
+        if ($id == null && $area == null && sizeof($ptype) <= 0 && sizeof($stype) <= 0 && sizeof($status) <= 0 && $minsize == null && $maxsize == null) {
             $action = "Reset";
         } else {
             $action   = "Search";
@@ -223,8 +224,8 @@ class VuePropertyController extends Controller
 
         // find erf
 
-        if ($erf) {
-            $items = Property::where('erf', "=", $erf)->latest()->paginate(15);
+        if ($id) {
+            $items = Property::where('id', "=", $id)->latest()->paginate(15);
             $items->load('units', 'images', 'notes', 'owners');
         } else {
 

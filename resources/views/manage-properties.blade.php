@@ -293,7 +293,7 @@ line-height: 1.8;
 <form id='search' class="form-inline form-group col-md-offset-1" method="POST" enctype="multipart/form-data" v-on:submit.prevent="searchVueItems">
 
 <br>
-                        <input id='s_erf' type="text"  class="form-control" style="width:100px" placeholder="Erf" v-model="s_erf" />
+                        <input id='s_id' type="text"  class="form-control" style="width:100px" placeholder="ID" v-model="s_id" />
 
 <!--
                         <select  id ='s_area'  name='s_area' class="form-control "   v-model="s_area"   >

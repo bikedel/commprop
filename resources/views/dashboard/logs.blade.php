@@ -97,7 +97,8 @@ margin-left:-40;
 
                             </td>
                           -->
-                          <?php date_default_timezone_set('Africa/Johannesburg');?>
+                          <?php date_default_timezone_set('UTC');
+date_default_timezone_set('Africa/Johannesburg');?>
                             <td>
                              {{ $activity->created_at->diffForHumans()}}
                             </td>

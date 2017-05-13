@@ -1550,7 +1550,7 @@ line-height: 1.8;
                         <table class="table  table-hover">
                             <tr>
                             <th width="20px">#</th>
-                                <th width="80px">Erf</th>
+                                <th width="80px">ID</th>
                                 <th width="100px">Unit</th>
                                 <th width="300px">Address</th>
                                 <th width="150px">Status</th>
@@ -1564,7 +1564,7 @@ line-height: 1.8;
                             <tr v-for="item,key in brochures"  v-if="inArray(user,item.brochure_users)" >
 
                                  <td>@{{ key+1}}</td>
-                                 <td>@{{ item.property.erf }} </td>
+                                 <td>@{{ item.property.id }} </td>
                                  <td>@{{ item.id }}</td>
                                  <td>@{{ item.property.address }}</td>
                                  <td>@{{ statusName(item.status_id) }}</td>

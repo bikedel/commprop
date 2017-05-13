@@ -97,6 +97,7 @@ margin-left:-40;
 
                             </td>
                           -->
+                          <?php date_default_timezone_set('Africa/Johannesburg');?>
                             <td>
                              {{ $activity->created_at->diffForHumans()}}
                             </td>
@@ -139,7 +140,7 @@ margin-left:-40;
 </div>
 
   <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.2.4.min.js"></script>
-    <script type="text/javascript" src="{!! asset('js/app.js') !!}"></script>
+  <script type="text/javascript" src="{!! asset('js/app.js') !!}"></script>
 
 
 @endsection

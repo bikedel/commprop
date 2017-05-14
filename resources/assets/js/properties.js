@@ -1426,17 +1426,18 @@ let config = {
 
           var vm =this;
          
-          let brochure_text = encodeURIComponent(document.getElementById('brochure_text').value);
+          let brochure_text = document.getElementById('brochure_text').value;
           let client = document.getElementById('client').value;
           let brochure_type = document.getElementById('brochure_type').value;
-          let note = encodeURIComponent(document.getElementById('note').value);
+          let note = document.getElementById('note').value;
           let zoom = document.getElementById('zoom').value;
 
             //    axios.put(this.offlinePath+'/commprop/public/createpdf/'+this.agent+','+brochure_text+','+client).then(function (response) {
             //           toastr.success('Brochure complete.',  {timeOut: 5000});
             //    })
 
-          window.location.href = this.offlinePath+'/commprop/public/createpdf/'+this.agent+','+brochure_text+','+client+','+brochure_type+','+note+','+zoom;
+         // window.location.href = this.offlinePath+'/commprop/public/createpdf/'+this.agent+','+brochure_text+','+client+','+brochure_type+','+note+','+zoom;
+         window.location.href = this.offlinePath+'/commprop/public/createpdf/'+this.agent+','+brochure_text+','+client+','+brochure_type+','+note+','+zoom;
 
           $("#listBrochures_modal").modal('hide');
 

@@ -1426,10 +1426,10 @@ let config = {
 
           var vm =this;
          
-          let brochure_text = encodeURI(document.getElementById('brochure_text').value);
+          let brochure_text = encodeURIComponent(document.getElementById('brochure_text').value);
           let client = document.getElementById('client').value;
           let brochure_type = document.getElementById('brochure_type').value;
-          let note = encodeURI(document.getElementById('note').value);
+          let note = encodeURIComponent(document.getElementById('note').value);
           let zoom = document.getElementById('zoom').value;
 
             //    axios.put(this.offlinePath+'/commprop/public/createpdf/'+this.agent+','+brochure_text+','+client).then(function (response) {

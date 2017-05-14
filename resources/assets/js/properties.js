@@ -1426,7 +1426,7 @@ let config = {
 
           var vm =this;
          
-          let brochure_text = escapeHTML(document.getElementById('brochure_text').value);
+          let brochure_text = document.getElementById('brochure_text').value;
           let client = document.getElementById('client').value;
           let brochure_type = document.getElementById('brochure_type').value;
           let note = document.getElementById('note').value;
@@ -1451,15 +1451,6 @@ let config = {
 
       },
 
-
-escapeHTML: function (unsafe_str) {
-    return unsafe_str
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/\"/g, '&quot;')
-      .replace(/\'/g, '&#39;'); // '&apos;' is not valid HTML 4
-},
 
 
 

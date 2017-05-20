@@ -316,7 +316,6 @@ small {
                         <?php $count++;?>
 
 
-
                         @if ($count <= 4 )
                           @if  (  file_exists(public_path("property/" . $property->id ."/". $image->name)))
 						    <li data-thumb={{ "property/" . $property->id ."/". $image->name }}>
@@ -434,9 +433,10 @@ small {
 				</div>
 
       @foreach($property->owners as $owner)
-       @if ($owner->unit_id == 0 )
+       @if ($owner->unit_id == 0 &&  array_key_exists($owner->contact_id,$contacts) )
 
                 <div class="w3-col s12 ">
+
 				  <div class="w3-col s2">
 				    <p>{{$contacttypes[$owner->contact_type_id]->name}}</p>
 				  </div>
@@ -597,7 +597,7 @@ small {
 				</div>
 
       @foreach($property->owners as $owner)
-       @if ($owner->unit_id == $unit->id )
+       @if ($owner->unit_id == $unit->id && array_key_exists($owner->contact_id,$contacts))
 
                 <div class="w3-col s12 ">
 				  <div class="w3-col s2">

@@ -120,7 +120,9 @@ Route::get('/createpdf/{myinput}', 'VuePropertyController@createPdf');
 
 // view property
 //Route::resource('/showproperty', 'PropertyController');
-Route::get('/showproperty{id}', 'PropertyController@show');
+Route::get('/showproperty{id}', 'PropertyController@show2');
+
+////Route::get('/show2property{id}', 'PropertyController@show2');
 
 Route::get('/showunit{id}', 'UnitController@show');
 

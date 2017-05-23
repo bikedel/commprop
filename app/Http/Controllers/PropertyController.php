@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Agent;
 use App\Area;
 use App\Contact;
 use App\ContactType;
@@ -123,6 +124,7 @@ class PropertyController extends Controller
     public function show($id)
     {
 
+        $agents       = Agent::all();
         $users        = User::all();
         $areas        = Area::all();
         $grades       = Grade::all();
@@ -133,6 +135,61 @@ class PropertyController extends Controller
         $contacts     = Contact::all();
         $contacttypes = ContactType::all();
 
+        $agents       = $agents->keyBy('id');
+        $users        = $users->keyBy('id');
+        $areas        = $areas->keyBy('id');
+        $statuses     = $statuses->keyBy('id');
+        $grades       = $grades->keyBy('id');
+        $stypes       = $stypes->keyBy('id');
+        $ptypes       = $ptypes->keyBy('id');
+        $suburbs      = $suburbs->keyBy('id');
+        $contacts     = $contacts->keyBy('id');
+        $contacttypes = $contacttypes->keyBy('id');
+
+        $property = Property::find($id);
+        $property->load('units', 'images', 'notes', 'owners');
+
+        $username = Auth::user()->name;
+        activity("Property")->withProperties(['user' => $username, 'erf' => $property->erf, 'id' => $property->id])->log('Show ');
+        //dd($property);
+        $stat1 = 0;
+        $stat2 = 0;
+        $stat3 = 0;
+        $stat4 = 0;
+        foreach ($property->units as $unit) {
+            if ($unit->status_id == 1) {
+                $stat1 = $stat1 + 1;
+            }
+            if ($unit->status_id == 2) {
+                $stat2 = $stat2 + 1;
+            }
+            if ($unit->status_id == 3) {
+                $stat3 = $stat3 + 1;
+            }
+            if ($unit->status_id == 4) {
+                $stat4 = $stat4 + 1;
+            }
+        }
+
+        return view('showproperty', compact('property', 'users', 'areas', 'grades', 'statuses', 'suburbs', 'contacts', 'agents', 'contacttypes', 'stypes', 'ptypes', 'stat1', 'stat2', 'stat3', 'stat4'));
+    }
+
+    public function show2($id)
+    {
+
+        $agents       = Agent::all();
+        $users        = User::all();
+        $areas        = Area::all();
+        $grades       = Grade::all();
+        $suburbs      = Suburb::all();
+        $stypes       = SaleType::all();
+        $ptypes       = PropertyType::all();
+        $statuses     = Status::all();
+        $contacts     = Contact::all();
+        $contacttypes = ContactType::all();
+
+        $agents       = $agents->keyBy('id');
+        $areas        = $areas->keyBy('id');
         $users        = $users->keyBy('id');
         $statuses     = $statuses->keyBy('id');
         $grades       = $grades->keyBy('id');
@@ -167,9 +224,8 @@ class PropertyController extends Controller
             }
         }
 
-        return view('showproperty', compact('property', 'users', 'areas', 'grades', 'statuses', 'suburbs', 'contacts', 'contacttypes', 'stypes', 'ptypes', 'stat1', 'stat2', 'stat3', 'stat4'));
+        return view('showproperty2', compact('property', 'users', 'areas', 'grades', 'statuses', 'suburbs', 'contacts', 'agents', 'contacttypes', 'stypes', 'ptypes', 'stat1', 'stat2', 'stat3', 'stat4'));
     }
-
     /**
      * Show the form for editing the specified resource.
      *

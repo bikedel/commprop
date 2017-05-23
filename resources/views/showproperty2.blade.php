@@ -17,11 +17,26 @@
    tr:nth-child(even){background-color: #f2f2f2}
    tr:nth-child(odd){background-color: #ECF2F9}
 */
-.fred{
 
-    background-color: lightblue;
-    color:white;
+#main {
+
+	width: 800px;
+	float: left;
+
 }
+
+#side {
+
+	width: 400px;
+	position: absolute;
+	float:right;
+	left:800px;
+}
+
+       #map {
+        height: 285px;
+        width: 100%;
+       }
 
 body {
 
@@ -29,205 +44,52 @@ body {
 
 }
 
-input:-webkit-autofill {
-    -webkit-box-shadow: 0 0 0px 1000px #ffffff inset!important;
+h4 {
+    margin: 20px 10px 10px;
+}
+p {
+    margin: 0px;
 }
 
-    table
-    {
-      table-layout:fixed;
- border-color: #ccc !important;
-    }
 
-    th {
-border-color:  #ccc  !important;
-        color:#999999 !important;
-    }
 
-    table td  {
-    	 border-color: #ccc !important;
-        padding: 5px;
-        text-overflow: ellipsis;
-        max-width:1500px;
-        overflow:hidden;
-        white-space:nowrap;
-    }
-
-    .newAgent{
-          border-color: #666 !important;
-          color:red;
-    }
-
-    .table-bordered td, .table-bordered th{
-        border-color: #ccc !important;
-    }
-
-    .slategrey-background {
-      background-color: #D9E3EE;
-    }
-
-.modal-header {
-    background-color: #008DB7;
+#carousel-custom {
+    margin: 20px auto;
+    width: 400px;
 }
-
-.modal-body {
-   background-color: WhiteSmoke ;
+#carousel-custom .carousel-indicators {
+    margin: 4px 0 0;
+    overflow: auto;
+    position: static;
+    text-align: left;
+    white-space: nowrap;
+    width: 100%;
 }
-
-.modal-title {
-
-color:white;
+#carousel-custom .carousel-indicators li {
+    background-color: transparent;
+    -webkit-border-radius: 0;
+    border-radius: 0;
+    display: inline-block;
+    height: auto;
+    margin: 0 !important;
+    width: auto;
 }
-
-#custom-search-input {
-        margin:0;
-        margin-top: 10px;
-        padding: 0;
-    }
-
-    #custom-search-input .search-query {
-        padding-right: 3px;
-        padding-right: 4px \9;
-        padding-left: 3px;
-        padding-left: 4px \9;
-        /* IE7-8 doesn't have border-radius, so don't indent the padding */
-
-        margin-bottom: 0;
-        -webkit-border-radius: 3px;
-        -moz-border-radius: 3px;
-        border-radius: 3px;
-    }
-
-    #custom-search-input button {
-        border: 30;
-        background: #008DB7;
-        /** belows styles are working good */
-        padding: 6px 8px;
-        margin-top: 1px;
-        position: relative;
-        left: 2px;
-        /* IE7-8 doesn't have border-radius, so don't indent the padding */
-        margin-bottom: 0;
-        -webkit-border-radius: 3px;
-        -moz-border-radius: 3px;
-        border-radius: 3px;
-        color: white;
-    }
-
-    .search-query:focus + button {
-        z-index: 8;
-    }
-
-pre {
+#carousel-custom .carousel-indicators li img {
     display: block;
-    height:200px;
-
-                font-family: 'Lato';
-    white-space: pre;
-    margin: 1em 0;
+    opacity: 0.5;
+    filter:blur(2px);
 }
-
-[v-cloak] { display: none; }
-
-.searchbar {
-    position:relative;
-    top:-22px;
-
-    background-color: #6594B4  ;
-    padding-top: 45px;
-    padding-bottom: 45px;
-    z-index:auto !important;
+#carousel-custom .carousel-indicators li.active img {
+    opacity: 1;
+    filter:blur(0px);
 }
-
-
-
-.total {
-    position:relative;
-    float:left;
-    margin-right:40px;
-    left:20px;
+#carousel-custom .carousel-indicators li:hover img {
+    opacity: 0.75;
+    filter:blur(0px);
 }
-
-.newprop {
-
-    position:relative;
-    float:right;
-    margin-left:20px;
-}
-
-.hide {
-     display: none;
-}
-
-
-.items{
-
-
-     padding:20px;
-
-
-}
-div.myprop {
-  transition: background-color 0.5s ease;
-
-}
-div.myprop:hover {
-  background-color: #F6F9FC;
-}
-
-red {
-
-    color:red;
-    font-weight:bold;
-}
-blue {
-
-    color:black;
-    font-weight:bold;
-}
-small {
-
-    color:#ccc  !important;
-}
-.myBtnColor,
-.myBtnColor a {
-  color: #fff !important;
-  background-color: #F1C40F !important;
-  border-color: #F1C40F !important;
-}
-.myBtnColor:active,
-.myBtnColor.active,
-.myBtnColor:focus,
-.myBtnColor.focus,
-.myBtnColor:hover,
-.myBtnColor a:hover {
-
-  background-color: #D4AC0D !important;
-  border-color: #ccc !important;
-}
-
-.descrip {
-   position:relative;
-   padding-left:20px;
-}
-
-
-.caption {
-    display: block;
-    margin:0 auto;
-    background: white;
-    padding-left:10px;
-    padding-bottom:5px;
-    color: black;
-    opacity: 0.2;
+#carousel-custom .carousel-outer {
     position: relative;
-    height:25px;
-    left:0;
-    bottom:0;
-    top:-25px;
 }
-
-
 
 .camera {
      position: relative;
@@ -235,13 +97,6 @@ small {
     left:0px;
     top:2px;
      padding:0px 5px 0px 0px;
-
-}
-#itemdetails table tbody tr td {
-    border: none  !important;
-       border-top: none !important;
-    border-left: none !important;
-    border-bottom: none !important;
 
 }
 
@@ -284,15 +139,52 @@ small {
 @media only screen and (max-width: 480px) {
 	.span_2_of_2, .span_1_of_2 { width: 100%; }
 }
+
+
 </style>
 
 
+<aside id="side" >
+	<div id="map" class="w3-border w3-border-red w3-topbar w3-padding-large">
+	</div>
+
+	<div class="w3-padding-large">
+	</div>
+
+	<div class=" w3-white w3-border w3-border-blue w3-topbar w3-padding-large">
+		@if( isset($suburbs[$property->area_id]))
+	    	<p>{{$suburbs[$property->area_id]->name}}</p>
+		@endif
+	</div>
+
+
+	<div class=" w3-padding-large">
+	</div>
+
+	<div class=" w3-white w3-border w3-border-green w3-topbar w3-padding-large">
+	<p>{{$areas[$suburbs[$property->area_id]->area_id]->name}}</p>
+	</div>
 
 
 
-	  <div class="col-md-10 col-md-offset-1">
+	<div class=" w3-white w3-border w3-border-red w3-topbar w3-padding-large">
+         @foreach ($suburbs  as $suburb)
+	         @if ($suburb->area_id == $suburbs[$property->area_id]->area_id)
+	        	 <p>{{$suburb->name}}</p>
+	         @endif
+         @endforeach
+	</div>
+
+		<div class="  w3-padding-large">
+	</div>
 
 
+
+</aside>
+
+<div id="main">
+
+<div class="col-md-10 col-md-offset-1 w3-white w3-border w3-border-red w3-topbar w3-padding-large">
 
 
 			<h2>{{$property->title}}</h2>
@@ -300,59 +192,68 @@ small {
             <div class="w3-text-blue">
             <p> {{$property->address }}</p>
             </div>
-            <img align="center" src = "http://maps.googleapis.com/maps/api/staticmap?size=600x200&zoom=14&markers=color:red%7Clabel:%7C{{$property->long}},{{$property->lat}}&maptype=hybrid&scale=3&sensor=false&label=Hello&key=AIzaSyCNgTdT8SN3jIzbdvZu7CBPKw3zz8J4Pww"  width="100%" height="200" class='prop_img 'alt='Google Map'/>
+
 	         <h3>Property Description</h3>
-			<div style="height:100px;width:100%;border:0px solid #ccc;overflow:auto; padding:0px">
+			<div style="height:105px;width:100%;border:0px solid #ccc;overflow:auto; padding:0px">
 			<p>{{$property->description}}</p>
 			</div>
             <!-- <p> {{$property->address }}</p> -->
-              <div class="w3-container">
-	          <div class="w3-col s6 w3-padding">
-
-			<div class="flexslider flexImg " >
-			  <ul class="slides">
-			  <?php $count = 0;?>
-					@foreach ($property->images as $image)
-                        <?php $count++;?>
-
-
-                        @if ($count <= 4 )
-                          @if  (  file_exists(public_path("property/" . $property->id ."/". $image->name)))
-						    <li data-thumb={{ "property/" . $property->id ."/". $image->name }}>
-						      <img src={{ "property/" . $property->id ."/". $image->name }} />
-						    </li>
-						  @else
-						    <li data-thumb={{ "property/no_image.png" }}>
-						      <img src={{  "property/no_image.png" }} />
-						    </li>
-						  @endif
-
-					    @endif
-
-
-					@endforeach
-
-			  </ul>
-	      </div>
-
-	          </div>
-
-
-
-
 </div>
 
+<div class="col-md-10 col-md-offset-1  w3-padding-large">
+			<div id='carousel-custom' class='carousel slide w3-border w3-border-dark-grey w3-leftbar w3-rightbar w3-bottombar w3-topbar' data-ride='carousel'>
+			    <div class='carousel-outer'>
+			        <!-- Wrapper for slides -->
+			        <div class='carousel-inner'>
+			        @foreach ($property->images as $image)
+			            @if ( $loop->index == 0 )
+			            <div class='item active'>
+			                <img src='{{ "property/" . $property->id ."/". $image->name }}' alt='' />
+			            </div>
+			            @else
+			            <div class='item'>
+			                <img src='{{ "property/" . $property->id ."/". $image->name }}' alt='' />
+			            </div>
+			            @endif
+
+			        @endforeach
+
+			        </div>
+
+			        <!-- Controls -->
+			        <a class='left carousel-control' href='#carousel-custom' data-slide='prev'>
+			            <span class='glyphicon glyphicon-chevron-left'></span>
+			        </a>
+			        <a class='right carousel-control' href='#carousel-custom' data-slide='next'>
+			            <span class='glyphicon glyphicon-chevron-right'></span>
+			        </a>
+			    </div>
+
+			    <!-- Indicators -->
+			    <ol class='carousel-indicators mCustomScrollbar'>
+
+			            @foreach ($property->images as $image)
+			            @if ( $loop->index == 1 )
+			                <li data-target='#carousel-custom' data-slide-to='{{$loop->index}}' class='active'><img src='{{ "property/" . $property->id ."/t_". $image->name }}' alt='' /></li>
+			            @else
+			                <li data-target='#carousel-custom' data-slide-to='{{$loop->index}}' class=''><img src='{{ "property/" . $property->id ."/t_". $image->name }}' alt='' /></li>
+			            @endif
+
+			        @endforeach
+
+			    </ol>
+			</div>
 </div>
 
-<div class="col-md-10 col-md-offset-1">
-<div class="container">
-  <ul class="nav nav-tabs">
+<div class="col-md-10 col-md-offset-1 w3-white w3-border w3-border-blue w3-leftbar w3-padding-large">
+
+  <ul class="nav nav-tabs ">
     <li class="active"><a data-toggle="tab" href="#details">ID: <b>{{$property->id }}</b></a></li>
     <li><a data-toggle="tab" href="#notes">Notes</a></li>
     <li><a data-toggle="tab" href="#contacts">Contacts</a></li>
   </ul>
 
-  <div class="tab-content">
+  <div class="tab-content w3-white">
     <div id="details" class="tab-pane fade in active " style="overflow-x:auto;width:100%;height:220px; ">
                   <h3>Details</h3>
 
@@ -436,7 +337,7 @@ small {
        @if ($owner->unit_id == 0  )
 
                 <div class="w3-col s12 ">
-
+                  @if ( isset($contacts[$owner->contact_id]))
 				  <div class="w3-col s2">
 				    <p>{{$contacttypes[$owner->contact_type_id]->name}}</p>
 				  </div>
@@ -455,6 +356,7 @@ small {
 				  <div class="w3-col s2">
 				     <p>{{ $contacts[$owner->contact_id]->email  }} </p>
 				  </div>
+				  @endif
 				</div>
 
        @endif
@@ -463,47 +365,42 @@ small {
 
   </div>
  </div>
-  </div>
 
 
-
-
-
-
-<div class="col-md-10 col-md-offset-1">
-
-<div class="w3-container">
-<div class="w3-text-blue">
- <hr>
-<p >This property has {{$property->units->count()}} units.</p>
- <hr>
-
-
-			  <div class="w3-col s3">
-				     <p><button class="btn btn-primary" type="button"><span class="badge">{{$stat1}}</span>  </button><br> Vacant</p>
-				  </div>
-				  <div class="w3-col s3">
-				     <p><button class="btn btn-success" type="button"><span class="badge">{{$stat2}}</span>  </button><br> Owner Occupied</p>
-				  </div>
-				  <div class="w3-col s3">
-				     <p><button class="btn btn-warning" type="button"><span class="badge">{{$stat3}}</span>  </button><br> Tenant Occupied</p>
-				  </div>
-				  <div class="w3-col s3">
-				     <p><button class="btn btn-danger" type="button"><span class="badge">{{$stat4}}</span>  </button><br> Govt/Provincial</p>
-				  </div>
-</div>
-</div>
+<div class="col-md-10 col-md-offset-1 w3-padding-large">
 </div>
 
 
-<div class="col-md-10 col-md-offset-1">
-<div class="container">
+
+<div class="col-md-10 col-md-offset-1 w3-border w3-border-grey w3-leftbar w3-white w3-padding-large">
+
+    <p class="w3-text-blue">This property has {{$property->units->count()}} units.</p>
+
+
+
+                <div class="w3-padding">
+				    <button class="btn btn-primary " type="button"><span class="badge">{{$stat1}}</span>  </button> Vacant
+                </div>
+                <div class="w3-padding">
+				    <button class="btn btn-success" type="button"><span class="badge">{{$stat2}}</span>  </button> Owner Occupied
+				</div>
+				<div class="w3-padding">
+				    <button class="btn btn-warning" type="button"><span class="badge">{{$stat3}}</span>  </button> Tenant Occupied
+				</div>
+				<div class="w3-padding">
+				    <button class="btn btn-danger" type="button"><span class="badge">{{$stat4}}</span>  </button> Govt/Provincial
+				</div>
+
+
+</div>
+
+<div class="col-md-10 col-md-offset-1 w3-padding-large">
+</div>
+
+
+<div class="col-md-10 col-md-offset-1 w3-white w3-border w3-border-green w3-leftbar w3-padding-large">
+
 @foreach ($property->units as $unit)
-
-
-
-
-<hr>
 
 
   <ul class="nav nav-tabs">
@@ -513,9 +410,9 @@ small {
 
   </ul>
 
-  <div class="tab-content">
+  <div class="tab-content w3-white">
     <div id="home{{$unit->id}}" class="tab-pane fade in active" style="overflow-x:auto;width:100%;height:300px; ">
-      <h3>Details</h3>
+      <h3 class="w3-text-blue"> {{$unit->size}} m<sup>2</sup> | {{$ptypes[$unit->property_type_id]->name}} {{$stypes[$unit->sale_type_id]->name}} | R {{ number_format($unit->gross_rental,2) }} Per m<sup>2</sup></h3>
 
 		<div class="section group">
 			<div class="col span_1_of_2">
@@ -532,8 +429,12 @@ small {
 				<p>Ops Costs: <b> {{$unit->ops_costs}} </b></p>
 				<p>Lease start: <b> {{$unit->lease_start}}</b></p>
 				<p>Lease end: <b> {{$unit->lease_end}}</b></p>
-			    <p>Active Broker: <b> {{$unit->active_broker}}</b></p>
-				<p>Listing Broker: <b> {{$unit->listing_broker}}</b></p>
+                @if (isset($agents[$unit->active_broker_id]))
+			      <p>Active Broker: <b> {{$agents[$unit->active_broker_id]->name}}</b></p>
+			    @endif
+			   @if (isset($agents[$unit->listing_broker_id]))
+			      <p>Listing Broker: <b> {{$agents[$unit->listing_broker_id]->name}}</b></p>
+				@endif
 			</div>
 		</div>
 
@@ -635,6 +536,8 @@ small {
 
 @endforeach
 </div>
+
+
 </div>
 	<div class="col-md-4">
 	<br><br><br><br><br><br><br><br><br><br><br><br>
@@ -649,17 +552,48 @@ small {
 
   <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.2.4.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/flexslider/2.6.3/jquery.flexslider.js"></script>
+
 <script>
 // Can also be used with $(document).ready()
 $(window).load(function() {
-  $('.flexslider').flexslider({
-    animation: "slide",
-    controlNav: "thumbnails"
-  });
+   //$(".mCustomScrollbar").mCustomScrollbar({axis:"x"});
+   var indicatorPosition = 0;
+$('#carousel-custom').on('slid.bs.carousel', function() {
+
+    var widthEstimate = -1 * $(".carousel-indicators li:first").position().left + $(".carousel-indicators li:last").position().left + $(".carousel-indicators li:last").width();
+    var newIndicatorPosition = $(".carousel-indicators li.active").position().left + $(".carousel-indicators li.active").width() / 2;
+    var toScroll = newIndicatorPosition + indicatorPosition;
+    var adjustedScroll = toScroll - ($(".carousel-indicators").width() / 2);
+    if (adjustedScroll < 0)
+        adjustedScroll = 0;
+
+    if (adjustedScroll > widthEstimate - $(".carousel-indicators").width())
+        adjustedScroll = widthEstimate - $(".carousel-indicators").width();
+
+    $('.carousel-indicators').animate({ scrollLeft: adjustedScroll }, 800);
+
+    indicatorPosition = adjustedScroll;
+});
 });
 </script>
-
+    <script>
+      function initMap() {
+        var lat = <?php echo $property->lat; ?> ;
+        var long = <?php echo $property->long; ?> ;
+        var uluru = {lat: long, lng: lat};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 14,
+          center: uluru
+        });
+        var marker = new google.maps.Marker({
+          position: uluru,
+          map: map
+        });
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNXNSQD49r8fdL-d4RNs4MmWhZue_iAyM&callback=initMap">
+    </script>
 
 
 

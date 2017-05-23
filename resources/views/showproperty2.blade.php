@@ -412,8 +412,11 @@ p {
 
   <div class="tab-content w3-white">
     <div id="home{{$unit->id}}" class="tab-pane fade in active" style="overflow-x:auto;width:100%;height:300px; ">
+    @if($stypes[$unit->sale_type_id]->name == 'To Let')
       <h3 class="w3-text-blue"> {{$unit->size}} m<sup>2</sup> | {{$ptypes[$unit->property_type_id]->name}} {{$stypes[$unit->sale_type_id]->name}} | R {{ number_format($unit->gross_rental,2) }} Per m<sup>2</sup></h3>
-
+    @else
+       <h3 class="w3-text-blue"> {{$unit->size}} m<sup>2</sup> | {{$ptypes[$unit->property_type_id]->name}} {{$stypes[$unit->sale_type_id]->name}} | R {{ number_format($unit->price,2) }} </h3>
+    @endif
 		<div class="section group">
 			<div class="col span_1_of_2">
 				<p>Section: <b> {{$unit->section}} </b></p>

@@ -1615,7 +1615,7 @@ line-height: 1.8;
                         <label for="Firstname">Brochure:</label>
                        <select  id ='brochure_type' name ='brochure_type' class="form-control "   data-width="100%"   >
                                <option  v-bind:value='0'  > Format 1 </option>
-                              <!--  <option  v-bind:value='1'  > Format 2 </option>  -->
+                               <option  v-bind:value='1'  > Format 2 </option>
                         </select>
 
                     </div>

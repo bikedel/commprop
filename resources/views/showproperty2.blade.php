@@ -140,7 +140,9 @@ p {
 	.span_2_of_2, .span_1_of_2 { width: 100%; }
 }
 
-
+.lnk:hover {
+    background-color: #92B6D5;
+}
 </style>
 
 
@@ -170,7 +172,7 @@ p {
 	<div class=" w3-white w3-border w3-border-red w3-topbar w3-padding-large">
          @foreach ($suburbs  as $suburb)
 	         @if ($suburb->area_id == $suburbs[$property->area_id]->area_id)
-	        	 <p>{{$suburb->name}}</p>
+	        	 <p class="lnk">{{$suburb->name}}</p>
 	         @endif
          @endforeach
 	</div>

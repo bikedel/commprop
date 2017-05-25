@@ -236,7 +236,7 @@ padding:0px;
 
    <header><h4 class="w3-text-blue"><img src="{{public_path()}}/img/marker{{$loop->index+1}}.png" width="20"  > {{$item->address }} </h4></header>
    <!-- <h4>{{$suburbs[$item->area_id]->name}}</h4> -->
-<img align="center" src = "http://maps.googleapis.com/maps/api/staticmap?size=600x200&zoom=14&markers=color:red%7Clabel:{{$loop->index+1}}%7C{{$item->long}},{{$item->lat}}&maptype=hybrid&scale=20&sensor=false&label=Hello&key=AIzaSyCNgTdT8SN3jIzbdvZu7CBPKw3zz8J4Pww"  width="740" height="200" class='prop_img 'alt='Google Map'/>
+<img align="center" src = "http://maps.googleapis.com/maps/api/staticmap?size=600x200&zoom=16&markers=color:red%7Clabel:{{$loop->index+1}}%7C{{$item->long}},{{$item->lat}}&maptype=hybrid&scale=20&sensor=false&label=Hello&key=AIzaSyCNgTdT8SN3jIzbdvZu7CBPKw3zz8J4Pww"  width="740" height="200" class='prop_img 'alt='Google Map'/>
 
              <div align="center" class="category page">
             <br>

@@ -27,9 +27,9 @@ h2 {
     font-size: 1.875em; /* 30px/16=1.875em */
 }
 
-h4 {
+h3,h4 {
     font-family: 'Fira Sans';
-    font-size: 1.5em; /* 30px/16=1.875em */
+    font-size: 1.1em; /* 30px/16=1.875em */
 }
 h5 {
     font-family: 'Fira Sans';
@@ -43,6 +43,10 @@ p {
     font-size: 0.8em; /* 14px/16=0.875em */
 }
 
+.pmap {
+    font-family: 'Fira Sans';
+    font-size: 0.7em; /* 14px/16=0.875em */
+}
 
 .prop_img{
 
@@ -67,7 +71,7 @@ table {
 }
 
 th {
-background-color: #B0C4DE;
+
     text-align: left;
 }
 
@@ -77,20 +81,24 @@ background-color: #B0C4DE;
         page-break-after: always;
     }
 
-    .page_nobreak {
-
-        page-break-inside: avoid !important;
-    }
-
 table, tr, td, th, tbody, thead, tfoot {
 
      font-size:0.98em;
 
     page-break-inside: avoid !important;
+    padding:4px !important;
 }
 
 th {
-     font-weight: bold;
+         font-size:0.98em !important;
+
+     background-color: #9EB9D4;
+}
+
+
+.headergrey{
+
+  background-color: Gainsboro;
 }
 
  .flexme{
@@ -117,11 +125,11 @@ th {
     margin-left: auto;
     margin-right: auto;
     text-align: center;
-    padding: 270px 0;
+    padding: 200px 0;
     }
 
     .bigmap{
-
+        margin-top: 0;
         margin-bottom: 0;
     }
 
@@ -159,11 +167,22 @@ padding:0px;
   padding-left: 15px;
   margin-right: auto;
   margin-left: auto;
+
 }
 .row {
   margin-right: -15px;
   margin-left: -15px;
+  margin-top:-15px;
+  top:0px !important;
 }
+.borderless td, .borderless th {
+    border: none;
+}
+
+.avoidPageBreak {
+   page-break-inside: avoid !important;
+}
+
 
 </style>
 
@@ -174,9 +193,10 @@ padding:0px;
 
 
 
-<img src = "{{public_path()}}/img/sothebys_logo_big_blue.jpg" width="400px"/>
+<img src = "{{public_path()}}/img/sothebys_presentation_logo.png" width="800" />
 <br>
-<h2> Presentation <small>for</small></h2>
+<h2> Presentation</h2>
+<small>for</small>
 <h4>{{$client}} </h4>
 <div class="brief">
 <p>{{$brochure_text}} </p>
@@ -188,21 +208,18 @@ padding:0px;
 
 <div class ="container-fluid  page " >
 
-<h2> Property locations </h2>
-
-
 
 <div class="row">
-<img align="center" src = "http://maps.googleapis.com/maps/api/staticmap?size=512x512{{$markers}}&maptype=hybrid&scale=1&sensor=false&label=Hello&key=AIzaSyCNgTdT8SN3jIzbdvZu7CBPKw3zz8J4Pww"  width="800" height="650" class='prop_img 'alt='Google Map'/>
+<img align="center" src = "http://maps.googleapis.com/maps/api/staticmap?size=640x640&zoom={{$zoom}}{{$markers}}&maptype=hybrid&scale=2&sensor=false&label=Hello&key=AIzaSyCNgTdT8SN3jIzbdvZu7CBPKw3zz8J4Pww"  width="800" height="650" class='bigmap 'alt='Google Map'/>
 </div>
 <br>
 
 @foreach( $locations as $loc)
 
     @if (file_exists(public_path('/img/marker'.($loop->index+1).'.png')))
-       <p><img src="{{public_path()}}/img/marker{{$loop->index+1}}.png" width="20"  > {{$loc}}</p>
+     <p class="w3-text-blue pmap">  <img src="{{public_path()}}/img/marker{{$loop->index+1}}.png" width="20"  > {{$loc}}</p>
     @else
-       <p><img src="{{public_path()}}/img/marker.png" width="20"  > {{$loc}}</p>
+     <p class="w3-text-blue pmap"> <img src="{{public_path()}}/img/marker.png" width="20"  >  {{$loc}}</p>
     @endif
 
 
@@ -217,12 +234,12 @@ padding:0px;
 <div class="container-fluid page-break">
 
 
-   <header><h3 style="color:navy;width:716px;"><img src="{{public_path()}}/img/marker{{$loop->index+1}}.png" width="40"  > Erf: {{$item->erf }} </h3><h4>{{$suburbs[$item->area_id]->name}}</h4></header>
-
-<img align="center" src = "http://maps.googleapis.com/maps/api/staticmap?size=600x200&markers=color:red%7Clabel:{{$loop->index+1}}%7C{{$item->long}},{{$item->lat}}&maptype=hybrid&scale=3&sensor=false&label=Hello&key=AIzaSyCNgTdT8SN3jIzbdvZu7CBPKw3zz8J4Pww"  width="740" height="200" class='prop_img 'alt='Google Map'/>
+   <header><h4 class="w3-text-blue"><img src="{{public_path()}}/img/marker{{$loop->index+1}}.png" width="20"  > {{$item->address }} </h4></header>
+   <!-- <h4>{{$suburbs[$item->area_id]->name}}</h4> -->
+<img align="center" src = "http://maps.googleapis.com/maps/api/staticmap?size=600x200&zoom=16&markers=color:red%7Clabel:{{$loop->index+1}}%7C{{$item->long}},{{$item->lat}}&maptype=hybrid&scale=20&sensor=false&label=Hello&key=AIzaSyCNgTdT8SN3jIzbdvZu7CBPKw3zz8J4Pww"  width="740" height="200" class='prop_img 'alt='Google Map'/>
 
              <div align="center" class="category page">
-<br>
+            <br>
                @if (sizeof($item->images)>0)
                  <img src="{{public_path()}}/property/{{$item->id}}/{{$item->images[0]->name}}" style="width:181px"   class='prop_img '>
                @endif
@@ -232,38 +249,169 @@ padding:0px;
                 @endif
 
                @if (sizeof($item->images)>2)
-                 <img src="{{public_path()}}/property/{{$item->id}}/{{$item->images[2]->name}} " style="width:181px"   class='prop_img '>
+                 <img src="{{public_path()}}/property/{{$item->id}}/{{$item->images[2]->name}} " style="width:181px"  class='prop_img '>
                 @endif
 
                @if (sizeof($item->images)>3)
                  <img src="{{public_path()}}/property/{{$item->id}}/{{$item->images[3]->name}} " style="width:181px"   class='prop_img '>
-               @endif
-
+                @endif
 
 
              </div>
-
-             <br>
-<h4 style="color:navy;"> {{$item->title}} </h4>
+<h4 class="w3-text-blue"> {{$item->title}} </h4>
 
 <p> {{$item->description}} </p>
 
 
-                                        @foreach ($item->units as $unit)
 
-                                                <div class="page_nobreak">
-                                                   <hr>
+<div class="w3-row ">
 
-                                                    <h5><b>Unit {{ $loop->iteration }}: </b> {{ $unit->section }}</h5><br>
-                                                   <p> <b>Size: </b> {{ $unit->size}}   m<sup>2</sup></p>
-                                                   <p> <b>Gross Rental: </b>  {{ "R ".number_format($unit->gross_rental,2) }} /m<sup>2</sup></p>
-                                                    <p> <b>Available: </b> {{ $unit->availability}}</p>
-                                                    <p> <b>Monthly Rental: </b> {{ "R ".number_format($unit->size * $unit->gross_rental,2) }} excl. Vat</p>
+  <div class="w3-col s3 w3-blue-grey w3-center">
+      <p><b>Id:</b>
+  </div>
+  <div class="w3-col s3 w3-blue-grey w3-center">
+      <p><b>Type:</b></p>
+  </div>
+  <div class="w3-col s3 w3-blue-grey w3-center">
+      <p><b>Status:</b></p>
+  </div>
+  <div class="w3-col s3 w3-blue-grey w3-center">
+      <p><b>Grade:</b></p>
+  </div>
 
-                                               </div>
+</div>
 
-                                      @endforeach
 
+<div class="w3-row ">
+
+  <div class="w3-col s3 w3-lightgray w3-center">
+           <p> {{ $item->id }}</p>
+  </div>
+  <div class="w3-col s3 w3-lightgray w3-center">
+                        @if($item->type == 0)
+                            <p>Freehold</p>
+                         @else
+                             <p>Sectional Title</p>
+                         @endif
+  </div>
+  <div class="w3-col s3 w3-lightgray w3-center">
+                         @if ($item->sale_type_id>0)
+                         <p>{{ $stypes[$item->sale_type_id]->name }}</p>
+                         @else
+                         <p></p>
+                         @endif
+  </div>
+
+  <div class="w3-col s3 w3-lightgray w3-center">
+                       @if ($item->grade_id>0)
+                      <p>{{ $grades[$item->grade_id]->name }}</p>
+                         @else
+                         <p></p>
+                         @endif
+  </div>
+
+</div>
+
+
+
+
+
+
+<div>
+@if(strlen($note)>0 )
+ <h5 class="w3-text-red">Notes:</h5> <p class="w3-text-blue">{{$note}} </p>
+@endif
+</div>
+
+
+
+
+
+
+@foreach ($item->units as $unit)
+
+<div class="avoidPageBreak">
+
+  <div class="w3-row ">
+
+    <div class="w3-col s1 w3-dark-grey w3-center">
+          <p><b>Unit: </b> </p>
+    </div>
+    <div class="w3-col s4 w3-grey w3-center">
+          <p><b>Section:</b> </p>
+    </div>
+    <div class="w3-col s7 w3-grey w3-center">
+          <p><b>Description: </b> </p>
+    </div>
+
+  </div>
+
+  <div class="w3-row ">
+
+    <div class="w3-col s1 w3-lightgray w3-center">
+          <p>{{ $loop->iteration }}</p>
+    </div>
+    <div class="w3-col s4 w3-lightgray w3-center">
+        <p> {{ $unit->section }}</p>
+    </div>
+    <div class="w3-col s7 w3-lightgray w3-center">
+          <p>{{ $unit->description }}</p>
+    </div>
+
+  </div>
+
+
+  <div class="w3-row ">
+
+      <div class="w3-col s6 headergrey w3-center">
+          <p><b>Type:</b> </p>
+    </div>
+      <div class="w3-col s3 headergrey w3-center">
+          <p><b>Size:</b>  </p>
+    </div>
+    @if ($unit->sale_type_id == 2)
+        <div class="w3-col s3 headergrey w3-center">
+            <p><b>Gross Rental:</b>  </p>
+        </div>
+    @else
+        <div class="w3-col s3 headergrey w3-center">
+            <p><b>Price:</b>  </p>
+        </div>
+    @endif
+
+  </div>
+
+
+
+  <div class="w3-col s6 w3-lightgray w3-center">
+      <p>
+      @if ($unit->property_type_id>0)
+           {{ $ptypes[$unit->property_type_id]->name  }}
+      @endif
+      @if ($unit->sale_type_id>0)
+          {{ $stypes[$unit->sale_type_id]->name  }}
+      @endif
+      </p>
+    </div>
+    <div class="w3-col s3 w3-lightgray w3-center">
+       <p>{{ $unit->size}} m<sup>2</sup></p>
+    </div>
+    <div class="w3-col s3 w3-lightgray w3-center">
+      @if ($unit->sale_type_id == 2)
+          <p>   R {{ $unit->gross_rental}}  / m<sup>2</sup></p>
+      @else
+          <p>  R {{ number_format($unit->price,2)}}</p>
+      @endif
+    </div>
+
+  </div>
+
+
+
+
+
+@endforeach
+</div>
 </div>
 @endforeach
 </div>
@@ -273,7 +421,7 @@ padding:0px;
 <div align="left" class="category  page-break disclaimer">
 <br><br><br><br><br><br><br><br><br><br><br><br>
 <h1>Disclaimer</h1>
-<p>Sothebys accepts no liability for the content of this document or any attachments attached hereto, or for the consequences of any actions taken on the basis of the information provided which is provided as a rough guideline only. If you are not the intended recipient you are notified that disclosing, copying, distributing or taking any action in reliance on the contents of this information is strictly prohibited. Should this document contain property information this document shall constitute an introduction to the mentioned property. Paul shall be considered the effective cause of any transaction that comes as a result of this introduction and will be due commission on a lease at 5% of the gross value for the first two years, and 2.5% of the gross value for each following year or at 5% of the deal value on any concluded sale.</p>
+<p>Lew Geffen - Sotheby's International Realty accepts no liability for the content of this document or any attachments attached hereto, or for the consequences of any actions taken on the basis of the information provided which is provided as a rough guideline only. If you are not the intended recipient you are notified that disclosing, copying, distributing or taking any action in reliance on the contents of this information is strictly prohibited. Should this document contain property information this document shall constitute an introduction to the mentioned property. Each office is independantly owned and operated. Lew Geffen - Sotheby's International Realty shall be considered the effective cause of any transaction that comes as a result of this introduction and will be due commission on a lease at 5% of the gross value for the first two years, and 2.5% of the gross value for each following year or at 5% of the deal value on any concluded sale.</p>
 </div>
 </body>
 </html>

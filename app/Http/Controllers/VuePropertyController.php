@@ -998,7 +998,7 @@ class VuePropertyController extends Controller
 
         foreach ($items as $item) {
             $loop    = $loop + 1;
-            $marker  = '&markers=icon:http://www.sircommdb.co.za/marker64.pngcolor:navy%7Clabel:' . $loop . '%7C' . $item->long . ',' . $item->lat;
+            $marker  = '&markers=icon:http://www.sircommdb.co.za/marker64.png%7Clabel:' . $loop . '%7C' . $item->long . ',' . $item->lat;
             $markers = $markers . $marker;
             array_push($locations, $item->address);
             $log_units = $log_units . ',' . $item->erf;

@@ -194,14 +194,14 @@ padding:0px;
 
 
 <img src = "{{public_path()}}/img/sothebys_presentation_logo.png" width="800" />
-<br>
-<h4> PRESENTATION FOR:</h4>
+<br><br>
+<h5> PRESENTATION FOR:</h5>
 
 <h4>{{$client}} </h4>
 <br>
-<h4> CLIENT BRIEF:</h4>
+<h5> CLIENT BRIEF:</h5>
 <div class="brief">
-<p>{{$brochure_text}} </p>
+<h4>{{$brochure_text}} </h4>
 </div>
 
 </div>

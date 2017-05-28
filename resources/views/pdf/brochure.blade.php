@@ -229,7 +229,7 @@ padding:0px;
          <div class="col-md-6 pmap"> <img src="{{public_path('/img/marker.marker.png')}}"  width="30px" >  {{$loc}}</div>
         @endif
 
-            @if ($loop->iteration % 2 == 0)
+            @if ($loop->iteration % 3 == 0)
                 </div>
                 <div class="row">
             @endif

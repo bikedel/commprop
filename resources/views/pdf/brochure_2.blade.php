@@ -355,10 +355,27 @@ padding:0px;
     <div class="w3-col s6  ">
           <p><b>Description:</b> {{ $unit->description }}</p>
     </div>
+
+      <div class="w3-col s6  w3-center">
+          <p><b>Type:</b> </p>
+    </div>
+      <div class="w3-col s3  w3-center">
+          <p><b>Size:</b>  </p>
+    </div>
+    @if ($unit->sale_type_id == 2)
+        <div class="w3-col s3  w3-center">
+            <p><b>Gross Rental:</b>  </p>
+        </div>
+    @else
+        <div class="w3-col s3  w3-center">
+            <p><b>Price:</b>  </p>
+        </div>
+    @endif
+
 </div>
 
 <footer class="w3-container w3-blue">
-  <h5></h5>
+  <h4>footer</h4>
 </footer>
 
 </div>
@@ -367,21 +384,7 @@ padding:0px;
 
   <div class="w3-row ">
 
-      <div class="w3-col s6 headergrey w3-center">
-          <p><b>Type:</b> </p>
-    </div>
-      <div class="w3-col s3 headergrey w3-center">
-          <p><b>Size:</b>  </p>
-    </div>
-    @if ($unit->sale_type_id == 2)
-        <div class="w3-col s3 headergrey w3-center">
-            <p><b>Gross Rental:</b>  </p>
-        </div>
-    @else
-        <div class="w3-col s3 headergrey w3-center">
-            <p><b>Price:</b>  </p>
-        </div>
-    @endif
+
 
   </div>
 

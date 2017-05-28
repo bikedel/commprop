@@ -343,7 +343,7 @@ padding:0px;
 <div class="w3-card-4">
 
 <header class="w3-container w3-blue">
-  <h5><b>Unit:</b> {{ $unit->id }}  </h5>
+  <h3><b>Unit:</b> {{ $unit->id }}  </h3>
 </header>
 
 <div class="w3-container w3-col s12">

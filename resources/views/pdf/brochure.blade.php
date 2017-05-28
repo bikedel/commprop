@@ -219,9 +219,9 @@ padding:0px;
     <div class="row">
       @foreach($chunk as $loc)
         @if (file_exists(public_path('/img/marker'.($loop->index+1).'.png')))
-         <div class="w3-half pmap">  <img src="{{public_path('/img/marker'.($loop->index+1).'.png')}}"  width="30px"> {{$loc}}</div>
+         <article class="w3-half pmap">  <img src="{{public_path('/img/marker'.($loop->index+1).'.png')}}"  width="30px"> {{$loc}}</article>
         @else
-         <div class="w3-half pmap"> <img src="{{public_path('/img/marker.marker.png')}}"  width="30px" >  {{$loc}}</div>
+         <article class="w3-half pmap"> <img src="{{public_path('/img/marker.marker.png')}}"  width="30px" >  {{$loc}}</article>
         @endif
       @endforeach
     </div>

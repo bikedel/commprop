@@ -364,9 +364,9 @@ padding:0px;
 
 
         <div class="w3-col s3  ">
-          <p><b>Availability:</b> {{ $unit->availability }} </p>
+          <p><b>Availability:</b> {{ $unit->availability }} </p><br>
     </div>
-<br>
+
     <div class="w3-col s12  ">
           <p><b>Description:</b> {{ $unit->description }}</p>
     </div>
@@ -375,7 +375,7 @@ padding:0px;
 
 <footer class="w3-container w3-light-grey">
     @if(strlen($note)>0 )
-      <p class="w3-text-white">{{$note}} </p>
+      <p class="w3-text-black">{{$note}} </p>
     @endif
 
 </footer>

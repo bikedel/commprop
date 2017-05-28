@@ -231,18 +231,6 @@ padding:0px;
 
 
 
-@foreach(array_chunk($address, 2) as $chunk)
-    <div class="row">
-        @foreach($chunk as $add)
-            <div class="col-md-6">
-                Some data
-            </div>
-        @endforeach
-    </div>
-@endforeach
-
-
-
 
 @foreach( $items as $item)
 

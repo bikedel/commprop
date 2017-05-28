@@ -356,21 +356,23 @@ padding:0px;
           <p><b>Description:</b> {{ $unit->description }}</p>
     </div>
 
-      <div class="w3-col s6  ">
-          <p><b>Type:</b> </p>
-    </div>
-      <div class="w3-col s3  ">
-          <p><b>Size:</b>  </p>
+
+    <div class="w3-col s3  ">
+          <p><b>Size:</b>  {{ $unit->size}} m<sup>2</sup></p>
     </div>
     @if ($unit->sale_type_id == 2)
         <div class="w3-col s3  ">
-            <p><b>Gross Rental:</b>  </p>
+            <p><b>Gross Rental:</b>  R {{ $unit->gross_rental}}  / m<sup>2</sup> </p>
         </div>
     @else
         <div class="w3-col s3  ">
-            <p><b>Price:</b>  </p>
+            <p><b>Price:</b>  R {{ number_format($unit->price,2)}}</p>
         </div>
     @endif
+
+        <div class="w3-col s3  ">
+          <p><b>Availability:</b>{{ $unit->availability }} </p>
+    </div>
 
 </div>
 
@@ -379,40 +381,6 @@ padding:0px;
 </footer>
 
 </div>
-
-
-
-  <div class="w3-row ">
-
-
-
-  </div>
-
-
-
-  <div class="w3-col s6 w3-lightgray w3-center">
-      <p>
-      @if ($unit->property_type_id>0)
-           {{ $ptypes[$unit->property_type_id]->name  }}
-      @endif
-      @if ($unit->sale_type_id>0)
-          {{ $stypes[$unit->sale_type_id]->name  }}
-      @endif
-      </p>
-    </div>
-    <div class="w3-col s3 w3-lightgray w3-center">
-       <p>{{ $unit->size}} m<sup>2</sup></p>
-    </div>
-    <div class="w3-col s3 w3-lightgray w3-center">
-      @if ($unit->sale_type_id == 2)
-          <p>   R {{ $unit->gross_rental}}  / m<sup>2</sup></p>
-      @else
-          <p>  R {{ number_format($unit->price,2)}}</p>
-      @endif
-    </div>
-
-  </div>
-
 
 
 

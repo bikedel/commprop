@@ -220,20 +220,20 @@ padding:0px;
 <br>
 
 
-    <div class="w3-cell-row w3-padding">
+    <div class="w3-cell-row ">
     @foreach( $locations as $loc)
 
 
 
         @if (file_exists(public_path('/img/marker'.($loop->index+1).'.png')))
-         <div class="w3-cell w3-half pmap">  <img src="{{public_path('/img/marker'.($loop->index+1).'.png')}}"  width="30px"> {{$loc}}</div>
+         <div class="w3-container w3-cell pmap">  <img src="{{public_path('/img/marker'.($loop->index+1).'.png')}}"  width="30px"> {{$loc}}</div>
         @else
-         <div class="w3-cell w3-half pmap"> <img src="{{public_path('/img/marker.png')}}"  width="30px" >  {{$loc}}</div>
+         <div class="w3-container w3-cell pmap"> <img src="{{public_path('/img/marker.png')}}"  width="30px" >  {{$loc}}</div>
         @endif
 
             @if ($loop->iteration % 2 == 0)
                 </div>
-                <div class="w3-cell-row w3-padding">
+                <div class="w3-cell-row ">
             @endif
 
     @endforeach

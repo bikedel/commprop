@@ -46,6 +46,7 @@ p {
 .pmap {
     font-family: 'Fira Sans';
     font-size: 0.7em; /* 14px/16=0.875em */
+     display: block;
 }
 
 .prop_img{
@@ -169,7 +170,7 @@ padding:0px;
   margin-left: auto;
 
 }
-.row {
+.maprow {
   margin-right: -15px;
   margin-left: -15px;
   margin-top:-15px;
@@ -211,7 +212,7 @@ padding:0px;
 <div class ="container-fluid  page " >
 
 
-<div class="row">
+<div class="maprow">
 <img align="center" src = "http://maps.googleapis.com/maps/api/staticmap?size=640x640&zoom={{$zoom}}{{$markers}}&maptype=hybrid&scale=2&sensor=false&label=Hello&key=AIzaSyCNgTdT8SN3jIzbdvZu7CBPKw3zz8J4Pww"  width="800" height="650" class='bigmap 'alt='Google Map'/>
 </div>
 <br>

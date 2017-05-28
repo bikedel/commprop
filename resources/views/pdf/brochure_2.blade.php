@@ -338,39 +338,21 @@ padding:0px;
 
 
 
-<div class="w3-panel w3-card-4 ">
-
-
-    <div class="w3-col s6 w3-dark-grey ">
-          <p><b>Unit:</b> {{ $loop->iteration }}</p>
-    </div>
-    <div class="w3-col s6 w3-grey ">
-          <p><b>Section:</b> {{ $unit->section }}</p>
-    </div>
-
-
-    <div class="w3-col s12  ">
-          <p><b>Description:</b> {{ $unit->description }}</p>
-    </div>
-
-  </div>
-
-
 
 
 <div class="w3-card-4">
 
 <header class="w3-container w3-blue">
-  <h1><b>Unit:</b> {{ $unit->id }}  </h1>
+  <h5><b>Unit:</b> {{ $unit->id }}  </h5>
 </header>
 
-<div class="w3-container">
-     <div class="w3-col s12  ">
+<div class="w3-container w3-col s12">
+     <div class="w3-col s6  ">
           <p><b>Section:</b> {{ $unit->section }}</p>
     </div>
 
 
-    <div class="w3-col s12  ">
+    <div class="w3-col s6  ">
           <p><b>Description:</b> {{ $unit->description }}</p>
     </div>
 </div>

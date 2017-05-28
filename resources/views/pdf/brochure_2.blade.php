@@ -344,30 +344,30 @@ padding:0px;
 
 <header class="w3-container w3-blue">
   <h3><b>Unit:</b> {{ $unit->id }}  </h3>
+       <div class="w3-col s12  ">
+          <p><b>Section:</b> {{ $unit->section }}</p>
+    </div>
 </header>
 
 <div class="w3-container">
-     <div class="w3-col s6  ">
-          <p><b>Section:</b> {{ $unit->section }}</p>
-    </div>
 
 
-    <div class="w3-col s6  ">
+    <div class="w3-col s12  ">
           <p><b>Description:</b> {{ $unit->description }}</p>
     </div>
 
-      <div class="w3-col s6  w3-center">
+      <div class="w3-col s6  ">
           <p><b>Type:</b> </p>
     </div>
-      <div class="w3-col s3  w3-center">
+      <div class="w3-col s3  ">
           <p><b>Size:</b>  </p>
     </div>
     @if ($unit->sale_type_id == 2)
-        <div class="w3-col s3  w3-center">
+        <div class="w3-col s3  ">
             <p><b>Gross Rental:</b>  </p>
         </div>
     @else
-        <div class="w3-col s3  w3-center">
+        <div class="w3-col s3  ">
             <p><b>Price:</b>  </p>
         </div>
     @endif

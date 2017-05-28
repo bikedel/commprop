@@ -228,9 +228,9 @@ padding:0px;
          <div class="w3-cell pmap"> <img src="{{public_path('/img/marker.marker.png')}}"  width="30px" >  {{$loc}}</div>
         @endif
 
-            @if ($loop->iteration % 3 == 0)
+            @if ($loop->iteration % 2 == 0)
                 </div>
-                <div class="w3-cell-row">
+                <div class="w3-half">
             @endif
 
     @endforeach

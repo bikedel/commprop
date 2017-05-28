@@ -218,9 +218,9 @@ padding:0px;
 @foreach( $locations as $loc)
 
     @if (file_exists(public_path('/img/marker'.($loop->index+1).'.png')))
-     <p class=" pmap">  <img src="{{public_path('/img/marker'.($loop->index+1).'.png')}}"  width="20px"> {{$loc}}</p>
+     <p class=" pmap">  <img src="{{public_path('/img/marker'.($loop->index+1).'.png')}}"  width="30px"> {{$loc}}</p>
     @else
-     <p class=" pmap"> <img src="{{public_path('/img/marker.marker.png')}}"  width="20px " >  {{$loc}}</p>
+     <p class=" pmap"> <img src="{{public_path('/img/marker.marker.png')}}"  width="30px" >  {{$loc}}</p>
     @endif
 
 
@@ -235,9 +235,9 @@ padding:0px;
 <div class="container-fluid page-break">
 
 
-   <header><h4 class=""><img src="http://www.sircommdb.co.za/marker32_{{$loop->index+1}}.png"   > {{$item->address }} </h4></header>
+   <header><h4 class=""><img src="{{public_path('/img/marker'.($loop->index+1).'.png')}}"   > {{$item->address }} </h4></header>
    <!-- <h4>{{$suburbs[$item->area_id]->name}}</h4> -->
-<img align="center" src = "http://maps.googleapis.com/maps/api/staticmap?size=740x200&zoom=16&markers=icon:http://www.sircommdb.co.za/marker32_{{$loop->index+1}}.png%7C{{$item->long}},{{$item->lat}}&maptype=hybrid&scale=20&sensor=false&label=Hello&key=AIzaSyCNgTdT8SN3jIzbdvZu7CBPKw3zz8J4Pww"  width="740" height="200" class='prop_img 'alt='Google Map'/>
+<img align="center" src = "http://maps.googleapis.com/maps/api/staticmap?size=740x200&zoom=16&markers=label:{{$loop->index+1}}%7C{{$item->long}},{{$item->lat}}&maptype=hybrid&scale=20&sensor=false&label=Hello&key=AIzaSyCNgTdT8SN3jIzbdvZu7CBPKw3zz8J4Pww"  width="740" height="200" class='prop_img 'alt='Google Map'/>
 
              <div align="center" class="category page">
             <br>

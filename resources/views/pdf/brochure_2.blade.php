@@ -340,10 +340,10 @@ padding:0px;
 
 <header class="w3-container w3-light-grey">
       <div class="w3-col s6  ">
-          <h3><b>Unit:</b> {{ $unit->id }}  </h3>
+          <h3><b>Unit:</b> {{ $loop->iteration }}   <b>ID:</b> {{ $unit->id }}  </h3>
       </div>
       <div class="w3-col s6  ">
-          <p><b>Section:</b> {{ $unit->section }}</p>
+          <h3><b>Section:</b> {{ $unit->section }}</h3>
       </div>
 </header>
 
@@ -369,15 +369,15 @@ padding:0px;
     @endif
 
         <div class="w3-col s3  ">
-          <p><b>Availability:</b>{{ $unit->availability }} </p>
+          <p><b>Availability:</b> {{ $unit->availability }} </p>
     </div>
 
 </div>
 
 <footer class="w3-container w3-light-grey">
-    <div>
+    <div>Notes:
     @if(strlen($note)>0 )
-     <h5 class="w3-text-red">Notes:</h5> <p class="w3-text-blue">{{$note}} </p>
+      <p class="w3-text-blue">{{$note}} </p>
     @endif
   </div>
 </footer>

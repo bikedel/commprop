@@ -347,7 +347,7 @@ padding:0px;
       </div>
 </header>
 
-<div class="w3-container">
+<div class="w3-container w3-padding">
 
 
     <div class="w3-col s3  ">

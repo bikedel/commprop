@@ -346,7 +346,7 @@ padding:0px;
   <h3><b>Unit:</b> {{ $unit->id }}  </h3>
 </header>
 
-<div class="w3-container w3-col s12">
+<div class="w3-container">
      <div class="w3-col s6  ">
           <p><b>Section:</b> {{ $unit->section }}</p>
     </div>

@@ -45,7 +45,7 @@ p {
 
 .pmap {
     font-family: 'Fira Sans';
-    font-size: 0.7em; /* 14px/16=0.875em */
+    font-size: 0.8em; /* 14px/16=0.875em */
 }
 
 .prop_img{
@@ -217,7 +217,7 @@ padding:0px;
 <br>
 
 
-    <div class="w3-cell-row">
+    <div class="w3-row">
     @foreach( $locations as $loc)
 
 

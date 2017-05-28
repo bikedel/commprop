@@ -340,7 +340,7 @@ padding:0px;
 
 <header class="w3-container w3-light-grey">
       <div class="w3-col s6  ">
-          <h3><b>Unit:</b> {{ $loop->iteration }}   <b>ID:</b> {{ $unit->id }}  </h3>
+          <h3><b>Unit:</b> {{ $loop->iteration }}</h3>
       </div>
       <div class="w3-col s6  ">
           <h3><b>Section:</b> {{ $unit->section }}</h3>
@@ -349,12 +349,7 @@ padding:0px;
 
 <div class="w3-container">
 
-
-    <div class="w3-col s12  ">
-          <p><b>Description:</b> {{ $unit->description }}</p>
-    </div>
-
-
+<br>
     <div class="w3-col s3  ">
           <p><b>Size:</b>  {{ $unit->size}} m<sup>2</sup></p>
     </div>
@@ -372,16 +367,19 @@ padding:0px;
           <p><b>Availability:</b> {{ $unit->availability }} </p>
     </div>
 
+    <div class="w3-col s12  ">
+          <p><b>Description:</b> {{ $unit->description }}</p>
+    </div>
+
 </div>
 
 <footer class="w3-container w3-light-grey">
-    <div>Notes:
     @if(strlen($note)>0 )
       <p class="w3-text-blue">{{$note}} </p>
     @endif
   </div>
 </footer>
-
+<br>
 </div>
 
 

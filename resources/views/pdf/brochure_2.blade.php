@@ -267,7 +267,7 @@ padding:0px;
 <p> {{$item->description}} </p>
 
 
-
+<!--
 <div class="w3-row ">
 
   <div class="w3-col s3 w3-blue-grey w3-center">
@@ -316,7 +316,7 @@ padding:0px;
 
 </div>
 
-
+-->
 
 
 
@@ -364,7 +364,7 @@ padding:0px;
 
 
         <div class="w3-col s3  ">
-          <p><b>Availability:</b> {{ $unit->availability }} </p><br>
+          <p><b>Availability:</b> {{ $unit->availability }} </p>
     </div>
 
     <div class="w3-col s12  ">

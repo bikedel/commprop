@@ -215,19 +215,33 @@ padding:0px;
 </div>
 <br>
 
-@foreach( $locations as $loc)
-
-    @if (file_exists(public_path('/img/marker'.($loop->index+1).'.png')))
-     <div class="w3-half pmap">  <img src="{{public_path('/img/marker'.($loop->index+1).'.png')}}"  width="30px"> {{$loc}}</div>
-    @else
-     <div class="w3-half pmap"> <img src="{{public_path('/img/marker.marker.png')}}"  width="30px" >  {{$loc}}</div>
-    @endif
-
-
-
+@foreach( array_chunk($locations,2) as $chunk)
+    <div class="row">
+      @foreach($chunk as $loc)
+        @if (file_exists(public_path('/img/marker'.($loop->index+1).'.png')))
+         <div class="w3-half pmap">  <img src="{{public_path('/img/marker'.($loop->index+1).'.png')}}"  width="30px"> {{$loc}}</div>
+        @else
+         <div class="w3-half pmap"> <img src="{{public_path('/img/marker.marker.png')}}"  width="30px" >  {{$loc}}</div>
+        @endif
+      @endforeach
+    </div>
 @endforeach
 
 </div>
+
+
+
+@foreach(array_chunk($address, 2) as $chunk)
+    <div class="row">
+        @foreach($chunk as $add)
+            <div class="col-md-6">
+                Some data
+            </div>
+        @endforeach
+    </div>
+@endforeach
+
+
 
 
 @foreach( $items as $item)

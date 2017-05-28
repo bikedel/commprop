@@ -221,7 +221,7 @@ padding:0px;
 
 
 
-        @if (file_exists("http://www.sircommdb.co.za/marker32_".$loop->index+1."png"))
+        @if (file_exists("http://www.sircommdb.co.za/marker32_".($loop->index+1).".png"))
          <p class="w3-cell pmap">  <img src="http://www.sircommdb.co.za/marker32_{{$loop->index+1}}.png"   > {{$loc}}</p>
         @else
          <p class="w3-cell pmap"> <img src="http://www.sircommdb.co.za/marker32.png"   >  {{$loc}}</p>

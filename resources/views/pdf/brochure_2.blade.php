@@ -353,20 +353,20 @@ padding:0px;
     <div class="w3-col s3  ">
           <p><b>Size:</b>  {{ $unit->size}} m<sup>2</sup></p>
     </div>
-    @if ($unit->sale_type_id == 2)
+
         <div class="w3-col s3  ">
             <p><b>Gross Rental:</b>  R {{ $unit->gross_rental}}  / m<sup>2</sup> </p>
         </div>
-    @else
+
         <div class="w3-col s3  ">
             <p><b>Price:</b>  R {{ number_format($unit->price,2)}}</p>
         </div>
-    @endif
+
 
         <div class="w3-col s3  ">
           <p><b>Availability:</b> {{ $unit->availability }} </p>
     </div>
-
+<br>
     <div class="w3-col s12  ">
           <p><b>Description:</b> {{ $unit->description }}</p>
     </div>
@@ -375,9 +375,9 @@ padding:0px;
 
 <footer class="w3-container w3-light-grey">
     @if(strlen($note)>0 )
-      <p class="w3-text-blue">{{$note}} </p>
+      <p class="w3-text-white">{{$note}} </p>
     @endif
-  </div>
+
 </footer>
 <br>
 </div>

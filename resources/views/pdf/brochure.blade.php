@@ -208,7 +208,7 @@ padding:0px;
 
 
 
-<div class ="container-fluid  page " >
+<div class ="container  page " >
 
 
 <div class="maprow">
@@ -217,20 +217,20 @@ padding:0px;
 <br>
 
 
-    <div class="w3-row w3-border">
+    <div class="w3-row ">
     @foreach( $locations as $loc)
 
 
 
         @if (file_exists(public_path('/img/marker'.($loop->index+1).'.png')))
-         <div class="w3-container w3-third pmap">  <img src="{{public_path('/img/marker'.($loop->index+1).'.png')}}"  width="30px"> {{$loc}}</div>
+         <div class="w3-container w3-third ">  <img src="{{public_path('/img/marker'.($loop->index+1).'.png')}}"  width="30px"> {{$loc}}</div>
         @else
-         <div class="w3-container w3-third pmap"> <img src="{{public_path('/img/marker.marker.png')}}"  width="30px" >  {{$loc}}</div>
+         <div class="w3-container w3-third "> <img src="{{public_path('/img/marker.png')}}"  width="30px" >  {{$loc}}</div>
         @endif
 
             @if ($loop->iteration % 2 == 0)
                 </div>
-                <div class="w3-row w3-border">
+                <div class="w3-row ">
             @endif
 
     @endforeach

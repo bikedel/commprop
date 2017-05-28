@@ -216,17 +216,25 @@ padding:0px;
 </div>
 <br>
 
-@foreach( $locations as $loc)
-
-    @if (file_exists(public_path('/img/marker'.($loop->index+1).'.png')))
-     <p class=" pmap">  <img src="http://www.sircommdb.co.za/marker32_{{$loop->index+1}}.png"   > {{$loc}}</p>
-    @else
-     <p class=" pmap"> <img src="http://www.sircommdb.co.za/marker32.png"   >  {{$loc}}</p>
-    @endif
+    <div class="w3-cell-row ">
+    @foreach( $locations as $loc)
 
 
 
-@endforeach
+        @if (file_exists("http://www.sircommdb.co.za/marker32_{{$loop->index+1}}.png"))
+         <p class="w3-cell pmap">  <img src="http://www.sircommdb.co.za/marker32_{{$loop->index+1}}.png"   > {{$loc}}</p>
+        @else
+         <p class="w3-cell pmap"> <img src="http://www.sircommdb.co.za/marker32.png"   >  {{$loc}}</p>
+        @endif
+
+            @if ($loop->iteration % 2 == 0)
+                </div>
+                <div class="w3-cell-row ">
+            @endif
+
+    @endforeach
+    </div>
+
 
 </div>
 

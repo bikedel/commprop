@@ -358,6 +358,31 @@ padding:0px;
 
 
 
+<div class="w3-card-4">
+
+<header class="w3-container w3-blue">
+  <h1><b>Unit:</b> {{ $unit->id }}  </h1>
+</header>
+
+<div class="w3-container">
+     <div class="w3-col s12  ">
+          <p><b>Section:</b> {{ $unit->section }}</p>
+    </div>
+
+
+    <div class="w3-col s12  ">
+          <p><b>Description:</b> {{ $unit->description }}</p>
+    </div>
+</div>
+
+<footer class="w3-container w3-blue">
+  <h5></h5>
+</footer>
+
+</div>
+
+
+
   <div class="w3-row ">
 
       <div class="w3-col s6 headergrey w3-center">

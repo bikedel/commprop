@@ -340,13 +340,16 @@ padding:0px;
 
 <div class="w3-panel w3-card-4 ">
 
-    <div class="w3-col s1 w3-dark-grey w3-center">
+
+    <div class="w3-col s6 w3-dark-grey ">
           <p><b>Unit:</b> {{ $loop->iteration }}</p>
     </div>
-    <div class="w3-col s4 w3-grey w3-center">
+    <div class="w3-col s6 w3-grey ">
           <p><b>Section:</b> {{ $unit->section }}</p>
     </div>
-    <div class="w3-col s7 w3-grey w3-center">
+
+
+    <div class="w3-col s12  ">
           <p><b>Description:</b> {{ $unit->description }}</p>
     </div>
 

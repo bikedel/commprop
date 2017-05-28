@@ -349,7 +349,7 @@ padding:0px;
 
 <div class="w3-container">
 
-<br>
+
     <div class="w3-col s3  ">
           <p><b>Size:</b>  {{ $unit->size}} m<sup>2</sup></p>
     </div>
@@ -365,7 +365,7 @@ padding:0px;
 
         <div class="w3-col s3  ">
           <p><b>Availability:</b> {{ $unit->availability }} </p>
-    </div>
+        </div>
 
     <div class="w3-col s12  ">
           <p><b>Description:</b> {{ $unit->description }}</p>
@@ -379,7 +379,7 @@ padding:0px;
     @endif
 
 </footer>
-<br>
+
 </div>
 
 

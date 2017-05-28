@@ -321,11 +321,7 @@ padding:0px;
 
 
 
-<div>
-@if(strlen($note)>0 )
- <h5 class="w3-text-red">Notes:</h5> <p class="w3-text-blue">{{$note}} </p>
-@endif
-</div>
+
 
 
 
@@ -342,11 +338,13 @@ padding:0px;
 
 <div class="w3-card-4">
 
-<header class="w3-container w3-blue">
-  <h3><b>Unit:</b> {{ $unit->id }}  </h3>
-       <div class="w3-col s12  ">
+<header class="w3-container w3-light-grey">
+      <div class="w3-col s6  ">
+          <h3><b>Unit:</b> {{ $unit->id }}  </h3>
+      </div>
+      <div class="w3-col s6  ">
           <p><b>Section:</b> {{ $unit->section }}</p>
-    </div>
+      </div>
 </header>
 
 <div class="w3-container">
@@ -376,8 +374,12 @@ padding:0px;
 
 </div>
 
-<footer class="w3-container w3-blue">
-  <h4>footer</h4>
+<footer class="w3-container w3-light-grey">
+    <div>
+    @if(strlen($note)>0 )
+     <h5 class="w3-text-red">Notes:</h5> <p class="w3-text-blue">{{$note}} </p>
+    @endif
+  </div>
 </footer>
 
 </div>

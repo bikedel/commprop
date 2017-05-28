@@ -336,33 +336,23 @@ padding:0px;
 
 <div class="avoidPageBreak">
 
-  <div class="w3-row ">
+
+
+<div class="w3-panel w3-card-4 ">
 
     <div class="w3-col s1 w3-dark-grey w3-center">
-          <p><b>Unit: </b> </p>
+          <p><b>Unit:</b> {{ $loop->iteration }}</p>
     </div>
     <div class="w3-col s4 w3-grey w3-center">
-          <p><b>Section:</b> </p>
+          <p><b>Section:</b> {{ $unit->section }}</p>
     </div>
     <div class="w3-col s7 w3-grey w3-center">
-          <p><b>Description: </b> </p>
+          <p><b>Description:</b> {{ $unit->description }}</p>
     </div>
 
   </div>
 
-  <div class="w3-row ">
 
-    <div class="w3-col s1 w3-lightgray w3-center">
-          <p>{{ $loop->iteration }}</p>
-    </div>
-    <div class="w3-col s4 w3-lightgray w3-center">
-        <p> {{ $unit->section }}</p>
-    </div>
-    <div class="w3-col s7 w3-lightgray w3-center">
-          <p>{{ $unit->description }}</p>
-    </div>
-
-  </div>
 
 
   <div class="w3-row ">

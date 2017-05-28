@@ -218,9 +218,9 @@ padding:0px;
 @foreach( $locations as $loc)
 
     @if (file_exists(public_path('/img/marker'.($loop->index+1).'.png')))
-     <p class=" pmap">  <img src="{{public_path('/img/marker'.($loop->index+1).'.png')}}"  width="30px"> {{$loc}}</p>
+     <div class="w3-half pmap">  <img src="{{public_path('/img/marker'.($loop->index+1).'.png')}}"  width="30px"> {{$loc}}</div>
     @else
-     <p class=" pmap"> <img src="{{public_path('/img/marker.marker.png')}}"  width="30px" >  {{$loc}}</p>
+     <div class="w3-half pmap"> <img src="{{public_path('/img/marker.marker.png')}}"  width="30px" >  {{$loc}}</div>
     @endif
 
 

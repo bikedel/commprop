@@ -997,8 +997,12 @@ class VuePropertyController extends Controller
         $loop      = 0;
 
         foreach ($items as $item) {
-            $loop    = $loop + 1;
-            $marker  = '&markers=icon:http://www.sircommdb.co.za/marker32_' . $loop . '.png%7Clabel:' . $loop . '%7C' . $item->long . ',' . $item->lat;
+            $loop = $loop + 1;
+            if ($brochure_type == 0) {
+                $marker = '&markers=label:' . $loop . '%7C' . $item->long . ',' . $item->lat;
+            } else {
+                $marker = '&markers=icon:http://www.sircommdb.co.za/marker32_' . $loop . '.png%7Clabel:' . $loop . '%7C' . $item->long . ',' . $item->lat;
+            }
             $markers = $markers . $marker;
             array_push($locations, $item->address);
             $log_units = $log_units . ',' . $item->erf;

@@ -387,7 +387,7 @@ padding:0px;
 
 @endforeach
 </div>
-</div>
+
 @endforeach
 </div>
 

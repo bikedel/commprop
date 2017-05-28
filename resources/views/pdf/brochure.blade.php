@@ -222,9 +222,9 @@ padding:0px;
 
 
         @if (file_exists(public_path('/img/marker'.($loop->index+1).'.png')))
-         <div class="col-md-6 pmap">  <img src="{{public_path('/img/marker'.($loop->index+1).'.png')}}"  width="30px"> {{$loc}}</div>
+         <div class="col-md-6 ">  <img src="{{public_path('/img/marker'.($loop->index+1).'.png')}}"  width="30px"> {{$loc}}</div>
         @else
-         <div class="col-md-6 pmap"> <img src="{{public_path('/img/marker.marker.png')}}"  width="30px" >  {{$loc}}</div>
+         <div class="col-md-6 "> <img src="{{public_path('/img/marker.marker.png')}}"  width="30px" >  {{$loc}}</div>
         @endif
             @if ($loop->iteration % 2 == 0)
                 </div>

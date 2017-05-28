@@ -46,6 +46,9 @@ p {
 .pmap {
     font-family: 'Fira Sans';
     font-size: 0.8em; /* 14px/16=0.875em */
+      clear: both;
+    display: inline-block;
+    overflow: hidden;
 }
 
 .prop_img{

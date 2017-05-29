@@ -368,7 +368,7 @@ padding:0px;
         </div>
 
     <div class="w3-col s12  ">
-          <p>Description:<b> {{ $unit->description }}</b></p>
+          <p><b> {{ $unit->description }}</b></p>
     </div>
 
 </div>

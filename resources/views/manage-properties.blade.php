@@ -1614,8 +1614,8 @@ line-height: 1.8;
                     <div class="form-group">
                         <label for="Firstname">Brochure:</label>
                        <select  id ='brochure_type' name ='brochure_type' class="form-control "   data-width="100%"   >
-                               <option  v-bind:value='0'  > Format 1 </option>
-                               <option  v-bind:value='1'  > Format 2 Custom Map Markers. Max 5 Properties.</option>
+                               <option  v-bind:value='1'  > Custom Map Markers. Max 5 Properties.</option>
+                               <option  v-bind:value='0'  > Standard Map Markers. </option>
                         </select>
 
                     </div>

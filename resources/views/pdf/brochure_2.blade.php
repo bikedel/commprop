@@ -262,7 +262,7 @@ padding:0px;
 
 
              </div>
-<h4 class="w3-text-blue"> {{$item->title}} </h4>
+<h4 class="w3-text-indigo"> {{$item->title}} </h4>
 
 <p> {{$item->description}} </p>
 

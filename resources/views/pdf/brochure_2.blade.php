@@ -340,10 +340,10 @@ padding:0px;
 
 <header class="w3-container w3-light-grey">
       <div class="w3-col s6  ">
-          <h3><b>Unit:</b> {{ $loop->iteration }}</h3>
+          <h3>Unit:<b> {{ $loop->iteration }}</b></h3>
       </div>
       <div class="w3-col s6  ">
-          <h3><b>Section:</b> {{ $unit->section }}</h3>
+          <h3>Section:<b> {{ $unit->section }}</b></h3>
       </div>
 </header>
 
@@ -351,29 +351,30 @@ padding:0px;
 
 
     <div class="w3-col s3  ">
-          <p><b>Size:</b>  {{ $unit->size}} m<sup>2</sup></p>
+          <p>Size:<b> {{ $unit->size}} m<sup>2</sup></b></p>
     </div>
 
         <div class="w3-col s3  ">
-            <p><b>Gross Rental:</b>  R {{ $unit->gross_rental}}  / m<sup>2</sup> </p>
+            <p>Gross Rental:<b>  R {{ $unit->gross_rental}}  / m<sup>2</sup> </b></p>
         </div>
 
         <div class="w3-col s3  ">
-            <p><b>Price:</b>  R {{ number_format($unit->price,2)}}</p>
+            <p>Price:<b>  R {{ number_format($unit->price,2)}}</b></p>
         </div>
 
 
         <div class="w3-col s3  ">
-          <p><b>Availability:</b> {{ $unit->availability }} </p>
+          <p>Availability:<b> {{ $unit->availability }}</b> </p>
         </div>
 
     <div class="w3-col s12  ">
-          <p><b>Description:</b> {{ $unit->description }}</p>
+          <p>Description:<b> {{ $unit->description }}</b></p>
     </div>
 
 </div>
 
 <footer class="w3-container w3-light-grey">
+    ...
     @if(strlen($note)>0 )
       <p class="w3-text-black">{{$note}} </p>
     @endif

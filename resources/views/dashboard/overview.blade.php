@@ -170,7 +170,7 @@ font-size:.7em !important;
 
     @foreach( $alertunits as $unit)
           <tr>
-          <td>Erf: {{ $unit->property->erf}}</td>
+          <td>ID: {{ $unit->property->id}}</td>
             <td>Unit: {{ $unit->id}}</td>
             <td>Lease Start : {{ $unit->lease_start}}</td>
             <td>Lease End : <i class="w3-text-red"> {{ $unit->lease_end}}</i></td>

@@ -519,7 +519,7 @@ class VuePropertyController extends Controller
     {
 
         $rules = array(
-            'company'         => 'unique:contacts',
+            // 'company'         => 'unique:contacts',
             'firstname'       => 'required',
             'lastname'        => 'required',
             'contact_type_id' => 'required|numeric|min:1',

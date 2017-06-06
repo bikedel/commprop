@@ -1434,6 +1434,18 @@ let config = {
           let note = document.getElementById('note').value;
           let zoom = document.getElementById('zoom').value;
 
+
+
+          brochure_text = brochure_text.replace('/', ' ~~');
+          brochure_text = brochure_text.replace('\\', ' ~~~');
+
+          client = client.replace('/', ' ~~ ');
+          client = client.replace('\\', ' ~~~ ');
+
+          note = note.replace('/', ' ~~ ');
+          note = note.replace('\\', ' ~~~ ');
+
+
             //    axios.put(this.offlinePath+'/commprop/public/createpdf/'+this.agent+','+brochure_text+','+client).then(function (response) {
             //           toastr.success('Brochure complete.',  {timeOut: 5000});
             //    })

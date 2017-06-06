@@ -941,6 +941,17 @@ class VuePropertyController extends Controller
         $brochure_text = $input[1];
         $footer        = $input[0];
 
+        // remove odd characters from client and brochure_text and note
+        //  '~~ ' = /
+        //  '~~~ ' = \
+
+        $client        = str_replace(" ~~ ", "/", $client);
+        $client        = str_replace(" ~~~ ", "\\", $client);
+        $brochure_text = str_replace(" ~~ ", "/", $brochure_text);
+        $brochure_text = str_replace(" ~~~ ", "\\", $brochure_text);
+        $note          = str_replace(" ~~ ", "/", $note);
+        $note          = str_replace(" ~~~ ", "\\", $note);
+
         $agent = $input[0];
 
         if (!$agent) {

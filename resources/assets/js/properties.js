@@ -1348,6 +1348,54 @@ data:  {
       },
 
 
+
+      // get item - image details and key to delete from the fillitem.image array
+      deleteOwner: function(id){
+
+        //  console.log("sdffdf   " + e.parent.closest("li").attr('id'));
+        //console.log(this.fillItem.image[0].name);
+        //console.log(key);
+          var result = confirm("Are you sure you would like to remove this contact");
+          if (result) {
+
+
+
+                let data = new FormData();
+                data.append('id',id);
+
+             
+                var input = data;
+
+                var vm = this; 
+
+                axios.post(vm.offlinePath+'/commprop/public/delowner',input).then(function (response) {
+
+                      vm.changePage(vm.pagination.current_page);
+                        $("#edit-owner").modal('hide');
+                         toastr.success('Contact removed',  {timeOut: 5000});
+
+                })
+                .catch(function (error) {
+                     status = error.response.status;
+                   //  console.log(error.response.status);
+                    
+                    if (status == 422)
+                    {
+                          vm.formErrors = error.response.data;
+                          toastr.warning("Problem removing contact", 'Warning', {timeOut: 5000});
+                    }else{
+                          toastr.error("Problem removing contact.", 'Session expired', {timeOut: 5000});
+                    }
+
+  
+                });
+            }
+         //     console.log("delete images ");
+              //window.location.href = this.offlinePath+'/commprop/public/vueproperties/'+id,input;
+      },
+
+
+
       updateItem: function(id){
      
         //this.fillItem.selected = this.selectedAgent;

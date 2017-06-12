@@ -1414,6 +1414,7 @@ line-height: 1.8;
                                 <th width="220px">Website</th>
                                 <th width="100px">Unit</th>
                                 <th width="180px">Date</th>
+                                <th width="180px">Action</th>
 
                             </tr>
                            <!--    == for online === for local  <tr v-for="item  in fillOwner.owners | orderBy 'unit_id' -1 | orderBy 'date' -1" v-if=" item.unit_id === fillOwner.unit_id "> -->
@@ -1430,6 +1431,7 @@ line-height: 1.8;
                                  <td><a :href="'http://'+item.website" target="_blank">@{{contacts[getContactId(item.contact_id)].website }}</a></td>
                                  <td>@{{ item.unit_id }}</td>
                                  <td>@{{ item.created_at | dateNormal }}</td>
+                                  <td><button class="btn btn-danger" @click.prevent="deleteOwner(item.id)">Remove</button></td>
                             </tr>
                         </table>
 

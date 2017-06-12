@@ -773,6 +773,24 @@ class VuePropertyController extends Controller
         return response()->json(['data' => $update]);
     }
 
+    public function delowner(Request $request)
+    {
+
+        //  $prop = Property::find($id)->delete();
+
+        //  $directory = public_path() . '/property/' . $id;
+
+        //  $success = File::deleteDirectory($directory);
+        $user = Auth::user()->id;
+        $id   = $request->input('id');
+
+        $update = Owner::find($id);
+
+        $update->destroy($id);
+
+        return response()->json(['data' => $update]);
+    }
+
     /**
      * Remove the specified resource from storage.
      *

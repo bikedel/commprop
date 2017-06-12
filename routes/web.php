@@ -111,8 +111,11 @@ Route::post('/updateunit/{id}', 'VuePropertyController@updateunit');
 // list brochure
 Route::get('/listbrochures', 'VuePropertyController@listbrochure');
 
-// list brochure
+// delete image
 Route::post('/delimage', 'VuePropertyController@delimage');
+
+// remove owner
+Route::post('/delowner', 'VuePropertyController@delowner');
 
 //test pdf
 //Route::get('/createpdf/{input}', 'VuePropertyController@createPdf');

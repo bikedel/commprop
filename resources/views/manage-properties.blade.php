@@ -787,13 +787,13 @@ line-height: 1.8;
 
 
                     <div class="form-group">
-                        <label for="Surname">Lat:</label>
+                        <label for="Surname">Long:</label>
                         <input type="text" name="lat" class="form-control" v-model="fillItem.lat" />
                         <span v-if="formErrorsUpdate['lat']" class="error text-danger">@{{ formErrorsUpdate['lat'][0] }}</span>
                     </div>
 
                     <div class="form-group">
-                        <label for="Surname">Long:</label>
+                        <label for="Surname">Lat:</label>
                         <input type="text"  name="long" class="form-control" v-model="fillItem.long" />
                         <span v-if="formErrorsUpdate['long']" class="error text-danger">@{{ formErrorsUpdate['long'][0] }}</span>
                     </div>

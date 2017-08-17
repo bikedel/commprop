@@ -738,6 +738,8 @@ class VuePropertyController extends Controller
             }
         }
         //  $tosave = $request->except(['addimage']);
+        $tosave['lat']  = $request->input('lat');
+        $tosave['long'] = $request->input('long');
         $edit->update($tosave);
 
         return response()->json($edit);

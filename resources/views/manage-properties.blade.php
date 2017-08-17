@@ -82,44 +82,7 @@ input:-webkit-autofill {
 color:white;
 }
 
-#custom-search-input {
-        margin:0;
-        margin-top: 10px;
-        padding: 0;
-    }
 
-    #custom-search-input .search-query {
-        padding-right: 3px;
-        padding-right: 4px \9;
-        padding-left: 3px;
-        padding-left: 4px \9;
-        /* IE7-8 doesn't have border-radius, so don't indent the padding */
-
-        margin-bottom: 0;
-        -webkit-border-radius: 3px;
-        -moz-border-radius: 3px;
-        border-radius: 3px;
-    }
-
-    #custom-search-input button {
-        border: 30;
-        background: #008DB7;
-        /** belows styles are working good */
-        padding: 6px 8px;
-        margin-top: 1px;
-        position: relative;
-        left: 2px;
-        /* IE7-8 doesn't have border-radius, so don't indent the padding */
-        margin-bottom: 0;
-        -webkit-border-radius: 3px;
-        -moz-border-radius: 3px;
-        border-radius: 3px;
-        color: white;
-    }
-
-    .search-query:focus + button {
-        z-index: 8;
-    }
 
 pre {
     display: block;

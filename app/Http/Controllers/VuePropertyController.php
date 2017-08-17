@@ -627,6 +627,8 @@ class VuePropertyController extends Controller
         $tosave['title']       = $request->input('title');
         $tosave['address']     = $request->input('address');
         $tosave['description'] = $request->input('description');
+        $tosave['lat']         = $request->input('lat');
+        $tosave['long']        = $request->input('long');
 
         $rules = array(
 

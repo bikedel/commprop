@@ -785,6 +785,19 @@ line-height: 1.8;
                         <span v-if="formErrorsUpdate['area_id']" class="error text-danger">@{{ formErrorsUpdate['area_id'][0] }}</span>
                     </div>
 
+
+                    <div class="form-group">
+                        <label for="Surname">Lat:</label>
+                        <input type="text" name="" class="form-control" v-model="fillItem.lat" />
+                        <span v-if="formErrorsUpdate['street']" class="error text-danger">@{{ formErrorsUpdate['lat'][0] }}</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Surname">Long:</label>
+                        <input type="text"  name="" class="form-control" v-model="fillItem.long" />
+                        <span v-if="formErrorsUpdate['street']" class="error text-danger">@{{ formErrorsUpdate['long'][0] }}</span>
+                    </div>
+
                     <div class="form-group">
                         <label for="Firstname">Ownership Type:</label>
                        <select  id ='ownership' name ='ownership' class="form-control "   data-width="100%"  v-model="fillItem.ownership" >

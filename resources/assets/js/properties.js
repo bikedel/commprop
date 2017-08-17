@@ -141,6 +141,8 @@ data:  {
           'title':'',
            'address':'',
            'street':'',
+           'lat':'',
+           'long':'',
           'description':'',
           'area_id': '',
           'image': [],
@@ -751,6 +753,8 @@ data:  {
           this.fillItem.erf = item.erf;
           this.fillItem.title = item.title;
           this.fillItem.address = item.address;
+          this.fillItem.lat = item.lat;
+          this.fillItem.long = item.long;
           this.fillItem.street = item.street;
           this.fillItem.description = item.description ;
           this.fillItem.area_id = item.area_id ;
@@ -1433,6 +1437,8 @@ let config = {
                           'title':'',
                            'address':'',
                            'street':'',
+                           'lat':'',
+                           'long':'',
                           'description':'',
                           'area_id': '',
                           'image': [],

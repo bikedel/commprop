@@ -963,12 +963,17 @@ class VuePropertyController extends Controller
         //  '~~ ' = /
         //  '~~~ ' = \
 
-        $client        = str_replace(" ~~ ", "/", $client);
-        $client        = str_replace(" ~~~ ", "\\", $client);
+        $client = str_replace(" ~~ ", "/", $client);
+        $client = str_replace(" ~~~ ", "\\", $client);
+        $client = str_replace(" ~~0~ ", ",", $client);
+
         $brochure_text = str_replace(" ~~ ", "/", $brochure_text);
         $brochure_text = str_replace(" ~~~ ", "\\", $brochure_text);
-        $note          = str_replace(" ~~ ", "/", $note);
-        $note          = str_replace(" ~~~ ", "\\", $note);
+        $brochure_text = str_replace(" ~~0~ ", ",", $brochure_text);
+
+        $note = str_replace(" ~~ ", "/", $note);
+        $note = str_replace(" ~~~ ", "\\", $note);
+        $note = str_replace(" ~~0~ ", ",", $note);
 
         $agent = $input[0];
 

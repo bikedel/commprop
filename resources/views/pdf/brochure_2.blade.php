@@ -376,7 +376,7 @@ padding:0px;
 <footer class="w3-container w3-light-grey">
 
     @if(strlen($note)>0 )
-      <p class="w3-text-black">{{$note}} </p>
+      <p class="w3-text-black">Note: {{$note}} </p>
     @endif
 
 </footer>

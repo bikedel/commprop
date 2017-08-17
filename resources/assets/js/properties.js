@@ -1483,14 +1483,17 @@ let config = {
           let zoom = document.getElementById('zoom').value;
 
 
-
-          brochure_text = brochure_text.replace('/', ' ~~');
-          brochure_text = brochure_text.replace('\\', ' ~~~');
+          //  punctuation causes problems so we change them and change them back in  vuepropertycontroller createPdf function
+          brochure_text = brochure_text.replace('/', ' ~~ ');
+          brochure_text = brochure_text.replace(',', ' ~~0~ ');
+          brochure_text = brochure_text.replace('\\', ' ~~~ ');
 
           client = client.replace('/', ' ~~ ');
+          client = client.replace(',', ' ~~0~ ');
           client = client.replace('\\', ' ~~~ ');
 
           note = note.replace('/', ' ~~ ');
+          note = note.replace(',', ' ~~0~ ');
           note = note.replace('\\', ' ~~~ ');
 
 

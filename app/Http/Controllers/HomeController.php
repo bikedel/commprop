@@ -209,11 +209,11 @@ class HomeController extends Controller
             if ($property->long && $property->lat) {
 
                 if ($property->sale_type_id == 2) {
-                    Mapper::marker($property->long, $property->lat, ['title' => 'Type: ' . $types[$property->type] . ' Erf: ' . $property->erf, 'eventRightClick' => 'console.log("right click");', 'content' => $content . '<br> <img src=' . $image . '  style="width:120px;" />', 'scale' => 13, 'animation' => 'DROP', 'icon' => "http://maps.google.com/mapfiles/ms/icons/green-dot.png"]);
+                    Mapper::marker($property->long, $property->lat, ['title' => 'Type: ' . $types[$property->type] . ' Erf: ' . $property->erf, 'eventRightClick' => 'window.prompt("Copy and save co-ordinates.","lat: "+event.latLng.lat() + "  lng: "+event.latLng.lng() );', 'content' => $content . '<br> <img src=' . $image . '  style="width:120px;" />', 'scale' => 13, 'animation' => 'DROP', 'icon' => "http://maps.google.com/mapfiles/ms/icons/green-dot.png"]);
                 } elseif ($property->sale_type_id == 1) {
-                    Mapper::marker($property->long, $property->lat, ['title' => 'Type: ' . $types[$property->type] . ' Erf: ' . $property->erf, 'eventRightClick' => 'console.log("right click");', 'content' => $content . '<br> <img src=' . $image . '  style="width:120px;" />', 'scale' => 13, 'animation' => 'DROP', 'icon' => "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png"]);
+                    Mapper::marker($property->long, $property->lat, ['title' => 'Type: ' . $types[$property->type] . ' Erf: ' . $property->erf, 'eventRightClick' => 'window.prompt("Copy and save co-ordinates.","lat: "+event.latLng.lat() + "  lng: "+event.latLng.lng() );', 'content' => $content . '<br> <img src=' . $image . '  style="width:120px;" />', 'scale' => 13, 'animation' => 'DROP', 'icon' => "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png"]);
                 } else {
-                    Mapper::marker($property->long, $property->lat, ['title' => 'Type: ' . $types[$property->type] . ' Erf: ' . $property->erf, 'eventRightClick' => 'console.log("right click");', 'content' => $content . '<br> <img src=' . $image . '  style="width:120px;" />', 'scale' => 13, 'animation' => 'DROP', 'icon' => "http://maps.google.com/mapfiles/ms/icons/red-dot.png"]);
+                    Mapper::marker($property->long, $property->lat, ['title' => 'Type: ' . $types[$property->type] . ' Erf: ' . $property->erf, 'eventRightClick' => 'window.prompt("Copy and save co-ordinates.","lat: "+event.latLng.lat() + "  lng: "+event.latLng.lng() );', 'content' => $content . '<br> <img src=' . $image . '  style="width:120px;" />', 'scale' => 13, 'animation' => 'DROP', 'icon' => "http://maps.google.com/mapfiles/ms/icons/red-dot.png"]);
                 }
             }
 
@@ -222,6 +222,7 @@ class HomeController extends Controller
         return view('dashboard.map');
     }
 
+    // property24 API
     public function test()
     {
         try {
@@ -262,7 +263,7 @@ class HomeController extends Controller
             //$data = $soap->FetchSuburbs(array('cityName' => 'Cape Town'));
 
             // fetch agents
-            $data = $soap->FetchAgents(array('agencyId' => '31171'));
+            //$data = $soap->FetchAgents(array('agencyId' => '31171'));
 
             // fetch agent
             //$data = $soap->FetchAgent(array('agentId' => '31171'));

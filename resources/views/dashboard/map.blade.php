@@ -20,8 +20,18 @@ margin-left:-40;
   <div class=" main map">
     {!! Mapper::render() !!}
   </div>
-
+<p id="latlng"></p>
 
 </div>
+
+
+
+<script>
+function setLatLng(str) {
+   document.getElementById("latlng").innerHTML = str;
+}
+
+</script>
+
 
 @endsection

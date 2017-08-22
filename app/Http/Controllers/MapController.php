@@ -66,11 +66,11 @@ class MapController extends Controller
             if ($property->long && $property->lat) {
 
                 if ($property->sale_type_id == 2) {
-                    Mapper::marker($property->long, $property->lat, ['draggable' => 'true', 'title' => 'Type: ' . $types[$property->type] . ' Erf: ' . $property->erf, 'eventRightClick' => 'console.log('Lat: '+event.latLng.lat()  );', 'content' => $content . '<br> <img src=' . $image . '  style="width:120px;" />', 'scale' => 13, 'animation' => 'DROP', 'icon' => "http://maps.google.com/mapfiles/ms/icons/green-dot.png"]);
+                    Mapper::marker($property->long, $property->lat, ['draggable' => 'true', 'title' => 'Type: ' . $types[$property->type] . ' Erf: ' . $property->erf, 'eventRightClick' => 'console.log(event.latLng.lat()  );', 'content' => $content . '<br> <img src=' . $image . '  style="width:120px;" />', 'scale' => 13, 'animation' => 'DROP', 'icon' => "http://maps.google.com/mapfiles/ms/icons/green-dot.png"]);
                 } elseif ($property->sale_type_id == 1) {
-                    Mapper::marker($property->long, $property->lat, ['draggable' => 'true', 'title' => 'Type: ' . $types[$property->type] . ' Erf: ' . $property->erf, 'eventRightClick' => 'console.log('Lat: '+event.latLng.lat() );', 'content' => $content . '<br> <img src=' . $image . '  style="width:120px;" />', 'scale' => 13, 'animation' => 'DROP', 'icon' => "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png"]);
+                    Mapper::marker($property->long, $property->lat, ['draggable' => 'true', 'title' => 'Type: ' . $types[$property->type] . ' Erf: ' . $property->erf, 'eventRightClick' => 'console.log(event.latLng.lat() );', 'content' => $content . '<br> <img src=' . $image . '  style="width:120px;" />', 'scale' => 13, 'animation' => 'DROP', 'icon' => "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png"]);
                 } else {
-                    Mapper::marker($property->long, $property->lat, ['draggable' => 'true', 'title' => 'Type: ' . $types[$property->type] . ' Erf: ' . $property->erf, 'eventRightClick' => 'console.log('Lat: '+event.latLng.lat()  );', 'content' => $content . '<br> <img src=' . $image . '  style="width:120px;" />', 'scale' => 13, 'animation' => 'DROP', 'icon' => "http://maps.google.com/mapfiles/ms/icons/red-dot.png"]);
+                    Mapper::marker($property->long, $property->lat, ['draggable' => 'true', 'title' => 'Type: ' . $types[$property->type] . ' Erf: ' . $property->erf, 'eventRightClick' => 'console.log(event.latLng.lat()  );', 'content' => $content . '<br> <img src=' . $image . '  style="width:120px;" />', 'scale' => 13, 'animation' => 'DROP', 'icon' => "http://maps.google.com/mapfiles/ms/icons/red-dot.png"]);
                 }
             }
 

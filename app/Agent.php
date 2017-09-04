@@ -9,6 +9,6 @@ class Agent extends Model
 {
     use LogsActivity;
 
-    protected static $logAttributes = ['name', 'email', 'cell', 'tel', 'about', 'photo'];
+    protected static $logAttributes = ['name', 'title', 'email', 'cell', 'tel', 'about', 'photo'];
     protected $guarded              = [];
 }

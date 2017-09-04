@@ -47,6 +47,7 @@ const vm = new Vue({
     formErrorsUpdate:{},
     newItem : { 
           'name':'',
+          'title':'',
           'email':'',
           'tel':'',
           'cell':'',
@@ -58,6 +59,7 @@ const vm = new Vue({
     fillItem : { 
           'id':'',
           'name':'',
+          'title':'',
           'email':'',
           'tel':'',
           'cell':'',
@@ -202,6 +204,7 @@ const vm = new Vue({
           		  vm.changePage(vm.pagination.current_page);
           			vm.newItem = {
                   'name':'',
+                  'title':'',
                   'email':'',
                   'tel':'',
                   'cell':'',
@@ -239,6 +242,7 @@ const vm = new Vue({
                 this.resetErrors();
                 this.newItem = {
                     'name':'',
+                    'title':'',
                     'email':'',
                     'tel':'',
                     'cell':'',
@@ -298,6 +302,7 @@ const vm = new Vue({
 
            this.fillItem.id= item.id;
            this.fillItem.name= item.name;
+           this.fillItem.title= item.title;
            this.fillItem.email= item.email;
            this.fillItem.tel= item.tel;
            this.fillItem.cell= item.cell;
@@ -328,6 +333,7 @@ const vm = new Vue({
                       this.fillItem = {
                         'id':'',
                         'name':'',
+                        'title':'',
                         'email':'',
                         'tel':'',
                         'cell':'',

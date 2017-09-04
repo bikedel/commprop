@@ -201,7 +201,12 @@ color:white;
                         <label for="strIDNumber">Name:</label>
                         <input type="text" name="name" class="form-control" v-model="newItem.name" />
                         <span v-if="formErrors['name']" class="error text-danger">@{{ formErrors['name'][0] }}</span>
+                    </div>
 
+                    <div class="form-group">
+                        <label for="strIDNumber">Title:</label>
+                        <input type="text" name="title" class="form-control" v-model="newItem.title" />
+                        <span v-if="formErrors['title']" class="error text-danger">@{{ formErrors['title'][0] }}</span>
                     </div>
 
                     <div class="form-group">
@@ -270,6 +275,12 @@ color:white;
                         <label for="strIDNumber">Name:</label>
                         <input type="text" name="name" class="form-control" v-model="fillItem.name" />
                         <span v-if="formErrorsUpdate['name']" class="error text-danger">@{{ formErrorsUpdate['name'][0] }}</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="strIDNumber">Title:</label>
+                        <input type="text" name="title" class="form-control" v-model="fillItem.title" />
+                        <span v-if="formErrorsUpdate['title']" class="error text-danger">@{{ formErrorsUpdate['title'][0] }}</span>
                     </div>
 
                     <div class="form-group">

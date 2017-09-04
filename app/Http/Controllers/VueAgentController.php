@@ -174,6 +174,7 @@ class VueAgentController extends Controller
         // remove id from the form request
         //$tosave = $request->except(['confirmpassword']);
         $tosave['name']  = $request->input('name');
+        $tosave['title'] = $request->input('title');
         $tosave['email'] = $request->input('email');
         $tosave['tel']   = $request->input('tel');
         $tosave['cell']  = $request->input('cell');
@@ -248,6 +249,7 @@ class VueAgentController extends Controller
         //$tosave = $request->except(['confirmpassword']);
 
         $tosave['name']  = $request->input('name');
+        $tosave['title'] = $request->input('title');
         $tosave['email'] = $request->input('email');
         $tosave['tel']   = $request->input('tel');
         $tosave['cell']  = $request->input('cell');
